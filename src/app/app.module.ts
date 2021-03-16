@@ -1,3 +1,4 @@
+import { SearchPropertiesComponent } from './components/search/search-properties.component';
 import { LoginComponent } from './components/registration/login/login.component';
 import { PropertyDetailComponent } from './components/properties/property-detail/property-detail.component';
 import { MyMaterialModule } from './material.module';
@@ -15,6 +16,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PropertyListComponent } from './components/properties/property-list/property-list.component';
 import { PropertyThumbnailComponent } from './components/properties/property-thumbnail/property-thumbnail.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { FavoritePropertiesComponent } from './components/dashboard/favorite-properties/favorite-properties.component';
+import { IconComponent } from './components/icon/icon.component';
+import { GraphQLModule } from './graphql.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +30,10 @@ import { PropertyThumbnailComponent } from './components/properties/property-thu
     PropertyListComponent,
     PropertyThumbnailComponent,
     PropertyDetailComponent,
+    DashboardComponent,
+    FavoritePropertiesComponent,
+    SearchPropertiesComponent,
+    IconComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -34,6 +44,8 @@ import { PropertyThumbnailComponent } from './components/properties/property-thu
     BrowserAnimationsModule,
     FlexLayoutModule,
     MyMaterialModule,
+    GraphQLModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

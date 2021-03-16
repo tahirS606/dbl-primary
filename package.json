@@ -25,10 +25,13 @@
     "@angular/router": "~10.0.5",
     "@google/maps": "^1.1.3",
     "@types/google__maps": "^0.5.14",
+    "apollo-angular": "^2.4.0",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.10.3",
+    "@apollo/client": "^3.0.0",
+    "graphql": "^15.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.4",

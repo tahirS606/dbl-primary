@@ -1,7 +1,8 @@
-<p>property-thumbnail works!</p>
-
-<mat-card>
-    <mat-card-title></mat-card-title>
-    <mat-card-content></mat-card-content>
-    <mat-card-footer></mat-card-footer>
+<mat-card class="card">
+    <mat-card-title>n{{ property?.name }}</mat-card-title>
+    <mat-card-content>{{ property?.address }}</mat-card-content>
+    <mat-card-footer>
+        <span class="material-icons">favorite_border</span>
+        <span class="material-icons">add_circle</span>
+    </mat-card-footer>
 </mat-card>
