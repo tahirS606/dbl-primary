@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Apollo, gql } from 'apollo-angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-properties',
@@ -8,7 +8,16 @@ import gql from 'graphql-tag';
   styleUrls: ['./search-properties.component.css'],
 })
 export class SearchPropertiesComponent implements OnInit {
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo) {
+    const GET_POST = gql`
+      query GetPosts {
+        posts {
+          id
+          title
+        }
+      }
+    `;
+  }
 
   ngOnInit(): void {}
 }
