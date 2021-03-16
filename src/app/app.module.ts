@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 
 import { MapComponent } from './components/map/map.component';
 import {} from '@google/maps';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PropertyListComponent } from './components/properties/property-list/property-list.component';
@@ -42,7 +41,6 @@ import { HttpClientModule } from '@angular/common/http';
     }),
     BrowserModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
     MyMaterialModule,
     GraphQLModule,
     HttpClientModule,

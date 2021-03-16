@@ -2,6 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 
+const properties = gql`
+  query getProperties {
+    items {
+      id
+      name
+    }
+  }
+`;
+
 @Component({
   selector: 'app-search-properties',
   templateUrl: './search-properties.component.html',
@@ -9,14 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class SearchPropertiesComponent implements OnInit {
   constructor(private apollo: Apollo) {
-    const GET_POST = gql`
-      query GetPosts {
-        posts {
-          id
-          title
-        }
-      }
-    `;
+    console.log(properties);
   }
 
   ngOnInit(): void {}
