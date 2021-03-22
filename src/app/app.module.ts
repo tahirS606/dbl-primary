@@ -1,13 +1,15 @@
+import { FormsModule } from '@angular/forms';
+import { AddPropertyComponent } from './components/properties/add-property/add-property.component';
 import { HeaderComponent } from './components/header/header/header.component';
 import { SearchPropertiesComponent } from './components/search/search-properties.component';
 import { LoginComponent } from './components/registration/login/login.component';
 import { PropertyDetailComponent } from './components/properties/property-detail/property-detail.component';
-import { MyMaterialModule } from './material.module';
+import { MyMaterialModule } from './modules/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
 
 import { MapComponent } from './components/map/map.component';
@@ -19,25 +21,23 @@ import { PropertyThumbnailComponent } from './components/properties/property-thu
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FavoritePropertiesComponent } from './components/dashboard/favorite-properties/favorite-properties.component';
 import { IconComponent } from './components/icon/icon.component';
-import { GraphQLModule } from './graphql.module';
+
 import { HttpClientModule } from '@angular/common/http';
-import { PropertyFormComponent } from './components/forms/property-form/property-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AddPropertyComponent,
     MapComponent,
     LoginComponent,
     PropertyListComponent,
     PropertyThumbnailComponent,
     PropertyDetailComponent,
     DashboardComponent,
-
     FavoritePropertiesComponent,
     SearchPropertiesComponent,
     IconComponent,
     HeaderComponent,
-    PropertyFormComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -48,8 +48,8 @@ import { PropertyFormComponent } from './components/forms/property-form/property
     BrowserModule,
     BrowserAnimationsModule,
     MyMaterialModule,
-    GraphQLModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

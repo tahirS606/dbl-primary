@@ -26,9 +26,9 @@ export class PropertyService {
     return this.propertiesUpdated.asObservable();
   }
 
-  // addProperty(name: string, address: string) {
-  //   const property: Property = { id: null, name: name, address: address };
-  //   this.properties.push(property);
-  //   this.propertiesUpdated.next([this.properties]);
-  // }
+  addProperty(name: string, address: string) {
+    const property: Property = { id: '', name: name, address: address };
+    this.properties.push(property);
+    this.propertiesUpdated.next([...this.properties]);
+  }
 }
