@@ -1,31 +1,34 @@
+import { Property } from './../models/property.model';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PropertyService {
-  getProperties() {
-    return PROPERTIES;
-  }
-}
+  private properties: Property[] = [];
+  private propertiesUpdated = new Subject<Property[]>();
+  constructor(private http: HttpClient) {}
 
-const PROPERTIES = [
-  {
-    id: 1,
-    name: 'The Biltmore',
-    address: '444 West Biltmore Ave, Phoenix, AZ',
-    requiresApproval: false,
-  },
-  {
-    id: 2,
-    name: 'The Phoenix Zoo',
-    address: '22 Galveston Parkway, Phoenix, AZ',
-    requiresApproval: false,
-  },
-  {
-    id: 3,
-    name: 'The Harlequin Hotel',
-    address: '22 Galveston Parkway, Tempe, AZ',
-    requiresApproval: true,
-  },
-];
+  getProperties() {
+    this.http
+      .get<{ message: string; properties: Property[] }>(
+        'http://localhost:3000/properties'
+      )
+      .subscribe((propertyData) => {
+        this.properties = propertyData.properties;
+        this.propertiesUpdated.next([...this.properties]);
+      });
+  }
+
+  getPropertyUpdateListener() {
+    return this.propertiesUpdated.asObservable();
+  }
+
+  // addProperty(name: string, address: string) {
+  //   const property: Property = { id: null, name: name, address: address };
+  //   this.properties.push(property);
+  //   this.propertiesUpdated.next([this.properties]);
+  // }
+}

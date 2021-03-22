@@ -1,3 +1,4 @@
+import { HeaderComponent } from './components/header/header/header.component';
 import { SearchPropertiesComponent } from './components/search/search-properties.component';
 import { LoginComponent } from './components/registration/login/login.component';
 import { PropertyDetailComponent } from './components/properties/property-detail/property-detail.component';
@@ -20,6 +21,7 @@ import { FavoritePropertiesComponent } from './components/dashboard/favorite-pro
 import { IconComponent } from './components/icon/icon.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { PropertyFormComponent } from './components/forms/property-form/property-form.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +32,17 @@ import { HttpClientModule } from '@angular/common/http';
     PropertyThumbnailComponent,
     PropertyDetailComponent,
     DashboardComponent,
+
     FavoritePropertiesComponent,
     SearchPropertiesComponent,
     IconComponent,
+    HeaderComponent,
+    PropertyFormComponent,
   ],
   imports: [
     AppRoutingModule,
     AgmCoreModule.forRoot({
+      // google map
       apiKey: 'AIzaSyBqTb16DbEQ24PiFSgWdG-uQt9GJWdCe0s',
     }),
     BrowserModule,
