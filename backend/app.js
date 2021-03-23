@@ -1,6 +1,9 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
+
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -13,6 +16,14 @@ app.use((req, res, next) => {
         "GET, POST, PATCH, DELETE, OPTIONS"
     );
     next();
+});
+
+app.post("/properties", (req, res, next) => {
+    const property = req.body;
+    console.log(property);
+    res.status(201).json({
+        message: "property added successfully",
+    });
 });
 
 app.use("/properties", (req, res, next) => {
@@ -28,7 +39,7 @@ app.use("/properties", (req, res, next) => {
         },
     ];
     res.status(200).json({
-        message: "posts fetched",
+        message: "posts fetched successfully",
         properties: properties,
     });
 });

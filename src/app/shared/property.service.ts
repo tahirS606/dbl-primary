@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 export class PropertyService {
   private properties: Property[] = [];
   private propertiesUpdated = new Subject<Property[]>();
+
   constructor(private http: HttpClient) {}
 
   getProperties() {
@@ -28,7 +29,12 @@ export class PropertyService {
 
   addProperty(name: string, address: string) {
     const property: Property = { id: '', name: name, address: address };
-    this.properties.push(property);
-    this.propertiesUpdated.next([...this.properties]);
+    this.http
+      .post<{ message: string }>('http://localhost:3000/properties', property)
+      .subscribe((responseData) => {
+        console.log(responseData.message);
+        this.properties.push(property);
+        this.propertiesUpdated.next([...this.properties]);
+      });
   }
 }
