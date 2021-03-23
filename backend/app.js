@@ -1,7 +1,19 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 const app = express();
+
+mongoose
+    .connect(
+        "mongodb+srv://odyssic:2eN1o6hj8UHpi8hX@dbl.lkw3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useNewUrlParser: true }
+    )
+    .then(() => {
+        console.log("connected to database!");
+    })
+    .catch(() => {
+        console.log("Connect Failed!");
+    });
 
 app.use(bodyParser.json());
 
