@@ -2,6 +2,7 @@ import { Property } from './../models/property.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +15,22 @@ export class PropertyService {
 
   getProperties() {
     this.http
-      .get<{ message: string; properties: Property[] }>(
+      .get<{ message: string; properties: any }>(
         'http://localhost:3000/properties'
       )
-      .subscribe((propertyData) => {
-        this.properties = propertyData.properties;
+      .pipe(
+        map((propertyData) => {
+          return propertyData.properties.map((property: any) => {
+            return {
+              name: property.name,
+              address: property.address,
+              id: property._id,
+            };
+          });
+        })
+      )
+      .subscribe((transformedProperties) => {
+        this.properties = transformedProperties;
         this.propertiesUpdated.next([...this.properties]);
       });
   }
