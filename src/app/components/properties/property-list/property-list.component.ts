@@ -1,9 +1,6 @@
 import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
-import gql from 'graphql-tag';
-
 import { Subscription } from 'rxjs';
 
 @Component({

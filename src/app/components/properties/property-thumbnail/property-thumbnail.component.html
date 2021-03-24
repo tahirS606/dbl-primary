@@ -2,7 +2,9 @@
     <mat-card-title>{{ property?.name }}</mat-card-title>
     <mat-card-content>{{ property?.address }}</mat-card-content>
     <mat-card-footer>
-        <span class="material-icons">favorite_border</span>
-        <span class="material-icons">add_circle</span>
+        <button mat-button color="primary">Edit</button>
+        <button mat-button color="warn" (click)="onDelete(property.id)">
+      Delete
+    </button>
     </mat-card-footer>
 </mat-card>

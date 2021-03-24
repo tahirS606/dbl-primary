@@ -49,4 +49,11 @@ export class PropertyService {
         this.propertiesUpdated.next([...this.properties]);
       });
   }
+  deleteProperty(propertyId: string) {
+    this.http
+      .delete('http://localhost:3000/properties/' + propertyId)
+      .subscribe(() => {
+        console.log('Deleted');
+      });
+  }
 }

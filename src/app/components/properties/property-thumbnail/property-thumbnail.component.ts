@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { PropertyService } from './../../../shared/property.service';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-property-thumbnail',
@@ -7,4 +8,9 @@ import { Component, Input } from '@angular/core';
 })
 export class PropertyThumbnailComponent {
   @Input() property: any = [];
+  constructor(private propertyService: PropertyService) {}
+
+  onDelete(propertyId: string) {
+    this.propertyService.deleteProperty(propertyId);
+  }
 }
