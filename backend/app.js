@@ -38,9 +38,11 @@ app.post("/properties", (req, res, next) => {
         address: req.body.address,
     });
     console.log({ property });
-    property.save();
-    res.status(201).json({
-        message: "property added successfully",
+    property.save().then((addedProperty) => {
+        res.status(201).json({
+            message: "Property added successfully",
+            propertyId: addedProperty._id,
+        });
     });
 });
 

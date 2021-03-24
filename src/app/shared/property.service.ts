@@ -11,6 +11,8 @@ export class PropertyService {
   private properties: Property[] = [];
   private propertiesUpdated = new Subject<Property[]>();
 
+  private updatedProperties: any;
+
   constructor(private http: HttpClient) {}
 
   getProperties() {
@@ -42,9 +44,13 @@ export class PropertyService {
   addProperty(name: string, address: string) {
     const property: Property = { id: '', name: name, address: address };
     this.http
-      .post<{ message: string }>('http://localhost:3000/properties', property)
+      .post<{ message: string; propertyId: string }>(
+        'http://localhost:3000/properties',
+        property
+      )
       .subscribe((responseData) => {
-        console.log(responseData.message);
+        const propertyId = responseData.propertyId;
+        property.id = propertyId;
         this.properties.push(property);
         this.propertiesUpdated.next([...this.properties]);
       });
@@ -53,7 +59,11 @@ export class PropertyService {
     this.http
       .delete('http://localhost:3000/properties/' + propertyId)
       .subscribe(() => {
-        console.log('Deleted');
+        const updatedProperties = this.properties.filter(
+          (property) => property.id !== propertyId
+        );
+        this.properties = updatedProperties;
+        this.propertiesUpdated.next([...this.properties]);
       });
   }
 }
