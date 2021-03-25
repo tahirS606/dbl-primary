@@ -40,13 +40,13 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
   ],
   imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
       // google map
       apiKey: 'AIzaSyBqTb16DbEQ24PiFSgWdG-uQt9GJWdCe0s',
     }),
-    BrowserModule,
-    BrowserAnimationsModule,
     MyMaterialModule,
     HttpClientModule,
     FormsModule,
