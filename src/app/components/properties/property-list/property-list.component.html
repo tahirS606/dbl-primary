@@ -1,10 +1,8 @@
 <H1>Properties</H1>
 
-<div *ngIf="loading">loading...</div>
-
 <div *ngFor="let property of properties">
-    <app-property-thumbnail *ngIf="properties.length < 0; elseBlock" (click)="handleThumbnailClick(property.name)" [property]="property"></app-property-thumbnail>
-    <div #elseBlock>
+    <app-property-thumbnail *ngIf="properties" (click)="handleThumbnailClick(property.name)" [property]="property"></app-property-thumbnail>
+    <div *ngIf="!properties">
         <h2>please add or search for properties</h2>
     </div>
 </div>

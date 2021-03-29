@@ -5,20 +5,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-property-list',
-  template: ` <H1>Properties</H1>
-
-    <div>loading...</div>
-
-    <div *ngFor="let property of properties">
-      <app-property-thumbnail
-        *ngIf="properties"
-        (click)="handleThumbnailClick(property.name)"
-        [property]="property"
-      ></app-property-thumbnail>
-      <div *ngIf="!properties">
-        <h2>please add or search for properties</h2>
-      </div>
-    </div>`,
+  templateUrl: './property-list.component.html',
   styleUrls: ['./property-list.component.css'],
 })
 export class PropertyListComponent implements OnInit, OnDestroy {
