@@ -6,10 +6,6 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,
-    // i added these 2:
-    "noImplicitUseStrict": true,
-    "alwaysStrict": false,
-    // ===
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
@@ -19,7 +15,11 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "lib": ["es2018", "dom", "esnext.asynciterable"],
+    "lib": [
+      "es2018",
+      "dom",
+      "esnext.asynciterable"
+    ],
     "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {

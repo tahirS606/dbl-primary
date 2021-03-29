@@ -15,14 +15,6 @@ export class PropertyService {
 
   constructor(private http: HttpClient) {}
 
-  getProperty(id: string) {
-    return {
-      ...this.properties.find((p) => {
-        p.id === id;
-      }),
-    };
-  }
-
   getProperties() {
     this.http
       .get<{ message: string; properties: any }>(
@@ -63,11 +55,6 @@ export class PropertyService {
         this.propertiesUpdated.next([...this.properties]);
       });
   }
-
-  // updateProperty(name: string, address: string) {
-  //   const property: Property = { id: id, name: name, address: address };
-  // }
-
   deleteProperty(propertyId: string) {
     this.http
       .delete('http://localhost:3000/properties/' + propertyId)
