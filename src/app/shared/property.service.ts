@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class PropertyService {
 
   private updatedProperties: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getProperties() {
     this.http
@@ -53,8 +54,12 @@ export class PropertyService {
         property.id = propertyId;
         this.properties.push(property);
         this.propertiesUpdated.next([...this.properties]);
+        this.router.navigate(['/']);
       });
   }
+
+  // updatePost() {}
+
   deleteProperty(propertyId: string) {
     this.http
       .delete('http://localhost:3000/properties/' + propertyId)
