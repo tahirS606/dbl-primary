@@ -58,7 +58,10 @@ export class PropertyService {
       });
   }
 
-  // updatePost() {}
+  getProperty(id: string) {
+    let property = this.properties.find((property) => property.id === id);
+    return property;
+  }
 
   deleteProperty(propertyId: string) {
     this.http

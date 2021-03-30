@@ -14,8 +14,8 @@ export class AddPropertyComponent implements OnInit {
   enteredName = '';
   enteredAddress = '';
   isLoading: Boolean = false;
-  // mode = 'add';
-
+  mode = 'add';
+  propertyId!: string;
   property!: Property;
 
   constructor(
@@ -24,19 +24,25 @@ export class AddPropertyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.activatedRoute.queryParams.subscribe((params) => {
-    //   let propertyId = params['propertyId'];
-    //   console.log(propertyId);
-    // });
-    this.isLoading = true;
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('propertyId')) {
+        this.mode = 'add';
+        this.propertyId = paramMap.get('propertyId');
+        this.property = this.propertyService.getProperty('propertyId');
+      } else {
+        this.mode = 'add';
+        this.propertyId = '';
+      }
+    });
   }
 
   onAddProperty(form: NgForm) {
     if (form.invalid) {
       console.log('form is invalid');
       return;
+    } else {
+      this.propertyService.addProperty(form.value.name, form.value.address);
+      form.resetForm();
     }
-    this.propertyService.addProperty(form.value.name, form.value.address);
-    form.resetForm();
   }
 }

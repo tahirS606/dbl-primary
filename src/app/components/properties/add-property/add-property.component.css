@@ -1,16 +1,17 @@
 mat-spinner {
-    margin: auto;
+  margin: auto;
 }
 
 mat-card {
-    margin: auto;
+  min-width: 40%;
+  max-width: 60%;
+  margin: auto;
 }
-
 
 /* form {
     margin: auto;
     /* display: flex; */
 
 mat-form-field {
-    padding: 20px;
+  padding: 20px;
 }
