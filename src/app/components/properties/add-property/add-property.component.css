@@ -15,7 +15,3 @@ mat-card {
 mat-form-field {
   padding: 20px;
 }
-
-input[type="file"] {
-  visibility: hidden;
-}

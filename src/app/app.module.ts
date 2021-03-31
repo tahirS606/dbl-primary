@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AddPropertyComponent } from './components/properties/add-property/add-property.component';
 import { HeaderComponent } from './components/header/header/header.component';
 import { SearchPropertiesComponent } from './components/search/search-properties.component';
@@ -49,7 +49,7 @@ import { HttpClientModule } from '@angular/common/http';
     }),
     MyMaterialModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
