@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AgmCoreModule } from '@agm/core';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +7,4 @@ import { AgmCoreModule } from '@agm/core';
 })
 export class AppComponent {
   title = 'dbl-project-manangement';
-  lat: number = 43.653908;
-  lng: number = -79.384293;
 }

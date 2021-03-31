@@ -1,10 +1,21 @@
-<mat-card>
-    <mat-card-title>{{ property?.name }}</mat-card-title>
-    <mat-card-content>{{ property?.address }}</mat-card-content>
-    <mat-card-footer>
-        <button mat-button color="primary">Edit</button>
-        <button mat-button color="warn" (click)="onDelete(property.id)">
-      Delete
-    </button>
-    </mat-card-footer>
-</mat-card>
+<mat-accordion multi="true">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header
+      >{{ property?.name }}
+    </mat-expansion-panel-header>
+
+    <p>{{ property?.address }}</p>
+    <mat-action-row>
+      <a
+        mat-button
+        color="primary"
+        [routerLink]="['/edit-property', property.id]"
+        >Edit</a
+      >
+      <a mat-button color="primary">Add to Route</a>
+      <button mat-button color="warn" (click)="onDelete(property.id)">
+        Delete
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>

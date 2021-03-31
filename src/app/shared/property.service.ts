@@ -59,8 +59,24 @@ export class PropertyService {
   }
 
   getProperty(id: string) {
-    let property = this.properties.find((property) => property.id === id);
-    return property;
+    return this.http.get<{ _id: string; name: string; address: string }>(
+      'http://localhost:3000/properties/' + id
+    );
+  }
+
+  updateProperty(id: string, name: string, address: string) {
+    const property: Property = { id: id, name: name, address: address };
+    this.http
+      .put('http://localhost:3000/properties/' + id, property)
+      .subscribe((response) => {
+        const updatedProperties = [...this.properties];
+        const oldPropertyIndex = updatedProperties.findIndex(
+          (p) => p.id === property.id
+        );
+        updatedProperties[oldPropertyIndex] = property;
+        this.properties = updatedProperties;
+        this.propertiesUpdated.next([...this.properties]);
+      });
   }
 
   deleteProperty(propertyId: string) {

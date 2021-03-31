@@ -13,36 +13,51 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 export class AddPropertyComponent implements OnInit {
   enteredName = '';
   enteredAddress = '';
-  isLoading: Boolean = false;
-  mode = 'add';
-  propertyId!: string;
-  property!: Property;
+  isLoading: Boolean = true;
+  private mode = 'add';
+  private propertyId: any;
+  public property!: Property;
 
   constructor(
     public propertyService: PropertyService,
-    public activatedRoute: ActivatedRoute
+    public route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('propertyId')) {
-        this.mode = 'add';
-        this.propertyId = paramMap.get('propertyId');
-        this.property = this.propertyService.getProperty('propertyId');
+        this.mode = 'edit';
+        // get id from url
+        this.propertyId = this.route.snapshot.paramMap.get('propertyId');
+        this.propertyService
+          .getProperty(this.propertyId)
+          .subscribe((propertyData) => {
+            this.property = {
+              id: propertyData._id,
+              name: propertyData.name,
+              address: propertyData.address,
+            };
+          });
       } else {
         this.mode = 'add';
-        this.propertyId = '';
+        this.propertyId = null;
       }
     });
   }
-
-  onAddProperty(form: NgForm) {
+  onSaveProperty(form: NgForm) {
     if (form.invalid) {
       console.log('form is invalid');
       return;
-    } else {
-      this.propertyService.addProperty(form.value.name, form.value.address);
-      form.resetForm();
     }
+    if (this.mode === 'add') {
+      this.propertyService.addProperty(form.value.name, form.value.address);
+    } else {
+      this.propertyService.updateProperty(
+        this.propertyId,
+        form.value.name,
+        form.value.address
+      );
+    }
+    form.resetForm();
   }
 }

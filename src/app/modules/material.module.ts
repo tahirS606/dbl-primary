@@ -4,12 +4,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
     MatButtonModule,
+    MatExpansionModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
@@ -19,6 +21,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
   exports: [
     MatButtonModule,
+    MatExpansionModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
