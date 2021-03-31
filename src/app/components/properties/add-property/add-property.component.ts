@@ -44,6 +44,21 @@ export class AddPropertyComponent implements OnInit {
       }
     });
   }
+
+  // onImagePicked(event: Event) {
+  //   let imageFile;
+  //   let eventCasttoHtml = event.target as HTMLInputElement;
+  //   if (eventCasttoHtml.files) {
+  //     imageFile = eventCasttoHtml.files[0];
+  //     this.form.patchValue({ image: imageFile });
+  //     this.form.get('image')?.updateValueAndValidity();
+  //     console.log(imageFile);
+  //     console.log(this.form);
+  //   } else {
+  //     return;
+  //   }
+  // }
+
   onSaveProperty(form: NgForm) {
     if (form.invalid) {
       console.log('form is invalid');
