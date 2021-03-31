@@ -31,6 +31,7 @@ export class AddPropertyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //===> Form Controls
     this.form = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)],
@@ -38,7 +39,12 @@ export class AddPropertyComponent implements OnInit {
       address: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(5)],
       }),
+
+      image: new FormControl(null, {
+        validators: [Validators.required],
+      }),
     });
+    //<=== Corm Controls
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('propertyId')) {
@@ -66,12 +72,28 @@ export class AddPropertyComponent implements OnInit {
     });
   }
 
+  // shortcut for form fields template access for validators
+
   get getControl() {
     return this.form.controls;
   }
 
   onSubmit() {
     console.log(this.form);
+  }
+
+  onImagePicked(event: Event) {
+    let imageFile;
+    let eventCasttoHtml = event.target as HTMLInputElement;
+    if (eventCasttoHtml.files) {
+      imageFile = eventCasttoHtml.files[0];
+      this.form.patchValue({ image: imageFile });
+      this.form.get('image')?.updateValueAndValidity();
+      console.log(imageFile);
+      console.log(this.form);
+    } else {
+      return;
+    }
   }
 
   onSaveProperty() {
