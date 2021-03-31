@@ -1,21 +1,31 @@
 mat-spinner {
-  margin: auto;
+    margin: auto;
 }
 
 mat-card {
-  min-width: 40%;
-  max-width: 60%;
-  margin: auto;
+    min-width: 40%;
+    max-width: 60%;
+    margin: auto;
 }
+
 
 /* form {
     margin: auto;
     /* display: flex; */
 
 mat-form-field {
-  padding: 20px;
+    padding: 20px;
 }
 
 input[type="file"] {
-  visibility: hidden;
+    visibility: hidden;
+}
+
+.image-preview {
+    height: 5rem;
+    margin: 1rem 0;
+}
+
+.image-preview img {
+    max-height: 100%;
 }

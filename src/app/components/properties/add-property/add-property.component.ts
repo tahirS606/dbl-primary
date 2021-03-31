@@ -23,6 +23,7 @@ export class AddPropertyComponent implements OnInit {
   private propertyId: any;
   public property!: Property;
   form!: FormGroup;
+  imagePreview!: string;
 
   constructor(
     public propertyService: PropertyService,
@@ -89,6 +90,12 @@ export class AddPropertyComponent implements OnInit {
       imageFile = eventCasttoHtml.files[0];
       this.form.patchValue({ image: imageFile });
       this.form.get('image')?.updateValueAndValidity();
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(imageFile);
+
       console.log(imageFile);
       console.log(this.form);
     } else {
