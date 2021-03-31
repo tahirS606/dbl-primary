@@ -2,7 +2,12 @@ import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
 
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -17,13 +22,24 @@ export class AddPropertyComponent implements OnInit {
   private mode = 'add';
   private propertyId: any;
   public property!: Property;
+  form!: FormGroup;
 
   constructor(
     public propertyService: PropertyService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
+    this.form = new FormGroup({
+      name: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)],
+      }),
+      address: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(5)],
+      }),
+    });
+
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('propertyId')) {
         this.mode = 'edit';
@@ -37,6 +53,11 @@ export class AddPropertyComponent implements OnInit {
               name: propertyData.name,
               address: propertyData.address,
             };
+            // populates form for editing =>
+            this.form.setValue({
+              name: this.property.name,
+              address: this.property.address,
+            });
           });
       } else {
         this.mode = 'add';
@@ -44,20 +65,32 @@ export class AddPropertyComponent implements OnInit {
       }
     });
   }
-  onSaveProperty(form: NgForm) {
-    if (form.invalid) {
+
+  get getControl() {
+    return this.form.controls;
+  }
+
+  onSubmit() {
+    console.log(this.form);
+  }
+
+  onSaveProperty() {
+    if (this.form.invalid) {
       console.log('form is invalid');
       return;
     }
     if (this.mode === 'add') {
-      this.propertyService.addProperty(form.value.name, form.value.address);
+      this.propertyService.addProperty(
+        this.form.value.name,
+        this.form.value.address
+      );
     } else {
       this.propertyService.updateProperty(
         this.propertyId,
-        form.value.name,
-        form.value.address
+        this.form.value.name,
+        this.form.value.address
       );
     }
-    form.resetForm();
+    this.form.reset();
   }
 }
