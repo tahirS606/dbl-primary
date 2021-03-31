@@ -14,7 +14,7 @@
       </button>
             <input type="file" #filePicker (change)="onImagePicked($event)" />
         </div>
-        <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+        <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && getControl.image.valid">
             <img [src]="imagePreview" [alt]="form.value.name" />
         </div>
 
@@ -25,7 +25,7 @@
             </mat-error>
             <mat-error *ngIf="getControl.address.errors?.minlength">Address must be at least 3 characters</mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
       Save Property
     </button>
     </form>
