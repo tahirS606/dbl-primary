@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-property-list',
   template: ` <H1>Properties</H1>
 
-    <div>loading...</div>
+    <!-- <div>loading...</div> -->
 
     <div *ngFor="let property of properties">
       <app-property-thumbnail
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
         (click)="handleThumbnailClick(property.name)"
         [property]="property"
       ></app-property-thumbnail>
-      <div *ngIf="!properties">
+      <div *ngIf="properties.length === 0">
         <h2>please add or search for properties</h2>
       </div>
     </div>`,

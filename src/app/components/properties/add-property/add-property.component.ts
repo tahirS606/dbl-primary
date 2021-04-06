@@ -1,4 +1,4 @@
-import { mimeType } from './mime-type.validator';
+// import { mimeType } from './mime-type.validator';
 import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
 
@@ -44,7 +44,7 @@ export class AddPropertyComponent implements OnInit {
 
       image: new FormControl(null, {
         validators: [Validators.required],
-        asyncValidators: [mimeType],
+        // asyncValidators: [mimeType],
       }),
     });
     //<=== Corm Controls
