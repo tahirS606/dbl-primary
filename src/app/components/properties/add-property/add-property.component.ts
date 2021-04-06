@@ -43,11 +43,11 @@ export class AddPropertyComponent implements OnInit {
       }),
 
       image: new FormControl(null, {
-        validators: [Validators.required],
+        validators: [],
         // asyncValidators: [mimeType],
       }),
     });
-    //<=== Corm Controls
+    //<=== Form Controls
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('propertyId')) {

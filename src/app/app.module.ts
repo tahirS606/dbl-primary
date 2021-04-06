@@ -1,3 +1,4 @@
+import { MapComponent } from './components/map/map.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddPropertyComponent } from './components/properties/add-property/add-property.component';
 import { HeaderComponent } from './components/header/header/header.component';
@@ -7,13 +8,9 @@ import { PropertyDetailComponent } from './components/properties/property-detail
 import { MyMaterialModule } from './modules/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AgmCoreModule } from '@agm/core';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
-
-import { MapComponent } from './components/map/map.component';
-import {} from '@google/maps';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PropertyListComponent } from './components/properties/property-list/property-list.component';
@@ -23,12 +20,12 @@ import { FavoritePropertiesComponent } from './components/dashboard/favorite-pro
 import { IconComponent } from './components/icon/icon.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddPropertyComponent,
-    MapComponent,
     LoginComponent,
     PropertyListComponent,
     PropertyThumbnailComponent,
@@ -47,6 +44,7 @@ import { HttpClientModule } from '@angular/common/http';
       // google map
       apiKey: 'AIzaSyBqTb16DbEQ24PiFSgWdG-uQt9GJWdCe0s',
     }),
+
     MyMaterialModule,
     HttpClientModule,
     ReactiveFormsModule,

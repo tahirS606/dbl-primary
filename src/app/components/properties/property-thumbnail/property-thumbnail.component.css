@@ -10,11 +10,11 @@ h3,
 h4,
 h5,
 p {
-    align-items: center;
-    vertical-align: baseline;
     font-weight: bold;
-    /* font-weight: bold;
-    color: darkgray; */
+}
+
+.thumbnail-header {
+    padding-top: 12px;
 }
 
 mat-expansion-panel {
