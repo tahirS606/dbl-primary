@@ -21,6 +21,7 @@ import { IconComponent } from './components/icon/icon.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
+import { GoogleplacesComponent } from './components/googleplaces/googleplaces.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { AgmCoreModule } from '@agm/core';
     SearchPropertiesComponent,
     IconComponent,
     HeaderComponent,
+    GoogleplacesComponent,
   ],
   imports: [
     BrowserModule,
