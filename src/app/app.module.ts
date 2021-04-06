@@ -21,7 +21,7 @@ import { IconComponent } from './components/icon/icon.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
-import { GoogleplacesComponent } from './components/googleplaces/googleplaces.component';
+// import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 @NgModule({
   declarations: [
@@ -33,10 +33,11 @@ import { GoogleplacesComponent } from './components/googleplaces/googleplaces.co
     PropertyDetailComponent,
     DashboardComponent,
     FavoritePropertiesComponent,
+    MapComponent,
     SearchPropertiesComponent,
     IconComponent,
     HeaderComponent,
-    GoogleplacesComponent,
+    // GoogleplacesComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,9 +45,9 @@ import { GoogleplacesComponent } from './components/googleplaces/googleplaces.co
     AppRoutingModule,
     AgmCoreModule.forRoot({
       // google map
-      apiKey: 'AIzaSyBqTb16DbEQ24PiFSgWdG-uQt9GJWdCe0s',
+      apiKey: 'AIzaSyCC4FcGmIBqr91axvbKw1dzIo1nA8GoeMw',
     }),
-
+    // GooglePlaceModule,
     MyMaterialModule,
     HttpClientModule,
     ReactiveFormsModule,

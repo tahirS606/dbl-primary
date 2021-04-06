@@ -1,3 +1,4 @@
+import { Input, Output, EventEmitter, ViewChild } from '@angular/core';
 // import { mimeType } from './mime-type.validator';
 import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
