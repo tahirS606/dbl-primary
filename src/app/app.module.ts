@@ -1,3 +1,4 @@
+import { OlMapComponent } from './components/ol-map/ol-map.component';
 import { MapComponent } from './components/map/map.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddPropertyComponent } from './components/properties/add-property/add-property.component';
@@ -21,11 +22,7 @@ import { IconComponent } from './components/icon/icon.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
-<<<<<<< HEAD
 import { ReportComponent } from './components/report/report.component';
-=======
-import { OlMapComponent } from './components/ol-map/ol-map.component';
->>>>>>> 5b64bd09ded9d5f613bc9efc9b035e69ea5c3c12
 // import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 import { ToastrModule } from 'ngx-toastr';
@@ -45,12 +42,8 @@ import { ToastrModule } from 'ngx-toastr';
     SearchPropertiesComponent,
     IconComponent,
     HeaderComponent,
-<<<<<<< HEAD
     ReportComponent,
-=======
     OlMapComponent,
-    // ToastrNotificationsComponent,
->>>>>>> 5b64bd09ded9d5f613bc9efc9b035e69ea5c3c12
     // GoogleplacesComponent,
   ],
   imports: [
