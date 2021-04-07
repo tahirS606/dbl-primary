@@ -21,6 +21,7 @@ import { IconComponent } from './components/icon/icon.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
+import { ReportComponent } from './components/report/report.component';
 // import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 @NgModule({
@@ -37,6 +38,7 @@ import { AgmCoreModule } from '@agm/core';
     SearchPropertiesComponent,
     IconComponent,
     HeaderComponent,
+    ReportComponent,
     // GoogleplacesComponent,
   ],
   imports: [
