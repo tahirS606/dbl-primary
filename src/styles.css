@@ -1,3 +1,4 @@
+@import "../node_modules/ol/ol.css";
 agm-map {
     height: 300px;
 }
