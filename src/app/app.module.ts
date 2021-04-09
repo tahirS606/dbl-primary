@@ -18,7 +18,9 @@ import { PropertyThumbnailComponent } from './components/properties/property-thu
 
 import { HttpClientModule } from '@angular/common/http';
 // import { AgmCoreModule } from '@agm/core';
-import { ReportListComponent } from './components/reports/report-list/report-list.component';
+import { ReportListComponent } from './components/report-list/report-list.component';
+
+import { ReportComponent } from './components/report/report.component';
 // import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 // import { ToastrModule } from 'ngx-toastr';
@@ -36,6 +38,7 @@ import { ReportListComponent } from './components/reports/report-list/report-lis
     SearchPropertiesComponent,
     HeaderComponent,
     ReportListComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,
