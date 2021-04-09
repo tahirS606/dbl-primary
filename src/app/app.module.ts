@@ -18,8 +18,7 @@ import { PropertyThumbnailComponent } from './components/properties/property-thu
 
 import { HttpClientModule } from '@angular/common/http';
 // import { AgmCoreModule } from '@agm/core';
-import { ReportComponent } from './components/report/report.component';
-import { ReportListComponent } from './components/report-list/report-list.component';
+import { ReportListComponent } from './components/reports/report-list/report-list.component';
 // import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 // import { ToastrModule } from 'ngx-toastr';
@@ -36,20 +35,12 @@ import { ReportListComponent } from './components/report-list/report-list.compon
     MapComponent,
     SearchPropertiesComponent,
     HeaderComponent,
-    ReportComponent,
     ReportListComponent,
-
-    // GoogleplacesComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    // AgmCoreModule.forRoot({
-    //   // google map
-    //   apiKey: 'AIzaSyCNaS5t8NFDeburFa-AebErmmuvkDNxClQ',
-    // }),
-
     MyMaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
