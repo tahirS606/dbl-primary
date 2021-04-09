@@ -2,3 +2,8 @@ h1 {
     text-align: center;
     padding: 12px;
 }
+
+mat-paginator {
+    width: 100vw;
+    visibility: visible;
+}
