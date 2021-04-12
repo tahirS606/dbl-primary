@@ -9,5 +9,5 @@
     </div>
 </div>
 <div>
-    <mat-paginator></mat-paginator>
+    <mat-paginator #paginator [length]="totalPropertiesQuant" [pageSize]="propertiesPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)"></mat-paginator>
 </div>

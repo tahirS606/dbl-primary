@@ -16,10 +16,11 @@ export class PropertyService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getProperties() {
+  getProperties(propertiesPerPage: number, currentPage: number) {
+    const queryParams = `?pagesize=${propertiesPerPage}&page=${currentPage}`;
     this.http
       .get<{ message: string; properties: any }>(
-        'http://localhost:3000/properties'
+        'http://localhost:3000/properties' + queryParams
       )
       .pipe(
         map((propertyData) => {
