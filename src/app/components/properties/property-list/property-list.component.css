@@ -12,3 +12,34 @@ mat-paginator {
     margin: auto;
     padding: 2rem;
 }
+
+
+/* mat-card {
+    min-width: 40%;
+    max-width: 60%;
+    margin: auto;
+} */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    font-weight: bold;
+}
+
+.thumbnail-header {
+    padding-top: 12px;
+}
+
+mat-expansion-panel {
+    color: black;
+    margin: 12px;
+    /* padding-top: 10px; */
+}
+
+mat-action-row {
+    padding: 10px;
+    flex-direction: row-reverse;
+}

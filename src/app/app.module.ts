@@ -14,14 +14,10 @@ import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PropertyListComponent } from './components/properties/property-list/property-list.component';
-import { PropertyThumbnailComponent } from './components/properties/property-thumbnail/property-thumbnail.component';
-
 import { HttpClientModule } from '@angular/common/http';
-// import { AgmCoreModule } from '@agm/core';
 import { ReportListComponent } from './components/report-list/report-list.component';
 
 import { ReportComponent } from './components/report/report.component';
-// import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 // import { ToastrModule } from 'ngx-toastr';
 // import { ToastrNotificationsComponent } from './components/toastr-notifications/toastr-notifications.component';
@@ -32,7 +28,6 @@ import { ReportComponent } from './components/report/report.component';
     AddPropertyComponent,
     LoginComponent,
     PropertyListComponent,
-    PropertyThumbnailComponent,
     PropertyDetailComponent,
     MapComponent,
     SearchPropertiesComponent,

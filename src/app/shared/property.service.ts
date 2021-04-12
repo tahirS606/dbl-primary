@@ -10,8 +10,10 @@ import { Router } from '@angular/router';
 })
 export class PropertyService {
   private properties: Property[] = [];
-  private propertiesUpdated = new Subject<Property[]>();
-
+  private propertiesUpdated = new Subject<{
+    properties: Property[];
+    propertiesCount: number;
+  }>();
   private updatedProperties: any;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -19,23 +21,29 @@ export class PropertyService {
   getProperties(propertiesPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${propertiesPerPage}&page=${currentPage}`;
     this.http
-      .get<{ message: string; properties: any }>(
+      .get<{ message: string; properties: any; maxProperties: number }>(
         'http://localhost:3000/properties' + queryParams
       )
       .pipe(
         map((propertyData) => {
-          return propertyData.properties.map((property: any) => {
-            return {
-              name: property.name,
-              address: property.address,
-              id: property._id,
-            };
-          });
+          return {
+            properties: propertyData.properties.map((property: any) => {
+              return {
+                name: property.name,
+                address: property.address,
+                id: property._id,
+              };
+            }),
+            maxProperties: propertyData.maxProperties,
+          };
         })
       )
-      .subscribe((transformedProperties) => {
-        this.properties = transformedProperties;
-        this.propertiesUpdated.next([...this.properties]);
+      .subscribe((transformedPropertyData) => {
+        this.properties = transformedPropertyData.properties;
+        this.propertiesUpdated.next({
+          properties: [...this.properties],
+          propertiesCount: transformedPropertyData.maxProperties,
+        });
       });
   }
 
@@ -51,10 +59,6 @@ export class PropertyService {
         property
       )
       .subscribe((responseData) => {
-        const propertyId = responseData.propertyId;
-        property.id = propertyId;
-        this.properties.push(property);
-        this.propertiesUpdated.next([...this.properties]);
         this.router.navigate(['/']);
       });
   }
@@ -70,25 +74,11 @@ export class PropertyService {
     this.http
       .put('http://localhost:3000/properties/' + id, property)
       .subscribe((response) => {
-        const updatedProperties = [...this.properties];
-        const oldPropertyIndex = updatedProperties.findIndex(
-          (p) => p.id === property.id
-        );
-        updatedProperties[oldPropertyIndex] = property;
-        this.properties = updatedProperties;
-        this.propertiesUpdated.next([...this.properties]);
+        this.router.navigate(['/']);
       });
   }
 
   deleteProperty(propertyId: string) {
-    this.http
-      .delete('http://localhost:3000/properties/' + propertyId)
-      .subscribe(() => {
-        const updatedProperties = this.properties.filter(
-          (property) => property.id !== propertyId
-        );
-        this.properties = updatedProperties;
-        this.propertiesUpdated.next([...this.properties]);
-      });
+    return this.http.delete('http://localhost:3000/properties/' + propertyId);
   }
 }

@@ -12,15 +12,17 @@ import { PageEvent } from '@angular/material/paginator';
 export class PropertyListComponent implements OnInit, OnDestroy {
   private propertiesSub!: Subscription;
   properties: Property[] = [];
-  totalPropertiesQuant = 10;
+  totalPropertiesCount = 0;
   propertiesPerPage = 2;
   pageSizeOptions = [1, 2, 5, 10];
   currentPage = 1;
   isLoading: boolean = true;
+  totalProperties!: number;
 
   constructor(public propertyService: PropertyService) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.propertyService.getProperties(
       this.propertiesPerPage,
       this.currentPage
@@ -28,10 +30,25 @@ export class PropertyListComponent implements OnInit, OnDestroy {
     this.propertiesSub = this.propertyService
 
       .getPropertyUpdateListener()
-      .subscribe((properties: Property[]) => {
-        this.isLoading = false;
-        this.properties = properties;
-      });
+      .subscribe(
+        (propertyData: { properties: Property[]; propertiesCount: number }) => {
+          this.isLoading = false;
+          this.totalProperties = propertyData.propertiesCount;
+          this.properties = propertyData.properties;
+        }
+      );
+  }
+
+  onDelete(propertyId: string) {
+    this.isLoading = true;
+    this.propertyService.deleteProperty(propertyId).subscribe(() => {
+      this.propertyService.getProperties(
+        this.propertiesPerPage,
+        this.currentPage
+      );
+      console.log(this.propertiesPerPage);
+      console.log(this.currentPage);
+    });
   }
 
   onPageChange(pageData: PageEvent) {

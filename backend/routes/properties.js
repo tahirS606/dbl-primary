@@ -34,30 +34,39 @@ router.get("", (req, res, next) => {
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
     const propertyQuery = Property.find();
+    let fetchedProperties;
+
     if (pageSize && currentPage) {
         propertyQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
     }
-    propertyQuery.find().then((documents) => {
-        res.status(200).json({
-            message: "posts fetched successfully",
-            properties: documents,
+    propertyQuery
+        .find()
+        .then((documents) => {
+            fetchedProperties = documents;
+            return Property.count();
+        })
+        .then((count) => {
+            res.status(200).json({
+                message: "posts fetched successfully",
+                properties: fetchedProperties,
+                maxProperties: count,
+            });
+        });
+
+    router.get("", (req, res, next) => {
+        Property.findById(req.params.id).then((property) => {
+            if (property) {
+                res.status(200).json(property);
+            } else {
+                res.status(404).json({ message: "property not found" });
+            }
         });
     });
-});
 
-router.get("", (req, res, next) => {
-    Property.findById(req.params.id).then((property) => {
-        if (property) {
-            res.status(200).json(property);
-        } else {
-            res.status(404).json({ message: "property not found" });
-        }
-    });
-});
-
-router.delete("/:id", (req, res, next) => {
-    Property.deleteOne({ _id: req.params.id }).then((result) => {
-        res.status(200).json({ message: "post deleted" });
+    router.delete("/:id", (req, res, next) => {
+        Property.deleteOne({ _id: req.params.id }).then((result) => {
+            res.status(200).json({ message: "post deleted" });
+        });
     });
 });
 
