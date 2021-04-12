@@ -1,12 +1,13 @@
 <H1>Properties</H1>
 
-<div *ngFor="let property of properties">
-    <app-property-thumbnail <!-- *ngIf="properties.length < 0; elseBlock" -->
-        (click)="handleThumbnailClick(property.name)" [property]="property">
-    </app-property-thumbnail>
+<!-- <div>loading...</div> -->
 
-    <!-- <div #elseBlock>
+<div *ngFor="let property of properties">
+    <app-property-thumbnail *ngIf="properties" (click)="handleThumbnailClick(property.name)" [property]="property"></app-property-thumbnail>
+    <div *ngIf="properties.length === 0">
         <h2>please add or search for properties</h2>
-    </div> -->
+    </div>
 </div>
-<mat-paginator></mat-paginator>
+<div>
+    <mat-paginator></mat-paginator>
+</div>
