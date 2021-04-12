@@ -1,9 +1,10 @@
+import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { MapComponent } from './components/map/map.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddPropertyComponent } from './components/properties/add-property/add-property.component';
 import { HeaderComponent } from './components/header/header/header.component';
 import { SearchPropertiesComponent } from './components/search/search-properties.component';
-import { LoginComponent } from './components/registration/login/login.component';
+import { LoginComponent } from './components/auth/login/login.component';
 import { PropertyDetailComponent } from './components/properties/property-detail/property-detail.component';
 import { MyMaterialModule } from './modules/material.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -34,6 +35,7 @@ import { ReportComponent } from './components/report/report.component';
     HeaderComponent,
     ReportListComponent,
     ReportComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,7 @@ import { ReportComponent } from './components/report/report.component';
     MyMaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
 
     // ToastrNotificationsComponent,
   ],

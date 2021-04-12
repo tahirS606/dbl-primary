@@ -1,3 +1,4 @@
+import { LoginComponent } from './../components/auth/login/login.component';
 import { ReportComponent } from './../components/report/report.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'reports/:propertyId',
     component: ReportListComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
 ];
 // routes are javascript objects, for which url, which component presented.  path / , comonent.
