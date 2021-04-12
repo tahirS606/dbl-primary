@@ -16,6 +16,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
   propertiesPerPage = 2;
   pageSizeOptions = [1, 2, 5, 10];
   currentPage = 1;
+  isLoading: boolean = true;
 
   constructor(public propertyService: PropertyService) {}
 
@@ -25,13 +26,16 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       this.currentPage
     );
     this.propertiesSub = this.propertyService
+
       .getPropertyUpdateListener()
       .subscribe((properties: Property[]) => {
+        this.isLoading = false;
         this.properties = properties;
       });
   }
 
   onPageChange(pageData: PageEvent) {
+    this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
     this.propertiesPerPage = pageData.pageSize;
     this.propertyService.getProperties(

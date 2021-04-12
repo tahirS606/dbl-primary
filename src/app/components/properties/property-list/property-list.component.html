@@ -1,13 +1,12 @@
 <H1>Properties</H1>
 
-<!-- <div>loading...</div> -->
+<mat-progress-spinner *ngIf="isLoading"></mat-progress-spinner>
 
 <div *ngFor="let property of properties">
     <app-property-thumbnail *ngIf="properties" (click)="handleThumbnailClick(property.name)" [property]="property"></app-property-thumbnail>
-    <div *ngIf="properties.length === 0">
-        <h2>please add or search for properties</h2>
-    </div>
 </div>
-<div>
-    <mat-paginator #paginator [length]="totalPropertiesQuant" [pageSize]="propertiesPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)"></mat-paginator>
+
+<div *ngIf="properties.length <= 0">
+    <h3 class="please-add-props">Please add properties</h3>
 </div>
+<mat-paginator *ngIf="properties.length > 0" #paginator [length]="totalPropertiesQuant" [pageSize]="propertiesPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)"></mat-paginator>
