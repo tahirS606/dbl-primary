@@ -1,21 +1,21 @@
-<div class="login-main">
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <mat-card>
-        <form>
-            <mat-card-header>
-                <mat-card-title>Login</mat-card-title>
-            </mat-card-header>
-            <mat-card-content fxLayout="column">
-                <mat-form-field>
-                    <input matInput type="email" placeholder="Please enter your Email" />
-                </mat-form-field>
-                <mat-error *ngIf="">Please enter a valid email.</mat-error>
-                <mat-form-field>
-                    <input type="password" matInput placeholder="Password" />
-                </mat-form-field>
-                <mat-error *ngIf="">Please enter a valid password.</mat-error>
-                <button mat-raised-button color="primary">Login</button>
-            </mat-card-content>
-        </form>
-    </mat-card>
-</div>
+<!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
+<mat-card>
+    <form #loginForm="ngForm" (submit)="onLogin(loginForm)">
+        <mat-card-header>
+            <mat-card-title>Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field>
+                <input autoFocus="true" name="email" ngModel #emailInput="ngModel" matInput type="email" placeholder="Please enter your Email" required email />
+                <!-- <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error> -->
+            </mat-form-field>
+
+            <mat-form-field>
+                <input #passwordInput="ngModel" name="password" ngModel type="password" matInput placeholder="Password" required />
+
+                <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary">Login</button>
+        </mat-card-content>
+    </form>
+</mat-card>
