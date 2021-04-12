@@ -1,4 +1,3 @@
-const { rewriteURIForGET } = require("@apollo/client/core");
 const express = require("express");
 const router = express.Router();
 const Property = require("../models/property");

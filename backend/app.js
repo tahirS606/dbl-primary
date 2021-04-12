@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const propertiesRoutes = require("./routes/properties");
+const userRoutes = require "./routes/user";
 
 // have yet to update .connect with variables
 const app = express();
@@ -39,5 +40,8 @@ app.use((req, res, next) => {
 });
 
 app.use("/properties", propertiesRoutes);
+
+app.use("/user", userRoutes)
+
 
 module.exports = app;
