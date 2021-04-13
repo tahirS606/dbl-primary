@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
 import { AuthData } from './auth-data.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +25,18 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router) { }
 
-  createUser(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password }
+  createUser(
+    email: string,
+    password: string)
+    {
+      const authData: AuthData = {
+        email: email,
+        password: password
+    }
     
     this.http.post("http://localhost:3000/user/signup", authData)
       .subscribe(response => {
@@ -35,18 +45,25 @@ export class AuthService {
        
   }
 
-  login(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password }
-    this.http.post<{token: string}>('http://localhost:3000/user/login', authData).subscribe(response => {
-      const token = response.token;
+  login(
+    email: string,
+    password: string) {
       
-      this.token = token;
+    const authData:
+      AuthData = {
+      email: email,
+      password: password
+    }
+    this.http.post<{ token: string }>('http://localhost:3000/user/login', authData)
+      .subscribe(response => {
 
+      const token = response.token;
+      this.token = token;
       if (token) {
         this.isAuthenticated = true;
         this.authStatusListener.next(true);
+        this.router.navigate(['/'])
       } 
-      
     })
   }
 
@@ -54,6 +71,7 @@ export class AuthService {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false)
+    this.router.navigate(['/'])
     
   }
   
