@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const propertiesRoutes = require("./routes/properties");
 const userRoutes = require("./routes/user");
 
-// have yet to update .connect with variables
+// have yet to update = connect with variables
 const app = express();
 const password = "9ksalmD9s1Em3GrX";
 const url =
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
         "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
     res.setHeader(
         "Access-Control-Allow-Methods",

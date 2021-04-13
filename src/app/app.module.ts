@@ -1,3 +1,4 @@
+import { AuthInterceptor } from './components/auth/auth-interceptor';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { MapComponent } from './components/map/map.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -15,7 +16,7 @@ import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PropertyListComponent } from './components/properties/property-list/property-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReportListComponent } from './components/report-list/report-list.component';
 
 import { ReportComponent } from './components/report/report.component';
@@ -48,7 +49,8 @@ import { ReportComponent } from './components/report/report.component';
 
     // ToastrNotificationsComponent,
   ],
-  providers: [],
+  // multi says don't override additionals, just add
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
