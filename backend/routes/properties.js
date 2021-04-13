@@ -1,22 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const Property = require("../models/property");
+const checkAuth = require("../middleware/check-auth");
 
-router.post("", (req, res, next) => {
-    const property = new Property({
-        name: req.body.name,
-        address: req.body.address,
-    });
-    console.log("property added, from properties.js", property);
-    property.save().then((addedProperty) => {
-        res.status(201).json({
-            message: "Property added successfully",
-            propertyId: addedProperty._id,
+router.post("", checkAuth,
+    (req, res, next) => {
+        const property = new Property({
+            name: req.body.name,
+            address: req.body.address,
+        });
+        // console.log("property added, from properties.js", property);
+        property.save().then((addedProperty) => {
+            res.status(201).json({
+                message: "Property added successfully",
+                propertyId: addedProperty._id,
+            });
         });
     });
-});
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", checkAuth, (req, res, next) => {
     const property = new Property({
         _id: req.body.id,
         name: req.body.name,
@@ -62,7 +64,7 @@ router.get("", (req, res, next) => {
         });
     });
 
-    router.delete("/:id", (req, res, next) => {
+    router.delete("/:id", checkAuth, (req, res, next) => {
         Property.deleteOne({ _id: req.params.id }).then((result) => {
             res.status(200).json({ message: "post deleted" });
         });

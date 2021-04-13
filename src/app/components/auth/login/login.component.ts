@@ -1,3 +1,4 @@
+import { AuthService } from './../auth.service';
 import { MyMaterialModule } from '../../../modules/material.module';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -11,10 +12,13 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
   isLoading: boolean = false;
   onLogin(form: NgForm) {
-    console.log(form.value)
+    if (form.invalid) {
+      return
+    }
+    this.authService.login(form.value.email, form.value.password);
   }
 
-  constructor() {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {}
 }
