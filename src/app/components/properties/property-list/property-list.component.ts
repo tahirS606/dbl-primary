@@ -44,9 +44,11 @@ export class PropertyListComponent implements OnInit, OnDestroy {
           this.properties = propertyData.properties;
         }
     );
+    this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
     })
+    this.isLoading = false;
   }
 
   onDelete(propertyId: string) {
@@ -58,6 +60,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       );
       console.log(this.propertiesPerPage);
       console.log(this.currentPage);
+      this.isLoading = false;
     });
   }
 
@@ -69,6 +72,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       this.propertiesPerPage,
       this.currentPage
     );
+    this.isLoading = false;
   }
 
   ngOnDestroy() {
