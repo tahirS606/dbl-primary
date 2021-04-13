@@ -6,7 +6,7 @@
         </mat-card-header>
         <mat-card-content>
             <mat-form-field>
-                <input autoFocus="true" name="email" ngModel #emailInput="ngModel" matInput type="email" placeholder="Please enter your Email" required email />
+                <input autoFocus="true" name="email" ngModel #emailInput="ngModel" matInput type="email" placeholder="Please enter your Email" required email unique/>
                 <!-- <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error> -->
             </mat-form-field>
 
@@ -15,7 +15,7 @@
 
                 <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
             </mat-form-field>
-            <button mat-raised-button color="primary">Sign Up</button>
+            <button mat-raised-button color="primary" [disabled]="signupForm.invalid">Sign Up</button>
         </mat-card-content>
     </form>
 </mat-card>

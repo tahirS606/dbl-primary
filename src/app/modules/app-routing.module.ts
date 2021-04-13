@@ -29,11 +29,11 @@ const routes: Routes = [
     component: ReportListComponent,
   },
   {
-    path: 'login',
+    path: 'user/login',
     component: LoginComponent,
   },
   {
-    path: 'signup',
+    path: 'user/signup',
     component: SignUpComponent,
   },
 ];
