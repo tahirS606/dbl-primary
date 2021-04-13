@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 })
 export class AuthService {
   private isAuthenticated = false;
-  private token!: string
+  private token!: string | null
   private authStatusListener = new Subject<boolean>()
 
   getIsAuth() {
@@ -48,6 +48,13 @@ export class AuthService {
       } 
       
     })
+  }
+
+  logout() {
+    this.token = null;
+    this.isAuthenticated = false;
+    this.authStatusListener.next(false)
+    
   }
   
 }
