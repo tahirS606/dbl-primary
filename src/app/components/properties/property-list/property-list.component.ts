@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth/auth.service';
 import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -11,6 +12,8 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class PropertyListComponent implements OnInit, OnDestroy {
   private propertiesSub!: Subscription;
+  private authStatusSub!: Subscription;
+
   properties: Property[] = [];
   totalPropertiesCount = 0;
   propertiesPerPage = 2;
@@ -18,8 +21,12 @@ export class PropertyListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   isLoading: boolean = true;
   totalProperties!: number;
+  userIsAuthenticated = false;
 
-  constructor(public propertyService: PropertyService) {}
+  constructor(
+    public propertyService: PropertyService,
+    private authService: AuthService,
+  ) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -36,7 +43,10 @@ export class PropertyListComponent implements OnInit, OnDestroy {
           this.totalProperties = propertyData.propertiesCount;
           this.properties = propertyData.properties;
         }
-      );
+    );
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    })
   }
 
   onDelete(propertyId: string) {
@@ -63,6 +73,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.propertiesSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 
   handleThumbnailClick(eventName: string) {

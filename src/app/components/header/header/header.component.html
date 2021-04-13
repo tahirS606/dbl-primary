@@ -1,15 +1,18 @@
 <mat-toolbar color="light"><a routerLink="/">DBL</a>
     <span class="spacer"></span>
     <ul>
-        <li>
+        <li *ngIf="userIsAuthenticated">
             <a mat-button routerLink="/add-property" routerLinkActive="mat-primary">Add Property</a
       >
     </li>
-    <li>
+    <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="user/login" routerLinkActive="mat-primary">Login</a>
         </li>
-        <li>
+        <li *ngIf="!userIsAuthenticated">
             <a mat-button routerLink="user/signup" routerLinkActive="mat-primary">Sign Up</a>
+        </li>
+        <li *ngIf="userIsAuthenticated">
+            <button mat-button>Logout</button>
         </li>
     </ul>
 </mat-toolbar>
