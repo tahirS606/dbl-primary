@@ -2,7 +2,7 @@ import { AuthService } from './../../auth/auth.service';
 import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs'  ;
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -16,8 +16,8 @@ export class PropertyListComponent implements OnInit, OnDestroy {
 
   properties: Property[] = [];
   totalPropertiesCount = 0;
-  propertiesPerPage = 2;
-  pageSizeOptions = [1, 2, 5, 10];
+  propertiesPerPage = 10;
+  pageSizeOptions = [5, 10, 25, 50];
   currentPage = 1;
   isLoading: boolean = true;
   totalProperties!: number;

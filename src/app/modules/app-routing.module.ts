@@ -1,3 +1,4 @@
+import { AuthGuard } from './../components/auth/auth.guard';
 import { SignUpComponent } from './../components/auth/sign-up/sign-up.component';
 import { LoginComponent } from './../components/auth/login/login.component';
 import { ReportComponent } from './../components/report/report.component';
@@ -14,19 +15,24 @@ const routes: Routes = [
   {
     path: 'add-property',
     component: AddPropertyComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'edit-property/:propertyId',
     component: AddPropertyComponent,
+    canActivate: [AuthGuard]
+
   },
   {
     path: 'new-report/:propertyId',
     component: ReportComponent,
+    canActivate: [AuthGuard]
   },
 
   {
     path: 'reports/:propertyId',
     component: ReportListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'user/login',
@@ -37,10 +43,10 @@ const routes: Routes = [
     component: SignUpComponent,
   },
 ];
-// routes are javascript objects, for which url, which component presented.  path / , comonent.
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {}
