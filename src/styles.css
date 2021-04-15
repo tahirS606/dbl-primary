@@ -1,14 +1,15 @@
-@import "../node_modules/ol/ol.css";
-agm-map {
-    height: 300px;
-}
-
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 html,
 body {
     height: 100%;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 body {
-    margin: 0;
     font-family: "Helvetica Neue", sans-serif;
+    color: var(--text-color);
+    margin: 0;
+    --header-color: #D1DFB7;
+    --sidebar-color: #FAE6BE;
+    --text-color: black;
 }
