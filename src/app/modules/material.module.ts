@@ -1,3 +1,4 @@
+import { AgmCoreModule } from '@agm/core';
 import { NgModule } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,8 +10,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
+
+
 @NgModule({
   imports: [
+    AgmCoreModule,
     MatButtonModule,
     MatExpansionModule,
     MatToolbarModule,
@@ -20,8 +24,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatGridListModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    
   ],
   exports: [
+    AgmCoreModule, 
     MatButtonModule,
     MatExpansionModule,
     MatToolbarModule,
