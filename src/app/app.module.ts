@@ -1,5 +1,6 @@
 import { AuthInterceptor } from './components/auth/auth-interceptor';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
+import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from './components/map/map.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddPropertyComponent } from './components/properties/add-property/add-property.component';
@@ -20,6 +21,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReportListComponent } from './components/report-list/report-list.component';
 
 import { ReportComponent } from './components/report/report.component';
+
+
 
 // import { ToastrModule } from 'ngx-toastr';
 // import { ToastrNotificationsComponent } from './components/toastr-notifications/toastr-notifications.component';
@@ -46,9 +49,13 @@ import { ReportComponent } from './components/report/report.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    AgmCoreModule .forRoot({
+      apiKey: 'AIzaSyCNaS5t8NFDeburFa-AebErmmuvkDNxClQ'
+    })
 
     // ToastrNotificationsComponent,
   ],
+ 
   // multi says don't override additionals, just add
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
