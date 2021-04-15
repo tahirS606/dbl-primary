@@ -47,7 +47,7 @@ export class ReportComponent implements OnInit {
   })
         }),
           new TileLayer({
-            maxZoom: 100, // visible at zoom levels 14 and below
+            maxZoom: 1, // visible at zoom levels 14 and below
             source: new OSM(),
             minZoom: 1,
           }),
