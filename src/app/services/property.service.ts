@@ -1,4 +1,4 @@
-import { Property } from './../models/property.model';
+import { Property } from '../models/property.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';

@@ -39,8 +39,19 @@ export class ReportComponent implements OnInit {
       }),
       layers: [
         new TileLayer({
-          source: new OSM(),
+           source: new OSM({
+    attributions: ['Powered by Esri',
+                   'Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community'],
+    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+             maxZoom: 23,
+  })
         }),
+          new TileLayer({
+            maxZoom: 100, // visible at zoom levels 14 and below
+            source: new OSM(),
+            minZoom: 1,
+          }),
+        
       ],
       target: 'ol-map',
     });
