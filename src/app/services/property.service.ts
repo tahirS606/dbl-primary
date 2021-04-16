@@ -1,4 +1,4 @@
-import { Property } from '../models/property.model';
+import { Property } from './../models/property.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -51,6 +51,14 @@ export class PropertyService {
     return this.propertiesUpdated.asObservable();
   }
 
+  getAPropertyData(id: string) {
+    const property: Property = {
+      id: id, name: '', address: ''
+    }
+    return property;
+  }
+    
+
   addProperty(name: string, address: string) {
     const property: Property = { id: '', name: name, address: address };
     this.http
@@ -62,6 +70,7 @@ export class PropertyService {
         this.router.navigate(['/']);
       });
   }
+
 
   getProperty(id: string) {
     return this.http.get<{ _id: string; name: string; address: string }>(

@@ -9,12 +9,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon'
 
 
 
 @NgModule({
   imports: [
     AgmCoreModule,
+    MatIconModule, 
     MatButtonModule,
     MatExpansionModule,
     MatToolbarModule,
