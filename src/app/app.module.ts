@@ -22,7 +22,8 @@ import { ReportListComponent } from './components/report-list/report-list.compon
 
 import { ReportComponent } from './components/report/report.component';
 
-import { AgmDrawingModule } from '@agm/drawing'
+import { AgmDrawingModule } from '@agm/drawing';
+import { AutoCompleteAddressComponent } from './components/auto-complete-address/auto-complete-address.component'
 
 let GOOGLE_API_KEY = 'AIzaSyDbpD2C4fBsYbzVQwEr1rIaNbl8zVyimok'
 
@@ -42,6 +43,7 @@ let GOOGLE_API_KEY = 'AIzaSyDbpD2C4fBsYbzVQwEr1rIaNbl8zVyimok'
     ReportListComponent,
     ReportComponent,
     SignUpComponent,
+    AutoCompleteAddressComponent,
   ],
   imports: [
     BrowserModule,
