@@ -1,5 +1,4 @@
 import { Input, Output, EventEmitter, ViewChild } from '@angular/core';
-// import { mimeType } from './mime-type.validator';
 import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
 
@@ -18,6 +17,16 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./add-property.component.css'],
 })
 export class AddPropertyComponent implements OnInit {
+
+  @Input() addressType!: string;
+  @Output() setAddress: EventEmitter<any> = new EventEmitter();
+  @ViewChild('addressText')
+  addressText: any
+  autocompleteInput!: string;
+  queryWait!: boolean;
+  
+  
+  
   enteredName = '';
   enteredAddress = '';
   isLoading: Boolean = true;
@@ -45,7 +54,6 @@ export class AddPropertyComponent implements OnInit {
 
       image: new FormControl(null, {
         validators: [],
-        // asyncValidators: [mimeType],
       }),
     });
     //<=== Form Controls
