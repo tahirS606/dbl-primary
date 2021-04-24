@@ -22,9 +22,7 @@ import { ReportListComponent } from './components/report-list/report-list.compon
 
 import { ReportComponent } from './components/report/report.component';
 
-import { AgmDrawingModule } from '@agm/drawing'
 
-let GOOGLE_API_KEY = 'AIzaSyDbpD2C4fBsYbzVQwEr1rIaNbl8zVyimok'
 
 // import { ToastrModule } from 'ngx-toastr';
 // import { ToastrNotificationsComponent } from './components/toastr-notifications/toastr-notifications.component';
@@ -51,11 +49,10 @@ let GOOGLE_API_KEY = 'AIzaSyDbpD2C4fBsYbzVQwEr1rIaNbl8zVyimok'
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    AgmCoreModule.forRoot({
-      apiKey: GOOGLE_API_KEY,
-      libraries: ['drawing']
-    }),
-    AgmDrawingModule,
+    AgmCoreModule .forRoot({
+      apiKey: 'AIzaSyCNaS5t8NFDeburFa-AebErmmuvkDNxClQ'
+    })
+
     // ToastrNotificationsComponent,
   ],
  
