@@ -1,6 +1,5 @@
-import { Property } from './../../models/property.model';
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ChangeDetectionStrategy, Input, ElementRef } from '@angular/core';
+import Map from 'ol/Map';
 
 @Component({
   selector: 'app-map',
@@ -9,16 +8,17 @@ import { Component, OnInit } from '@angular/core';
   
 })
   
-export class MapComponent implements OnInit{
-
-  property!: Property; 
+export class MapComponent {
 
   latitude: number = 51.509865;
   longitude: number = -0.118092;
-  type = "satellite";
+  // mapType = 'SATELLITE';
 
-  ngOnInit() {
-  }
+  // @Input() map!: Map;
+  // constructor(private elementRef: ElementRef) {
+
+  
+  // this.map.setTarget(this.elementRef.nativeElement);
 
 }
 

@@ -1,8 +1,11 @@
-import { map } from 'rxjs/operators';
-import { Property } from './../../models/property.model';
-import { Router, ActivatedRoute } from '@angular/router';
-import { PropertyService } from './../../shared/property.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, NgZone, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+
+// import Map from 'ol/Map';
+// import View from 'ol/View';
+// import TileLayer from 'ol/layer/Tile';
+// import OSM from 'ol/source/OSM';
+// import Projection from 'ol/proj/Projection';
+// import { Coordinate } from 'ol/coordinate';
 
 @Component({
   selector: 'app-report',
@@ -11,26 +14,55 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
 
-  id!: string;
-  property!: Property;
+  // @Input() center!: Coordinate;
+  // @Input() zoom!: number;
+
+  // view!: View;
+  // map: Map | undefined;
+  // projection!: Projection;
+
+
+
+  // @Output() mapReady = new EventEmitter<Map>()
+
+  
 
   constructor(
-    private router: Router,
-    private propertyService: PropertyService,
-    private route: ActivatedRoute,
-   
+    // private zone: NgZone,
+    // private cd: ChangeDetectorRef
   ) { }
 
-
-  ngOnInit(){
-    this.id = this.route.snapshot.params.propertyId;
-
-    console.log(this.route)
-    console.log('id', this.id)
-    this.propertyService.getProperty(this.id)
-
-    console.log(this.propertyService.getProperty(this.id))
+  ngOnInit(): void {
   
+    //   this.map = new Map({
+    //     view: new View({
+    //       center: [-12080385, 7567433],
+    //       zoom: 17,       
+    //       // maxZoom: 17,
+    //       minZoom: 0,
+    //       rotation: 0,
+    //     }),
+    //     layers: [
+    // //       new TileLayer({
+    // //          source: new OSM({
+    // //   attributions: ['Powered by Esri',
+    // //                  'Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community'],
+    // //   url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    // //            maxZoom: 100,
+    // // })
+    //       // }),
+    //         new TileLayer({
+    //           maxZoom: 25, // visible at zoom levels 14 and below
+    //           source: new OSM(), 
+    //           minZoom: 1,
+    //         }),
+        
+    //     ],
+    //     target: 'ol-map',
+      
+    //   });
+    
+    // }
   }
 
 

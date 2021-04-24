@@ -86,25 +86,25 @@ export class AddPropertyComponent implements OnInit {
     console.log(this.form);
   }
 
-  // onImagePicked(event: Event) {
-  //   let imageFile;
-  //   let eventCasttoHtml = event.target as HTMLInputElement;
-  //   if (eventCasttoHtml.files) {
-  //     imageFile = eventCasttoHtml.files[0];
-  //     this.form.patchValue({ image: imageFile });
-  //     this.form.get('image')?.updateValueAndValidity();
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       this.imagePreview = reader.result as string;
-  //     };
-  //     reader.readAsDataURL(imageFile);
+  onImagePicked(event: Event) {
+    let imageFile;
+    let eventCasttoHtml = event.target as HTMLInputElement;
+    if (eventCasttoHtml.files) {
+      imageFile = eventCasttoHtml.files[0];
+      this.form.patchValue({ image: imageFile });
+      this.form.get('image')?.updateValueAndValidity();
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(imageFile);
 
-  //     console.log(imageFile);
-  //     console.log(this.form);
-  //   } else {
-  //     return;
-  //   }
-  // }
+      console.log(imageFile);
+      console.log(this.form);
+    } else {
+      return;
+    }
+  }
 
   onSaveProperty() {
     if (this.form.invalid) {
@@ -125,8 +125,4 @@ export class AddPropertyComponent implements OnInit {
     }
     this.form.reset();
   }
-
-
-
-  
 }
