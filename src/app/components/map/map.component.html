@@ -1,13 +1,10 @@
-<!-- <div id="popup-container">
-    <p id="popup-coordinates"></p> -->
-<!-- </div>
+<div id="popup-container">
+    <p id="popup-coordinates"></p>
+</div>
 <div class="map-container">
     <app-map [map]="map"></app-map>
-</div> -->
+</div>
 
-<agm-map [latitude]="latitude" [longitude]="longitude" [agmDrawingManager]="drawing">
+<agm-map [latitude]='latitude' [longitude]="longitude">
+
 </agm-map>
-
-<agm-drawing-manager #drawing="agmDrawingManager" [circleOptions]="{fillColor: 'red', radius: 150}"></agm-drawing-manager>
-
-<!-- [mapTypeId]="mapType " -->
