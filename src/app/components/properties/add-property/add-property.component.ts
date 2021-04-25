@@ -1,4 +1,4 @@
-import { Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Input, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
 import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
 
@@ -16,19 +16,28 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   templateUrl: './add-property.component.html',
   styleUrls: ['./add-property.component.css'],
 })
-export class AddPropertyComponent implements OnInit {
+export class AddPropertyComponent implements OnInit, AfterViewInit{
 
   @Input() addressType!: string;
   @Output() setAddress: EventEmitter<any> = new EventEmitter();
   @ViewChild('addressText')
-  addressText: any
-  autocompleteInput!: string;
+  
+  // options:  {
+  //     types: ['address'],
+  //   componentRestrictions: {
+  //     country: "US",
+  //     state: "AZ",
+  //   }
+  // }
   queryWait!: boolean;
   
+  public AddressChange(address: any) {
+    this.enteredAddress=address.formatted_address
+  }
   
   
   enteredName = '';
-  enteredAddress = '';
+  enteredAddress: any = '';
   isLoading: Boolean = true;
   private mode = 'add';
   private propertyId: any;
@@ -40,7 +49,14 @@ export class AddPropertyComponent implements OnInit {
     public propertyService: PropertyService,
     public route: ActivatedRoute,
     public formBuilder: FormBuilder
-  ) {}
+  ) { }
+
+
+ 
+  
+  ngAfterViewInit() {
+    
+}
 
   ngOnInit() {
     //===> Form Controls
@@ -52,9 +68,7 @@ export class AddPropertyComponent implements OnInit {
         validators: [Validators.required, Validators.minLength(5)],
       }),
 
-      image: new FormControl(null, {
-        validators: [],
-      }),
+      
     });
     //<=== Form Controls
 
@@ -84,6 +98,7 @@ export class AddPropertyComponent implements OnInit {
     });
   }
 
+
   // shortcut for form fields template access for validators
 
   get getControl() {
@@ -92,26 +107,6 @@ export class AddPropertyComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form);
-  }
-
-  onImagePicked(event: Event) {
-    let imageFile;
-    let eventCasttoHtml = event.target as HTMLInputElement;
-    if (eventCasttoHtml.files) {
-      imageFile = eventCasttoHtml.files[0];
-      this.form.patchValue({ image: imageFile });
-      this.form.get('image')?.updateValueAndValidity();
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result as string;
-      };
-      reader.readAsDataURL(imageFile);
-
-      console.log(imageFile);
-      console.log(this.form);
-    } else {
-      return;
-    }
   }
 
   onSaveProperty() {

@@ -8,18 +8,12 @@
             <mat-error *ngIf="getControl.name.errors?.required">Please enter a name</mat-error>
             <mat-error *ngIf="getControl.name.errors?.minlength">Minimum 3 characters</mat-error>
         </mat-form-field>
-        <div>
-            <button class="image-button" mat-stroked-button type="button" (click)="filePicker.click()">
-        Choose Image Map
-      </button>
-            <input type="file" #filePicker (change)="onImagePicked($event)" />
-        </div>
-        <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && getControl.image.valid">
-            <img [src]="imagePreview" [alt]="form.value.name" />
-        </div>
+
 
         <mat-form-field>
-            <input matInput rows="2" formControlName="address" placeholder="Address" required />
+            <input matInput rows="1" addressType="establishment" formControlName="address" placeholder="Address" required (onAddressChange)="AddressChange($event)" ngx-google-places-autocomplete />
+            <h1>{{enteredAddress}}</h1>
+
 
             <mat-error *ngIf="getControl.address.invalid">Please enter an address
             </mat-error>

@@ -22,10 +22,10 @@ import { ReportListComponent } from './components/report-list/report-list.compon
 
 import { ReportComponent } from './components/report/report.component';
 
+import { GooglePlaceModule } from "ngx-google-places-autocomplete"
 
 
-// import { ToastrModule } from 'ngx-toastr';
-// import { ToastrNotificationsComponent } from './components/toastr-notifications/toastr-notifications.component';
+
 
 @NgModule({
   declarations: [
@@ -50,8 +50,9 @@ import { ReportComponent } from './components/report/report.component';
     ReactiveFormsModule,
     FormsModule,
     AgmCoreModule .forRoot({
-      apiKey: 'AIzaSyCNaS5t8NFDeburFa-AebErmmuvkDNxClQ'
-    })
+      apiKey: 'AIzaSyDbpD2C4fBsYbzVQwEr1rIaNbl8zVyimok'
+    }),
+    GooglePlaceModule,
 
     // ToastrNotificationsComponent,
   ],
