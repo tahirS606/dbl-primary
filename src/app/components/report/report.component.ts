@@ -21,8 +21,7 @@ export class ReportComponent implements OnInit {
   map: Map | undefined;
   projection!: Projection;
 
-  latitude!: 51;
-  longitude!: 8;
+ 
 
   @Output() mapReady = new EventEmitter<Map>()
 
@@ -36,7 +35,7 @@ export class ReportComponent implements OnInit {
   
     this.map = new Map({
       view: new View({
-        center: [-12080385, 7567433],
+        center: [0, 0],
         zoom: 17,       
         // maxZoom: 17,
         minZoom: 0,

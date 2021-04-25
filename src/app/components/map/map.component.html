@@ -5,6 +5,8 @@
     <app-map [map]="map"></app-map>
 </div> -->
 
-<agm-map [latitude]='latitude' [longitude]="longitude">
+<agm-map [latitude]='latitude' [longitude]='longitude'>
 
 </agm-map>
+
+<agm-drawing-manager #drawing="agmDrawingManager" [circleOptions]="{fillColor: 'red', radius: 150}"></agm-drawing-manager>
