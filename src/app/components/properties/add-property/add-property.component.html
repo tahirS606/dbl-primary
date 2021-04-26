@@ -10,18 +10,17 @@
         </mat-form-field>
 
 
-        <mat-form-field>
-            <mat-google-maps-autocomplete matInput formControlName="address" addressType="establishment" placeholder="Address" required>
-            </mat-google-maps-autocomplete>
+        <!-- <mat-form-field> -->
+        <mat-search-google-maps-autocomplete country="us" formControlName="address" required (onAddressChange)="AddressChange($event)" (onGermanAddressMapped)="onGermanAddressMapped($event)">
 
-            <input matInput rows="1" addressType="establishment" formControlName="address" required ngx-google-places-autocomplete />
-            <!-- <h1>{{enteredAddress}}</h1> -->
+        </mat-search-google-maps-autocomplete>
+        <h1>{{displayAddress}}</h1>
 
 
-            <mat-error *ngIf="getControl.address.invalid">Please enter an address
-            </mat-error>
-            <mat-error *ngIf="getControl.address.errors?.minlength">Address must be at least 3 characters</mat-error>
-        </mat-form-field>
+        <mat-error *ngIf="getControl.address.invalid">Please enter an address
+        </mat-error>
+        <mat-error *ngIf="getControl.address.errors?.minlength">Address must be at least 3 characters</mat-error>
+        <!-- </mat-form-field> -->
         <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
       Save Property
     </button>

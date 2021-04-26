@@ -16,6 +16,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { GermanAddress, Appearance, Location } from '@angular-material-extensions/google-maps-autocomplete';
 
 @Component({
   selector: 'app-add-property',
@@ -27,14 +28,6 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   @Input() addressType!: string;
   @Output() setAddress: EventEmitter<any> = new EventEmitter();
   @ViewChild('addressText')
-  
-  // options:  {
-  //     types: ['address'],
-  //   componentRestrictions: {
-  //     country: "US",
-  //     state: "AZ",
-  //   }
-  // }
     
   queryWait!: boolean;
   
@@ -43,6 +36,8 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   }
   
   isLoading: Boolean = true;
+
+  displayAddress?: string
   
   enteredName = '';
   enteredAddress: any = '';
@@ -70,8 +65,9 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
       }),
       address: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(5)],
+
       }),
-      
+
     });
     //<=== Form Controls
 
@@ -129,5 +125,13 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
       );
     }
     this.form.reset();
+  }
+
+  onGermanAddressMapped($event: GermanAddress) {
+    const addressAsString = $event.displayAddress?.toString
+    const latitude = $event.geoLocation?.latitude;
+    const longitude = $event.geoLocation?.longitude;
+    console.log($event, $event.displayAddress);
+    console.log(latitude, longitude)
   }
 }
