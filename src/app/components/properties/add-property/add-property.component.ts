@@ -1,4 +1,10 @@
-import { Input, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  AfterViewInit
+} from '@angular/core';
 import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
 
@@ -29,21 +35,21 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   //     state: "AZ",
   //   }
   // }
+    
   queryWait!: boolean;
   
   public AddressChange(address: any) {
     this.enteredAddress=address.formatted_address
   }
   
+  isLoading: Boolean = true;
   
   enteredName = '';
   enteredAddress: any = '';
-  isLoading: Boolean = true;
   private mode = 'add';
   private propertyId: any;
   public property!: Property;
   form!: FormGroup;
-  imagePreview!: string;
 
   constructor(
     public propertyService: PropertyService,
@@ -51,8 +57,6 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     public formBuilder: FormBuilder
   ) { }
 
-
- 
   
   ngAfterViewInit() {
     
@@ -67,7 +71,6 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
       address: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(5)],
       }),
-
       
     });
     //<=== Form Controls
@@ -97,7 +100,6 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
       }
     });
   }
-
 
   // shortcut for form fields template access for validators
 

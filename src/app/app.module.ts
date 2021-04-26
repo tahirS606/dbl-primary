@@ -24,7 +24,8 @@ import { ReportListComponent } from './components/report-list/report-list.compon
 import { ReportComponent } from './components/report/report.component';
 
 import { GooglePlaceModule } from "ngx-google-places-autocomplete"
-import { AgmDrawingModule } from '@agm/drawing'
+import { AgmDrawingModule } from '@agm/drawing';
+import { AutocompleteAddressComponent } from './components/properties/autocomplete-address/autocomplete-address.component'
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AgmDrawingModule } from '@agm/drawing'
     ReportListComponent,
     ReportComponent,
     SignUpComponent,
+    AutocompleteAddressComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,7 @@ import { AgmDrawingModule } from '@agm/drawing'
     FormsModule,
     AgmCoreModule .forRoot({
       apiKey: 'AIzaSyDbpD2C4fBsYbzVQwEr1rIaNbl8zVyimok',
-      libraries: ['drawing']
+      libraries: ['drawing', 'places']
     }),
     GooglePlaceModule,
     AgmDrawingModule,

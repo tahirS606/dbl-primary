@@ -8,6 +8,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/google-maps-autocomplete';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
+    MatGoogleMapsAutocompleteModule,
     MatGridListModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
@@ -28,6 +30,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
+    MatGoogleMapsAutocompleteModule,
+    MatGridListModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
   ],

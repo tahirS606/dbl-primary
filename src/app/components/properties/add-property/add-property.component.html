@@ -11,8 +11,11 @@
 
 
         <mat-form-field>
-            <input matInput rows="1" addressType="establishment" formControlName="address" placeholder="Address" required (onAddressChange)="AddressChange($event)" ngx-google-places-autocomplete />
-            <h1>{{enteredAddress}}</h1>
+            <mat-google-maps-autocomplete matInput formControlName="address" addressType="establishment" placeholder="Address" required>
+            </mat-google-maps-autocomplete>
+
+            <input matInput rows="1" addressType="establishment" formControlName="address" required ngx-google-places-autocomplete />
+            <!-- <h1>{{enteredAddress}}</h1> -->
 
 
             <mat-error *ngIf="getControl.address.invalid">Please enter an address
@@ -22,5 +25,6 @@
         <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
       Save Property
     </button>
+
     </form>
 </mat-card>
