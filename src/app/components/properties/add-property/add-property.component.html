@@ -6,24 +6,17 @@
             <input matInput formControlName="name" type="text" placeholder="Property Name" required />
 
             <mat-error *ngIf="getControl.name.errors?.required">Please enter a name</mat-error>
-            <mat-error *ngIf="getControl.name.errors?.minlength">Minimum 3 characters</mat-error>
+            <!-- <mat-error *ngIf="getControl.name.errors?.minlength">Minimum 3 characters</mat-error> -->
         </mat-form-field>
 
+        <mat-form-field>
+            <input matInput matGoogleMapsAutocomplete formControlName="address" type="address" placeholder="Please enter an address" required (onAddressChange)="AddressChange($event)" (onGermanAddressMapped)="onGermanAddressMapped($event)" />
 
-        <!-- <mat-form-field> -->
-        <mat-search-google-maps-autocomplete country="us" formControlName="address" required (onAddressChange)="AddressChange($event)" (onGermanAddressMapped)="onGermanAddressMapped($event)">
-
-        </mat-search-google-maps-autocomplete>
-        <h1>{{displayAddress}}</h1>
-
-
-        <mat-error *ngIf="getControl.address.invalid">Please enter an address
-        </mat-error>
-        <mat-error *ngIf="getControl.address.errors?.minlength">Address must be at least 3 characters</mat-error>
-        <!-- </mat-form-field> -->
+            <mat-error *ngIf="getControl.address.invalid">Please enter an address
+            </mat-error>
+        </mat-form-field>
         <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
       Save Property
     </button>
-
     </form>
 </mat-card>

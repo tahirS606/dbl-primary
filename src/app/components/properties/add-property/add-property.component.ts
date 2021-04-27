@@ -1,3 +1,4 @@
+
 import {
   Input,
   Output,
@@ -16,7 +17,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { GermanAddress, Appearance, Location } from '@angular-material-extensions/google-maps-autocomplete';
+import { GermanAddress } from '@angular-material-extensions/google-maps-autocomplete';
 
 @Component({
   selector: 'app-add-property',
@@ -61,10 +62,10 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     //===> Form Controls
     this.form = new FormGroup({
       name: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)],
+        validators: [Validators.required],
       }),
       address: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(5)],
+        validators: [Validators.required],
 
       }),
 
@@ -127,11 +128,13 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     this.form.reset();
   }
 
-  onGermanAddressMapped($event: GermanAddress) {
-    const addressAsString = $event.displayAddress?.toString
+  onGermanAddressMapped($event: any) {
+    const addressAsString = $event.displayAddress
     const latitude = $event.geoLocation?.latitude;
     const longitude = $event.geoLocation?.longitude;
-    console.log($event, $event.displayAddress);
-    console.log(latitude, longitude)
+    console.log($event);
+    console.log(addressAsString, latitude, longitude)
+    return 
   }
+
 }
