@@ -10,7 +10,7 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput matGoogleMapsAutocomplete formControlName="address" type="address" placeholder="Please enter an address" required (onAddressChange)="AddressChange($event)" (onGermanAddressMapped)="onGermanAddressMapped($event)" />
+            <input matInput matGoogleMapsAutocomplete formControlName="address" type="address" placeholder="Please enter an address" required (onGermanAddressMapped)="onGermanAddressMapped($event)" />
 
             <mat-error *ngIf="getControl.address.invalid">Please enter an address
             </mat-error>

@@ -3,8 +3,8 @@ import {
   Input,
   Output,
   EventEmitter,
-  ViewChild,
-  AfterViewInit
+  AfterViewInit,
+  
 } from '@angular/core';
 import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
@@ -28,20 +28,16 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
 
   @Input() addressType!: string;
   @Output() setAddress: EventEmitter<any> = new EventEmitter();
-  @ViewChild('addressText')
-    
-  queryWait!: boolean;
+  latitude!: string;
+  longitude!: string; 
   
-  public AddressChange(address: any) {
-    this.enteredAddress=address.formatted_address
-  }
+  // public AddressChange(address: any) {
+  //   this.address=address.formatted_address
+  // }
   
   isLoading: Boolean = true;
-
-  displayAddress?: string
-  
-  enteredName = '';
-  enteredAddress: any = '';
+  enteredName: string = '';
+  address: string = '';
   private mode = 'add';
   private propertyId: any;
   public property!: Property;
@@ -62,11 +58,10 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     //===> Form Controls
     this.form = new FormGroup({
       name: new FormControl(null, {
-        validators: [Validators.required],
+        validators: [],
       }),
       address: new FormControl(null, {
         validators: [Validators.required],
-
       }),
 
     });
@@ -105,7 +100,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   }
 
   onSubmit() {
-    console.log(this.form);
+    console.log('form submission', this.form);
   }
 
   onSaveProperty() {
@@ -116,8 +111,10 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     if (this.mode === 'add') {
       this.propertyService.addProperty(
         this.form.value.name,
-        this.form.value.address
-      );
+        this.address)
+        console.log('add property address', this.address)
+        console.log('form.value.address:', this.form.value.address)
+      ;
     } else {
       this.propertyService.updateProperty(
         this.propertyId,
@@ -129,12 +126,18 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   }
 
   onGermanAddressMapped($event: any) {
-    const addressAsString = $event.displayAddress
-    const latitude = $event.geoLocation?.latitude;
-    const longitude = $event.geoLocation?.longitude;
-    console.log($event);
-    console.log(addressAsString, latitude, longitude)
-    return 
+
+    this.address = $event.displayAddress
+    this.latitude = $event.geoLocation?.latitude;
+    this.longitude = $event.geoLocation?.longitude;
+    console.log('german address mapped $event:', $event);
+    console.log('this.address', this.address, this.latitude, this.longitude)
+    console.log('type of address', typeof(this.address))
+  
+    // returns address as string
+
   }
 
-}
+  }
+
+
