@@ -51,9 +51,10 @@ export class PropertyService {
     return this.propertiesUpdated.asObservable();
   }
 
-  addProperty(name: string, address: string) {
-    console.log('add property inputs', 'name:', name, 'address:', address)
-    const property: Property = { id: '', name: name, address: address };
+  addProperty(name: string, address: string, latitude: number, longitude: number) {
+    console.log('add property inputs', 'name:', name, 'address:', address, longitude, latitude)
+
+    const property: Property = { id: '', name: name, address: address, longitude: longitude , latitude: latitude}
     this.http
       .post<{ message: string; propertyId: string }>(
         'http://localhost:3000/properties',
@@ -70,8 +71,8 @@ export class PropertyService {
     );
   }
 
-  updateProperty(id: string, name: string, address: string) {
-    const property: Property = { id: id, name: name, address: address };
+  updateProperty(id: string, name: string, address: string, longitude: number, latitude: number ) {
+    const property: Property = { id: id, name: name, address: address, longitude: longitude, latitude: latitude };
     this.http
       .put('http://localhost:3000/properties/' + id, property)
       .subscribe((response) => {

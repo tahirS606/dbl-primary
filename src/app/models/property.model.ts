@@ -2,9 +2,10 @@ export interface Property {
   id: string;
   name: string;
   address: string;
+  latitude: number;
+  longitude: number; }
   // needs map integration
-  // image
   // route
   // owner (current)
   // contact (email / phone?)
-}
+

@@ -28,8 +28,8 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
 
   @Input() addressType!: string;
   @Output() setAddress: EventEmitter<any> = new EventEmitter();
-  latitude!: string;
-  longitude!: string; 
+  latitude!: number;
+  longitude!: number; 
   
   // public AddressChange(address: any) {
   //   this.address=address.formatted_address
@@ -51,7 +51,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
 
   
   ngAfterViewInit() {
-    
+
 }
 
   ngOnInit() {
@@ -79,6 +79,8 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
               id: propertyData._id,
               name: propertyData.name,
               address: propertyData.address,
+              latitude: this.latitude, 
+              longitude: this.longitude
             };
             // populates form for editing =>
             this.form.setValue({
@@ -111,15 +113,17 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     if (this.mode === 'add') {
       this.propertyService.addProperty(
         this.form.value.name,
-        this.address)
-        console.log('add property address', this.address)
+        this.address, this.latitude, this.longitude)
+        console.log('add property address', this.address, this.latitude, this.longitude)
         console.log('form.value.address:', this.form.value.address)
       ;
     } else {
       this.propertyService.updateProperty(
         this.propertyId,
         this.form.value.name,
-        this.form.value.address
+        this.form.value.address,
+        this.latitude, 
+        this.longitude
       );
     }
     this.form.reset();
