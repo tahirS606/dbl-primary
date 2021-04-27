@@ -1,5 +1,11 @@
-import { Input, Output, EventEmitter, ViewChild } from '@angular/core';
-// import { mimeType } from './mime-type.validator';
+
+import {
+  Input,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+  
+} from '@angular/core';
 import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
 
@@ -11,42 +17,53 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { GermanAddress } from '@angular-material-extensions/google-maps-autocomplete';
 
 @Component({
   selector: 'app-add-property',
   templateUrl: './add-property.component.html',
   styleUrls: ['./add-property.component.css'],
 })
-export class AddPropertyComponent implements OnInit {
-  enteredName = '';
-  enteredAddress = '';
+export class AddPropertyComponent implements OnInit, AfterViewInit{
+
+  @Input() addressType!: string;
+  @Output() setAddress: EventEmitter<any> = new EventEmitter();
+  latitude!: string;
+  longitude!: string; 
+  
+  // public AddressChange(address: any) {
+  //   this.address=address.formatted_address
+  // }
+  
   isLoading: Boolean = true;
+  enteredName: string = '';
+  address: string = '';
   private mode = 'add';
   private propertyId: any;
   public property!: Property;
   form!: FormGroup;
-  imagePreview!: string;
 
   constructor(
     public propertyService: PropertyService,
     public route: ActivatedRoute,
     public formBuilder: FormBuilder
-  ) {}
+  ) { }
+
+  
+  ngAfterViewInit() {
+    
+}
 
   ngOnInit() {
     //===> Form Controls
     this.form = new FormGroup({
       name: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)],
+        validators: [],
       }),
       address: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(5)],
+        validators: [Validators.required],
       }),
 
-      image: new FormControl(null, {
-        validators: [],
-        // asyncValidators: [mimeType],
-      }),
     });
     //<=== Form Controls
 
@@ -83,27 +100,7 @@ export class AddPropertyComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form);
-  }
-
-  onImagePicked(event: Event) {
-    let imageFile;
-    let eventCasttoHtml = event.target as HTMLInputElement;
-    if (eventCasttoHtml.files) {
-      imageFile = eventCasttoHtml.files[0];
-      this.form.patchValue({ image: imageFile });
-      this.form.get('image')?.updateValueAndValidity();
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result as string;
-      };
-      reader.readAsDataURL(imageFile);
-
-      console.log(imageFile);
-      console.log(this.form);
-    } else {
-      return;
-    }
+    console.log('form submission', this.form);
   }
 
   onSaveProperty() {
@@ -114,8 +111,10 @@ export class AddPropertyComponent implements OnInit {
     if (this.mode === 'add') {
       this.propertyService.addProperty(
         this.form.value.name,
-        this.form.value.address
-      );
+        this.address)
+        console.log('add property address', this.address)
+        console.log('form.value.address:', this.form.value.address)
+      ;
     } else {
       this.propertyService.updateProperty(
         this.propertyId,
@@ -125,4 +124,20 @@ export class AddPropertyComponent implements OnInit {
     }
     this.form.reset();
   }
-}
+
+  onGermanAddressMapped($event: any) {
+
+    this.address = $event.displayAddress
+    this.latitude = $event.geoLocation?.latitude;
+    this.longitude = $event.geoLocation?.longitude;
+    console.log('german address mapped $event:', $event);
+    console.log('this.address', this.address, this.latitude, this.longitude)
+    console.log('type of address', typeof(this.address))
+  
+    // returns address as string
+
+  }
+
+  }
+
+

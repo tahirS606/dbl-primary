@@ -52,6 +52,7 @@ export class PropertyService {
   }
 
   addProperty(name: string, address: string) {
+    console.log('add property inputs', 'name:', name, 'address:', address)
     const property: Property = { id: '', name: name, address: address };
     this.http
       .post<{ message: string; propertyId: string }>(

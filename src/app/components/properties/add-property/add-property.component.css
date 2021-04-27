@@ -16,21 +16,9 @@ form {
     flex-flow: column;
 }
 
-mat-form-field {
+mat-form-field,
+mat-search-google-maps-autocomplete {
     padding: 20px;
-}
-
-input[type="file"] {
-    visibility: hidden;
-}
-
-.image-preview {
-    height: 5rem;
-    margin: 2rem;
-}
-
-.image-preview img {
-    max-height: 100%;
 }
 
 button {

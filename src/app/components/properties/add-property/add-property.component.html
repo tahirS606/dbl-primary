@@ -6,24 +6,14 @@
             <input matInput formControlName="name" type="text" placeholder="Property Name" required />
 
             <mat-error *ngIf="getControl.name.errors?.required">Please enter a name</mat-error>
-            <mat-error *ngIf="getControl.name.errors?.minlength">Minimum 3 characters</mat-error>
+            <!-- <mat-error *ngIf="getControl.name.errors?.minlength">Minimum 3 characters</mat-error> -->
         </mat-form-field>
-        <div>
-            <button class="image-button" mat-stroked-button type="button" (click)="filePicker.click()">
-        Choose Image Map
-      </button>
-            <input type="file" #filePicker (change)="onImagePicked($event)" />
-        </div>
-        <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && getControl.image.valid">
-            <img [src]="imagePreview" [alt]="form.value.name" />
-        </div>
 
         <mat-form-field>
-            <input matInput rows="2" formControlName="address" placeholder="Address" required />
+            <input matInput matGoogleMapsAutocomplete formControlName="address" type="address" placeholder="Please enter an address" required (onGermanAddressMapped)="onGermanAddressMapped($event)" />
 
             <mat-error *ngIf="getControl.address.invalid">Please enter an address
             </mat-error>
-            <mat-error *ngIf="getControl.address.errors?.minlength">Address must be at least 3 characters</mat-error>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
       Save Property

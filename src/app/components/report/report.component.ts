@@ -21,8 +21,7 @@ export class ReportComponent implements OnInit {
   map: Map | undefined;
   projection!: Projection;
 
-  latitude!: 51;
-  longitude!: 8;
+ 
 
   @Output() mapReady = new EventEmitter<Map>()
 
@@ -36,21 +35,14 @@ export class ReportComponent implements OnInit {
   
     this.map = new Map({
       view: new View({
-        center: [-12080385, 7567433],
+        center: [0, 0],
         zoom: 17,       
         // maxZoom: 17,
         minZoom: 0,
         rotation: 0,
       }),
       layers: [
-  //       new TileLayer({
-  //          source: new OSM({
-  //   attributions: ['Powered by Esri',
-  //                  'Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community'],
-  //   url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-  //            maxZoom: 100,
-  // })
-        // }),
+
           new TileLayer({
             maxZoom: 25, // visible at zoom levels 14 and below
             source: new OSM(), 

@@ -1,3 +1,4 @@
+
 import { AuthInterceptor } from './components/auth/auth-interceptor';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { AgmCoreModule } from '@agm/core';
@@ -22,10 +23,9 @@ import { ReportListComponent } from './components/report-list/report-list.compon
 
 import { ReportComponent } from './components/report/report.component';
 
-
-
-// import { ToastrModule } from 'ngx-toastr';
-// import { ToastrNotificationsComponent } from './components/toastr-notifications/toastr-notifications.component';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete"
+import { AgmDrawingModule } from '@agm/drawing';
+import { AutocompleteAddressComponent } from './components/properties/autocomplete-address/autocomplete-address.component'
 
 @NgModule({
   declarations: [
@@ -40,6 +40,7 @@ import { ReportComponent } from './components/report/report.component';
     ReportListComponent,
     ReportComponent,
     SignUpComponent,
+    AutocompleteAddressComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,10 +51,12 @@ import { ReportComponent } from './components/report/report.component';
     ReactiveFormsModule,
     FormsModule,
     AgmCoreModule .forRoot({
-      apiKey: 'AIzaSyCNaS5t8NFDeburFa-AebErmmuvkDNxClQ'
-    })
+      apiKey: 'AIzaSyDbpD2C4fBsYbzVQwEr1rIaNbl8zVyimok',
+      libraries: ['drawing', 'places']
+    }),
+    GooglePlaceModule,
+    AgmDrawingModule,
 
-    // ToastrNotificationsComponent,
   ],
  
   // multi says don't override additionals, just add
