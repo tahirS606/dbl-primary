@@ -1,3 +1,5 @@
+import { PropertyService } from './../../services/property.service';
+import { Property } from './../../models/property.model';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -9,12 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
 
-  constructor(
+  constructor(private propertyService: PropertyService
     ) { }
 
   ngOnInit(): void {
-  
-    
+   
     
   }
 }

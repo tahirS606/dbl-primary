@@ -52,7 +52,6 @@ export class PropertyService {
   }
 
   addProperty(name: string, address: string, latitude: number, longitude: number) {
-    console.log('add property in services inputs add property inputs', 'name:', name, 'address:', address, longitude, latitude)
 
     const property: Property = { id: '', name: name, address: address, latitude: latitude, longitude: longitude }
     this.http
@@ -67,7 +66,7 @@ export class PropertyService {
   }
 
   getProperty(id: string) {
-    return this.http.get<{ _id: string; name: string; address: string }>(
+    return this.http.get<{ _id: string; name: string; address: string; latitude: number; longitude: number }>(
       'http://localhost:3000/properties/' + id
     );
   }
