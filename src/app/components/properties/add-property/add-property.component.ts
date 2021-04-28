@@ -101,10 +101,6 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     return this.form.controls;
   }
 
-  onSubmit() {
-    console.log('form submission', this.form);
-  }
-
   onSaveProperty() {
     if (this.form.invalid) {
       console.log('form is invalid');
@@ -113,9 +109,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     if (this.mode === 'add') {
       this.propertyService.addProperty(
         this.form.value.name,
-        this.address, this.latitude, this.longitude)
-        console.log('add property address', this.address, this.latitude, this.longitude)
-        console.log('form.value.address:', this.form.value.address)
+        this.address, this.latitude, this.longitude)        
       ;
     } else {
       this.propertyService.updateProperty(
@@ -132,14 +126,11 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   onGermanAddressMapped($event: any) {
 
     this.address = $event.displayAddress
-    this.latitude = $event.geoLocation?.latitude;
-    this.longitude = $event.geoLocation?.longitude;
-    console.log('german address mapped $event:', $event);
+    this.latitude = $event.geoLocation.latitude;
+    this.longitude = $event.geoLocation.longitude;
+    
     console.log('this.address', this.address, this.latitude, this.longitude)
-    console.log('type of address', typeof(this.address))
-  
-    // returns address as string
-
+    
   }
 
   }

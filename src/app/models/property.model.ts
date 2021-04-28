@@ -3,8 +3,8 @@ export interface Property {
   name: string;
   address: string;
   latitude: number;
-  longitude: number; }
-  // needs map integration
+  longitude: number; 
+}
   // route
   // owner (current)
   // contact (email / phone?)

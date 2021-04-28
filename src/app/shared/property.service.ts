@@ -52,17 +52,18 @@ export class PropertyService {
   }
 
   addProperty(name: string, address: string, latitude: number, longitude: number) {
-    console.log('add property inputs', 'name:', name, 'address:', address, longitude, latitude)
+    console.log('add property in services inputs add property inputs', 'name:', name, 'address:', address, longitude, latitude)
 
-    const property: Property = { id: '', name: name, address: address, longitude: longitude , latitude: latitude}
+    const property: Property = { id: '', name: name, address: address, latitude: latitude, longitude: longitude }
     this.http
       .post<{ message: string; propertyId: string }>(
         'http://localhost:3000/properties',
-        property
+        property, 
       )
       .subscribe((responseData) => {
         this.router.navigate(['/']);
       });
+      console.log('what was suubmitted in service add property:', property)
   }
 
   getProperty(id: string) {
