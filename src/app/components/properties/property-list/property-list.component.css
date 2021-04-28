@@ -8,6 +8,11 @@ mat-paginator {
     margin-top: 2rem;
 }
 
+mat-accordian {
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
 .please-add-props {
     margin: auto;
     padding: 2rem;

@@ -28,8 +28,8 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
 
   @Input() addressType!: string;
   @Output() setAddress: EventEmitter<any> = new EventEmitter();
-  latitude!: string;
-  longitude!: string; 
+  latitude!: number;
+  longitude!: number; 
   
   // public AddressChange(address: any) {
   //   this.address=address.formatted_address
@@ -51,7 +51,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
 
   
   ngAfterViewInit() {
-    
+
 }
 
   ngOnInit() {
@@ -79,6 +79,8 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
               id: propertyData._id,
               name: propertyData.name,
               address: propertyData.address,
+              latitude: this.latitude, 
+              longitude: this.longitude
             };
             // populates form for editing =>
             this.form.setValue({
@@ -99,10 +101,6 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     return this.form.controls;
   }
 
-  onSubmit() {
-    console.log('form submission', this.form);
-  }
-
   onSaveProperty() {
     if (this.form.invalid) {
       console.log('form is invalid');
@@ -111,15 +109,15 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     if (this.mode === 'add') {
       this.propertyService.addProperty(
         this.form.value.name,
-        this.address)
-        console.log('add property address', this.address)
-        console.log('form.value.address:', this.form.value.address)
+        this.address, this.latitude, this.longitude)        
       ;
     } else {
       this.propertyService.updateProperty(
         this.propertyId,
         this.form.value.name,
-        this.form.value.address
+        this.form.value.address,
+        this.latitude, 
+        this.longitude
       );
     }
     this.form.reset();
@@ -128,14 +126,11 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   onGermanAddressMapped($event: any) {
 
     this.address = $event.displayAddress
-    this.latitude = $event.geoLocation?.latitude;
-    this.longitude = $event.geoLocation?.longitude;
-    console.log('german address mapped $event:', $event);
+    this.latitude = $event.geoLocation.latitude;
+    this.longitude = $event.geoLocation.longitude;
+    
     console.log('this.address', this.address, this.latitude, this.longitude)
-    console.log('type of address', typeof(this.address))
-  
-    // returns address as string
-
+    
   }
 
   }

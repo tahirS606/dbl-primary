@@ -8,6 +8,8 @@ router.post("", checkAuth,
         const property = new Property({
             name: req.body.name,
             address: req.body.address,
+            latitude: req.body.latitude,
+            longitude: req.body.longitude,
         });
         // console.log("property added, from properties.js", property);
         property.save().then((addedProperty) => {

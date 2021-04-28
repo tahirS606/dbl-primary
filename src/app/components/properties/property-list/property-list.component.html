@@ -13,7 +13,9 @@
                 <h5>{{ property?.address }}</h5>
             </mat-panel-title>
 
-            <mat-panel-description> Route: </mat-panel-description>
+            <mat-panel-description>
+                Lat: {{property?.latitude}} Long: {{property?.longitude}} Route:
+            </mat-panel-description>
 
             <mat-action-row *ngIf="userIsAuthenticated">
                 <button mat-button color="warn" (click)="onDelete(property.id)">
