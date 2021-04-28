@@ -1,4 +1,6 @@
-import { PropertyService } from './../../services/property.service';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { PropertyService } from './../../shared/property.service';
 import { Property } from './../../models/property.model';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,13 +13,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
 
-  constructor(private propertyService: PropertyService
+  id!: string; 
+
+  constructor(private propertyService: PropertyService,
+    private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
-   
+    this.route.paramMap.subscribe(params => {
+
+      const propertyId = params.get('propertyId');
+
+      console.log('id', propertyId);
+
+    });
     
   }
 }
-
-
