@@ -56,7 +56,7 @@ router.get("", (req, res, next) => {
             });
         });
 
-    router.get("", (req, res, next) => {
+    router.get("/:id", (req, res, next) => {
         Property.findById(req.params.id).then((property) => {
             if (property) {
                 res.status(200).json(property);

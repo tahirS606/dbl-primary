@@ -69,8 +69,10 @@ export class PropertyService {
   getProperty(id: string) {
     return this.http.get<{ _id: string; name: string; address: string; latitude: number; longitude: number }>(
       'http://localhost:3000/properties/' + id
-    );
+    )
   }
+
+
 
   getPropertyDataforNewReport(id: string){
     const property = this.http.get<{ _id: string; name: string; address: string; latitude: number; longitude: number }>(

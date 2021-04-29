@@ -2,9 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { PropertyService } from './../../shared/property.service';
 import { Property } from './../../models/property.model';
-import { Component, OnInit } from '@angular/core';
-
-
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-report',
@@ -13,18 +11,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
 
-  id!: string; 
+  property!: Property; 
+  propertyId!: any; 
 
   constructor(private propertyService: PropertyService,
     private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.propertyId = this.route.snapshot.paramMap.get('propertyId');
+    console.log(this.propertyId)
+        this.propertyService
+          .getProperty(this.propertyId)
+          .subscribe((propertyData) => {
+            this.property = {
+              id: propertyData._id,
+              name: propertyData.name,
+              address: propertyData.address,
+              latitude: propertyData.latitude, 
+              longitude: propertyData.longitude
+            };
 
-      const propertyId = params.get('propertyId');
-
-      console.log('id', propertyId);
+            console.log('this.property', this.property) 
 
     });
     
