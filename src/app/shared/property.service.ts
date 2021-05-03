@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root',
@@ -52,7 +53,6 @@ export class PropertyService {
   }
 
   addProperty(name: string, address: string, latitude: number, longitude: number) {
-    console.log('add property in services inputs add property inputs', 'name:', name, 'address:', address, longitude, latitude)
 
     const property: Property = { id: '', name: name, address: address, latitude: latitude, longitude: longitude }
     this.http
@@ -67,10 +67,32 @@ export class PropertyService {
   }
 
   getProperty(id: string) {
-    return this.http.get<{ _id: string; name: string; address: string }>(
+    return this.http.get<{ _id: string; name: string; address: string; latitude: number; longitude: number }>(
+      'http://localhost:3000/properties/' + id
+    )
+  }
+
+
+
+  getPropertyDataforNewReport(id: string){
+    const property = this.http.get<{ _id: string; name: string; address: string; latitude: number; longitude: number }>(
+      'http://localhost:3000/new-report/' + id
+    );
+    console.log(property)
+
+  }
+
+  getPropertyforReport(id: string) {
+    return this.http.get<{ _id: string; name: string; address: string; latitude: number; longitude: number }>(
       'http://localhost:3000/properties/' + id
     );
   }
+
+  // getPropertyCoords(id: string){
+  //   return this.http.get<{latitude: number; longitude: number}>(
+  //     'http://localhost:3000/new-report/' + id
+  //   );
+  // }
 
   updateProperty(id: string, name: string, address: string, longitude: number, latitude: number ) {
     const property: Property = { id: id, name: name, address: address, longitude: longitude, latitude: latitude };

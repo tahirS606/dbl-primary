@@ -1,11 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, NgZone, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-
-import Map from 'ol/Map';
-import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import Projection from 'ol/proj/Projection';
-import { Coordinate } from 'ol/coordinate';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { PropertyService } from './../../shared/property.service';
+import { Property } from './../../models/property.model';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-report',
@@ -14,47 +11,30 @@ import { Coordinate } from 'ol/coordinate';
 })
 export class ReportComponent implements OnInit {
 
-  @Input() center!: Coordinate;
-  @Input() zoom!: number;
+  property!: Property; 
+  propertyId!: any; 
 
-  view!: View;
-  map: Map | undefined;
-  projection!: Projection;
-
- 
-
-  @Output() mapReady = new EventEmitter<Map>()
-
-  
-
-  constructor(
-    private zone: NgZone,
-    private cd: ChangeDetectorRef) { }
+  constructor(private propertyService: PropertyService,
+    private route: ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
-  
-    this.map = new Map({
-      view: new View({
-        center: [0, 0],
-        zoom: 17,       
-        // maxZoom: 17,
-        minZoom: 0,
-        rotation: 0,
-      }),
-      layers: [
+    this.propertyId = this.route.snapshot.paramMap.get('propertyId');
+    console.log(this.propertyId)
+        this.propertyService
+          .getProperty(this.propertyId)
+          .subscribe((propertyData) => {
+            this.property = {
+              id: propertyData._id,
+              name: propertyData.name,
+              address: propertyData.address,
+              latitude: propertyData.latitude, 
+              longitude: propertyData.longitude
+            };
 
-          new TileLayer({
-            maxZoom: 25, // visible at zoom levels 14 and below
-            source: new OSM(), 
-            minZoom: 1,
-          }),
-        
-      ],
-      target: 'ol-map',
-      
+            console.log('this.property', this.property) 
+
     });
     
   }
 }
-
-
