@@ -14,6 +14,8 @@ export class ReportComponent implements OnInit {
   property!: Property; 
   propertyId!: any; 
 
+  date = new Date()
+
   constructor(private propertyService: PropertyService,
     private route: ActivatedRoute
     ) { }

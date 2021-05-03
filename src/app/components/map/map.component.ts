@@ -18,14 +18,27 @@ export class MapComponent implements OnInit {
   propertyId!: any; 
   property: any;
   zoom = 19; 
+  selectedArea = 0;
+  google: any;
+  OverlayType: any;
+
+
+  pointList: { latitude: number; longitude: number }[] = [];
+  drawingManager: any;
+  selectedShape: any;
   
+
 
   constructor(
     public propertyService: PropertyService,
     public route: ActivatedRoute 
     ) {
   }
+
+  
+
   ngOnInit() {
+
     
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
   console.log(this.propertyId)
@@ -49,4 +62,58 @@ export class MapComponent implements OnInit {
   })
     
   }
+
+  // sets current position
+
+ 
+  
+
+  onMapReady(map:any) {
+    this.initDrawingManager(map);
+  }
+
+  initDrawingManager = (map: any) => {
+    const self = this;
+    const options = {
+      drawingControl: true,
+      drawingControlOptions: {
+        drawingModes: ['polygon']
+      },
+      polygonOptions: {
+        draggable: true,
+        editable: true,
+      },
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+    };
+
+    const drawingManager = new google.maps.drawing.DrawingManager({
+    drawingMode: google.maps.drawing.OverlayType.MARKER,
+    drawingControl: true,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_CENTER,
+      drawingModes: [
+        google.maps.drawing.OverlayType.MARKER,
+        google.maps.drawing.OverlayType.CIRCLE,
+        google.maps.drawing.OverlayType.POLYGON,
+        google.maps.drawing.OverlayType.POLYLINE,
+        google.maps.drawing.OverlayType.RECTANGLE,
+      ],
+    },
+    markerOptions: {
+      icon:
+        "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+    },
+    circleOptions: {
+      fillColor: "#ffff00",
+      fillOpacity: 1,
+      strokeWeight: 5,
+      clickable: false,
+      editable: true,
+      zIndex: 1,
+    },
+  });
+  drawingManager.setMap(map);
+
+  }
+
 }
