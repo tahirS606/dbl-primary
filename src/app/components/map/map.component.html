@@ -1,5 +1,5 @@
-<agm-map [latitude]='latitude' [longitude]='longitude'>
+<agm-map [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'">
 
 </agm-map>
 
-<!-- <agm-drawing-manager #drawing="agmDrawingManager" [circleOptions]="{fillColor: 'red', radius: 150}"></agm-drawing-manager> -->
+<agm-drawing-manager #drawing="agmDrawingManager"></agm-drawing-manager>

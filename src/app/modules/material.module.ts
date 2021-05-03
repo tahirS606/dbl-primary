@@ -1,3 +1,7 @@
+import { AgmDrawingModule } from '@agm/drawing';
+
+// agm drawing module
+
 import { NgModule } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +16,7 @@ import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/goog
 
 @NgModule({
   imports: [
+    AgmDrawingModule, 
     MatButtonModule,
     MatExpansionModule,
     MatToolbarModule,
@@ -24,6 +29,7 @@ import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/goog
     MatProgressSpinnerModule,
   ],
   exports: [
+    AgmDrawingModule,
     MatButtonModule,
     MatExpansionModule,
     MatToolbarModule,
