@@ -6,7 +6,6 @@
     "types": [
       "jasmine",
       "googlemaps"]
-    ]
   },
   "files": [
     "src/test.ts",

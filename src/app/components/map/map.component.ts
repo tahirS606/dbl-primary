@@ -1,7 +1,7 @@
 import { Subscription, Observable, fromEventPattern } from 'rxjs';
 import { PropertyService } from './../../shared/property.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 declare const google: any;
 
@@ -26,6 +26,9 @@ export class MapComponent implements OnInit {
   minZoom = 18;
   maxZoom = 19; 
 
+  // report features
+
+  polygonCoords:[]=[]
 
   constructor(
     public propertyService: PropertyService,
@@ -67,6 +70,7 @@ export class MapComponent implements OnInit {
   initDrawingManager(map: any) {
     const options = {
       disableDefaultUI: true, 
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: true,
       drawingControlOptions: {
         drawingModes: ["polygon"]
@@ -83,21 +87,44 @@ export class MapComponent implements OnInit {
       fullScreenControl: true, 
   
       },
-      drawingMode: google.maps.drawing.OverlayType.POLYGON
     };
 
     const drawingManager = new google.maps.drawing.DrawingManager(options);
     drawingManager.setMap(map);
   }
+
+  onPolygonComplete($event:any){
+    (e:any)=>{
+      console.log('polygon complete')
+      console.log('shape coords', e)
+      alert($event.overlay.getPath().getArray());   
+    }
+
+  }
+
+  @Output() polygonComplete = new EventEmitter<google.maps.Polygon>();
+
+
+  // @Output() 
+  
+  // polygonComplete = new EventEmitter<google.maps.Polygon>().subscribe()
+  //   console.log
+  // };
+
+
   
 
   onShapeComplete(event:any){
     console.log('shape complete')
   }
 
+  // google.maps.event.addListener(drawingManager, 'polygonComplete', (event:any) => {          
+  //   if (event.type === google.maps.drawing.OverlayType.POLYGON) {                
+  //     alert(event.overlay.getPath().getArray());       }     }; 
+
+
+
 }
-
-
 
 
   

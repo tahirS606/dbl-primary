@@ -1,13 +1,15 @@
 <H1>Properties</H1>
 
-<!-- <mat-progress-spinner color="primary" *ngIf="!isLoading"></mat-progress-spinner> -->
+<mat-progress-spinner color="primary" *ngIf="!isLoading"></mat-progress-spinner>
 
 <div *ngFor="let property of properties">
     <mat-accordion multi="false">
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <h4 class="thumbnail-header">{{ property?.name }}</h4>
+                <h4>{{ property?.name }}</h4>
+
+
             </mat-expansion-panel-header>
             <mat-panel-title>
                 <h5>{{ property?.address }}</h5>
@@ -16,27 +18,20 @@
             <mat-panel-description>
                 Lat: {{ property.latitude }} Long: {{ property.longitude }} Route:
             </mat-panel-description>
-
             <mat-action-row *ngIf="userIsAuthenticated">
-                <button mat-button color="warn" (click)="onDelete(property.id)">
-          Delete
-        </button>
-                <!-- admin -->
-                <a mat-button color="primary" [routerLink]="['/edit-property', property.id]">Edit Property</a
+                <a mat-button color="primary" [routerLink]="['/new-report', property.id]">Create Report</a
         >
-        <a
-          mat-button
-          color="primary"
-          [routerLink]="['/new-report', property.id]"
-          >Create Report</a
-        >
-        <!-- <a
+
+          <!-- admin -->
+          <a mat-button color="primary" [routerLink]="['/edit-property', property.id]">Edit Property</a>
+                <button mat-button color="warn" (click)="onDelete(property.id)">Delete</button>
+                <!-- <a
           mat-button
           color="primary"
           [routerLink]="['/report-list', property.id]"
           >Reports</a
         > -->
-        <!-- <a mat-button color="primary">Add to Route</a> -->
+                <!-- <a mat-button color="primary">Add to Route</a> -->
             </mat-action-row>
         </mat-expansion-panel>
     </mat-accordion>

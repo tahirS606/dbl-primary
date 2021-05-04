@@ -2,7 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { PropertyService } from './../../shared/property.service';
 import { Property } from './../../models/property.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-report',
@@ -12,6 +12,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ReportComponent implements OnInit {
 
   property!: Property; 
+  
   propertyId!: any; 
 
   date = new Date()
