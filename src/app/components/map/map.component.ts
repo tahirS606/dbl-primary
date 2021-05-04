@@ -1,7 +1,7 @@
 import { Subscription, Observable, fromEventPattern } from 'rxjs';
 import { PropertyService } from './../../shared/property.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 declare const google: any;
 
@@ -20,8 +20,12 @@ export class MapComponent implements OnInit {
   longitude!: number; 
   propertyId!: any; 
   property: any;
+
+  // map features
   zoom = 19; 
-  
+  minZoom = 18;
+  maxZoom = 19; 
+
 
   constructor(
     public propertyService: PropertyService,
@@ -62,13 +66,22 @@ export class MapComponent implements OnInit {
 
   initDrawingManager(map: any) {
     const options = {
+      disableDefaultUI: true, 
       drawingControl: true,
       drawingControlOptions: {
         drawingModes: ["polygon"]
       },
       polygonOptions: {
         draggable: true,
-        editable: true
+        editable: true,
+        fillColor: "#ffff00",
+      fillOpacity: .25,
+      strokeWeight: 5,
+      strokeColor: 'red',
+      clickable: false,
+      zIndex: 1,
+      fullScreenControl: true, 
+  
       },
       drawingMode: google.maps.drawing.OverlayType.POLYGON
     };
@@ -76,35 +89,15 @@ export class MapComponent implements OnInit {
     const drawingManager = new google.maps.drawing.DrawingManager(options);
     drawingManager.setMap(map);
   }
+  
+
+  onShapeComplete(event:any){
+    console.log('shape complete')
+  }
+
 }
 
-  
-  // drawingManager = new google.maps.drawing.DrawingManager({
-  //   drawingMode: google.maps.drawing.OverlayType.MARKER,
-  //   drawingControl: true,
-  //   drawingControlOptions: {
-  //     position: google.maps.ControlPosition.TOP_CENTER,
-  //     drawingModes: [
-  //       google.maps.drawing.OverlayType.MARKER,
-  //       google.maps.drawing.OverlayType.CIRCLE,
-  //       google.maps.drawing.OverlayType.POLYGON,
-  //       google.maps.drawing.OverlayType.POLYLINE,
-  //       google.maps.drawing.OverlayType.RECTANGLE,
-  //     ],
-  //   },
-  //   markerOptions: {
-  //     icon:
-  //       "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
-  //   },
-  //   circleOptions: {
-  //     fillColor: "#ffff00",
-  //     fillOpacity: 1,
-  //     strokeWeight: 5,
-  //     clickable: false,
-  //     editable: true,
-  //     zIndex: 1,
-  //   },
-  // });
+
 
 
   
