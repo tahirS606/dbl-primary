@@ -25,6 +25,10 @@ export class MapComponent implements OnInit {
   zoom = 19; 
   minZoom = 18;
   maxZoom = 19; 
+  disableDefaultUI: boolean = true;
+  fullscreenControl: boolean = true; 
+  rotateControl: boolean = true;
+  scaleControl: boolean = false;
 
   // report features
 
@@ -69,9 +73,8 @@ export class MapComponent implements OnInit {
 
   initDrawingManager(map: any) {
     const options = {
-      disableDefaultUI: true, 
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
-      drawingControl: true,
+      drawingControl: false,
       drawingControlOptions: {
         drawingModes: ["polygon"]
       },
@@ -79,12 +82,12 @@ export class MapComponent implements OnInit {
         draggable: true,
         editable: true,
         fillColor: "#ffff00",
-      fillOpacity: .25,
-      strokeWeight: 5,
-      strokeColor: 'red',
-      clickable: false,
-      zIndex: 1,
-      fullScreenControl: true, 
+        fillOpacity: .25,
+        strokeWeight: 5,
+        strokeColor: 'red',
+        clickable: false,
+        zIndex: 1,
+        fullScreenControl: true, 
   
       },
     };

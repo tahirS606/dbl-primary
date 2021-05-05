@@ -1,2 +1,3 @@
-<agm-map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (polygonComplete)="onPolygonComplete($event)" (mapReady)="onMapReady($event)">
+<agm-map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (polygonComplete)="onPolygonComplete($event)" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl"
+    [rotateControl]="rotateControl">
 </agm-map>
