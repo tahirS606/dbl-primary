@@ -29,6 +29,9 @@ export class MapComponent implements OnInit {
   fullscreenControl: boolean = true; 
   rotateControl: boolean = true;
   scaleControl: boolean = false;
+  streetViewControl: boolean = false;
+
+  zoomControl: boolean = false;
 
   // report features
 
@@ -66,6 +69,11 @@ export class MapComponent implements OnInit {
 
   })
   }
+
+ overlayComplete(overlay:any){
+   console.log('overlay', overlay)
+  console.log('button clicked')
+ }
   
    onMapReady(map:any) {
     this.initDrawingManager(map);
