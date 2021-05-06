@@ -1,10 +1,12 @@
-import { Component, } from '@angular/core';
+import { ReportService } from './../../services/report.service';
+import { Task } from './../../../models/Task.model';
+
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { 
   FormBuilder,  
   FormGroup,
   FormArray,
   FormControl,
-  ValidatorFn 
 } from '@angular/forms';
 
 @Component({
@@ -12,9 +14,10 @@ import {
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.css']
 })
-export class CheckboxComponent {
-  v: any; 
+export class CheckboxComponent implements OnInit{
+  tasks: Task[] = []
   form: FormGroup;
+
 
   webData = [
     { id: 1, name: 'Raking' },
@@ -28,7 +31,9 @@ export class CheckboxComponent {
     return this.form.controls.orders as FormArray;
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    public reportService: ReportService ) {
 
     this.form = this.formBuilder.group({
       orders: new FormArray([])
@@ -41,14 +46,12 @@ export class CheckboxComponent {
   }
 
   submit() {
-
     const selectedOrderIds = this.form.value.orders
       .map((checked:Boolean, i:number) => checked ? this.webData[i].id : null)
       // .filter(v => v !== null);
     console.log(selectedOrderIds);
   }
 
-  ngOnInit(): void {
-  }
-
-}
+  ngOnInit() {
+    
+}}
