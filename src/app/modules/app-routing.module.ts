@@ -41,10 +41,7 @@ const routes: Routes = [
     path: 'user/signup',
     component: SignUpComponent,
   },
-// {
-//   path: 'properties/:propertyId',
-//   children
-// }
+
 
 ];
 

@@ -11,7 +11,7 @@ router.post("", checkAuth,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
         });
-        // console.log("property added, from properties.js", property);
+
         property.save().then((addedProperty) => {
             res.status(201).json({
                 message: "Property added successfully",
