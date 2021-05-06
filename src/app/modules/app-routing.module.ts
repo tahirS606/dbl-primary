@@ -8,7 +8,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddPropertyComponent } from './../components/properties/add-property/add-property.component';
 import { PropertyListComponent } from './../components/properties/property-list/property-list.component';
 import { ReportListComponent } from '../components/report-list/report-list.component';
-// import { LoginComponent } from '../components/registration/login/login.component';
 
 const routes: Routes = [
   { path: '', component: PropertyListComponent },

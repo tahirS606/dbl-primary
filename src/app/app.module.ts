@@ -28,7 +28,8 @@ import { AgmDrawingModule } from '@agm/drawing';
 import { AutocompleteAddressComponent } from './components/properties/autocomplete-address/autocomplete-address.component';
 import { PolygonecompleteDirective } from './components/map/polygonecomplete.directive';
 import { DisplayReportComponent } from './components/report/display-report/display-report.component';
-import { CheckboxComponent } from './components/report/checkbox/checkbox.component'
+import { CheckboxComponent } from './components/report/checkbox/checkbox.component';
+import { ReportServiceComponent } from './components/services/report-service/report-service.component'
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { CheckboxComponent } from './components/report/checkbox/checkbox.compone
     PolygonecompleteDirective,
     DisplayReportComponent,
     CheckboxComponent,
+    ReportServiceComponent,
   ],
   imports: [
     BrowserModule,
