@@ -1,7 +1,7 @@
 import { Subscription, Observable, fromEventPattern } from 'rxjs';
 import { PropertyService } from './../../shared/property.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, HostListener, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, HostListener, Input, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
 declare const google: any;
 
@@ -13,8 +13,9 @@ declare const google: any;
 })
 
   
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterViewInit {
 
+  @Input()
   map: any; 
    
   latitude!: number; 
@@ -47,8 +48,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-
- 
+    
     // get property id from url
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
   console.log(this.propertyId)
@@ -108,9 +108,6 @@ export class MapComponent implements OnInit {
     drawingManager.setMap(map);
   }
 
-  // eventListener = new google.maps.addEventListener('polygoncomplete', function($event:any){
-  //   console.log($event)
-  // })
 
   onPolygonComplete($event:any){
     (e:any)=>{
@@ -126,5 +123,13 @@ export class MapComponent implements OnInit {
   // google.maps.event.addListener(drawingManager, 'polygonComplete', (event:any) => {          
   //   if (event.type === google.maps.drawing.OverlayType.POLYGON) {                
   //     alert(event.overlay.getPath().getArray());       }     }; 
+
+  ngAfterViewInit(){
+
+    this.map.addEventListener('polygoncomplete', function($event:any){
+      console.log($event)
+    })
+
+  }
 }
 

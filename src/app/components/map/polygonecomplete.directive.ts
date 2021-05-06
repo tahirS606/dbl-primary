@@ -10,7 +10,13 @@ export class PolygonecompleteDirective {
     console.log('polygon complete')
   }
 
- 
+  @HostListener('mouseenter') mouseover(eventData: Event) {
+    console.log(eventData)
+  }
+
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
+    console.log(eventData)
+  }
 
 
   constructor() {  }

@@ -29,7 +29,7 @@ import { AutocompleteAddressComponent } from './components/properties/autocomple
 import { PolygonecompleteDirective } from './components/map/polygonecomplete.directive';
 import { DisplayReportComponent } from './components/report/display-report/display-report.component';
 import { CheckboxComponent } from './components/report/checkbox/checkbox.component';
-import { ReportServiceComponent } from './components/services/report-service/report-service.component'
+
 
 @NgModule({
   declarations: [
@@ -48,7 +48,6 @@ import { ReportServiceComponent } from './components/services/report-service/rep
     PolygonecompleteDirective,
     DisplayReportComponent,
     CheckboxComponent,
-    ReportServiceComponent,
   ],
   imports: [
     BrowserModule,

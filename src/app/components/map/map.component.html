@@ -1,6 +1,7 @@
-<agm-map PolygonecompleteDirective id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl"
+<agm-map #map PolygonecompleteDirective id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl"
     [rotateControl]="rotateControl" [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
 </agm-map>
+
 
 
 <button color="primary" (click)="overlayComplete($event)" mat-button>Overlay Complete</button>
