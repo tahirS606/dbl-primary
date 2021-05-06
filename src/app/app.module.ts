@@ -25,7 +25,10 @@ import { ReportComponent } from './components/report/report.component';
 
 import { GooglePlaceModule } from "ngx-google-places-autocomplete"
 import { AgmDrawingModule } from '@agm/drawing';
-import { AutocompleteAddressComponent } from './components/properties/autocomplete-address/autocomplete-address.component'
+import { AutocompleteAddressComponent } from './components/properties/autocomplete-address/autocomplete-address.component';
+import { PolygonecompleteDirective } from './components/map/polygonecomplete.directive';
+import { DisplayReportComponent } from './components/report/display-report/display-report.component';
+import { CheckboxComponent } from './components/report/checkbox/checkbox.component'
 
 @NgModule({
   declarations: [
@@ -41,6 +44,9 @@ import { AutocompleteAddressComponent } from './components/properties/autocomple
     ReportComponent,
     SignUpComponent,
     AutocompleteAddressComponent,
+    PolygonecompleteDirective,
+    DisplayReportComponent,
+    CheckboxComponent,
   ],
   imports: [
     BrowserModule,

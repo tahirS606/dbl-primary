@@ -1,7 +1,7 @@
 import { Property } from './../../../models/property.model';
 import { PropertyService } from './../../../shared/property.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-property-detail',
@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PropertyDetailComponent implements OnInit {
 
-  property!: Property; 
+  @Input() property!: Property; 
   propertyId!: any;
 
   constructor(private propertyService: PropertyService ,

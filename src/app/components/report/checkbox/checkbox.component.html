@@ -1,0 +1,33 @@
+<mat-card>
+    <mat-card-title>
+        <h1>Tasks</h1>
+    </mat-card-title>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <label formArrayName="orders" *ngFor="let order of ordersFormArray.controls; let i=index">
+    <mat-checkbox [formControlName]="i">  
+      {{webData[i].name}}
+    </mat-checkbox>
+    <br/>
+  </label>
+        <br/>
+        <mat-form-field>Add Photo</mat-form-field>
+        <button mat-button color='primary' class="btn btn-success">submit</button>
+    </form>
+</mat-card>
+
+<!-- <mat-card>
+    
+    
+    <mat-card-content>
+      <h2>Tasks</h2>
+       <form [formGroup]="checkbox" (ngSubmit)="submitReport()">
+        <section class="example-section" *ngFor="let task of tasks">
+          <mat-checkbox class="example-margin"
+              (change)="onChangeEventFunc(cartoon.name, $event)">
+          {{ cartoon.name }}
+          </mat-checkbox>
+        </section>
+        <button mat-raised-button color="accent">Submit</button>
+       </form>
+    </mat-card-content>
+    </mat-card> -->

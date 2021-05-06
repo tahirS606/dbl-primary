@@ -15,11 +15,13 @@ declare const google: any;
   
 export class MapComponent implements OnInit {
 
-  
+  map: any; 
+   
   latitude!: number; 
   longitude!: number; 
   propertyId!: any; 
-  property: any;
+
+  @Output() property: any;
 
   // map features
   zoom = 19; 
@@ -77,6 +79,7 @@ export class MapComponent implements OnInit {
   
    onMapReady(map:any) {
     this.initDrawingManager(map);
+    
   }
 
   initDrawingManager(map: any) {
@@ -93,7 +96,7 @@ export class MapComponent implements OnInit {
         fillOpacity: .25,
         strokeWeight: 5,
         strokeColor: 'red',
-        clickable: false,
+        clickable: true,
         zIndex: 1,
         fullScreenControl: true, 
   
@@ -101,8 +104,13 @@ export class MapComponent implements OnInit {
     };
 
     const drawingManager = new google.maps.drawing.DrawingManager(options);
+    
     drawingManager.setMap(map);
   }
+
+  // eventListener = new google.maps.addEventListener('polygoncomplete', function($event:any){
+  //   console.log($event)
+  // })
 
   onPolygonComplete($event:any){
     (e:any)=>{
@@ -115,28 +123,8 @@ export class MapComponent implements OnInit {
 
   @Output() polygonComplete = new EventEmitter<google.maps.Polygon>();
 
-
-  // @Output() 
-  
-  // polygonComplete = new EventEmitter<google.maps.Polygon>().subscribe()
-  //   console.log
-  // };
-
-
-  
-
-  onShapeComplete(event:any){
-    console.log('shape complete')
-  }
-
   // google.maps.event.addListener(drawingManager, 'polygonComplete', (event:any) => {          
   //   if (event.type === google.maps.drawing.OverlayType.POLYGON) {                
   //     alert(event.overlay.getPath().getArray());       }     }; 
-
-
-
 }
-
-
-  
 

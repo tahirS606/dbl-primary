@@ -3,6 +3,9 @@ import { AgmDrawingModule } from '@agm/drawing';
 // agm drawing module
 
 import { NgModule } from '@angular/core';
+
+
+import {MatCheckboxModule} from '@angular/material/checkbox'; 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,6 +21,7 @@ import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/goog
   imports: [
     AgmDrawingModule, 
     MatButtonModule,
+    MatCheckboxModule, 
     MatExpansionModule,
     MatToolbarModule,
     MatFormFieldModule,
@@ -31,6 +35,7 @@ import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/goog
   exports: [
     AgmDrawingModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatExpansionModule,
     MatToolbarModule,
     MatFormFieldModule,

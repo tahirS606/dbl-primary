@@ -11,7 +11,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
 
-  property!: Property; 
+  @Output() property!: Property; 
   
   propertyId!: any; 
 
