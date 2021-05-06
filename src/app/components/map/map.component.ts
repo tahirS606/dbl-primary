@@ -1,7 +1,14 @@
-import { Subscription, Observable, fromEventPattern } from 'rxjs';
+
 import { PropertyService } from './../../shared/property.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, HostListener, Input, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { 
+  Component, 
+  Input, 
+  OnInit, 
+  Output, 
+} from '@angular/core';
+import { PolygonManager, MapsAPILoader } from '@agm/core';
+
 
 declare const google: any;
 
@@ -13,7 +20,7 @@ declare const google: any;
 })
 
   
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit{
 
   @Input()
   map: any; 
@@ -41,9 +48,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   polygonCoords:[]=[]
 
   constructor(
+    // private polygonManager: PolygonManager,
     public propertyService: PropertyService,
     public route: ActivatedRoute,
-   
     ) {
   }
 
@@ -70,6 +77,10 @@ export class MapComponent implements OnInit, AfterViewInit {
           this.longitude = this.property.longitude; 
 
   })
+  }
+
+  mapClicked(){
+    console.log('clicked map')
   }
 
  overlayComplete(overlay:any){
@@ -108,28 +119,30 @@ export class MapComponent implements OnInit, AfterViewInit {
     drawingManager.setMap(map);
   }
 
-
-  onPolygonComplete($event:any){
-    (e:any)=>{
-      console.log('polygon complete')
-      console.log('shape coords', e)
-      alert($event.overlay.getPath().getArray());   
-    }
-
+  markerDragEnd($event: google.maps.MouseEvent) {
+    console.log($event);
+    this.latitude = $event.latLng.lat();
+    this.longitude = $event.latLng.lng();
   }
 
-  @Output() polygonComplete = new EventEmitter<google.maps.Polygon>();
+}
+
+
+  // onPolygonComplete($event){
+  //   (e:any)=>{
+  //     console.log('polygon complete')
+  //     console.log('shape coords', e)
+  //     alert($event.overlay.getPath().getArray());   
+  //   }
+
+  
+
+  // @Output() polygonComplete = new EventEmitter<google.maps.Polygon>();
 
   // google.maps.event.addListener(drawingManager, 'polygonComplete', (event:any) => {          
   //   if (event.type === google.maps.drawing.OverlayType.POLYGON) {                
   //     alert(event.overlay.getPath().getArray());       }     }; 
 
-  ngAfterViewInit(){
+ 
 
-    this.map.addEventListener('polygoncomplete', function($event:any){
-      console.log($event)
-    })
-
-  }
-}
 

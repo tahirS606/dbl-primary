@@ -1,7 +1,7 @@
 
 import { AuthInterceptor } from './components/auth/auth-interceptor';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule, PolygonManager } from '@agm/core';
 import { MapComponent } from './components/map/map.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddPropertyComponent } from './components/properties/add-property/add-property.component';
@@ -63,11 +63,11 @@ import { CheckboxComponent } from './components/report/checkbox/checkbox.compone
     }),
     GooglePlaceModule,
     AgmDrawingModule,
-
   ],
  
   // multi says don't override additionals, just add
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, 
+    PolygonManager],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

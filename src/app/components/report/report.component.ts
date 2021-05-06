@@ -1,5 +1,4 @@
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { PropertyService } from './../../shared/property.service';
 import { Property } from './../../models/property.model';
 import { Component, Input, OnInit, Output } from '@angular/core';
@@ -23,7 +22,7 @@ export class ReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
-    console.log(this.propertyId)
+    
         this.propertyService
           .getProperty(this.propertyId)
           .subscribe((propertyData) => {
@@ -34,8 +33,6 @@ export class ReportComponent implements OnInit {
               latitude: propertyData.latitude, 
               longitude: propertyData.longitude
             };
-
-            console.log('this.property', this.property) 
 
     });
     

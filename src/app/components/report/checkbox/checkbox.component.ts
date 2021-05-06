@@ -1,5 +1,5 @@
 import { ReportService } from './../../services/report.service';
-import { Task } from './../../../models/Task.model';
+import { Task } from '../../../models/Task.model';
 
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { 
