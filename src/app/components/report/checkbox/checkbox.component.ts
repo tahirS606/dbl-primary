@@ -18,7 +18,7 @@ export class CheckboxComponent implements OnInit{
   tasks: Task[] = []
   form: FormGroup;
 
-  
+
   webData = [
     { id: 1, name: 'Raking' },
     { id: 2, name: 'Mowing' },
@@ -53,5 +53,10 @@ export class CheckboxComponent implements OnInit{
   }
 
   ngOnInit() {
+    
+    const fetchedTasks = this.reportService.getTasks().subscribe()
+
+
+    console.log('fetchedTasks', fetchedTasks)
     
 }}

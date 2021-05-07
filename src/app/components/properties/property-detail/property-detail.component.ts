@@ -15,7 +15,6 @@ export class PropertyDetailComponent implements OnInit {
 
   checkProperty(property:Property){
     property = this.property
-    console.log(property)
   }
 
   constructor(
@@ -24,7 +23,8 @@ export class PropertyDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('property coming in', this.property)
+    console.log('property coming in', this.property) 
+    // undefined? 
 
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     console.log(this.propertyId)
@@ -38,10 +38,6 @@ export class PropertyDetailComponent implements OnInit {
               latitude: propertyData.latitude, 
               longitude: propertyData.longitude
             };
-
-            // console.log('this.property', this.property) 
-
     });
   }
-
 }

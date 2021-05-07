@@ -15,7 +15,7 @@ tasks:Task[]=[]
   ) { }
 
   getTasks(){
-  //   return this.http.get<{id: string, name: string}>('http://localhost:3000/tasks')
-  // }
+    return this.http.get<{id: string, name: string}>('http://localhost:3000/tasks')
+  }
 }
-}
+
