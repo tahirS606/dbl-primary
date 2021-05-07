@@ -1,7 +1,7 @@
 import { ReportService } from './../../services/report.service';
 import { Task } from '../../../models/task.model';
 
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { 
   FormBuilder,  
   FormGroup,
@@ -55,7 +55,6 @@ export class CheckboxComponent implements OnInit{
   ngOnInit() {
     
     const fetchedTasks = this.reportService.getTasks().subscribe()
-
 
     console.log('fetchedTasks', fetchedTasks)
     
