@@ -1,5 +1,5 @@
 import { ReportService } from './../../services/report.service';
-import { Task } from '../../../models/Task.model';
+import { Task } from '../../../models/task.model';
 
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { 
@@ -18,7 +18,7 @@ export class CheckboxComponent implements OnInit{
   tasks: Task[] = []
   form: FormGroup;
 
-
+  
   webData = [
     { id: 1, name: 'Raking' },
     { id: 2, name: 'Mowing' },

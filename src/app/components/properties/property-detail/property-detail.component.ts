@@ -13,10 +13,19 @@ export class PropertyDetailComponent implements OnInit {
   @Input() property!: Property; 
   propertyId!: any;
 
-  constructor(private propertyService: PropertyService ,
+  checkProperty(property:Property){
+    property = this.property
+    console.log(property)
+  }
+
+  constructor(
+    private propertyService: PropertyService ,
     private route: ActivatedRoute ) { }
 
   ngOnInit() {
+
+    console.log('property coming in', this.property)
+
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     console.log(this.propertyId)
         this.propertyService

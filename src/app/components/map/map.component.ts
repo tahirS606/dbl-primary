@@ -1,3 +1,4 @@
+import { Property } from './../../models/property.model';
 
 import { PropertyService } from './../../shared/property.service';
 import { ActivatedRoute } from '@angular/router';
@@ -7,7 +8,7 @@ import {
   OnInit, 
   Output, 
 } from '@angular/core';
-import { PolygonManager, MapsAPILoader } from '@agm/core';
+import { PolygonManager, MapsAPILoader, MouseEvent } from '@agm/core';
 
 
 declare const google: any;
@@ -28,8 +29,9 @@ export class MapComponent implements OnInit{
   latitude!: number; 
   longitude!: number; 
   propertyId!: any; 
+  address: any;
 
-  @Output() property: any;
+  @Output() property!: Property;
 
   // map features
   zoom = 19; 
@@ -40,6 +42,8 @@ export class MapComponent implements OnInit{
   rotateControl: boolean = true;
   scaleControl: boolean = false;
   streetViewControl: boolean = false;
+
+  private geoCoder : any;
 
   zoomControl: boolean = false;
 
@@ -55,6 +59,8 @@ export class MapComponent implements OnInit{
   }
 
   ngOnInit() {
+
+    // this.geoCoder = new google.maps.Geocoder;
     
     // get property id from url
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
@@ -96,7 +102,7 @@ export class MapComponent implements OnInit{
   initDrawingManager(map: any) {
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
-      drawingControl: false,
+      drawingControl: true,
       drawingControlOptions: {
         drawingModes: ["polygon"]
       },
@@ -119,13 +125,33 @@ export class MapComponent implements OnInit{
     drawingManager.setMap(map);
   }
 
-  markerDragEnd($event: google.maps.MouseEvent) {
+  markerDragEnd($event: MouseEvent) {
     console.log($event);
-    this.latitude = $event.latLng.lat();
-    this.longitude = $event.latLng.lng();
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lat;
   }
 
 }
+
+  // getAddress(latitude:number, longitude: number) {
+  //   this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results: any, status: string) => {
+  //     console.log(results);
+  //     console.log(status);
+  //     if (status === 'OK') {
+  //       if (results[0]) {
+  //         this.zoom = 12;
+  //         this.address = results[0].formatted_address;
+  //       } else {
+  //         window.alert('No results found');
+  //       }
+  //     } else {
+  //       window.alert('Geocoder failed due to: ' + status);
+  //     }
+
+  //   });
+  
+
+
 
 
   // onPolygonComplete($event){

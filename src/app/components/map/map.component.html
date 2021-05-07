@@ -1,5 +1,8 @@
 <agm-map #map PolygonecompleteDirective id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl"
     [rotateControl]="rotateControl" [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
+    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
+
+    </agm-marker>
 </agm-map>
 
 
