@@ -1,10 +1,11 @@
+
 import { MouseEvent } from '@agm/core';
 import { ReportService } from './../services/report.service';
 import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
 import { PropertyService } from './../../shared/property.service';
 import { Property } from './../../models/property.model';
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, HostListener, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder,  
   FormGroup,
   FormArray,
@@ -19,6 +20,20 @@ import { FormBuilder,
 })
 export class ReportComponent implements OnInit {
 
+  @Input() polygonComplete!: boolean
+
+  // @HostListener('polygonComplete') catchCoords($event:Polygon ){ 
+  //     // Polygon drawn       
+  //     if ($event.type === google.maps.drawing.OverlayType.POLYGON) {
+  //         //this is the coordinate, you can assign it to a variable or pass into another function.         
+  //         window.alert($event);
+  //     }
+  // }
+
+  // @HostListener('mouseover') onHover() {
+  //   window.alert("hover");
+  // }
+  
   // map
 
   map: any; 
@@ -135,6 +150,7 @@ export class ReportComponent implements OnInit {
         drawingModes: ["polygon"]
       },
       polygonOptions: {
+        outline: true, 
         draggable: true,
         editable: true,
         fillColor: "#ffff00",
@@ -144,13 +160,31 @@ export class ReportComponent implements OnInit {
         clickable: true,
         zIndex: 1,
         fullScreenControl: true, 
-  
       },
+    
     };
+
+    
 
     const drawingManager = new google.maps.drawing.DrawingManager(options);
     
     drawingManager.setMap(map);
+
+    google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
+      const len = polygon.getPath().getLength();
+      const polyArrayLatLng = [];
+
+      for (let i = 0; i < len; i++) {
+        const vertex = polygon.getPath().getAt(i);
+        const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
+        polyArrayLatLng.push(vertexLatLng);
+      }
+      // the last point of polygon should be always the same as the first point (math rule)
+      polyArrayLatLng.push(polyArrayLatLng[0]);
+
+
+      console.log('coordinates', polyArrayLatLng);
+    });
   }
 
   markerDragEnd($event: MouseEvent) {
@@ -158,14 +192,4 @@ export class ReportComponent implements OnInit {
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lat;
   }
-
-
-  // https://stackoverflow.com/questions/54650666/how-to-draw-polygon-on-angular-google-maps-using-agm-core
-
-  // explains like this: 
-
-  // google.maps.event.addListener(drawingManager, 'overlaycomplete', (event: any) => {       
-  //   // Polygon drawn       
-  //   if (event.type === google.maps.drawing.OverlayType.POLYGON) {         //this is the coordinate, you can assign it to a variable or pass into another function. 
-  //             alert(event.overlay.getPath().getArray());       }     
 }

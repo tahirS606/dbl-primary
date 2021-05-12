@@ -31,6 +31,7 @@ import { DisplayReportComponent } from './components/report/display-report/displ
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
