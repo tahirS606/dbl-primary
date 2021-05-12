@@ -88,14 +88,12 @@ export class ReportComponent implements OnInit {
 
     submitTasks() {
       const selectedTasks = this.form.value.tasks
-        .map((checked:Boolean, i:number) => checked ? this.webData[i].id : null)
-        // .filter(task => task !== null);
+        .map((checked:Boolean, i:number) => checked ? this.webData[i].name: null)
+      
       console.log(selectedTasks);
-
     }
 
     saveReport(){
-
 
 
     }
