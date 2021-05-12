@@ -45,3 +45,10 @@ mat-action-row {
 mat-card-title {
     padding: 12px 12px 12px 25px;
 }
+
+.check-box-card {
+    width: 150px;
+    margin: auto;
+    position: absolute;
+    padding: 12px;
+}
