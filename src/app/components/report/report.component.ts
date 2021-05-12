@@ -1,3 +1,4 @@
+import { MouseEvent } from '@agm/core';
 import { ReportService } from './../services/report.service';
 import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +10,8 @@ import { FormBuilder,
   FormArray,
   FormControl,} from '@angular/forms';
 
+  declare const google: any;
+
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
@@ -16,9 +19,36 @@ import { FormBuilder,
 })
 export class ReportComponent implements OnInit {
 
+  // map
+
+  map: any; 
+  latitude!: number; 
+  longitude!: number; 
+  property!: Property;
+  propertyId!: any; 
+  address: any;
+
+  // map features
+  zoom = 19; 
+  minZoom = 18;
+  maxZoom = 19; 
+  disableDefaultUI: boolean = true;
+  fullscreenControl: boolean = true; 
+  rotateControl: boolean = true;
+  scaleControl: boolean = false;
+  streetViewControl: boolean = false;
+
+  private geoCoder : any;
+
+  zoomControl: boolean = false;
+
+  // report features
+
+  polygonCoords:[]=[]
+
   tasks: Task[] = []
   form!: FormGroup;
-
+  date = new Date()
 
   webData = [
     { id: 1, name: 'Raking' },
@@ -32,11 +62,8 @@ export class ReportComponent implements OnInit {
     return this.form.controls.orders as FormArray;
   }
 
-  property!: Property; 
-  
-  propertyId!: any; 
 
-  date = new Date()
+  
 
   constructor(private propertyService: PropertyService,
     private route: ActivatedRoute,
@@ -79,7 +106,66 @@ export class ReportComponent implements OnInit {
               longitude: propertyData.longitude
             };
 
+            this.latitude = this.property.latitude;
+          this.longitude = this.property.longitude; 
+
     });
     
   }
+
+  mapClicked(){
+    console.log('clicked map')
+  }
+
+ overlayComplete(overlay:any){
+   console.log('overlay', overlay)
+  console.log('button clicked')
+ }
+  
+   onMapReady(map:any) {
+    this.initDrawingManager(map);
+    
+  }
+
+  initDrawingManager(map: any) {
+    const options = {
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingControl: true,
+      drawingControlOptions: {
+        drawingModes: ["polygon"]
+      },
+      polygonOptions: {
+        draggable: true,
+        editable: true,
+        fillColor: "#ffff00",
+        fillOpacity: .25,
+        strokeWeight: 5,
+        strokeColor: 'red',
+        clickable: true,
+        zIndex: 1,
+        fullScreenControl: true, 
+  
+      },
+    };
+
+    const drawingManager = new google.maps.drawing.DrawingManager(options);
+    
+    drawingManager.setMap(map);
+  }
+
+  markerDragEnd($event: MouseEvent) {
+    console.log($event);
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lat;
+  }
+
+
+  // https://stackoverflow.com/questions/54650666/how-to-draw-polygon-on-angular-google-maps-using-agm-core
+
+  // explains like this: 
+
+  // google.maps.event.addListener(drawingManager, 'overlaycomplete', (event: any) => {       
+  //   // Polygon drawn       
+  //   if (event.type === google.maps.drawing.OverlayType.POLYGON) {         //this is the coordinate, you can assign it to a variable or pass into another function. 
+  //             alert(event.overlay.getPath().getArray());       }     
 }

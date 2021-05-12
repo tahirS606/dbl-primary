@@ -2,7 +2,17 @@
     <mat-card-title>
         <h1>Report for {{date | date}}</h1>
     </mat-card-title>
-    <app-map></app-map>
+    <mat-card-content class="map-container">
+        <agm-map #map PolygonecompleteDirective id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl"
+            [rotateControl]="rotateControl" [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
+
+        </agm-map>
+
+    </mat-card-content>
+    <button color="primary" (click)="overlayComplete($event)" mat-button>Overlay Complete</button>
+
+
+    <button color="primary" mat-button>Clear Map</button>
     <app-property-detail></app-property-detail>
     <mat-action-row>
         <a mat-button displayFlx color="primary">Save</a>

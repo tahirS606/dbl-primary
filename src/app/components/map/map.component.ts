@@ -23,7 +23,7 @@ declare const google: any;
   
 export class MapComponent implements OnInit{
 
-  @Input()
+  
   map: any; 
    
   latitude!: number; 
@@ -31,7 +31,7 @@ export class MapComponent implements OnInit{
   propertyId!: any; 
   address: any;
 
-  @Output() property!: Property;
+  property!: Property;
 
   // map features
   zoom = 19; 
