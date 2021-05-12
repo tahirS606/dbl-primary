@@ -28,6 +28,11 @@ main {
     flex-grow: 1;
 }
 
+.map {
+    height: 200px;
+    width: 100vw;
+}
+
 footer {
     background-color: var(--header-color);
     padding: 1em;
@@ -38,10 +43,21 @@ mat-card {
     padding: 0px;
 }
 
+agm-map {
+    height: 44vh;
+}
+
 mat-action-row {
     align-items: flex-start;
 }
 
 mat-card-title {
     padding: 12px 12px 12px 25px;
+}
+
+.check-box-card {
+    width: 150px;
+    margin: auto;
+    position: absolute;
+    padding: 12px;
 }

@@ -32,7 +32,7 @@
                             "./node_modules/ol/ol.css"
                         ],
 
-                        "scripts": []
+                        "scripts": ["main.js"]
                     },
                     "configurations": {
                         "production": {
