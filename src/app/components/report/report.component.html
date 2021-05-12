@@ -8,7 +8,7 @@
         </agm-map>
 
     </mat-card-content>
-    <button color="primary" mat-button>Overlay Complete</button>
+    <button (click)="addTasks()" color="primary" mat-button>Add Tasks to Area</button>
 
     <button color="primary" mat-button>Clear Map</button>
     <app-property-detail></app-property-detail>
@@ -21,7 +21,7 @@
 
 <!-- submit report -->
 
-<mat-card class="check-box-card">
+<mat-card class="check-box-card" *ngIf="checkboxVisible">
     <mat-card-title>
         <h1>Tasks</h1>
     </mat-card-title>

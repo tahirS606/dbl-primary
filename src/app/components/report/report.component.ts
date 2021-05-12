@@ -51,6 +51,8 @@ export class ReportComponent implements OnInit {
   form!: FormGroup;
   date = new Date()
 
+  checkboxVisible:boolean = false;
+
   webData = [
     { id: 1, name: 'Raking' },
     { id: 2, name: 'Mowing' },
@@ -86,6 +88,11 @@ export class ReportComponent implements OnInit {
         .map((checked:Boolean, i:number) => checked ? this.webData[i].id : null)
         // .filter(v => v !== null);
       console.log(selectedOrderIds);
+    }
+
+    addTasks(){
+      console.log('add tasks clicked')
+      this.checkboxVisible = true;
     }
 
   ngOnInit(): void {
