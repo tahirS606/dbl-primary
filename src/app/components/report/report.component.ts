@@ -141,8 +141,8 @@ export class ReportComponent implements OnInit {
 
   initDrawingManager(map: any) {
 
-    const arrayOfAreaObjects:[{}]= [{name: '', area: [{}]}]
-    
+    const arrayOfAreaObjects:[{}]= [{name: null, area: null}]
+
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: true,
