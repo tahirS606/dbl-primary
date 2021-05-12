@@ -20,21 +20,7 @@ import { FormBuilder,
 })
 export class ReportComponent implements OnInit {
 
-  @Input() polygonComplete!: boolean
 
-  // @HostListener('polygonComplete') catchCoords($event:Polygon ){ 
-  //     // Polygon drawn       
-  //     if ($event.type === google.maps.drawing.OverlayType.POLYGON) {
-  //         //this is the coordinate, you can assign it to a variable or pass into another function.         
-  //         window.alert($event);
-  //     }
-  // }
-
-  // @HostListener('mouseover') onHover() {
-  //   window.alert("hover");
-  // }
-  
-  // map
 
   map: any; 
   latitude!: number; 
@@ -169,7 +155,7 @@ export class ReportComponent implements OnInit {
     const drawingManager = new google.maps.drawing.DrawingManager(options);
     
     drawingManager.setMap(map);
-
+    let number = 0;
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
       const len = polygon.getPath().getLength();
       const polyArrayLatLng = [];
@@ -182,8 +168,12 @@ export class ReportComponent implements OnInit {
       // the last point of polygon should be always the same as the first point (math rule)
       polyArrayLatLng.push(polyArrayLatLng[0]);
 
+      
+      console.log('polygon Complete')
+      number = number+1 
+      
+      console.log('Area', number, polyArrayLatLng);
 
-      console.log('coordinates', polyArrayLatLng);
     });
   }
 

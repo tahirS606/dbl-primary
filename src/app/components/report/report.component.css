@@ -58,6 +58,6 @@ mat-card-title {
 .check-box-card {
     width: 150px;
     margin: auto;
-    position: absolute;
+    position: relative;
     padding: 12px;
 }
