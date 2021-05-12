@@ -11,13 +11,13 @@ export interface Report {
     
     Property: Property;
     // tasks
-    tasks: {
+    tasks: [{
         completedAt: string;
-        polygons: [{     
+        polygon: [{     
             coords: [{lat: number, long:number}]
-            tasksCompleted:string;
+            tasksCompleted:string[];
             lineColor: string;
             fillColor: string; 
     }]
-    }
+    }]
   }

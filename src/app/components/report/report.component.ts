@@ -5,7 +5,7 @@ import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
 import { PropertyService } from './../../shared/property.service';
 import { Property } from './../../models/property.model';
-import { Component, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder,  
   FormGroup,
   FormArray,
@@ -45,11 +45,14 @@ export class ReportComponent implements OnInit {
 
   // report features
 
-  polygonCoords:[]=[]
+  areaObjectsArray:[] = []
+
+
 
   tasks: Task[] = []
   form!: FormGroup;
-  date = new Date()
+  date = new Date();
+  areaWithTasks: [] = [];
 
   checkboxVisible:boolean = false;
 
@@ -61,8 +64,8 @@ export class ReportComponent implements OnInit {
     { id: 5, name: 'Trimming' }
   ];
 
-  get ordersFormArray() {
-    return this.form.controls.orders as FormArray;
+  get tasksArray() {
+    return this.form.controls.tasks as FormArray;
   }
 
 
@@ -74,26 +77,35 @@ export class ReportComponent implements OnInit {
     public reportService: ReportService,
     ) { 
       this.form = this.formBuilder.group({
-        orders: new FormArray([])
+        tasks: new FormArray([])
       });
       this.addCheckboxesToForm();
     }
 
     private addCheckboxesToForm() {
-      this.webData.forEach(() => this.ordersFormArray.push(new FormControl(false)));
+      this.webData.forEach(() => this.tasksArray.push(new FormControl(false)));
     }
 
-    submit() {
-      const selectedOrderIds = this.form.value.orders
+    submitTasks() {
+      const selectedTasks = this.form.value.tasks
         .map((checked:Boolean, i:number) => checked ? this.webData[i].id : null)
-        // .filter(v => v !== null);
-      console.log(selectedOrderIds);
+        // .filter(task => task !== null);
+      console.log(selectedTasks);
+
+    }
+
+    saveReport(){
+
+
+
     }
 
     addTasks(){
       console.log('add tasks clicked')
       this.checkboxVisible = true;
     }
+
+    
 
   ngOnInit(): void {
 
@@ -121,21 +133,16 @@ export class ReportComponent implements OnInit {
     
   }
 
-  mapClicked(){
-    console.log('clicked map')
-  }
 
- overlayComplete(overlay:any){
-   console.log('overlay', overlay)
-  console.log('button clicked')
- }
-  
    onMapReady(map:any) {
     this.initDrawingManager(map);
     
   }
 
   initDrawingManager(map: any) {
+
+    const arrayOfAreaObjects:[{}]= [{name: '', area: [{}]}]
+    
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: true,
@@ -157,36 +164,51 @@ export class ReportComponent implements OnInit {
     
     };
 
-    
-
     const drawingManager = new google.maps.drawing.DrawingManager(options);
     
     drawingManager.setMap(map);
     let number = 0;
+
+    
+
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
       const len = polygon.getPath().getLength();
       const polyArrayLatLng = [];
-
+      
+      
       for (let i = 0; i < len; i++) {
         const vertex = polygon.getPath().getAt(i);
         const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
         polyArrayLatLng.push(vertexLatLng);
       }
+  
       // the last point of polygon should be always the same as the first point (math rule)
       polyArrayLatLng.push(polyArrayLatLng[0]);
-
       
       console.log('polygon Complete')
       number = number+1 
-      
-      console.log('Area', number, polyArrayLatLng);
+      let polygonName = 'Area ' + number
+    
+      console.log('Area ', number, polyArrayLatLng);
+
+      console.log(polygonName.toString())
+
+      let area = []
+
+      area.push(polygonName)
+      area.push(polyArrayLatLng)
+      console.log(area)
+
+      let areaObject = {name: '', area: [{}] }
+
+      areaObject.name = polygonName
+      areaObject.area = polyArrayLatLng
+
+      console.log(areaObject)
+      arrayOfAreaObjects.push(areaObject)
+      // still only adds one
+      console.log(arrayOfAreaObjects)
 
     });
-  }
-
-  markerDragEnd($event: MouseEvent) {
-    console.log($event);
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lat;
   }
 }

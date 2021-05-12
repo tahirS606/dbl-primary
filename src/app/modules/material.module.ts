@@ -3,7 +3,7 @@ import { AgmDrawingModule } from '@agm/drawing';
 // agm drawing module
 
 import { NgModule } from '@angular/core';
-
+import {MatIconModule} from '@angular/material/icon'
 
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -31,6 +31,7 @@ import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/goog
     MatGridListModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatIconModule,
   ],
   exports: [
     AgmDrawingModule,
@@ -45,6 +46,7 @@ import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/goog
     MatGridListModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatIconModule
   ],
 })
 export class MyMaterialModule {}

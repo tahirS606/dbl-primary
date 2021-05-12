@@ -5,6 +5,10 @@
     background-color: lightblue;
 }
 
+mat-icon {
+    flex: flex-end;
+}
+
 header {
     background-color: var(--header-color);
     padding: 2em;
@@ -61,4 +65,9 @@ mat-card-title {
     position: absolute;
     padding: 12px;
     margin-top: 100px;
+    opacity: 75%;
+}
+
+.centered {
+    margin: auto;
 }

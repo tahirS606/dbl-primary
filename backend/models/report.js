@@ -1,25 +1,19 @@
 const mongoose = require("mongoose");
 
 const reportSchema = mongoose.Schema({
-    id: String,
     date: Date,
     time: String,
-    mapZoom: Number,
-    completedBy: String,
     route: Number,
+    propertyId: String,
+    propertyName: String,
+    propertyAddress: String,
+    propertyLatitude: Number,
+    propertyLongitude: Number,
 
-    Property: {
-        id: String,
-        name: String,
-        address: String,
-        latitude: Number,
-        longitude: Number,
-
-    },
     // tasks
     tasks: [{
         completedAt: String,
-        polygons: [{
+        polygon: [{
             coords: [{ lat: Number, long: Number }],
             tasksCompleted: String,
             lineColor: String,
