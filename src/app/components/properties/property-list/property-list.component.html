@@ -1,6 +1,8 @@
-<H1>Properties</H1>
+<mat-progress-spinner color="primary" *ngIf="isLoading"></mat-progress-spinner>
 
-<mat-progress-spinner color="primary" *ngIf="!isLoading"></mat-progress-spinner>
+
+
+<H1>Properties</H1>
 
 <div *ngFor="let property of properties">
     <mat-accordion multi="false">
@@ -16,7 +18,7 @@
             </mat-panel-title>
 
             <mat-panel-description>
-                Lat: {{ property.latitude }} Long: {{ property.longitude }} Route:
+                <h4>Route: {{property.route}}</h4>
             </mat-panel-description>
             <mat-action-row *ngIf="userIsAuthenticated">
                 <a mat-button color="primary" [routerLink]="['/new-report', property.id]">Create Report</a

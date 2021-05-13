@@ -70,6 +70,7 @@ mat-card-title {
 mat-icon {
     padding-top: 12px;
     cursor: pointer;
+    color: primary;
 }
 
 

@@ -31,11 +31,10 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   latitude!: number;
   longitude!: number; 
 
-  
-  isLoading: Boolean = true;
+  isLoading: boolean = true;
   enteredName: string = '';
   address: string = '';
-  private mode = 'add';
+  addMode: boolean = true;
   private propertyId: any;
   public property!: Property;
   form!: FormGroup;
@@ -53,6 +52,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
 }
 
   ngOnInit() {
+    console.log('addMode', this.addMode)
     //===> Form Controls
     this.form = new FormGroup({
       name: new FormControl(null, {
@@ -71,7 +71,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
 
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('propertyId')) {
-        this.mode = 'edit';
+        this.addMode = false;
         // get id from url
         this.propertyId = this.activatedRoute.snapshot.paramMap.get('propertyId');
         this.propertyService
@@ -93,7 +93,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
             });
           });
       } else {
-        this.mode = 'add';
+        this.addMode = true;
         this.propertyId = null;
       }
     });
@@ -108,7 +108,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
       console.log('form is invalid');
       return;
     }
-    if (this.mode === 'add') {
+    if (this.addMode) {
       this.propertyService.addProperty(
         this.form.value.name,
         this.address, 
