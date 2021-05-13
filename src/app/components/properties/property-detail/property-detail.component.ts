@@ -35,6 +35,7 @@ export class PropertyDetailComponent implements OnInit {
               id: propertyData._id,
               name: propertyData.name,
               address: propertyData.address,
+              route: propertyData.route, 
               latitude: propertyData.latitude, 
               longitude: propertyData.longitude
             };

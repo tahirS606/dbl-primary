@@ -2,7 +2,7 @@
 import { AuthInterceptor } from './components/auth/auth-interceptor';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { AgmCoreModule, PolygonManager } from '@agm/core';
-import { MapComponent } from './components/map/map.component';
+
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddPropertyComponent } from './components/properties/add-property/add-property.component';
 import { HeaderComponent } from './components/header/header/header.component';
@@ -26,7 +26,6 @@ import { ReportComponent } from './components/report/report.component';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete"
 import { AgmDrawingModule } from '@agm/drawing';
 import { AutocompleteAddressComponent } from './components/properties/autocomplete-address/autocomplete-address.component';
-import { PolygonecompleteDirective } from './components/map/polygonecomplete.directive';
 import { DisplayReportComponent } from './components/report/display-report/display-report.component';
 
 
@@ -39,14 +38,12 @@ import { DisplayReportComponent } from './components/report/display-report/displ
     LoginComponent,
     PropertyListComponent,
     PropertyDetailComponent,
-    MapComponent,
     SearchPropertiesComponent,
     HeaderComponent,
     ReportListComponent,
     ReportComponent,
     SignUpComponent,
     AutocompleteAddressComponent,
-    PolygonecompleteDirective,
     DisplayReportComponent,
     
   ],

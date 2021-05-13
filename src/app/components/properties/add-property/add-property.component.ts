@@ -30,10 +30,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   @Output() setAddress: EventEmitter<any> = new EventEmitter();
   latitude!: number;
   longitude!: number; 
-  
-  // public AddressChange(address: any) {
-  //   this.address=address.formatted_address
-  // }
+
   
   isLoading: Boolean = true;
   enteredName: string = '';
@@ -42,10 +39,11 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   private propertyId: any;
   public property!: Property;
   form!: FormGroup;
+  route!: number;
 
   constructor(
     public propertyService: PropertyService,
-    public route: ActivatedRoute,
+    public activatedRoute: ActivatedRoute,
     public formBuilder: FormBuilder
   ) { }
 
@@ -64,14 +62,18 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
         validators: [Validators.required],
       }),
 
+      route: new FormControl(null, {
+        validators: [],
+      })
+
     });
     //<=== Form Controls
 
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('propertyId')) {
         this.mode = 'edit';
         // get id from url
-        this.propertyId = this.route.snapshot.paramMap.get('propertyId');
+        this.propertyId = this.activatedRoute.snapshot.paramMap.get('propertyId');
         this.propertyService
           .getProperty(this.propertyId)
           .subscribe((propertyData) => {
@@ -79,6 +81,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
               id: propertyData._id,
               name: propertyData.name,
               address: propertyData.address,
+              route: propertyData.route, 
               latitude: this.latitude, 
               longitude: this.longitude
             };
@@ -86,6 +89,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
             this.form.setValue({
               name: this.property.name,
               address: this.property.address,
+              route: this.property.route, 
             });
           });
       } else {
@@ -94,8 +98,6 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
       }
     });
   }
-
-  // shortcut for form fields template access for validators
 
   get getControl() {
     return this.form.controls;
@@ -109,13 +111,17 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     if (this.mode === 'add') {
       this.propertyService.addProperty(
         this.form.value.name,
-        this.address, this.latitude, this.longitude)        
+        this.address, 
+        this.form.value.route, 
+        this.latitude, 
+        this.longitude)        
       ;
     } else {
       this.propertyService.updateProperty(
         this.propertyId,
         this.form.value.name,
         this.form.value.address,
+        this.form.value.route, 
         this.latitude, 
         this.longitude
       );
@@ -126,10 +132,11 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   onGermanAddressMapped($event: any) {
 
     this.address = $event.displayAddress
+    this.route = $event.route
     this.latitude = $event.geoLocation.latitude;
     this.longitude = $event.geoLocation.longitude;
     
-    console.log('this.address', this.address, this.latitude, this.longitude)
+    console.log('this.address', this.address, this.route, this.latitude, this.longitude)
     
   }
 

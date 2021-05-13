@@ -15,6 +15,12 @@
             <mat-error *ngIf="getControl.address.invalid">Please enter an address
             </mat-error>
         </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="route" placeholder="Please enter a route" required />
+
+            <mat-error *ngIf="getControl.route.invalid">Please enter a route
+            </mat-error>
+        </mat-form-field>
         <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
       Save Property
     </button>

@@ -8,6 +8,7 @@ router.post("", checkAuth,
         const property = new Property({
             name: req.body.name,
             address: req.body.address,
+            route: req.body.route,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
         });
@@ -25,6 +26,7 @@ router.put("/:id", checkAuth, (req, res, next) => {
         _id: req.body.id,
         name: req.body.name,
         address: req.body.address,
+        route: req.body.route,
     });
     Property.updateOne({ _id: req.params.id }, property).then((result) => {
         console.log(result);

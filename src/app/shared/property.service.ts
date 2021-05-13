@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { stringify } from '@angular/compiler/src/util';
+
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +33,7 @@ export class PropertyService {
                 name: property.name,
                 address: property.address,
                 id: property._id,
+                route: property.route
               };
             }),
             maxProperties: propertyData.maxProperties,
@@ -52,9 +53,9 @@ export class PropertyService {
     return this.propertiesUpdated.asObservable();
   }
 
-  addProperty(name: string, address: string, latitude: number, longitude: number) {
+  addProperty(name: string, address: string, route: number, latitude: number, longitude: number) {
 
-    const property: Property = { id: '', name: name, address: address, latitude: latitude, longitude: longitude }
+    const property: Property = { id: '', name: name, address: address, route: route, latitude: latitude, longitude: longitude }
     this.http
       .post<{ message: string; propertyId: string }>(
         'http://localhost:3000/properties',
@@ -67,7 +68,7 @@ export class PropertyService {
   }
 
   getProperty(id: string) {
-    return this.http.get<{ _id: string; name: string; address: string; latitude: number; longitude: number }>(
+    return this.http.get<{ _id: string; name: string; address: string; route: number, latitude: number; longitude: number }>(
       'http://localhost:3000/properties/' + id
     )
   }
@@ -75,7 +76,7 @@ export class PropertyService {
 
 
   getPropertyDataforNewReport(id: string){
-    const property = this.http.get<{ _id: string; name: string; address: string; latitude: number; longitude: number }>(
+    const property = this.http.get<{ _id: string; name: string; address: string; route: number, latitude: number; longitude: number }>(
       'http://localhost:3000/new-report/' + id
     );
     console.log(property)
@@ -83,19 +84,13 @@ export class PropertyService {
   }
 
   getPropertyforReport(id: string) {
-    return this.http.get<{ _id: string; name: string; address: string; latitude: number; longitude: number }>(
+    return this.http.get<{ _id: string; name: string; address: string; route: number, latitude: number; longitude: number }>(
       'http://localhost:3000/properties/' + id
     );
   }
 
-  // getPropertyCoords(id: string){
-  //   return this.http.get<{latitude: number; longitude: number}>(
-  //     'http://localhost:3000/new-report/' + id
-  //   );
-  // }
-
-  updateProperty(id: string, name: string, address: string, longitude: number, latitude: number ) {
-    const property: Property = { id: id, name: name, address: address, longitude: longitude, latitude: latitude };
+  updateProperty(id: string, name: string, address: string, route: number, longitude: number, latitude: number ) {
+    const property: Property = { id: id, name: name, address: address, route: route, longitude: longitude, latitude: latitude };
     this.http
       .put('http://localhost:3000/properties/' + id, property)
       .subscribe((response) => {
