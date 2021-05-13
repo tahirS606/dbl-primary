@@ -1,6 +1,8 @@
 <mat-card>
+
     <mat-card-title>
-        <h1>Report for {{date | date}}</h1>
+        <mat-icon routerLink="" color="primary">home</mat-icon>
+        <h2 class="report-title">Report for {{date | date}}</h2>
     </mat-card-title>
     <mat-card-content class="map-container">
         <agm-map #map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="rotateControl"
@@ -13,10 +15,11 @@
     <button color="primary" mat-button>Clear Map</button>
     <app-property-detail></app-property-detail>
     <mat-action-row>
-        <a mat-button displayFlx color="primary">Save</a>
+        <a mat-button displayFlx color="primary">Save Report</a>
         <!-- <a mat-button color="primary">Edit</a> -->
-        <a mat-button color="primary">Submit</a>
+        <a mat-button color="primary" [disabled]>Submit</a>
     </mat-action-row>
+
 </mat-card>
 
 <!-- submit report -->

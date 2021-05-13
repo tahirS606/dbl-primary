@@ -55,9 +55,25 @@ mat-action-row {
     align-items: flex-start;
 }
 
-mat-card-title {
-    padding: 12px 12px 12px 25px;
+.report-title {
+    padding-left: 12px;
+    padding-top: 12px;
 }
+
+mat-card-title {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+mat-icon {
+    padding-top: 12px;
+    cursor: pointer;
+}
+
+
+/* .report-title {} */
 
 .check-box-card {
     width: 150px;
