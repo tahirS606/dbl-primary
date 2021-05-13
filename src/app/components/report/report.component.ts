@@ -30,9 +30,9 @@ export class ReportComponent implements OnInit {
   address: any;
 
   // map features
-  zoom = 19; 
+  zoom = 21; 
   minZoom = 18;
-  maxZoom = 19; 
+  maxZoom = 23; 
   disableDefaultUI: boolean = true;
   fullscreenControl: boolean = true; 
   rotateControl: boolean = true;
@@ -68,8 +68,10 @@ export class ReportComponent implements OnInit {
     return this.form.controls.tasks as FormArray;
   }
 
-
-  
+  showCheckbox(){
+    this.checkboxVisible = false; 
+    console.log(this.checkboxVisible)
+  }
 
   constructor(private propertyService: PropertyService,
     private route: ActivatedRoute,
@@ -135,7 +137,6 @@ export class ReportComponent implements OnInit {
 
    onMapReady(map:any) {
     this.initDrawingManager(map);
-    
   }
 
   initDrawingManager(map: any) {

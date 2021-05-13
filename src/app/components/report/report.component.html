@@ -24,8 +24,9 @@
 
 <!-- submit report -->
 
+
 <mat-card class="check-box-card" *ngIf="checkboxVisible">
-    <mat-icon position="right">close</mat-icon>
+    <mat-icon (click)="showCheckbox()">close</mat-icon>
     <mat-card-title class='centered'>
         <h1>Tasks</h1>
     </mat-card-title>
@@ -38,6 +39,6 @@
   </label>
         <br/>
         <!-- <mat-form-field matFormFieldControl>Add Photo</mat-form-field> -->
-        <button mat-button color='primary' class="btn btn-success" class='centered'>Add to Report</button>
+        <button mat-button color='primary' class="btn btn-success" class='centered' (click)="showCheckbox()">Add to Report</button>
     </form>
 </mat-card>

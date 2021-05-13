@@ -13,7 +13,6 @@ import { PageEvent } from '@angular/material/paginator';
 export class PropertyListComponent implements OnInit, OnDestroy {
   private propertiesSub!: Subscription;
   private authStatusSub!: Subscription;
-
   properties: Property[] = [];
   totalPropertiesCount = 0;
   propertiesPerPage = 10;
@@ -22,6 +21,8 @@ export class PropertyListComponent implements OnInit, OnDestroy {
   isLoading: boolean = true;
   totalProperties!: number;
   userIsAuthenticated = false;
+
+  accordianIsOpen!:boolean;
 
   constructor(
     public propertyService: PropertyService,
@@ -50,6 +51,12 @@ export class PropertyListComponent implements OnInit, OnDestroy {
     })
     this.isLoading = false;
   }
+
+  // deleteWarn(propertyName: string){
+  //   if(confirm("Are you sure to delete" + propertyName)
+  //  }
+
+  
 
   onDelete(propertyId: string) {
     this.isLoading = true;

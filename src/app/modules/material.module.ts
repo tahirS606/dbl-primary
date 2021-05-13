@@ -16,6 +16,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/google-maps-autocomplete';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/goog
     MatGridListModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
     MatIconModule,
   ],
   exports: [
@@ -46,6 +48,7 @@ import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/goog
     MatGridListModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
     MatIconModule
   ],
 })
