@@ -41,8 +41,6 @@ const routes: Routes = [
     path: 'user/signup',
     component: SignUpComponent,
   },
-
-
 ];
 
 @NgModule({

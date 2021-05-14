@@ -5,19 +5,19 @@ export interface Report {
     id: string;
     date: Date; 
     time: string; 
-    mapZoom: number;
     completedBy: string; 
+    // property
     route: number; 
-    
-    Property: Property;
+    propertyId: string;
+    propertyName: string;
+    propertyAddress: string;
+    // map
+    propertyLatitude: number;
+    propertyLongitude: number; 
+    mapZoom: number;
     // tasks
     tasks: [{
-        completedAt: string;
-        polygon: [{     
-            coords: [{lat: number, long:number}]
+            areas: [{lat: number, long:number}],
             tasksCompleted:string[];
-            lineColor: string;
-            fillColor: string; 
-    }]
     }]
   }

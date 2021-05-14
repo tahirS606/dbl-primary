@@ -1,1 +1,9 @@
 <p>report-list works!</p>
+
+<div *ngFor="let report of reports">
+    {{report?.date | date}}
+</div>
+
+<div *ngIf="!reports">
+    There are no reports for this property yet
+</div>

@@ -20,8 +20,6 @@ import { FormBuilder,
 })
 export class ReportComponent implements OnInit {
 
-
-
   map: any; 
   latitude!: number; 
   longitude!: number; 
@@ -73,7 +71,8 @@ export class ReportComponent implements OnInit {
     console.log(this.checkboxVisible)
   }
 
-  constructor(private propertyService: PropertyService,
+  constructor(
+    private propertyService: PropertyService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     public reportService: ReportService,
@@ -109,7 +108,7 @@ export class ReportComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const fetchedTasks = this.reportService.getTasks().subscribe()
+    const fetchedTasks = this.reportService.getTasks().subscribe();
 
     console.log('fetchedTasks', fetchedTasks)
 

@@ -5,7 +5,7 @@
         <h2 class="report-title">Report for {{date | date}}</h2>
     </mat-card-title>
     <mat-card-content class="map-container">
-        <agm-map #map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="rotateControl"
+        <agm-map #map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="true"
             [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
         </agm-map>
 
