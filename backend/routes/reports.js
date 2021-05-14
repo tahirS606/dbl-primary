@@ -31,7 +31,7 @@ router.post("", checkAuth,
 
 router.get("", (req, res, next) => {
     let fetchedReports;
-    Task.find()
+    Report.find()
         .then((documents) => {
             if (Report) {
                 res.status(200).json({

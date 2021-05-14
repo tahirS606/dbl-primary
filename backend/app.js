@@ -47,7 +47,7 @@ app.use("/tasks", tasksRoutes)
 
 app.use("/user", userRoutes)
 
-app.use("/reports", userRoutes)
+app.use("/reports", reportsRoutes)
 
 
 module.exports = app;
