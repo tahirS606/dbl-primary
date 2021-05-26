@@ -6,7 +6,5 @@ export interface Property {
   latitude: number;
   longitude: number; 
 }
-  // route
-  // owner (current)
-  // contact (email / phone?)
+ 
 

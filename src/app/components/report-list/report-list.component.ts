@@ -43,7 +43,10 @@ export class ReportListComponent implements OnInit {
         //       latitude: propertyData.latitude, 
         //       longitude: propertyData.longitude
         //     };
-
-  
+    this.reportService(this.propertyId).subscribe(this.reports)=>{
+      
+    }
+    }
+    
   }
 }

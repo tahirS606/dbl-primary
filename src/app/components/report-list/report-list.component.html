@@ -1,9 +1,8 @@
-<p>report-list works!</p>
-
 <div *ngFor="let report of reports">
     {{report?.date | date}}
+    <p>{{report?.propertyName | titlecase}}</p>
 </div>
 
 <div *ngIf="!reports">
-    There are no reports for this property yet
+    <h4>There are no reports for this property yet</h4>
 </div>

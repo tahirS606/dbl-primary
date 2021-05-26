@@ -8,15 +8,21 @@ router.post("", checkAuth,
         const report = new Report({
             date: req.body.date,
             time: req.body.time,
-            mapZoom: req.body.mapZoom,
             completedBy: req.body.completedBy,
             route: req.body.route,
-            propertyName: req.body.name,
-            propertyAddress: req.body.address,
-            propertyLatitude: req.body.latitude,
-            propertyLongitude: req.body.longitude,
-
+            propertyId: req.body.propertyId,
+            propertyName: req.body.propertyName,
+            propertyAddress: req.body.propertyAddress,
+            propertyLatitude: req.body.propertyLatitude,
+            propertyLongitude: req.body.propertyLongitude,
+            mapZoom: req.body.mapZoom,
+            tasks: [{
+                areas: [{ lat: req.body.lat, long: req.body.long }],
+                tasksCompleted: req.body.tasksCompleted,
+            }],
+            // 
         });
+
 
         report.save().then((addedReport) => {
             res.status(201).json({
@@ -43,8 +49,8 @@ router.get("", (req, res, next) => {
                 res.status(400).json({
                     message: 'fetch failed'
                 })
-            }
+            };
+        });
+});
 
-        })
-})
 module.exports = router;
