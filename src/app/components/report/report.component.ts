@@ -1,10 +1,10 @@
+import { Report } from './../../models/report.model';
 import { PropertyService } from './../services/property.service';
 
 import { MouseEvent } from '@agm/core';
 import { ReportService } from './../services/report.service';
 import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
-
 import { Property } from './../../models/property.model';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,  
@@ -44,7 +44,9 @@ export class ReportComponent implements OnInit {
 
   // report features
 
-  areaObjectsArray:[] = []
+  areaObjectsArray!:[];
+  reportSaved:boolean = false; 
+  report!: Report;
 
 
 
@@ -92,11 +94,11 @@ export class ReportComponent implements OnInit {
       const selectedTasks = this.form.value.tasks
         .map((checked:Boolean, i:number) => checked ? this.webData[i].name: null)
       
-      console.log(selectedTasks);
+      console.log('selectedTasks', selectedTasks);
     }
 
     saveReport(){
-
+      // report.save()
 
     }
 
@@ -134,14 +136,13 @@ export class ReportComponent implements OnInit {
     
   }
 
-
    onMapReady(map:any) {
     this.initDrawingManager(map);
   }
 
   initDrawingManager(map: any) {
 
-    const arrayOfAreaObjects:[{}]= [{name: null, area: null}]
+    const arrayOfAreaObjects:[{}]= [{}]
 
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -156,7 +157,7 @@ export class ReportComponent implements OnInit {
         fillColor: "#ffff00",
         fillOpacity: .25,
         strokeWeight: 5,
-        strokeColor: 'red',
+        strokeColor: 'blue',
         clickable: true,
         zIndex: 1,
         fullScreenControl: true, 
@@ -182,7 +183,7 @@ export class ReportComponent implements OnInit {
         polyArrayLatLng.push(vertexLatLng);
       }
   
-      // the last point of polygon should be always the same as the first point (math rule)
+      // the last point of polygon should be always the same as the first point
       polyArrayLatLng.push(polyArrayLatLng[0]);
       
       console.log('polygon Complete')
@@ -206,8 +207,10 @@ export class ReportComponent implements OnInit {
 
       console.log(areaObject)
       arrayOfAreaObjects.push(areaObject)
-      // still only adds one
-      console.log(arrayOfAreaObjects)
+      
+      console.log('arrayareaofObjects', arrayOfAreaObjects)
+
+
 
     });
   }

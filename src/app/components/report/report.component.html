@@ -17,7 +17,7 @@
     <mat-action-row>
         <a mat-button displayFlx color="primary">Save Report</a>
         <!-- <a mat-button color="primary">Edit</a> -->
-        <a mat-button color="primary" [disabled]>Submit</a>
+        <a mat-button color="primary" [disabled]="!reportSaved">Submit</a>
     </mat-action-row>
 
 </mat-card>
@@ -39,6 +39,11 @@
   </label>
         <br/>
         <!-- <mat-form-field matFormFieldControl>Add Photo</mat-form-field> -->
-        <button mat-button color='primary' class="btn btn-success" class='centered' (click)="showCheckbox()">Add to Report</button>
+        <button type=submit mat-button color='primary' class="btn btn-success" class='centered' (click)="showCheckbox()" (ngSubmit)="submitTasks()">Add to Report</button>
     </form>
 </mat-card>
+
+<div>
+    <h2>Report for {{date | date}}</h2>
+    {{report.date}}
+</div>

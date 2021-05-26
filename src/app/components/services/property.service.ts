@@ -100,9 +100,6 @@ export class PropertyService {
       .subscribe((routeData) => {
         const routes = routeData.properties;
         console.log('subscribe', routes);
-        // object
-        console.log(typeof(routes))
-        
       })
     
   }
