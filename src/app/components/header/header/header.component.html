@@ -2,6 +2,10 @@
     <span class="spacer"></span>
     <ul>
         <li *ngIf="userIsAuthenticated">
+            <a mat-button routerLink="/routes" routerLinkActive="mat-primary">Routes</a
+      >
+    </li>
+        <li *ngIf="userIsAuthenticated">
             <a mat-button routerLink="/add-property" routerLinkActive="mat-primary">Add Property</a
       >
     </li>

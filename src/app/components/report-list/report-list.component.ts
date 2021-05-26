@@ -1,6 +1,6 @@
+import { PropertyService } from './../services/property.service';
 import { Property } from './../../models/property.model';
 import { ActivatedRoute } from '@angular/router';
-import { PropertyService } from './../../shared/property.service';
 import { ReportService } from './../services/report.service';
 import { Report } from './../../models/report.model';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +18,7 @@ export class ReportListComponent implements OnInit {
 
   constructor(
     private propertyService:PropertyService,
-    private reportService: ReportService,
+    private ReportService: ReportService,
     private activatedRoute: ActivatedRoute,
     ) {}
 
@@ -43,10 +43,9 @@ export class ReportListComponent implements OnInit {
         //       latitude: propertyData.latitude, 
         //       longitude: propertyData.longitude
         //     };
-    this.reportService(this.propertyId).subscribe(this.reports)=>{
+    // this.reportService(this.propertyId).subscribe(this.reports)=>{
       
-    }
+    // }
     }
     
   }
-}

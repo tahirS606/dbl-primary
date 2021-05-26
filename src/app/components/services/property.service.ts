@@ -1,7 +1,7 @@
-import { Property } from './../models/property.model';
+import { Property } from './../../models/property.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -16,6 +16,7 @@ export class PropertyService {
     propertiesCount: number;
   }>();
   private updatedProperties: any;
+  routes: any; 
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -40,11 +41,11 @@ export class PropertyService {
           };
         })
       )
-      .subscribe((transformedPropertyData) => {
-        this.properties = transformedPropertyData.properties;
+      .subscribe((routeData) => {
+        this.properties = routeData.properties;
         this.propertiesUpdated.next({
           properties: [...this.properties],
-          propertiesCount: transformedPropertyData.maxProperties,
+          propertiesCount: routeData.maxProperties,
         });
       });
   }
@@ -64,7 +65,7 @@ export class PropertyService {
       .subscribe((responseData) => {
         this.router.navigate(['/']);
       });
-      console.log('what was suubmitted in service add property:', property)
+      
   }
 
   getProperty(id: string) {
@@ -73,13 +74,43 @@ export class PropertyService {
     )
   }
 
+  getPropertiesByRoute(route:number){
+    const properties = this.http.get<{ _id: string; name: string; address: string; latitude: number; longitude: number }>('http://localhost:3000/properties')
+    console.log(properties)
+    return properties
+  }
 
+  getAllRoutes(){
+    this.http
+      .get<{ properties: any; }>(
+        'http://localhost:3000/properties'
+      )
+      .pipe(
+        map((routeData) => {
+          console.log('propertyData', routeData)
+          return {
+            properties: routeData.properties.map((property: any) => {
+              return {
+                route: property.route
+              };
+            }),
+          };
+        })
+      )
+      .subscribe((routeData) => {
+        const routes = routeData.properties;
+        console.log('subscribe', routes);
+        // object
+        console.log(typeof(routes))
+        
+      })
+    
+  }
 
   getPropertyDataforNewReport(id: string){
     const property = this.http.get<{ _id: string; name: string; address: string; route: number, latitude: number; longitude: number }>(
       'http://localhost:3000/new-report/' + id
     );
-    console.log(property)
 
   }
 
@@ -95,10 +126,12 @@ export class PropertyService {
       .put('http://localhost:3000/properties/' + id, property)
       .subscribe((response) => {
         this.router.navigate(['/']);
+        return response
       });
   }
 
   deleteProperty(propertyId: string) {
     return this.http.delete('http://localhost:3000/properties/' + propertyId);
   }
+
 }

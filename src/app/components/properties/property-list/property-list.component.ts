@@ -1,6 +1,6 @@
+import { PropertyService } from './../../services/property.service';
 import { AuthService } from './../../auth/auth.service';
 import { Property } from './../../../models/property.model';
-import { PropertyService } from './../../../shared/property.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs'  ;
 import { PageEvent } from '@angular/material/paginator';

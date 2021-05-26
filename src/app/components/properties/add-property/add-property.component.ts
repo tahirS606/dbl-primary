@@ -1,3 +1,4 @@
+import { PropertyService } from './../../services/property.service';
 
 import {
   Input,
@@ -7,7 +8,7 @@ import {
   
 } from '@angular/core';
 import { Property } from './../../../models/property.model';
-import { PropertyService } from './../../../shared/property.service';
+
 
 import { Component, OnInit } from '@angular/core';
 import {

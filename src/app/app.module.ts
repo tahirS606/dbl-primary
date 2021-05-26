@@ -1,3 +1,4 @@
+import { PropertyService } from './components/services/property.service';
 
 import { AuthInterceptor } from './components/auth/auth-interceptor';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
@@ -27,6 +28,8 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete"
 import { AgmDrawingModule } from '@agm/drawing';
 import { AutocompleteAddressComponent } from './components/properties/autocomplete-address/autocomplete-address.component';
 import { DisplayReportComponent } from './components/report/display-report/display-report.component';
+import { RoutesListComponent } from './components/routes-list/routes-list.component';
+import { RouteComponent } from './components/route/route.component';
 
 
 
@@ -45,6 +48,8 @@ import { DisplayReportComponent } from './components/report/display-report/displ
     SignUpComponent,
     AutocompleteAddressComponent,
     DisplayReportComponent,
+    RoutesListComponent,
+    RouteComponent,
     
   ],
   imports: [
@@ -65,7 +70,8 @@ import { DisplayReportComponent } from './components/report/display-report/displ
  
   // multi says don't override additionals, just add
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, 
-    PolygonManager],
+    PolygonManager, PropertyService],
   bootstrap: [AppComponent],
+  
 })
 export class AppModule {}

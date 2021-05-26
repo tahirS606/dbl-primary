@@ -1,9 +1,10 @@
+import { PropertyService } from './../services/property.service';
 
 import { MouseEvent } from '@agm/core';
 import { ReportService } from './../services/report.service';
 import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
-import { PropertyService } from './../../shared/property.service';
+
 import { Property } from './../../models/property.model';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,  

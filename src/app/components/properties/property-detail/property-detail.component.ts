@@ -1,5 +1,6 @@
+import { PropertyService } from './../../services/property.service';
 import { Property } from './../../../models/property.model';
-import { PropertyService } from './../../../shared/property.service';
+
 import { ActivatedRoute } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 
