@@ -38,7 +38,7 @@ export class ReportComponent implements OnInit {
   scaleControl: boolean = false;
   streetViewControl: boolean = false;
 
-  private geoCoder : any;
+  // private geoCoder : any;
 
   zoomControl: boolean = false;
 
@@ -48,13 +48,13 @@ export class ReportComponent implements OnInit {
   reportSaved:boolean = false; 
   report!: Report;
 
-
+  reportDate: any;
+  reportSubmittedBy!: string; 
 
   tasks: Task[] = []
   form!: FormGroup;
   date = new Date();
   areaWithTasks: [] = [];
-
   checkboxVisible:boolean = false;
 
   webData = [
@@ -90,26 +90,63 @@ export class ReportComponent implements OnInit {
       this.webData.forEach(() => this.tasksArray.push(new FormControl(false)));
     }
 
-    submitTasks() {
-      const selectedTasks = this.form.value.tasks
-        .map((checked:Boolean, i:number) => checked ? this.webData[i].name: null)
-      
-      console.log('selectedTasks', selectedTasks);
+    addTaskstoArea() {
+
+      const allTasks = this.form.value.tasks
+        .map((checked:Boolean, i:number) => checked ? this.webData[i].name: null);
+        console.log(allTasks)
+        return allTasks
+        
     }
+
 
     saveReport(){
-      // report.save()
+      // example of property save
+      if (this.form.invalid) {
+        console.log('form is invalid');
+        return;
+      }
+      // else {
+      //   this.reportService.addReport(
+          // example
+          // if (this.form.invalid) {
+          //   console.log('form is invalid');
+          //   return;
+          // }
+          // if (this.addMode) {
+          //   this.propertyService.addProperty(
+          //     this.form.value.name,
+          //     this.address, 
+          //     this.form.value.route, 
+          //     this.latitude, 
+          //     this.longitude)        
+          //   ;
+          // } else {
+          //   this.propertyService.updateProperty(
+          //     this.propertyId,
+          //     this.form.value.name,
+          //     this.form.value.address,
+          //     this.form.value.route, 
+          //     this.latitude, 
+          //     this.longitude
+          //   );
+          // }
 
+    // }
+        
     }
-
     addTasks(){
       console.log('add tasks clicked')
       this.checkboxVisible = true;
+
     }
 
     
 
   ngOnInit(): void {
+
+    this.reportDate = this.date; 
+    console.log(this.reportDate)
 
     const fetchedTasks = this.reportService.getTasks().subscribe();
 

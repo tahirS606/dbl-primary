@@ -3,11 +3,9 @@ import { Property } from './property.model';
 export interface Report {
     // general
     id: string;
-    date: Date; 
-    time: string; 
-    completedBy: string; 
+    date: Date;
     // property
-    route: number; 
+    propertyRoute: number; 
     propertyId: string;
     propertyName: string;
     propertyAddress: string;

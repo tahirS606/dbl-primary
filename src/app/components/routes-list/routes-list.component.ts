@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { PropertyService } from './../services/property.service';
-import { Property } from './../../models/property.model';
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoutesListComponent implements OnInit {
 
-  routes!: any
+  routes: any = []
 
   constructor(
     private propertyService: PropertyService
@@ -21,10 +21,13 @@ export class RoutesListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.routes = this.propertyService.getAllRoutes()
+    
 
-    console.log(this.routes)
-
+    this.propertyService.getAllRoutes().subscribe(data => {
+      this.routes.push(data)
+      
+      console.log('this.routes index 1', this.routes)
+    })
   }
 }
 

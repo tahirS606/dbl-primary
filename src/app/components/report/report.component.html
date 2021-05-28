@@ -15,7 +15,7 @@
     <button color="primary" mat-button>Clear Map</button>
     <app-property-detail></app-property-detail>
     <mat-action-row>
-        <a mat-button displayFlx color="primary">Save Report</a>
+        <a (click)="saveReport()" mat-button displayFlx color="primary">Save Report</a>
         <!-- <a mat-button color="primary">Edit</a> -->
         <a mat-button color="primary" [disabled]="!reportSaved">Submit</a>
     </mat-action-row>
@@ -30,7 +30,7 @@
     <mat-card-title class='centered'>
         <h1>Tasks</h1>
     </mat-card-title>
-    <form [formGroup]="form" (ngSubmit)="submitTasks()">
+    <form [formGroup]="form">
         <label formArrayName="tasks" *ngFor="let tasks of tasksArray.controls; let i=index">
     <mat-checkbox [formControlName]="i">  
       {{webData[i].name}}
@@ -39,11 +39,10 @@
   </label>
         <br/>
         <!-- <mat-form-field matFormFieldControl>Add Photo</mat-form-field> -->
-        <button type=submit mat-button color='primary' class="btn btn-success" class='centered' (click)="showCheckbox()" (ngSubmit)="submitTasks()">Add to Report</button>
+        <button type=submit mat-button color='primary' class="btn btn-success" class='centered' (click)="showCheckbox()" (click)="addTaskstoArea()">Add to Report</button>
     </form>
 </mat-card>
 
 <div>
-    <h2>Report for {{date | date}}</h2>
-    {{report.date}}
+    <h2>Report for {{reportDate | date}}</h2>
 </div>

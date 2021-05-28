@@ -80,28 +80,11 @@ export class PropertyService {
     return properties
   }
 
-  getAllRoutes(){
-    this.http
-      .get<{ properties: any; }>(
+  getAllRoutes():Observable<Property[]>{
+    return this.http.get<Property[]>(
         'http://localhost:3000/properties'
       )
-      .pipe(
-        map((routeData) => {
-          console.log('propertyData', routeData)
-          return {
-            properties: routeData.properties.map((property: any) => {
-              return {
-                route: property.route
-              };
-            }),
-          };
-        })
-      )
-      .subscribe((routeData) => {
-        const routes = routeData.properties;
-        console.log('subscribe', routes);
-      })
-    
+      
   }
 
   getPropertyDataforNewReport(id: string){
