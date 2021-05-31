@@ -1,11 +1,6 @@
 <div class="route-container">
     <div *ngFor="let route of routes">
-        <a mat-button color="primary">
-            <mat-card [routerLink]="['/routes/', route.route]">
-                <mat-card-content color="primary" align="center">
-                    <p>{{route.route | number }}</p>
-                </mat-card-content>
-            </mat-card>
+        <a mat-button [routerLink]="['/routes/', route.route]" color="primary">{{route.route | number }}
         </a>
     </div>
 </div>

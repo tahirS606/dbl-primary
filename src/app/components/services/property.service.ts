@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class PropertyService {
   private properties: Property[] = [];
+  private _properties = new Subject <Property[]>();
+
   private propertiesUpdated = new Subject<{
     properties: Property[];
     propertiesCount: number;
@@ -74,11 +76,12 @@ export class PropertyService {
     )
   }
 
-  getPropertiesByRoute(route:number){
-    const properties = this.http.get<{ _id: string; name: string; address: string; latitude: number; longitude: number }>('http://localhost:3000/properties')
-    console.log(properties)
-    return properties
-  }
+
+
+  baseUrl='http://localhost:3000/'
+
+
+
 
  
 
