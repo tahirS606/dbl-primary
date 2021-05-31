@@ -1,3 +1,4 @@
+import { RouteComponent } from './../components/route/route.component';
 import { RoutesListComponent } from './../components/routes-list/routes-list.component';
 import { AuthGuard } from './../components/auth/auth.guard';
 import { SignUpComponent } from './../components/auth/sign-up/sign-up.component';
@@ -17,6 +18,12 @@ const routes: Routes = [
     component: AddPropertyComponent,
     canActivate: [AuthGuard]
   },
+  {
+  path: 'routes/:route',
+  component: RouteComponent,
+  canActivate: [AuthGuard]
+},
+
   {
     path: 'edit-property/:propertyId',
     component: AddPropertyComponent,

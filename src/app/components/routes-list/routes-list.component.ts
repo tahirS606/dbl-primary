@@ -47,23 +47,31 @@ export class RoutesListComponent implements OnInit {
     .pipe(
       map((propertyData) => {
         return {
-          routes: propertyData.properties.map((property: any) => {
+          routes: propertyData.properties
+          .map((property: any) => {
             return {
               route: property.route
             };
           })
+          // .map((routes:any)=>{
+          //   // this.routes = this.displayRoutes.push(routes)
+          //   // return this.displayRoutes
+          // })
+          
       
         };
       })
+
     )
     .subscribe((routeData) => {
+      // this.routes = this.routes.sort()
       this.routes = routeData.routes
       console.log(routeData)
       console.log('this.routes', this.routes)
       });
 
-    };
 
+    };
 
 }
 
