@@ -6,7 +6,7 @@ import { ReportService } from './../services/report.service';
 import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
 import { Property } from './../../models/property.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder,  
   FormGroup,
   FormArray,
@@ -44,7 +44,7 @@ export class ReportComponent implements OnInit {
 
   // report features
 
-  areaObjectsArray!:[];
+  areasForReport: [{}] =[{}]
   reportSaved:boolean = false; 
   report!: Report;
 
@@ -207,8 +207,6 @@ export class ReportComponent implements OnInit {
     drawingManager.setMap(map);
     let number = 0;
 
-    
-
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
       const len = polygon.getPath().getLength();
       const polyArrayLatLng = [];
@@ -242,13 +240,25 @@ export class ReportComponent implements OnInit {
       areaObject.name = polygonName
       areaObject.area = polyArrayLatLng
 
-      console.log(areaObject)
       arrayOfAreaObjects.push(areaObject)
-      
-      console.log('arrayareaofObjects', arrayOfAreaObjects)
 
 
+      console.log('array of area objects', arrayOfAreaObjects)
+
+      // this.arrayOfAreaObjects = arrayOfAreaObjects
 
     });
+
+    console.log('arrayof area', arrayOfAreaObjects)
   }
+
+  areaToGlobal(area:[{}]){
+    area.map(object=>{
+        this.areasForReport.push(object)
+
+      })
+
+
+  }
+
 }
