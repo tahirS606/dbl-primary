@@ -1,7 +1,6 @@
 import { Report } from './../../models/report.model';
 import { PropertyService } from './../services/property.service';
 
-import { MouseEvent } from '@agm/core';
 import { ReportService } from './../services/report.service';
 import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
@@ -50,12 +49,15 @@ export class ReportComponent implements OnInit {
 
   reportDate: any;
   reportSubmittedBy!: string; 
+  atLeastOneAreaSaved: boolean = false; 
 
   tasks: Task[] = []
   form!: FormGroup;
   date = new Date();
-  areaWithTasks: [] = [];
+  areaWithTasks: [{}] = [{}];
   checkboxVisible:boolean = false;
+  addTasksButtonEnabled: boolean = false;
+
 
   webData = [
     { id: 1, name: 'Raking' },
@@ -91,11 +93,24 @@ export class ReportComponent implements OnInit {
     }
 
     addTaskstoArea() {
-
+      // captures checked options
       const allTasks = this.form.value.tasks
-        .map((checked:Boolean, i:number) => checked ? this.webData[i].name: null);
-        console.log(allTasks)
-        return allTasks
+        .map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
+        : null);
+        
+        // filters out null objects
+        allTasks.map((object:any)=>{
+          if (object !== null){
+            this.tasks.push(object)
+            console.log('object', object)
+            console.log('this.tasks', this.tasks)
+          }
+
+          this.atLeastOneAreaSaved = true
+
+          console.log('area saved', this.atLeastOneAreaSaved)
+
+        })
         
     }
 
@@ -221,6 +236,8 @@ export class ReportComponent implements OnInit {
       // the last point of polygon should be always the same as the first point
       polyArrayLatLng.push(polyArrayLatLng[0]);
       
+      // this.addTasksButtonEnabled = true;
+
       console.log('polygon Complete')
       number = number+1 
       let polygonName = 'Area ' + number
@@ -255,7 +272,6 @@ export class ReportComponent implements OnInit {
   areaToGlobal(area:[{}]){
     area.map(object=>{
         this.areasForReport.push(object)
-
       })
 
 
