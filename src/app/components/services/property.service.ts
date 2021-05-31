@@ -80,12 +80,7 @@ export class PropertyService {
     return properties
   }
 
-  getAllRoutes():Observable<Property[]>{
-    return this.http.get<Property[]>(
-        'http://localhost:3000/properties'
-      )
-      
-  }
+ 
 
   getPropertyDataforNewReport(id: string){
     const property = this.http.get<{ _id: string; name: string; address: string; route: number, latitude: number; longitude: number }>(
