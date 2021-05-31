@@ -1,5 +1,5 @@
-<div *ngFor="let property of properties">
+<div *ngFor="let route of routes | unique">
     <mat-card>
-        <p>{{property.route}}</p>
+        <p>{{route.route}}</p>
     </mat-card>
 </div>

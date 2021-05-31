@@ -30,6 +30,8 @@ import { AutocompleteAddressComponent } from './components/properties/autocomple
 import { DisplayReportComponent } from './components/report/display-report/display-report.component';
 import { RoutesListComponent } from './components/routes-list/routes-list.component';
 import { RouteComponent } from './components/route/route.component';
+import { UniqueRoutePipe } from './pipes/unique-route.pipe';
+import {NgPipesModule} from 'ngx-pipes';
 
 
 
@@ -50,9 +52,11 @@ import { RouteComponent } from './components/route/route.component';
     DisplayReportComponent,
     RoutesListComponent,
     RouteComponent,
+    UniqueRoutePipe,
     
   ],
   imports: [
+    NgPipesModule, 
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
