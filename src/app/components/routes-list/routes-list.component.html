@@ -1,5 +1,9 @@
-<div *ngFor="let route of routes | unique">
-    <mat-card>
-        <p>{{route.route}}</p>
-    </mat-card>
+<div class="route-container">
+    <div *ngFor="let route of routes">
+        <mat-card>
+            <mat-card-content>
+                <p>{{route.route | number | orderBy}}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>

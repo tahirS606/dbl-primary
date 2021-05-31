@@ -1,4 +1,5 @@
 
+
 import { Property } from './../../models/property.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -8,6 +9,7 @@ import { PropertyService } from './../services/property.service';
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash'
 
+
 @Component({
   selector: 'app-routes-list',
   templateUrl: './routes-list.component.html',
@@ -16,6 +18,7 @@ import * as _ from 'lodash'
 export class RoutesListComponent implements OnInit {
 
   routes: any = []
+  displayRoutes: [] = []
   properties!: Property[]
   private propertiesUpdated = new Subject<{
     properties: Property[];
@@ -29,7 +32,7 @@ export class RoutesListComponent implements OnInit {
 
   constructor(
     private propertyService: PropertyService,
-    private http: HttpClient
+    private http: HttpClient,
   ) { 
 
   }
@@ -37,7 +40,7 @@ export class RoutesListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.http
+    this.routes = this.http
     .get<{ properties: any }>(
       'http://localhost:3000/properties'
     )
@@ -45,24 +48,22 @@ export class RoutesListComponent implements OnInit {
       map((propertyData) => {
         return {
           routes: propertyData.properties.map((property: any) => {
-            
             return {
               route: property.route
             };
-
-          }),
+          })
       
         };
-
       })
     )
     .subscribe((routeData) => {
-      this.routes = routeData.routes;
+      this.routes = routeData.routes
       console.log(routeData)
       console.log('this.routes', this.routes)
       });
 
     };
+
 
 }
 

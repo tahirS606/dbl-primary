@@ -1,0 +1,14 @@
+mat-card-content {
+    font-size: 200%;
+    color: lightblue
+}
+
+mat-card {
+    padding: 25px;
+    margin: 25px;
+}
+
+.route-container {
+    display: flex;
+    flex-flow: row wrap;
+}
