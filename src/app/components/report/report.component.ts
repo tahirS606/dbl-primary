@@ -46,8 +46,10 @@ export class ReportComponent implements OnInit {
   areasForReport!: [{}] 
   arrayOfAreaObjects!: [{}] 
   areasWithTasks!: [{}]
-  areaCollection!:[{}]
+  
   taskCollection!:[{}]
+
+  count: number = 0 
 
   collectionForReport!:[{}]
 
@@ -104,6 +106,7 @@ export class ReportComponent implements OnInit {
       this.webData.forEach(() => this.tasksArray.push(new FormControl(false)));
     }
 
+    
     addTaskstoArea() {
      
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
@@ -113,14 +116,21 @@ export class ReportComponent implements OnInit {
         allTasks.map((task:any)=>{
           if (task !== null){
             this.tasks.push(task)
-            // this.taskCollection.push(task)
           }
         })
         this.areasForReport.push(this.tasks)
+        this.count = this.count + 1
         console.log(this.tasks)
-        this.areasForReport[0]='collection name'
-
+        let collectionName = 'Collection ' + this.count
+        this.areasForReport[0]=collectionName
         console.log('after tasks added', this.areasForReport)
+
+        // this is what is not working, need to add to collection, another collection, then restart with the event object being cleared. ? 
+        this.areasWithTasks = [...this.areasForReport];
+        console.log('areaswithtasks,' , this.areasWithTasks)
+
+        this.areasForReport = [{}]
+
         }
 
     saveReport(){
