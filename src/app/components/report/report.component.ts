@@ -43,9 +43,18 @@ export class ReportComponent implements OnInit {
 
   // report features
 
-  areasForReport: [{}] =[{}]
+  areasForReport!: [{}] 
+  arrayOfAreaObjects!: [{}] 
+  areasWithTasks!: [{}]
+  areaCollection!:[{}]
+  taskCollection!:[{}]
+
+  collectionForReport!:[{}]
+
   reportSaved:boolean = false; 
   report!: Report;
+  
+  
 
   reportDate: any;
   reportSubmittedBy!: string; 
@@ -54,7 +63,8 @@ export class ReportComponent implements OnInit {
   tasks: Task[] = []
   form!: FormGroup;
   date = new Date();
-  areaWithTasks: [{}] = [{}];
+
+ 
 
   checkboxVisible:boolean = false;
 
@@ -95,26 +105,23 @@ export class ReportComponent implements OnInit {
     }
 
     addTaskstoArea() {
-      // captures checked options
-      if (this.form.value.tasks){
-        this.taskCheckboxButtonDisabled = false;
+     
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
         : null);
       
-      
         // filters out null objects
-        allTasks.map((object:any)=>{
-          if (object !== null){
-            this.tasks.push(object)
-            console.log('object', object)
-            console.log('this.tasks', this.tasks)
+        allTasks.map((task:any)=>{
+          if (task !== null){
+            this.tasks.push(task)
+            // this.taskCollection.push(task)
           }
         })
+        this.areasForReport.push(this.tasks)
+        console.log(this.tasks)
+        this.areasForReport[0]='collection name'
 
+        console.log('after tasks added', this.areasForReport)
         }
-        
-    }
-
 
     saveReport(){
       // example of property save
@@ -235,19 +242,17 @@ export class ReportComponent implements OnInit {
   
       // the last point of polygon should be always the same as the first point
       polyArrayLatLng.push(polyArrayLatLng[0]);
-           
+
       number = number+1 
       let polygonName = 'Area ' + number
     
       console.log('Area ', number, polyArrayLatLng);
 
-      console.log(polygonName.toString())
-
       let area = []
 
       area.push(polygonName)
       area.push(polyArrayLatLng)
-      console.log(area)
+      // console.log(area)
 
       let areaObject = {name: '', area: [{}] }
 
@@ -256,27 +261,17 @@ export class ReportComponent implements OnInit {
       
       arrayOfAreaObjects.push(areaObject)
 
-      console.log('array of area objects', arrayOfAreaObjects)
+      console.log('areaObject', areaObject)
 
       return arrayOfAreaObjects
 
     });
 
     this.areasForReport = arrayOfAreaObjects
-    console.log('this.areasForReport', this.areasForReport)
 
-    if (this.areasForReport.length>0){
-      this.addTasksButtonDisabled = false;
-    }
-    else this.addTasksButtonDisabled = true
-  }
+    // collects all area objects =>
 
-
-  areaToGlobal(area:[{}]){
-    area.map(object=>{
-        this.areasForReport.push(object)
-      })
-
+    console.log('areas for report', this.areasForReport)
 
   }
 

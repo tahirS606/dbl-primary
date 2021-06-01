@@ -30,7 +30,7 @@
     <mat-card-title class='centered'>
         <h1>Tasks</h1>
     </mat-card-title>
-    <form [formGroup]="form">
+    <form (ngSubmit)="addTasks();" [formGroup]="form">
         <label formArrayName="tasks" *ngFor="let tasks of tasksArray.controls; let i=index">
     <mat-checkbox [formControlName]="i">  
       {{webData[i].name}}
@@ -39,7 +39,7 @@
   </label>
         <br/>
         <!-- <mat-form-field matFormFieldControl>Add Photo</mat-form-field> -->
-        <button type=submit [disabled]="taskCheckboxButtonDisabled" mat-button color='primary' class="btn btn-success" class='centered' (click)="showCheckbox()" (click)="addTaskstoArea()">Add to Report</button>
+        <button type=submit mat-button color='primary' class="btn btn-success" class='centered' (click)="showCheckbox()" (click)="addTaskstoArea()">Submit</button>
     </form>
 </mat-card>
 
