@@ -10,7 +10,7 @@
         </agm-map>
 
     </mat-card-content>
-    <button (click)="addTasks()" color="primary" mat-button>Add Tasks to Area</button>
+    <button (click)="addTasks()" [disabled] color="primary" mat-button>Add Tasks to Area</button>
 
     <button color="primary" mat-button>Clear Map</button>
     <app-property-detail></app-property-detail>
@@ -39,7 +39,7 @@
   </label>
         <br/>
         <!-- <mat-form-field matFormFieldControl>Add Photo</mat-form-field> -->
-        <button type=submit mat-button color='primary' class="btn btn-success" class='centered' (click)="showCheckbox()" (click)="addTaskstoArea()">Add to Report</button>
+        <button type=submit [disabled]="taskCheckboxButtonDisabled" mat-button color='primary' class="btn btn-success" class='centered' (click)="showCheckbox()" (click)="addTaskstoArea()">Add to Report</button>
     </form>
 </mat-card>
 

@@ -55,9 +55,11 @@ export class ReportComponent implements OnInit {
   form!: FormGroup;
   date = new Date();
   areaWithTasks: [{}] = [{}];
-  checkboxVisible:boolean = false;
-  addTasksButtonEnabled: boolean = false;
 
+  checkboxVisible:boolean = false;
+
+  addTasksButtonDisabled: boolean = true;
+  taskCheckboxButtonDisabled: boolean = true;
 
   webData = [
     { id: 1, name: 'Raking' },
@@ -94,10 +96,12 @@ export class ReportComponent implements OnInit {
 
     addTaskstoArea() {
       // captures checked options
-      const allTasks = this.form.value.tasks
-        .map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
+      if (this.form.value.tasks){
+        this.taskCheckboxButtonDisabled = false;
+      const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
         : null);
-        
+      
+      
         // filters out null objects
         allTasks.map((object:any)=>{
           if (object !== null){
@@ -105,12 +109,9 @@ export class ReportComponent implements OnInit {
             console.log('object', object)
             console.log('this.tasks', this.tasks)
           }
-
-          this.atLeastOneAreaSaved = true
-
-          console.log('area saved', this.atLeastOneAreaSaved)
-
         })
+
+        }
         
     }
 
@@ -153,7 +154,6 @@ export class ReportComponent implements OnInit {
     addTasks(){
       console.log('add tasks clicked')
       this.checkboxVisible = true;
-
     }
 
     
@@ -192,16 +192,17 @@ export class ReportComponent implements OnInit {
     this.initDrawingManager(map);
   }
 
-  initDrawingManager(map: any) {
+  initDrawingManager(map:any) {
 
     const arrayOfAreaObjects:[{}]= [{}]
-
+    
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: true,
       drawingControlOptions: {
         drawingModes: ["polygon"]
       },
+
       polygonOptions: {
         outline: true, 
         draggable: true,
@@ -226,7 +227,6 @@ export class ReportComponent implements OnInit {
       const len = polygon.getPath().getLength();
       const polyArrayLatLng = [];
       
-      
       for (let i = 0; i < len; i++) {
         const vertex = polygon.getPath().getAt(i);
         const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
@@ -235,10 +235,7 @@ export class ReportComponent implements OnInit {
   
       // the last point of polygon should be always the same as the first point
       polyArrayLatLng.push(polyArrayLatLng[0]);
-      
-      // this.addTasksButtonEnabled = true;
-
-      console.log('polygon Complete')
+           
       number = number+1 
       let polygonName = 'Area ' + number
     
@@ -256,18 +253,24 @@ export class ReportComponent implements OnInit {
 
       areaObject.name = polygonName
       areaObject.area = polyArrayLatLng
-
+      
       arrayOfAreaObjects.push(areaObject)
-
 
       console.log('array of area objects', arrayOfAreaObjects)
 
-      // this.arrayOfAreaObjects = arrayOfAreaObjects
+      return arrayOfAreaObjects
 
     });
 
-    console.log('arrayof area', arrayOfAreaObjects)
+    this.areasForReport = arrayOfAreaObjects
+    console.log('this.areasForReport', this.areasForReport)
+
+    if (this.areasForReport.length>0){
+      this.addTasksButtonDisabled = false;
+    }
+    else this.addTasksButtonDisabled = true
   }
+
 
   areaToGlobal(area:[{}]){
     area.map(object=>{
