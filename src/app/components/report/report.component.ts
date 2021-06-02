@@ -13,10 +13,8 @@ import { FormBuilder,
 
   import * as $ from 'jquery';
 
-  
 
   declare const google: any;
-
 
 @Component({
   selector: 'app-report',
@@ -46,19 +44,15 @@ export class ReportComponent implements OnInit {
 
   zoomControl: boolean = false;
 
-  // report features
+ //=== report features ===//
 
   areasForReport!: [{}] 
-  arrayOfAreaObjects!: [{}] 
 
-  // areas linked with tasks
-  areasWithTasks!: [{}]
 
   // array of areas with tasks, collection names
-  collectionForReport!:[{}]
+  // collectionForReport = {name: collection 1, areas: [{area w, area 2}], tasks: []}
+  collectionForReport:{}[] = []
   
-  taskCollection!:[{}]
-
   count: number = 0 
 
   
@@ -141,22 +135,20 @@ export class ReportComponent implements OnInit {
         })
         this.areasForReport.push(this.tasks)
         this.count = this.count + 1
-        console.log(this.tasks)
         let collectionName = 'Collection ' + this.count
-        this.areasForReport[0]=collectionName
+        this.areasForReport[0] = collectionName
         console.log('after tasks added', this.areasForReport)
 
         // this is what is not working, need to add to collection, another collection, then restart with the event object being cleared. ? 
         
         // this.collectionForReport = [{...this.collectionForReport, ...this.areasForReport}]
 
-        $.extend(this.collectionForReport, this.areasForReport);
+        this.collectionForReport.push(this.areasForReport)
 
+        console.log('Should be more than one', this.collectionForReport)
 
-        console.log('<<<<<after collections added. Should be more than one', this.collectionForReport.toString())
-
-        this.areasForReport = [{}]
-        this.areasWithTasks = [{}]
+        // this.areasForReport =[{}]
+        this.tasks = []
 
         this.form.reset()
         
@@ -164,10 +156,10 @@ export class ReportComponent implements OnInit {
 
     saveReport(){
       // example of property save
-      if (this.form.invalid) {
-        console.log('form is invalid');
-        return;
-      }
+      // if (this.form.invalid) {
+      //   console.log('form is invalid');
+      //   return;
+      // }
       // else {
       //   this.reportService.addReport(
           // example
@@ -198,7 +190,7 @@ export class ReportComponent implements OnInit {
         
     }
     addTasks(){
-      console.log('add tasks clicked')
+      // console.log('add tasks clicked')
       this.checkboxVisible = true;
     }
 
@@ -207,11 +199,11 @@ export class ReportComponent implements OnInit {
   ngOnInit(): void {
 
     this.reportDate = this.date; 
-    console.log(this.reportDate)
+    // console.log(this.reportDate)
 
     const fetchedTasks = this.reportService.getTasks().subscribe();
 
-    console.log('fetchedTasks', fetchedTasks)
+    // console.log('fetchedTasks', fetchedTasks)
 
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     
@@ -285,13 +277,13 @@ export class ReportComponent implements OnInit {
       number = number+1 
       let polygonName = 'Area ' + number
     
-      console.log('Area ', number, polyArrayLatLng);
+      // console.log('Area ', number, polyArrayLatLng);
 
       let area = []
 
       area.push(polygonName)
       area.push(polyArrayLatLng)
-      // console.log(area)
+      
 
       let areaObject = {name: '', area: [{}] }
 
@@ -301,8 +293,9 @@ export class ReportComponent implements OnInit {
       arrayOfAreaObjects.push(areaObject)
 
       console.log('areaObject', areaObject)
-
+      console.log('array of area', arrayOfAreaObjects)
       return arrayOfAreaObjects
+      
 
     });
 
@@ -310,7 +303,7 @@ export class ReportComponent implements OnInit {
 
     // collects all area objects =>
 
-    console.log('areas for report', this.areasForReport)
+    console.log('areas for report this.areasForRepoert', this.areasForReport)
 
   }
 
