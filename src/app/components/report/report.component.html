@@ -12,7 +12,7 @@
     </mat-card-content>
     <button (click)="addTasks()" [disabled] color="primary" mat-button>Add Tasks to Area</button>
 
-    <button color="primary" mat-button>Clear Map</button>
+    <button color="primary" mat-button (click)="onClearButtonClicked()">Clear Map</button>
     <app-property-detail></app-property-detail>
     <mat-action-row>
         <a (click)="saveReport()" mat-button displayFlx color="primary">Save Report</a>

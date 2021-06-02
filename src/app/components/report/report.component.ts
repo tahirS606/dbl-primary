@@ -11,7 +11,12 @@ import { FormBuilder,
   FormArray,
   FormControl,} from '@angular/forms';
 
+  import * as $ from 'jquery';
+
+  
+
   declare const google: any;
+
 
 @Component({
   selector: 'app-report',
@@ -45,13 +50,18 @@ export class ReportComponent implements OnInit {
 
   areasForReport!: [{}] 
   arrayOfAreaObjects!: [{}] 
+
+  // areas linked with tasks
   areasWithTasks!: [{}]
+
+  // array of areas with tasks, collection names
+  collectionForReport!:[{}]
   
   taskCollection!:[{}]
 
   count: number = 0 
 
-  collectionForReport!:[{}]
+  
 
   reportSaved:boolean = false; 
   report!: Report;
@@ -106,7 +116,18 @@ export class ReportComponent implements OnInit {
       this.webData.forEach(() => this.tasksArray.push(new FormControl(false)));
     }
 
-    
+    // supposed to clear map, https://stackoverflow.com/questions/59631485/how-to-clear-polygon-from-agm-map
+
+    public onOverlayComplete(e: any) {
+      this.map = e.overlay;
+  }
+
+  public onClearButtonClicked() {
+      this.map.setMap(null);
+  }
+
+  // end clear map (doesn't work yet)
+
     addTaskstoArea() {
      
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
@@ -126,11 +147,19 @@ export class ReportComponent implements OnInit {
         console.log('after tasks added', this.areasForReport)
 
         // this is what is not working, need to add to collection, another collection, then restart with the event object being cleared. ? 
-        this.areasWithTasks = [...this.areasForReport];
-        console.log('areaswithtasks,' , this.areasWithTasks)
+        
+        // this.collectionForReport = [{...this.collectionForReport, ...this.areasForReport}]
+
+        $.extend(this.collectionForReport, this.areasForReport);
+
+
+        console.log('<<<<<after collections added. Should be more than one', this.collectionForReport.toString())
 
         this.areasForReport = [{}]
+        this.areasWithTasks = [{}]
 
+        this.form.reset()
+        
         }
 
     saveReport(){
