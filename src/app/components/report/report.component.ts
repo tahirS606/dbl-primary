@@ -46,7 +46,7 @@ export class ReportComponent implements OnInit {
 
  //=== report features ===//
 
-  areasForReport!: [{}] 
+  areasForReport: {}[] =[]
 
 
   // array of areas with tasks, collection names
@@ -137,7 +137,7 @@ export class ReportComponent implements OnInit {
         this.count = this.count + 1
         let collectionName = 'Collection ' + this.count
         this.areasForReport[0] = collectionName
-        console.log('after tasks added', this.areasForReport)
+        console.log('areasForReport after tasks added', this.areasForReport)
 
         // this is what is not working, need to add to collection, another collection, then restart with the event object being cleared. ? 
         
@@ -145,9 +145,10 @@ export class ReportComponent implements OnInit {
 
         this.collectionForReport.push(this.areasForReport)
 
-        console.log('Should be more than one', this.collectionForReport)
+        // works first time through, second and 'area' is lost
 
-        // this.areasForReport =[{}]
+        console.log('collectionForReport - Should be more than one', this.collectionForReport)
+
         this.tasks = []
 
         this.form.reset()
@@ -300,6 +301,7 @@ export class ReportComponent implements OnInit {
     });
 
     this.areasForReport = arrayOfAreaObjects
+    console.log('array of area objects', arrayOfAreaObjects)
 
     // collects all area objects =>
 
