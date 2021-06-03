@@ -9,18 +9,18 @@ import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder,  
   FormGroup,
   FormArray,
-  FormControl,} from '@angular/forms';
+  FormControl,
+} from '@angular/forms';
 
-  import * as $ from 'jquery';
 
-
-  declare const google: any;
+declare const google: any;
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
 })
+
 export class ReportComponent implements OnInit {
 
   map: any; 
@@ -51,7 +51,7 @@ export class ReportComponent implements OnInit {
 
   // array of areas with tasks, collection names
   // collectionForReport = {name: collection 1, areas: [{area w, area 2}], tasks: []}
-  collectionForReport:{}[] = []
+  collectionForReport:{entries: [{}]} = {entries: [{}]}
   
   count: number = 0 
 
@@ -123,6 +123,9 @@ export class ReportComponent implements OnInit {
   // end clear map (doesn't work yet)
 
     addTaskstoArea() {
+
+
+      this.tasks = []
      
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
         : null);
@@ -133,24 +136,37 @@ export class ReportComponent implements OnInit {
             this.tasks.push(task)
           }
         })
-        this.areasForReport.push(this.tasks)
-        this.count = this.count + 1
-        let collectionName = 'Collection ' + this.count
-        this.areasForReport[0] = collectionName
-        console.log('areasForReport after tasks added', this.areasForReport)
+
+        let areasWithTasks = {name: {}, areas: {}, tasks: [{}]}
+
+        areasWithTasks.areas = this.areasForReport
+
+        console.log('area added to areasWithTasks', areasWithTasks)
+
+        areasWithTasks.tasks.push(this.tasks)
+
+        console.log('after tasks added areasWithTasks', areasWithTasks)
+
+        this.count = (this.count + 1)
+        let collectionName = 'Collection ' + this.count.toString()
+        areasWithTasks.name = collectionName
+        console.log('areasWithTasks after tasks added', areasWithTasks)
 
         // this is what is not working, need to add to collection, another collection, then restart with the event object being cleared. ? 
         
         // this.collectionForReport = [{...this.collectionForReport, ...this.areasForReport}]
 
-        this.collectionForReport.push(this.areasForReport)
+        this.collectionForReport.entries.push(areasWithTasks)
+
 
         // works first time through, second and 'area' is lost
 
         console.log('collectionForReport - Should be more than one', this.collectionForReport)
 
-        this.tasks = []
+        // need to push areas to collection, and then reset areasForReport
+        areasWithTasks = {name: {}, areas: {}, tasks: [{}]}
 
+        
         this.form.reset()
         
         }
@@ -233,7 +249,16 @@ export class ReportComponent implements OnInit {
 
   initDrawingManager(map:any) {
 
-    const arrayOfAreaObjects:[{}]= [{}]
+    const strokeColors = {
+      red: 'red',
+      blue: 'blue', 
+      green: 'green',
+      yellow: 'yellow'
+    }
+
+    // will 'randomly' cycle through a list of 16 or so colors (enough to never run out) upon new polygon creation
+
+    let arrayOfAreaObjects:[{}]= [{}]
     
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -260,9 +285,12 @@ export class ReportComponent implements OnInit {
     const drawingManager = new google.maps.drawing.DrawingManager(options);
     
     drawingManager.setMap(map);
+    
     let number = 0;
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
+
+    
       const len = polygon.getPath().getLength();
       const polyArrayLatLng = [];
       
@@ -276,36 +304,25 @@ export class ReportComponent implements OnInit {
       polyArrayLatLng.push(polyArrayLatLng[0]);
 
       number = number+1 
-      let polygonName = 'Area ' + number
-    
-      // console.log('Area ', number, polyArrayLatLng);
-
-      let area = []
-
-      area.push(polygonName)
-      area.push(polyArrayLatLng)
-      
-
-      let areaObject = {name: '', area: [{}] }
+      let polygonName = 'Area ' + number    
+      let areaArray = {name: '', area: [{}] }
+      const areaObject = Object.create(areaArray)
 
       areaObject.name = polygonName
       areaObject.area = polyArrayLatLng
       
       arrayOfAreaObjects.push(areaObject)
 
-      console.log('areaObject', areaObject)
-      console.log('array of area', arrayOfAreaObjects)
-      return arrayOfAreaObjects
+      console.log('array of area objects', arrayOfAreaObjects)
       
-
     });
 
-    this.areasForReport = arrayOfAreaObjects
+    this.areasForReport = arrayOfAreaObjects    
     console.log('array of area objects', arrayOfAreaObjects)
 
     // collects all area objects =>
 
-    console.log('areas for report this.areasForRepoert', this.areasForReport)
+    console.log('areas for report this.areasForReport', this.areasForReport)
 
   }
 
