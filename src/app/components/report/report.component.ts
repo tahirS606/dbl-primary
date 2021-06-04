@@ -46,31 +46,27 @@ export class ReportComponent implements OnInit {
 
  //=== report features ===//
 
-  areasForReport: {}[] =[]
+  areasForReport: {}[] =[{}]
+  collectionCounter!: number; 
+  resetCount!: number; 
+  collectionForReport:{entries: {}[]} = {entries: [{}]}
 
+  areasWithTasksLength!: number
 
-  // array of areas with tasks, collection names
-  // collectionForReport = {name: collection 1, areas: [{area w, area 2}], tasks: []}
-  collectionForReport:{entries: [{}]} = {entries: [{}]}
+  collectionCount:number = this.collectionForReport.entries.length
   
-  count: number = 0 
-
-  
+  // for naming
+  count!: number; 
 
   reportSaved:boolean = false; 
   report!: Report;
-  
-  
 
   reportDate: any;
   reportSubmittedBy!: string; 
-  atLeastOneAreaSaved: boolean = false; 
 
   tasks: Task[] = []
   form!: FormGroup;
   date = new Date();
-
- 
 
   checkboxVisible:boolean = false;
 
@@ -124,8 +120,11 @@ export class ReportComponent implements OnInit {
 
     addTaskstoArea() {
 
+      this.areasWithTasksLength = 0
 
       this.tasks = []
+
+      this.collectionForReport.entries.shift()
      
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
         : null);
@@ -137,90 +136,56 @@ export class ReportComponent implements OnInit {
           }
         })
 
-        let areasWithTasks = {name: {}, areas: {}, tasks: [{}]}
+        let areasWithTasks = {name: {}, areas: [{}], tasks: [{}]}
+        console.log('areas for report before adding tasks', this.areasForReport)
 
-        areasWithTasks.areas = this.areasForReport
+        areasWithTasks.areas.push(this.areasForReport)
+        // this.areasForReport = []
 
         console.log('area added to areasWithTasks', areasWithTasks)
 
         areasWithTasks.tasks.push(this.tasks)
 
+        this.areasWithTasksLength = areasWithTasks.tasks.length
+
         console.log('after tasks added areasWithTasks', areasWithTasks)
 
-        this.count = (this.count + 1)
-        let collectionName = 'Collection ' + this.count.toString()
+      // working, now except areas keep stacking, even when new tasks added
+
+        this.collectionForReport.entries.push(areasWithTasks)
+        this.collectionCount = this.collectionCount + 1
+
+        let collectionName = 'Collection ' + this.collectionCount.toString()
         areasWithTasks.name = collectionName
         console.log('areasWithTasks after tasks added', areasWithTasks)
 
-        // this is what is not working, need to add to collection, another collection, then restart with the event object being cleared. ? 
-        
-        // this.collectionForReport = [{...this.collectionForReport, ...this.areasForReport}]
-
-        this.collectionForReport.entries.push(areasWithTasks)
-
-
-        // works first time through, second and 'area' is lost
-
+        // works now, except areas keep adding up. !!!
         console.log('collectionForReport - Should be more than one', this.collectionForReport)
 
-        // need to push areas to collection, and then reset areasForReport
-        areasWithTasks = {name: {}, areas: {}, tasks: [{}]}
+        // so first will have a b, second will have abc, third will have abcd. 
 
-        
+        // need to push areas to collection, and then reset areasForReport
+        areasWithTasks = {name: {}, areas: [], tasks: []}
+
         this.form.reset()
         
         }
 
     saveReport(){
-      // example of property save
-      // if (this.form.invalid) {
-      //   console.log('form is invalid');
-      //   return;
-      // }
-      // else {
-      //   this.reportService.addReport(
-          // example
-          // if (this.form.invalid) {
-          //   console.log('form is invalid');
-          //   return;
-          // }
-          // if (this.addMode) {
-          //   this.propertyService.addProperty(
-          //     this.form.value.name,
-          //     this.address, 
-          //     this.form.value.route, 
-          //     this.latitude, 
-          //     this.longitude)        
-          //   ;
-          // } else {
-          //   this.propertyService.updateProperty(
-          //     this.propertyId,
-          //     this.form.value.name,
-          //     this.form.value.address,
-          //     this.form.value.route, 
-          //     this.latitude, 
-          //     this.longitude
-          //   );
-          // }
-
-    // }
-        
+    
     }
+
     addTasks(){
       // console.log('add tasks clicked')
       this.checkboxVisible = true;
     }
 
-    
-
   ngOnInit(): void {
 
+    this.collectionCount = 0
+    this.resetCount = 0
+
     this.reportDate = this.date; 
-    // console.log(this.reportDate)
-
-    const fetchedTasks = this.reportService.getTasks().subscribe();
-
-    // console.log('fetchedTasks', fetchedTasks)
 
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     
@@ -256,9 +221,9 @@ export class ReportComponent implements OnInit {
       yellow: 'yellow'
     }
 
-    // will 'randomly' cycle through a list of 16 or so colors (enough to never run out) upon new polygon creation
+    // plan: will 'randomly' cycle through a list of 16 or so colors (enough to never run out) upon new polygon creation
 
-    let arrayOfAreaObjects:[{}]= [{}]
+    let arrayOfAreaObjects:{areaObjects: [{}] } = {areaObjects : [{}]}
     
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -274,7 +239,7 @@ export class ReportComponent implements OnInit {
         fillColor: "#ffff00",
         fillOpacity: .25,
         strokeWeight: 5,
-        strokeColor: 'blue',
+        strokeColor: '555fff',
         clickable: true,
         zIndex: 1,
         fullScreenControl: true, 
@@ -288,9 +253,17 @@ export class ReportComponent implements OnInit {
     
     let number = 0;
 
+    // how to access .this within event below. 
+    
+    // this.tasks = 0;
+    // this.y = 0;
+    // var _self = this;
+
+    // _self.x = event.pageX;     // Is now able to access Map's member variable "x"
+    //     _self.y = event.pageY;  
+
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
 
-    
       const len = polygon.getPath().getLength();
       const polyArrayLatLng = [];
       
@@ -305,25 +278,32 @@ export class ReportComponent implements OnInit {
 
       number = number+1 
       let polygonName = 'Area ' + number    
-      let areaArray = {name: '', area: [{}] }
+      let areaArray = {name: '', area: [] }
       const areaObject = Object.create(areaArray)
 
       areaObject.name = polygonName
       areaObject.area = polyArrayLatLng
       
-      arrayOfAreaObjects.push(areaObject)
-
-      console.log('array of area objects', arrayOfAreaObjects)
+      arrayOfAreaObjects.areaObjects.push(areaObject)
+      // area object pushes to list. 
       
     });
 
-    this.areasForReport = arrayOfAreaObjects    
-    console.log('array of area objects', arrayOfAreaObjects)
+    // need to reset arrayofAreaObjects after a new collection. How? 
 
-    // collects all area objects =>
+    // removes empty first thing
+    arrayOfAreaObjects.areaObjects.shift()
 
-    console.log('areas for report this.areasForReport', this.areasForReport)
+        // list transfers to global scope. 
+    this.areasForReport.push(arrayOfAreaObjects)   
 
+    // clears array after push
+    arrayOfAreaObjects.areaObjects = [{}] 
+
+    // full array transfers to global scope for entry into creating objectWithTasks
+
+    // idea when collection count goes up, you remove .length items from original array. 
   }
-
 }
+
+ 
