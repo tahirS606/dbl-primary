@@ -49,11 +49,13 @@ export class ReportComponent implements OnInit {
   areasForReport: {}[] =[{}]
   collectionCounter!: number; 
   resetCount!: number; 
-  collectionForReport:{entries: {}[]} = {entries: [{}]}
+  areaObjectsGlobal:[{}] = [{}]
 
   areasWithTasksLength!: number
 
-  collectionCount:number = this.collectionForReport.entries.length
+  collectionForReport :[{}] =[{}]
+
+  collectionCount:number = this.collectionForReport.length
   
   // for naming
   count!: number; 
@@ -124,7 +126,6 @@ export class ReportComponent implements OnInit {
 
       this.tasks = []
 
-      this.collectionForReport.entries.shift()
      
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
         : null);
@@ -136,7 +137,7 @@ export class ReportComponent implements OnInit {
           }
         })
 
-        let areasWithTasks = {name: {}, areas: [{}], tasks: [{}]}
+        let areasWithTasks = {name: '', areas: [{}], tasks: [{}]}
         console.log('areas for report before adding tasks', this.areasForReport)
 
         areasWithTasks.areas.push(this.areasForReport)
@@ -152,7 +153,7 @@ export class ReportComponent implements OnInit {
 
       // working, now except areas keep stacking, even when new tasks added
 
-        this.collectionForReport.entries.push(areasWithTasks)
+        this.collectionForReport.push(areasWithTasks)
         this.collectionCount = this.collectionCount + 1
 
         let collectionName = 'Collection ' + this.collectionCount.toString()
@@ -165,7 +166,7 @@ export class ReportComponent implements OnInit {
         // so first will have a b, second will have abc, third will have abcd. 
 
         // need to push areas to collection, and then reset areasForReport
-        areasWithTasks = {name: {}, areas: [], tasks: []}
+        areasWithTasks = {name: '', areas: [{}], tasks: []}
 
         this.form.reset()
         
@@ -181,6 +182,8 @@ export class ReportComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+    this.collectionForReport.shift()
 
     this.collectionCount = 0
     this.resetCount = 0
@@ -223,7 +226,8 @@ export class ReportComponent implements OnInit {
 
     // plan: will 'randomly' cycle through a list of 16 or so colors (enough to never run out) upon new polygon creation
 
-    let arrayOfAreaObjects:{areaObjects: [{}] } = {areaObjects : [{}]}
+    let areaObjects : [{}] = [{}];
+    areaObjects.shift()
     
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -280,29 +284,18 @@ export class ReportComponent implements OnInit {
       let polygonName = 'Area ' + number    
       let areaArray = {name: '', area: [] }
       const areaObject = Object.create(areaArray)
+      areaObject.area.shift()
 
       areaObject.name = polygonName
       areaObject.area = polyArrayLatLng
-      
-      arrayOfAreaObjects.areaObjects.push(areaObject)
-      // area object pushes to list. 
-      
+      console.log('area object', areaObject)  
+      areaObjects.push(areaObject)
+      console.log('array of area objects after push of area Object', areaObjects)
     });
 
-    // need to reset arrayofAreaObjects after a new collection. How? 
-
-    // removes empty first thing
-    arrayOfAreaObjects.areaObjects.shift()
-
-        // list transfers to global scope. 
-    this.areasForReport.push(arrayOfAreaObjects)   
-
-    // clears array after push
-    arrayOfAreaObjects.areaObjects = [{}] 
-
-    // full array transfers to global scope for entry into creating objectWithTasks
-
-    // idea when collection count goes up, you remove .length items from original array. 
+    this.areaObjectsGlobal.push(areaObjects)
+    // areaObjects = [{}]
+    console.log('making global collections for report', this.areaObjectsGlobal)
   }
 }
 
