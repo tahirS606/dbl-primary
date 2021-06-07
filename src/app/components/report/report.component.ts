@@ -1,4 +1,3 @@
-import { Task } from './../../models/task.model';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
@@ -66,7 +65,7 @@ export class ReportComponent implements OnInit {
   reportDate: any;
   reportSubmittedBy!: string; 
 
-  tasks: Task[] = []
+  tasks: [] = []
   form!: FormGroup;
   date = new Date();
 
