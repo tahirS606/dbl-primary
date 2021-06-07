@@ -24,9 +24,6 @@ export class PropertyDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('property coming in', this.property) 
-    // undefined? 
-
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     console.log(this.propertyId)
         this.propertyService
