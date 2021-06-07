@@ -65,7 +65,7 @@ export class ReportComponent implements OnInit {
   reportDate: any;
   reportSubmittedBy!: string; 
 
-  tasks: [] = []
+  tasks: [{}] = [{}]
   form!: FormGroup;
   date = new Date();
 
@@ -123,7 +123,7 @@ export class ReportComponent implements OnInit {
 
       this.areasWithTasksLength = 0
 
-      this.tasks = []
+      this.tasks = [{}]
 
      
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
