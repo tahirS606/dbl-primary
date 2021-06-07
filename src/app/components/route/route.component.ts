@@ -34,8 +34,6 @@ export class RouteComponent implements OnInit {
     console.log(
     this.propertyService.getPropertiesByRoute(this.selectedRoute)
     )
-
-
     }
  
     
