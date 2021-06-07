@@ -1,4 +1,5 @@
-import { PropertyService } from './../../services/property.service';
+import { PropertyService } from './../../../services/property.service';
+
 
 import {
   Input,

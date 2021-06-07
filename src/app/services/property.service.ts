@@ -1,5 +1,5 @@
-import { Property } from './../../models/property.model';
 import { HttpClient } from '@angular/common/http';
+import { Property } from './../models/property.model';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class PropertyService {
-  private properties: Property[] = [];
+  private properties: Property [] = [];
   private _properties = new Subject <Property[]>();
 
   private propertiesUpdated = new Subject<{
@@ -20,7 +20,7 @@ export class PropertyService {
   private updatedProperties: any;
   routes: any; 
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient , private router: Router) {}
 
   getProperties(propertiesPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${propertiesPerPage}&page=${currentPage}`;
@@ -90,6 +90,12 @@ export class PropertyService {
       'http://localhost:3000/new-report/' + id
     );
 
+  }
+
+  getPropertiesByRoute(route: number){
+    return this.http.get<{_id: string; name: string; address: string; latitude: number; longitude: number }>(
+      'http://localhost:3000/routes/' + route
+    );
   }
 
   getPropertyforReport(id: string) {

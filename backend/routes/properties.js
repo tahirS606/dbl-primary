@@ -61,6 +61,18 @@ router.get("", (req, res, next) => {
     router.get("/:id", (req, res, next) => {
         Property.findById(req.params.id).then((property) => {
             if (property) {
+                res.status(200).json(property).sort('name');
+            } else {
+                res.status(404).json({ message: "property not found" });
+            }
+        });
+    });
+
+    // get by route
+
+    router.get("/:route", (req, res, next) => {
+        Property.find(req.params.route).then((property) => {
+            if (property) {
                 res.status(200).json(property);
             } else {
                 res.status(404).json({ message: "property not found" });

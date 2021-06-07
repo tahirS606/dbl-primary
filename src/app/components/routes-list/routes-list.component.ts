@@ -1,10 +1,11 @@
+import { PropertyService } from './../../services/property.service';
 
 
 import { Property } from './../../models/property.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { PropertyService } from './../services/property.service';
+
 
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash'

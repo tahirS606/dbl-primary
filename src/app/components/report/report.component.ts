@@ -1,7 +1,9 @@
+import { ReportService } from './../../services/report.service';
+import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
-import { PropertyService } from './../services/property.service';
 
-import { ReportService } from './../services/report.service';
+
+
 import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
 import { Property } from './../../models/property.model';

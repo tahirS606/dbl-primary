@@ -1,9 +1,9 @@
-import { PropertyService } from './components/services/property.service';
+
+
 
 import { AuthInterceptor } from './components/auth/auth-interceptor';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { AgmCoreModule, PolygonManager } from '@agm/core';
-
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddPropertyComponent } from './components/properties/add-property/add-property.component';
 import { HeaderComponent } from './components/header/header/header.component';
@@ -74,7 +74,7 @@ import {NgPipesModule} from 'ngx-pipes';
  
   // multi says don't override additionals, just add
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, 
-    PolygonManager, PropertyService],
+    PolygonManager],
   bootstrap: [AppComponent],
   
 })

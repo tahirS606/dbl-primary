@@ -1,7 +1,10 @@
-import { PropertyService } from './../services/property.service';
+import { ReportService } from './../../services/report.service';
+import { PropertyService } from './../../services/property.service';
+
+
 import { Property } from './../../models/property.model';
 import { ActivatedRoute } from '@angular/router';
-import { ReportService } from './../services/report.service';
+
 import { Report } from './../../models/report.model';
 import { Component, OnInit } from '@angular/core';
 

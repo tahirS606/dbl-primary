@@ -1,4 +1,5 @@
-import { PropertyService } from './../../services/property.service';
+import { PropertyService } from './../../../services/property.service';
+
 import { AuthService } from './../../auth/auth.service';
 import { Property } from './../../../models/property.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
