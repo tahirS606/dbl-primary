@@ -10,8 +10,7 @@
         "e2e": "ng e2e",
         "start-nodemon": "nodemon server.js",
         "start-parcel": "parcel index.html",
-        "build-parcel": "parcel build --public-url . index.html",
-        "heroku-postbuild": "ng build --prod"
+        "build-parcel": "parcel build --public-url . index.html"
     },
     "private": true,
     "engines": {
