@@ -1,1 +1,28 @@
-<p>route works!</p>
+<div *ngFor="let property of properties | orderBy">
+
+
+    <mat-expansion-panel multi="false">
+        <mat-expansion-panel-header>
+            <h4>{{ property?.name | titlecase }}</h4>
+        </mat-expansion-panel-header>
+        <mat-panel-title>
+            <h5>{{ property?.address }}</h5>
+        </mat-panel-title>
+
+        <mat-panel-description>
+
+            <h4>Route: {{property.route}}</h4>
+        </mat-panel-description>
+        <mat-action-row *ngIf="userIsAuthenticated">
+            <a mat-button color="primary" [routerLink]="['/new-report', property.id]">Create Report</a
+        >
+          <!-- admin -->
+          <a mat-button color="primary" [routerLink]="['/edit-property', property.id]">Edit Property</a>
+            <a mat-button color="primary" [routerLink]="['/reports', property.id]">Reports</a>
+            <button mat-button color="warn" (click)="onDelete(property.id)">Delete</button>
+
+        </mat-action-row>
+    </mat-expansion-panel>
+    <!-- </mat-accordion> -->
+
+</div>

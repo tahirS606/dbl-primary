@@ -19,6 +19,7 @@ import * as _ from 'lodash'
 export class RoutesListComponent implements OnInit {
 
   routes: any = []
+  routeList: [] =[]
   displayRoutes: [] = []
   properties!: Property[]
   private propertiesUpdated = new Subject<{
@@ -53,13 +54,11 @@ export class RoutesListComponent implements OnInit {
             return {
               route: property.route
             };
-          })
-          // .map((routes:any)=>{
-          //   // this.routes = this.displayRoutes.push(routes)
-          //   // return this.displayRoutes
-          // })
+          }).map((route:any)=>{
+            [route, ...this.routeList]
+          }
           
-      
+          )
         };
       })
 
@@ -67,7 +66,6 @@ export class RoutesListComponent implements OnInit {
     .subscribe((routeData) => {
       // this.routes = this.routes.sort()
       this.routes = routeData.routes
-      console.log(routeData)
       console.log('this.routes', this.routes)
       });
 

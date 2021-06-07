@@ -76,32 +76,14 @@ export class PropertyService {
     )
   }
 
-
-
   baseUrl='http://localhost:3000/'
 
 
-
-
- 
-
-  getPropertyDataforNewReport(id: string){
-    const property = this.http.get<{ _id: string; name: string; address: string; route: number, latitude: number; longitude: number }>(
-      'http://localhost:3000/new-report/' + id
-    );
-
-  }
+  
 
   getPropertiesByRoute(route: number){
     return this.http.get<{_id: string; name: string; address: string; latitude: number; longitude: number }>(
-      'http://localhost:3000/routes/' + route
-    );
-  }
-
-  getPropertyforReport(id: string) {
-    return this.http.get<{ _id: string; name: string; address: string; route: number, latitude: number; longitude: number }>(
-      'http://localhost:3000/properties/' + id
-    );
+      'http://localhost:3000/properties/')
   }
 
   updateProperty(id: string, name: string, address: string, route: number, longitude: number, latitude: number ) {

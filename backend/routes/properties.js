@@ -34,12 +34,28 @@ router.put("/:id", checkAuth, (req, res, next) => {
     });
 });
 
+router.get("/:route", checkAuth,
+    (req, res, next) => {
+        console.log('get ran for route')
+        console.log(req.params.route)
+        Property.find(({ "route": req.params.route })).then((property) => {
+            if (property) {
+                res.status(200).json(property);
+                console.log(property)
+            } else {
+                res.status(404).json({ message: "property not found" });
+            }
+        });
+    });
+
 router.get("", (req, res, next) => {
     // query parameters for paginator
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
     const propertyQuery = Property.find();
     let fetchedProperties;
+
+
 
     if (pageSize && currentPage) {
         propertyQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
@@ -58,27 +74,11 @@ router.get("", (req, res, next) => {
             });
         });
 
-    router.get("/:id", (req, res, next) => {
-        Property.findById(req.params.id).then((property) => {
-            if (property) {
-                res.status(200).json(property).sort('name');
-            } else {
-                res.status(404).json({ message: "property not found" });
-            }
-        });
-    });
+
 
     // get by route
 
-    router.get("/:route", (req, res, next) => {
-        Property.find(req.params.route).then((property) => {
-            if (property) {
-                res.status(200).json(property);
-            } else {
-                res.status(404).json({ message: "property not found" });
-            }
-        });
-    });
+
 
 
     router.delete("/:id", checkAuth, (req, res, next) => {

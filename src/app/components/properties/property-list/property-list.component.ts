@@ -53,11 +53,6 @@ export class PropertyListComponent implements OnInit, OnDestroy {
     this.isLoading = false;
   }
 
-  // deleteWarn(propertyName: string){
-  //   if(confirm("Are you sure to delete" + propertyName)
-  //  }
-
-  
 
   onDelete(propertyId: string) {
     this.isLoading = true;
