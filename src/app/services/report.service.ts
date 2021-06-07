@@ -1,5 +1,4 @@
 import { Task } from './../models/task.model';
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 
@@ -12,7 +11,7 @@ export class ReportService implements OnInit{
 
   }
 
-tasks:Task[]=[]
+tasks:Task []=[]
 reports: any; 
 tasksCompleted!:any;
 lat!: number;
