@@ -1,16 +1,15 @@
-import { ReportService } from './../../services/report.service';
-import { PropertyService } from './../../services/property.service';
-import { Report } from './../../models/report.model';
-
+import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
-import { Property } from './../../models/property.model';
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder,  
   FormGroup,
   FormArray,
   FormControl,
 } from '@angular/forms';
-
+import { Property } from './../../models/property.model';
+import { PropertyService } from './../../services/property.service';
+import { ReportService } from './../../services/report.service';
+import { Report } from './../../models/report.model';
 
 declare const google: any;
 
@@ -42,9 +41,9 @@ export class ReportComponent implements OnInit {
   // private geoCoder : any;
 
   zoomControl: boolean = false;
+  polygonComplete: boolean = false; 
 
  //=== report features ===//
-
   areasForReport: {}[] =[{}]
   collectionCounter!: number; 
   resetCount!: number; 
@@ -122,9 +121,6 @@ export class ReportComponent implements OnInit {
     addTaskstoArea() {
 
       this.areasWithTasksLength = 0
-
-      this.tasks = [{}]
-
      
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
         : null);
@@ -163,9 +159,6 @@ export class ReportComponent implements OnInit {
         console.log('collectionForReport - Should be more than one', this.collectionForReport)
 
         // so first will have a b, second will have abc, third will have abcd. 
-
-        // need to push areas to collection, and then reset areasForReport
-        areasWithTasks = {name: '', areas: [{}], tasks: []}
 
         this.form.reset()
         
@@ -220,9 +213,10 @@ export class ReportComponent implements OnInit {
 
     const strokeColors = {
       red: 'red',
-      blue: 'blue', 
-      green: 'green',
-      yellow: 'yellow'
+      blue: '#99EEFF', 
+      green: '#008080',
+      yellow: 'yellow',
+      lavender: "#C5C5FF",
     }
 
     // plan: will 'randomly' cycle through a list of 16 or so colors (enough to never run out) upon new polygon creation
@@ -244,7 +238,7 @@ export class ReportComponent implements OnInit {
         fillColor: "#ffff00",
         fillOpacity: .25,
         strokeWeight: 5,
-        strokeColor: '555fff',
+        strokeColor: '#99EEFF',
         clickable: true,
         zIndex: 1,
         fullScreenControl: true, 
@@ -260,14 +254,22 @@ export class ReportComponent implements OnInit {
 
     // how to access .this within event below. 
     
-    // this.tasks = 0;
+    // this.x = 0;
     // this.y = 0;
     // var _self = this;
 
     // _self.x = event.pageX;     // Is now able to access Map's member variable "x"
-    //     _self.y = event.pageY;  
+    //     _self.y = event.pageY; 
+    
+    this.polygonComplete = false
+    const _self = this; 
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
+
+      _self.polygonComplete  = true; 
+      _self.collectionCount
+      console.log('collection count', _self.collectionCount)
+      
 
       const len = polygon.getPath().getLength();
       const polyArrayLatLng = [];
@@ -286,7 +288,6 @@ export class ReportComponent implements OnInit {
       let areaArray = {name: '', area: [] }
       const areaObject = Object.create(areaArray)
       areaObject.area.shift()
-
       areaObject.name = polygonName
       areaObject.area = polyArrayLatLng
       console.log('area object', areaObject)  
@@ -295,9 +296,7 @@ export class ReportComponent implements OnInit {
     });
 
     this.areaObjectsGlobal.push(areaObjects)
-    // areaObjects = [{}]
     console.log('making global collections for report', this.areaObjectsGlobal)
+
   }
 }
-
- 
