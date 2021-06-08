@@ -53,11 +53,7 @@ export class RoutesListComponent implements OnInit {
             return {
               route: property.route
             };
-          }).map((route:any)=>{
-            [route, ...this.routeList]
-          }
-          
-          )
+          })
         };
       })
 
@@ -65,6 +61,7 @@ export class RoutesListComponent implements OnInit {
     .subscribe((routeData) => {
       // this.routes = this.routes.sort()
       this.routes = routeData.routes
+      console.log('this.routes', routeData)
       console.log('this.routes', this.routes)
       });
 

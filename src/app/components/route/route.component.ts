@@ -58,6 +58,7 @@ export class RouteComponent implements OnInit, OnDestroy{
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
+      console.log('user aut', this.userIsAuthenticated)
     })
     this.isLoading = false;
 
