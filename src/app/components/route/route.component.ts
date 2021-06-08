@@ -6,7 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute} from '@angular/router';
 import { Property } from './../../models/property.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { property } from 'lodash';
 
 @Component({
   selector: 'app-route',
@@ -62,9 +61,6 @@ export class RouteComponent implements OnInit, OnDestroy{
     })
     this.isLoading = false;
 
-    // this.properties = this.properties.filter(item => item.route == this.selectedRoute)
-
-    // console.log(this.properties)
   }
 
 

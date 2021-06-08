@@ -67,8 +67,8 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
       route: new FormControl(null, {
         validators: [],
       })
-
     });
+
     //<=== Form Controls
 
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
@@ -132,12 +132,10 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
   }
 
   onGermanAddressMapped($event: any) {
-
     this.address = $event.displayAddress
     this.route = $event.route
     this.latitude = $event.geoLocation.latitude;
     this.longitude = $event.geoLocation.longitude;
-    
     console.log('this.address', this.address, this.route, this.latitude, this.longitude)
     
   }

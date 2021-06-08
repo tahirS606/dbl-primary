@@ -21,6 +21,7 @@ export class PropertyService {
   routes: any; 
 
   constructor(private http: HttpClient , private router: Router) {}
+  baseUrl='http://localhost:3000/'
 
   getProperties(propertiesPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${propertiesPerPage}&page=${currentPage}`;
@@ -76,9 +77,7 @@ export class PropertyService {
     )
   }
 
-  baseUrl='http://localhost:3000/'
-
-  getPropertiesByRoute(route: number){
+  getPropertiesByRoute(){
     return this.http.get<{_id: string; name: string; address: string; latitude: number; longitude: number }>(
       'http://localhost:3000/properties/')
   }

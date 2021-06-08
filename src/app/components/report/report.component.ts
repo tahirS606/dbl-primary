@@ -203,11 +203,13 @@ export class ReportComponent implements OnInit {
               longitude: propertyData.longitude
             };
 
-            this.latitude = this.property.latitude;
+            console.log('this.property', this.property)
+
+          this.latitude = this.property.latitude;
           this.longitude = this.property.longitude; 
 
+          console.log(this.latitude, this.longitude)
     });
-    
   }
 
    onMapReady(map:any) {

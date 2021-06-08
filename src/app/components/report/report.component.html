@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="main-card">
 
     <mat-card-title>
         <mat-icon routerLink="" color="primary">home</mat-icon>
@@ -19,6 +19,10 @@
         <!-- <a mat-button color="primary">Edit</a> -->
         <a mat-button color="primary" [disabled]="!reportSaved">Submit</a>
     </mat-action-row>
+
+    <mat-card class="report">
+        <mat-card-header>Report</mat-card-header>
+    </mat-card>
 
 </mat-card>
 
@@ -41,7 +45,3 @@
         <button type=submit mat-button color='primary' class="btn btn-success" class='centered' (click)="showCheckbox()" (click)="addTaskstoArea()">Submit</button>
     </form>
 </mat-card>
-
-<div>
-    <h2>Report for {{reportDate | date}}</h2>
-</div>

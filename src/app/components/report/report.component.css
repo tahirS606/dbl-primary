@@ -18,6 +18,11 @@ header .title {
     font-size: 28px;
 }
 
+.report {
+    margin: 25px;
+    padding: 25px;
+}
+
 main {
     display: flex;
     flex-grow: 1;
@@ -38,9 +43,9 @@ footer {
     padding: 1em;
 }
 
-mat-card {
+.main-card {
     margin: 12px;
-    padding: 0px;
+    padding: 25px;
 }
 
 agm-map {

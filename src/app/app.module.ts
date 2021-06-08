@@ -13,7 +13,6 @@ import { PropertyDetailComponent } from './components/properties/property-detail
 import { MyMaterialModule } from './modules/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -21,20 +20,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PropertyListComponent } from './components/properties/property-list/property-list.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReportListComponent } from './components/report-list/report-list.component';
-
 import { ReportComponent } from './components/report/report.component';
-
 import { GooglePlaceModule } from "ngx-google-places-autocomplete"
 import { AgmDrawingModule } from '@agm/drawing';
 import { AutocompleteAddressComponent } from './components/properties/autocomplete-address/autocomplete-address.component';
 import { DisplayReportComponent } from './components/report/display-report/display-report.component';
 import { RoutesListComponent } from './components/routes-list/routes-list.component';
 import { RouteComponent } from './components/route/route.component';
-import { UniqueRoutePipe } from './pipes/unique-route.pipe';
 import {NgPipesModule} from 'ngx-pipes';
-
-
-
 
 @NgModule({
   declarations: [
@@ -52,7 +45,7 @@ import {NgPipesModule} from 'ngx-pipes';
     DisplayReportComponent,
     RoutesListComponent,
     RouteComponent,
-    UniqueRoutePipe,
+    
     
   ],
   imports: [

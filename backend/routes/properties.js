@@ -3,50 +3,15 @@ const router = express.Router();
 const Property = require("../models/property");
 const checkAuth = require("../middleware/check-auth");
 
-router.post("", checkAuth,
-    (req, res, next) => {
-        const property = new Property({
-            name: req.body.name,
-            address: req.body.address,
-            route: req.body.route,
-            latitude: req.body.latitude,
-            longitude: req.body.longitude,
-        });
-
-        property.save().then((addedProperty) => {
-            res.status(201).json({
-                message: "Property added successfully",
-                propertyId: addedProperty._id,
-            });
-        });
-    });
-
-router.put("/:id", checkAuth, (req, res, next) => {
-    const property = new Property({
-        _id: req.body.id,
-        name: req.body.name,
-        address: req.body.address,
-        route: req.body.route,
-    });
-    Property.updateOne({ _id: req.params.id }, property).then((result) => {
-        console.log(result);
-        res.status(200).json({ message: "update completed" });
+router.get("/:id", (req, res, next) => {
+    Property.findById(req.params.id).then((property) => {
+        if (property) {
+            res.status(200).json(property)
+        } else {
+            res.status(404).json({ message: "property not found" });
+        }
     });
 });
-
-// router.get("/:route", checkAuth,
-//     (req, res, next) => {
-//         console.log('get ran for route')
-//         console.log(req.params.route)
-//         Property.find(({ "route": req.params.route })).then((property) => {
-//             if (property) {
-//                 res.status(200).json(property);
-//                 console.log(property)
-//             } else {
-//                 res.status(404).json({ message: "property not found" });
-//             }
-//         });
-//     });
 
 router.get("", (req, res, next) => {
     // query parameters for paginator
@@ -74,11 +39,36 @@ router.get("", (req, res, next) => {
         });
 
 
+    router.post("", checkAuth,
+        (req, res, next) => {
+            const property = new Property({
+                name: req.body.name,
+                address: req.body.address,
+                route: req.body.route,
+                latitude: req.body.latitude,
+                longitude: req.body.longitude,
+            });
 
-    // get by route
+            property.save().then((addedProperty) => {
+                res.status(201).json({
+                    message: "Property added successfully",
+                    propertyId: addedProperty._id,
+                });
+            });
+        });
 
-
-
+    router.put("/:id", checkAuth, (req, res, next) => {
+        const property = new Property({
+            _id: req.body.id,
+            name: req.body.name,
+            address: req.body.address,
+            route: req.body.route,
+        });
+        Property.updateOne({ _id: req.params.id }, property).then((result) => {
+            console.log(result);
+            res.status(200).json({ message: "update completed" });
+        });
+    });
 
     router.delete("/:id", checkAuth, (req, res, next) => {
         Property.deleteOne({ _id: req.params.id }).then((result) => {
