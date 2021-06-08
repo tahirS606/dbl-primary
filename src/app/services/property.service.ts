@@ -78,9 +78,6 @@ export class PropertyService {
 
   baseUrl='http://localhost:3000/'
 
-
-  
-
   getPropertiesByRoute(route: number){
     return this.http.get<{_id: string; name: string; address: string; latitude: number; longitude: number }>(
       'http://localhost:3000/properties/')

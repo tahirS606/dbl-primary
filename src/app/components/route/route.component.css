@@ -1,0 +1,55 @@
+h1 {
+    text-align: center;
+    padding: 12px;
+}
+
+mat-paginator {
+    width: 100vw;
+    margin-top: 2rem;
+}
+
+mat-accordian {
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+mat-action-row {
+    align-items: flex-start;
+    padding: 10px
+}
+
+.please-add-props {
+    margin: auto;
+    padding: 2rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    font-weight: bold;
+}
+
+.thumbnail-header {
+    padding-top: 12px;
+}
+
+mat-expansion-panel {
+    color: black;
+    margin: 12px;
+}
+
+mat-progress-spinner {
+    width: 25px;
+}
+
+agm-map {
+    height: 25vh;
+}
+
+.map-thumbnail {
+    height: 50px;
+    width: 10%;
+}

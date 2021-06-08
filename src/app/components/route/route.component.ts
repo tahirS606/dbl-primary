@@ -1,58 +1,102 @@
+import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../services/auth.service';
 import { PropertyService } from './../../services/property.service';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { Property } from './../../models/property.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { property } from 'lodash';
 
 @Component({
   selector: 'app-route',
   templateUrl: './route.component.html',
   styleUrls: ['./route.component.css']
 })
-export class RouteComponent implements OnInit {
+export class RouteComponent implements OnInit, OnDestroy{
 
-  
-  properties?: Property[]
-  selectedRoute!: any;
-  userIsAuthenticated:boolean = false; 
+  selectedRoute!: any 
 
-  isLoading: boolean = true;
+  private propertiesSub!: Subscription;
   private authStatusSub!: Subscription;
+  properties: Property[] = [];
+  totalPropertiesCount = 0;
+  propertiesPerPage = 10;
+  pageSizeOptions = [5, 10, 25, 50];
+  currentPage = 1;
+  isLoading: boolean = true;
+  totalProperties!: number;
+  userIsAuthenticated = false;
+
+  accordianIsOpen!:boolean;
 
   constructor(
-    private propertyService : PropertyService,
-    private route: ActivatedRoute,
-    private http: HttpClient,
-    private authService: AuthService) 
-    {}
+    public propertyService: PropertyService,
+    private authService: AuthService,
+    private route : ActivatedRoute,
+  ) { }
 
+  ngOnInit() {
 
-  ngOnInit(): void {
-    this.selectedRoute = this.route.snapshot.paramMap.get('route')
-    
-    this.propertyService.getPropertiesByRoute(this.selectedRoute).subscribe((response)=>{
-      console.log(response)
-    })
+    this.selectedRoute = this.route.snapshot.paramMap.get('route');
+    console.log(this.selectedRoute)
 
-    console.log('this.selectedRoute', this.selectedRoute)
-
+    this.isLoading = true;
+    this.propertyService.getProperties(
+      this.propertiesPerPage,
+      this.currentPage
+    );
+    this.propertiesSub = this.propertyService
+      .getPropertyUpdateListener()
+      .subscribe(
+        (propertyData: { properties: Property[]; propertiesCount: number }) => {
+          this.isLoading = false;
+          this.totalProperties = propertyData.propertiesCount;
+          this.properties = propertyData.properties;
+        }
+    );
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
     })
     this.isLoading = false;
-    };
 
-    onDelete(propertyId: string) {
-      this.isLoading = true;
-      this.propertyService.deleteProperty(propertyId).subscribe(() => {
-        this.isLoading = false;
-      });
-  
-    }
-    
+    // this.properties = this.properties.filter(item => item.route == this.selectedRoute)
+
+    // console.log(this.properties)
+  }
+
+
+  onDelete(propertyId: string) {
+    this.isLoading = true;
+    this.propertyService.deleteProperty(propertyId).subscribe(() => {
+      this.propertyService.getProperties(
+        this.propertiesPerPage,
+        this.currentPage
+      );
+      console.log(this.propertiesPerPage);
+      console.log(this.currentPage);
+      this.isLoading = false;
+    });
+  }
+
+  onPageChange(pageData: PageEvent) {
+    this.isLoading = true;
+    this.currentPage = pageData.pageIndex + 1;
+    this.propertiesPerPage = pageData.pageSize;
+    this.propertyService.getProperties(
+      this.propertiesPerPage,
+      this.currentPage
+    );
+    this.isLoading = false;
+  }
+
+  ngOnDestroy() {
+    this.propertiesSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
+  }
+
+  handleThumbnailClick(eventName: string) {
+    console.log(eventName);
+  }
 }
-
-

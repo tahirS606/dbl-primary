@@ -34,28 +34,27 @@ router.put("/:id", checkAuth, (req, res, next) => {
     });
 });
 
-router.get("/:route", checkAuth,
-    (req, res, next) => {
-        console.log('get ran for route')
-        console.log(req.params.route)
-        Property.find(({ "route": req.params.route })).then((property) => {
-            if (property) {
-                res.status(200).json(property);
-                console.log(property)
-            } else {
-                res.status(404).json({ message: "property not found" });
-            }
-        });
-    });
+// router.get("/:route", checkAuth,
+//     (req, res, next) => {
+//         console.log('get ran for route')
+//         console.log(req.params.route)
+//         Property.find(({ "route": req.params.route })).then((property) => {
+//             if (property) {
+//                 res.status(200).json(property);
+//                 console.log(property)
+//             } else {
+//                 res.status(404).json({ message: "property not found" });
+//             }
+//         });
+//     });
 
 router.get("", (req, res, next) => {
     // query parameters for paginator
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
     const propertyQuery = Property.find();
+
     let fetchedProperties;
-
-
 
     if (pageSize && currentPage) {
         propertyQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);

@@ -39,7 +39,6 @@ export class RoutesListComponent implements OnInit {
 
   }
   
-
   ngOnInit(): void {
 
     this.routes = this.http
