@@ -30,7 +30,6 @@ export class RoutesListComponent implements OnInit, AfterViewInit {
 
   private updatedProperties: any;
 
-  // @ViewChildren("route") route:TemplateRef<any>;
 
   constructor(
     private propertyService: PropertyService,
@@ -51,18 +50,19 @@ export class RoutesListComponent implements OnInit, AfterViewInit {
     )
     .pipe(
       map((propertyData) => {
-
         return {
           routes: propertyData.properties
           .map((property: any) => {
             return {route: property.route}
           })
+
+          // const unique = [...new Set(this.routes)]
         };
       })
 
     )
     .subscribe((routeData) => {
-      // this.routes = this.routes.sort()
+      
       this.routes = routeData.routes
       console.log('this.routes', routeData)
       console.log('this.routes', this.routes)
