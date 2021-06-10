@@ -4,11 +4,11 @@ import { PropertyService } from './../../services/property.service';
 import { Property } from './../../models/property.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
 
 
-import { Component, OnInit } from '@angular/core';
-import * as _ from 'lodash'
+import { Component, OnInit, AfterViewInit, TemplateRef, ViewChildren } from '@angular/core';
+
 
 
 @Component({
@@ -16,7 +16,7 @@ import * as _ from 'lodash'
   templateUrl: './routes-list.component.html',
   styleUrls: ['./routes-list.component.css']
 })
-export class RoutesListComponent implements OnInit {
+export class RoutesListComponent implements OnInit, AfterViewInit {
 
   routes: any = []
   routeList: [] =[]
@@ -30,7 +30,7 @@ export class RoutesListComponent implements OnInit {
 
   private updatedProperties: any;
 
-  uniqueOperator = _.uniq
+  // @ViewChildren("route") route:TemplateRef<any>;
 
   constructor(
     private propertyService: PropertyService,
@@ -38,6 +38,15 @@ export class RoutesListComponent implements OnInit {
   ) { 
 
   }
+
+sortRoutes(array: [{}]){
+    array.sort((a,b) =>  this.routes.a.route-this.routes.b.route )
+}
+
+
+  ngAfterViewInit():void {
+    
+}
   
   ngOnInit(): void {
 
@@ -47,12 +56,11 @@ export class RoutesListComponent implements OnInit {
     )
     .pipe(
       map((propertyData) => {
+
         return {
           routes: propertyData.properties
           .map((property: any) => {
-            return {
-              route: property.route
-            };
+            return {route: property.route}
           })
         };
       })
