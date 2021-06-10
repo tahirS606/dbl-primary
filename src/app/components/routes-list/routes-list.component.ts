@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { PropertyService } from './../../services/property.service';
 
 
@@ -7,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { Subject, of } from 'rxjs';
 
 
-import { Component, OnInit, AfterViewInit, TemplateRef, ViewChildren } from '@angular/core';
+import { Component, OnInit, AfterViewInit, TemplateRef, ViewChildren, Input, Directive } from '@angular/core';
 
 
 
@@ -19,7 +20,6 @@ import { Component, OnInit, AfterViewInit, TemplateRef, ViewChildren } from '@an
 export class RoutesListComponent implements OnInit, AfterViewInit {
 
   routes: any = []
-  routeList: [] =[]
   displayRoutes: [] = []
   properties!: Property[]
   private propertiesUpdated = new Subject<{
@@ -28,9 +28,6 @@ export class RoutesListComponent implements OnInit, AfterViewInit {
   }>();
   displayProperties:[] = []
 
-  private updatedProperties: any;
-
-
   constructor(
     private propertyService: PropertyService,
     private http: HttpClient,
@@ -38,8 +35,19 @@ export class RoutesListComponent implements OnInit, AfterViewInit {
 
   }
 
+
+
+  @Input("routelist")
+
+ private updateContent(arr : [{}]){
+
+  // arr.filter((v,i,a)=>a.findIndex(t=>(t.route == v.route)===i);
+  // console.log (arr)
+ };
+
   ngAfterViewInit():void {
-    
+
+    // this.updateContent()    
 }
   
   ngOnInit(): void {
@@ -53,11 +61,11 @@ export class RoutesListComponent implements OnInit, AfterViewInit {
         return {
           routes: propertyData.properties
           .map((property: any) => {
-            return {route: property.route}
+            return {route: property.route,
+            }
           })
-
-          // const unique = [...new Set(this.routes)]
         };
+        
       })
 
     )
