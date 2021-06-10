@@ -39,11 +39,6 @@ export class RoutesListComponent implements OnInit, AfterViewInit {
 
   }
 
-sortRoutes(array: [{}]){
-    array.sort((a,b) =>  this.routes.a.route-this.routes.b.route )
-}
-
-
   ngAfterViewInit():void {
     
 }
