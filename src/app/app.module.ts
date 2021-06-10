@@ -28,6 +28,7 @@ import { DisplayReportComponent } from './components/report/display-report/displ
 import { RoutesListComponent } from './components/routes-list/routes-list.component';
 import { RouteComponent } from './components/route/route.component';
 import {NgPipesModule} from 'ngx-pipes';
+import { UniquePipe } from './pipes/unique.pipe';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {NgPipesModule} from 'ngx-pipes';
     DisplayReportComponent,
     RoutesListComponent,
     RouteComponent,
+    UniquePipe,
     
     
   ],

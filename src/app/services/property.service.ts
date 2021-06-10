@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { of } from 'rxjs'
 
 
 @Injectable({
@@ -53,6 +54,10 @@ export class PropertyService {
       });
   }
 
+  
+    
+        
+    
   getPropertyUpdateListener() {
     return this.propertiesUpdated.asObservable();
   }

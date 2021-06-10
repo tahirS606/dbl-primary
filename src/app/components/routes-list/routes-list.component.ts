@@ -1,14 +1,15 @@
+import { element } from 'protractor';
 import { PropertyService } from './../../services/property.service';
 
 
 import { Property } from './../../models/property.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
 
 
-import { Component, OnInit } from '@angular/core';
-import * as _ from 'lodash'
+import { Component, OnInit, AfterViewInit, TemplateRef, ViewChildren, Input, Directive } from '@angular/core';
+
 
 
 @Component({
@@ -16,10 +17,9 @@ import * as _ from 'lodash'
   templateUrl: './routes-list.component.html',
   styleUrls: ['./routes-list.component.css']
 })
-export class RoutesListComponent implements OnInit {
+export class RoutesListComponent implements OnInit, AfterViewInit {
 
   routes: any = []
-  routeList: [] =[]
   displayRoutes: [] = []
   properties!: Property[]
   private propertiesUpdated = new Subject<{
@@ -28,16 +28,27 @@ export class RoutesListComponent implements OnInit {
   }>();
   displayProperties:[] = []
 
-  private updatedProperties: any;
-
-  uniqueOperator = _.uniq
-
   constructor(
     private propertyService: PropertyService,
     private http: HttpClient,
   ) { 
 
   }
+
+
+
+  @Input("routelist")
+
+ private updateContent(arr : [{}]){
+
+  // arr.filter((v,i,a)=>a.findIndex(t=>(t.route == v.route)===i);
+  // console.log (arr)
+ };
+
+  ngAfterViewInit():void {
+
+    // this.updateContent()    
+}
   
   ngOnInit(): void {
 
@@ -50,16 +61,16 @@ export class RoutesListComponent implements OnInit {
         return {
           routes: propertyData.properties
           .map((property: any) => {
-            return {
-              route: property.route
-            };
+            return {route: property.route,
+            }
           })
         };
+        
       })
 
     )
     .subscribe((routeData) => {
-      // this.routes = this.routes.sort()
+      
       this.routes = routeData.routes
       console.log('this.routes', routeData)
       console.log('this.routes', this.routes)
