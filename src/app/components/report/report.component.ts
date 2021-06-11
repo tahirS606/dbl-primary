@@ -37,6 +37,7 @@ export class ReportComponent implements OnInit {
   scaleControl: boolean = false;
   streetViewControl: boolean = false;
   polygonComplete: boolean = false; 
+  checked: boolean = false
 
   // private geoCoder : any;
 
@@ -107,6 +108,10 @@ export class ReportComponent implements OnInit {
       this.webData.forEach(() => this.tasksArray.push(new FormControl(false)));
     }
 
+    showSubmitTaskButton(){
+      this.checked = true
+    }
+
     
     addTaskstoArea() {
 
@@ -128,8 +133,11 @@ export class ReportComponent implements OnInit {
         allTasks.map((task:any)=>{
           if (task !== null){
             tasks.push(task)
+            
           }
         })
+
+        this.showSubmitTaskButton()
 
         // tasks.shift()
 
@@ -151,8 +159,9 @@ export class ReportComponent implements OnInit {
         console.log('new Collection', newCollection)
 
         console.log('areas for report', this.areasForReport)
-        
+
         this.form.reset()
+        
 
         }
 
