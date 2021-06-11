@@ -36,6 +36,7 @@ export class ReportComponent implements OnInit {
   rotateControl: boolean = true;
   scaleControl: boolean = false;
   streetViewControl: boolean = false;
+  polygonComplete: boolean = false; 
 
   // private geoCoder : any;
 
@@ -150,6 +151,8 @@ export class ReportComponent implements OnInit {
         console.log('new Collection', newCollection)
 
         console.log('areas for report', this.areasForReport)
+        
+        this.form.reset()
 
         }
 
@@ -204,6 +207,11 @@ export class ReportComponent implements OnInit {
     this.initDrawingManager(map);
   }
 
+  public onClearButtonClicked() {
+    this.map.setMap(null);
+}
+
+
   initDrawingManager(map:any) {
 
     const arrayOfAreaObjects:[{}]= [{}]
@@ -234,8 +242,12 @@ export class ReportComponent implements OnInit {
     
     drawingManager.setMap(map);
     let number = 0;
+    const _self = this; 
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
+
+      _self.polygonComplete  = true; 
+
       const len = polygon.getPath().getLength();
       const polyArrayLatLng = [];
       
