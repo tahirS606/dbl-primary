@@ -1,24 +1,23 @@
+import { ReportService } from './../../services/report.service';
+import { PropertyService } from './../../services/property.service';
+import { Report } from './../../models/report.model';
+
 import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, Output } from '@angular/core';
+import { Property } from './../../models/property.model';
+import { Component, ComponentFactoryResolver, OnInit, Output } from '@angular/core';
 import { FormBuilder,  
   FormGroup,
   FormArray,
-  FormControl,
-} from '@angular/forms';
-import { Property } from './../../models/property.model';
-import { PropertyService } from './../../services/property.service';
-import { ReportService } from './../../services/report.service';
-import { Report } from './../../models/report.model';
+  FormControl,} from '@angular/forms';
 
-declare const google: any;
+  declare const google: any;
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
 })
-
 export class ReportComponent implements OnInit {
 
   map: any; 
@@ -41,161 +40,38 @@ export class ReportComponent implements OnInit {
   // private geoCoder : any;
 
   zoomControl: boolean = false;
-  polygonComplete: boolean = false; 
 
- //=== report features ===//
-  areasForReport: {}[] =[{}]
-  collectionCounter!: number; 
-  resetCount!: number; 
-  areaObjectsGlobal:[{}] = [{}]
+  // report features
 
-  areasWithTasksLength!: number
+  areasForReport: [{}] = [{}]
+  arrayOfAreaObjects!: [{}] 
+  areasWithTasks!: [{}]
+  globalAreaObjects: [{}] = [{}]
 
-  collectionForReport :[{}] =[{}]
+  count: number = 0 
 
-  collectionCount:number = this.collectionForReport.length
-  
-  // for naming
-  count!: number; 
 
   reportSaved:boolean = false; 
   report!: Report;
 
+  // idea: 'collections' added to report. 
+  
+  
+
   reportDate: any;
   reportSubmittedBy!: string; 
+  atLeastOneAreaSaved: boolean = false; 
 
-  tasks: [{}] = [{}]
+  tasks: Task[] = []
   form!: FormGroup;
   date = new Date();
+
+ 
 
   checkboxVisible:boolean = false;
 
   addTasksButtonDisabled: boolean = true;
   taskCheckboxButtonDisabled: boolean = true;
-
-  initDrawingManager(map:any) {
-
-    const strokeColors = {
-      red: 'red',
-      blue: '#99EEFF', 
-      green: '#008080',
-      yellow: 'yellow',
-      lavender: "#C5C5FF",
-    }
-
-    // plan: will 'randomly' cycle through a list of 16 or so colors (enough to never run out) upon new polygon creation
-
-    let areaObjects : [{}] = [{}];
-    areaObjects.shift()
-    
-    const options = {
-      drawingMode: google.maps.drawing.OverlayType.POLYGON,
-      drawingControl: true,
-      drawingControlOptions: {
-        drawingModes: ["polygon"]
-      },
-
-      polygonOptions: {
-        outline: true, 
-        draggable: true,
-        editable: true,
-        fillColor: "#ffff00",
-        fillOpacity: .25,
-        strokeWeight: 5,
-        strokeColor: '#99EEFF',
-        clickable: true,
-        zIndex: 1,
-        fullScreenControl: true, 
-      },
-    
-    };
-
-    const drawingManager = new google.maps.drawing.DrawingManager(options);
-    
-    drawingManager.setMap(map);
-    
-    let number = 0;
-    
-    this.polygonComplete = false
-    const _self = this; 
-
-    google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
-
-      _self.polygonComplete  = true; 
-      _self.collectionCount
-      console.log('collection count', _self.collectionCount)
-      
-
-      const len = polygon.getPath().getLength();
-      const polyArrayLatLng = [];
-      
-      for (let i = 0; i < len; i++) {
-        const vertex = polygon.getPath().getAt(i);
-        const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
-        polyArrayLatLng.push(vertexLatLng);
-      }
-  
-      // the last point of polygon should be always the same as the first point
-      polyArrayLatLng.push(polyArrayLatLng[0]);
-
-      number = number+1 
-      let polygonName = 'Area ' + number    
-      let areaArray = {name: '', area: [] }
-      const areaObject = Object.create(areaArray)
-      areaObject.area.shift()
-      areaObject.name = polygonName
-      areaObject.area = polyArrayLatLng
-      areaObjects.push(areaObject)
-      
-    });
-
-  }
-
-  addTaskstoArea() {
-
-    this.areasWithTasksLength = 0
-   
-    const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
-      : null);
-    
-      // filters out null objects
-      allTasks.map((task:any)=>{
-        if (task !== null){
-          this.tasks.push(task)
-        }
-      })
-
-      let areasWithTasks = {name: '', areas: [{}], tasks: [{}]}
-      console.log('areas for report before adding tasks', this.areasForReport)
-
-      areasWithTasks.areas.push(this.areasForReport)
-      // this.areasForReport = []
-
-      console.log('area added to areasWithTasks', areasWithTasks)
-
-      areasWithTasks.tasks.push(this.tasks)
-
-      this.areasWithTasksLength = areasWithTasks.tasks.length
-
-      console.log('after tasks added areasWithTasks', areasWithTasks)
-
-    // working, now except areas keep stacking, even when new tasks added
-
-      this.collectionForReport.push(areasWithTasks)
-      this.collectionCount = this.collectionCount + 1
-
-      let collectionName = 'Collection ' + this.collectionCount.toString()
-      areasWithTasks.name = collectionName
-      console.log('areasWithTasks after tasks added', areasWithTasks)
-
-      // works now, except areas keep adding up. !!!
-      console.log('collectionForReport - Should be more than one', this.collectionForReport)
-
-      // so first will have a b, second will have abc, third will have abcd. 
-
-      this.form.reset()
-      
-      }
 
   webData = [
     { id: 1, name: 'Raking' },
@@ -215,7 +91,7 @@ export class ReportComponent implements OnInit {
   }
 
   constructor(
-    private propertyService: PropertyService,
+    private propertyService: PropertyService ,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     public reportService: ReportService,
@@ -230,37 +106,78 @@ export class ReportComponent implements OnInit {
       this.webData.forEach(() => this.tasksArray.push(new FormControl(false)));
     }
 
-    // supposed to clear map, https://stackoverflow.com/questions/59631485/how-to-clear-polygon-from-agm-map
-
-    public onOverlayComplete(e: any) {
-      this.map = e.overlay;
-  }
-
-  public onClearButtonClicked() {
-      this.map.setMap(null);
-  }
-
-  // end clear map (doesn't work yet)
-
     
+    addTaskstoArea() {
+
+      function Collection(name: string, areas: [{}], tasks:[]) {
+        name = name;
+        areas = areas;
+        tasks = tasks;
+      }
+      
+      // let collection:{name: string, areas:[{}], tasks:[]}  ={name: '', areas:[{}], tasks:[]}  
+
+
+      const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
+        : null);
+
+        let tasks: [{}] =[{}]
+        
+        // filters out null objects
+        allTasks.map((task:any)=>{
+          if (task !== null){
+            tasks.push(task)
+          }
+        })
+
+        // tasks.shift()
+
+        console.log('tasks', tasks)
+
+        this.count = this.count + 1
+        const collectionName = 'Collection ' + this.count
+
+        const newCollection = new (Collection as any)(collectionName, this.globalAreaObjects, tasks)
+
+        this.areasForReport.push(newCollection)
+
+        console.log('new Collection', newCollection)
+
+        newCollection.name = collectionName 
+        newCollection.areas = this.globalAreaObjects
+        newCollection.tasks = tasks
+
+        console.log('new Collection', newCollection)
+
+        console.log('areas for report', this.areasForReport)
+
+        }
 
     saveReport(){
-    
+      // example of property save
+      if (this.form.invalid) {
+        console.log('form is invalid');
+        return;
+      }
+      
+        
     }
-
     addTasks(){
-      // console.log('add tasks clicked')
+      console.log('add tasks clicked')
       this.checkboxVisible = true;
     }
 
+    
+
   ngOnInit(): void {
 
-    this.collectionForReport.shift()
-
-    this.collectionCount = 0
-    this.resetCount = 0
-
     this.reportDate = this.date; 
+    console.log(this.reportDate)
+    this.areasForReport.shift()
+
+    const fetchedTasks = this.reportService.getTasks().subscribe();
+
+    console.log('fetchedTasks', fetchedTasks)
 
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     
@@ -276,18 +193,86 @@ export class ReportComponent implements OnInit {
               longitude: propertyData.longitude
             };
 
-            console.log('this.property', this.property)
-
-          this.latitude = this.property.latitude;
+            this.latitude = this.property.latitude;
           this.longitude = this.property.longitude; 
 
-          console.log(this.latitude, this.longitude)
     });
+    
   }
 
    onMapReady(map:any) {
     this.initDrawingManager(map);
   }
 
+  initDrawingManager(map:any) {
+
+    const arrayOfAreaObjects:[{}]= [{}]
+    
+    const options = {
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
+      drawingControl: true,
+      drawingControlOptions: {
+        drawingModes: ["polygon"]
+      },
+
+      polygonOptions: {
+        outline: true, 
+        draggable: true,
+        editable: true,
+        fillColor: "#ffff00",
+        fillOpacity: .25,
+        strokeWeight: 5,
+        strokeColor: 'blue',
+        clickable: true,
+        zIndex: 1,
+        fullScreenControl: true, 
+      },
+    
+    };
+
+    const drawingManager = new google.maps.drawing.DrawingManager(options);
+    
+    drawingManager.setMap(map);
+    let number = 0;
+
+    google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
+      const len = polygon.getPath().getLength();
+      const polyArrayLatLng = [];
+      
+      for (let i = 0; i < len; i++) {
+        const vertex = polygon.getPath().getAt(i);
+        const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
+        polyArrayLatLng.push(vertexLatLng);
+      }
   
+      // the last point of polygon should be always the same as the first point
+      polyArrayLatLng.push(polyArrayLatLng[0]);
+
+      number = number+1 
+      let polygonName = 'Area ' + number
+    
+      console.log('Area ', number, polyArrayLatLng);
+
+      let area = []
+
+      area.push(polygonName)
+      area.push(polyArrayLatLng)
+
+      let areaObject = {name: '', area: [{}] }
+
+      areaObject.name = polygonName
+      areaObject.area = polyArrayLatLng
+      
+      arrayOfAreaObjects.push(areaObject)
+
+      console.log('areaObject', areaObject)
+
+    });
+
+    // collects all area objects =>
+    this.globalAreaObjects.push(arrayOfAreaObjects)
+    console.log('areas for report', this.globalAreaObjects)
+
+  }
+
 }
