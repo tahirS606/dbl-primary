@@ -17,7 +17,7 @@ const databaseName = "dbl";
 
 mongoose
     .connect(
-        "mongodb+srv://odyssic:9ksalmD9s1Em3GrX@dbl.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
+        "mongodb+srv://odyssic:" + process.env.MONGO_ATLAS_PW + "lkw3g.mongodb.net/dbl?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
     )
 
 .then(() => {
