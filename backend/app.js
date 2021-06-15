@@ -19,7 +19,7 @@ const databaseName = "dbl";
 
 mongoose
     .connect(
-        "mongodb+srv://" + userName + process.env.MONGO_ATLAS_PW + "@dbl.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
+        "mongodb+srv://odyssic:9ksalmD9s1Em3GrX@dbl.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
     )
 
 .then(() => {
@@ -54,9 +54,13 @@ app.use("/reports", reportsRoutes)
 
 app.use("/routes", routesRoutes)
 
-// app.use((req, res, next) => {
-//     res.sendFile(path.join(__dirname, "angular-app", "index.html"));
-// });
+app.use("/", express.static(path.join(__dirname, "angular")));
+
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, "angular", "index.html"));
+});
+
+
 
 
 module.exports = app;
