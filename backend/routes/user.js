@@ -1,5 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken')
 const User = require('../models/user');
 
@@ -58,6 +58,7 @@ router.post("/login", (req, res, next) => {
             });
         })
         .catch(err => {
+            console.log('auth failed')
             return res.status(401).json({
                 message: "Auth failed"
             });

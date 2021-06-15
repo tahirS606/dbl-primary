@@ -2,7 +2,6 @@ import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
 
-import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
 import { Property } from './../../models/property.model';
 import { Component, ComponentFactoryResolver, OnInit, Output } from '@angular/core';
@@ -64,7 +63,7 @@ export class ReportComponent implements OnInit {
   reportSubmittedBy!: string; 
   atLeastOneAreaSaved: boolean = false; 
 
-  tasks: Task[] = []
+  tasks!: []
   form!: FormGroup;
   date = new Date();
 

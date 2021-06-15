@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const propertiesRoutes = require("./routes/properties");
@@ -10,14 +11,15 @@ const routesRoutes = require("./routes/routes")
 // have yet to update = connect with variables
 const app = express();
 const password = "9ksalmD9s1Em3GrX";
-const url =
-    "mongodb+srv://<username></username><password></password>.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority";
-const username = "odyssic";
+const userName = "odyssic:";
 const databaseName = "dbl";
+
+//mongodb+srv://odyssic:<password>@dbl.lkw3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
 
 mongoose
     .connect(
-        "mongodb+srv://odyssic:" + process.env.MONGO_ATLAS_PW + "lkw3g.mongodb.net/dbl?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
+        "mongodb+srv://" + userName + process.env.MONGO_ATLAS_PW + "@dbl.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
     )
 
 .then(() => {
@@ -51,6 +53,10 @@ app.use("/user", userRoutes)
 app.use("/reports", reportsRoutes)
 
 app.use("/routes", routesRoutes)
+
+// app.use((req, res, next) => {
+//     res.sendFile(path.join(__dirname, "angular-app", "index.html"));
+// });
 
 
 module.exports = app;
