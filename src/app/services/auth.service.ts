@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { AuthData } from './../components/auth/auth-data.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -39,7 +40,7 @@ export class AuthService {
         password: password
     }
     
-    this.http.post("http://localhost:3000/user/signup", authData)
+    this.http.post(environment.apiUrl + "user/signup", authData) 
       .subscribe(response => {
       console.log(response)
     })
@@ -55,7 +56,7 @@ export class AuthService {
       email: email,
       password: password
     }
-    this.http.post<{ token: string, expiresIn: number }>('http://localhost:3000/user/login', authData)
+    this.http.post<{ token: string, expiresIn: number }>(environment.apiUrl + "user/login", authData)
       .subscribe(response => {
 
       const token = response.token;

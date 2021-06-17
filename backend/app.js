@@ -16,7 +16,6 @@ const databaseName = "dbl";
 
 //mongodb+srv://odyssic:<password>@dbl.lkw3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
-
 mongoose
     .connect(
         "mongodb+srv://odyssic:9ksalmD9s1Em3GrX@dbl.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }

@@ -2,7 +2,7 @@ import { environment } from './../../../backend/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Property } from './../models/property.model';
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -19,7 +19,7 @@ export class PropertyService {
   }>();
   private updatedProperties: any;
   routes: any; 
-  baseUrl='http://localhost:3000/'
+  baseUrl= environment.apiUrl
 
   constructor(private http: HttpClient , private router: Router) {}
 

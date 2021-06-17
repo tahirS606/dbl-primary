@@ -1,9 +1,7 @@
 export const environment = {
     production: true,
-    apiUrl: "mongodb+srv://odyssic:" +
-    process.env.MONGO_ATLAS_PW +
-    "@dbl.lkw3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    apiUrl: "mongodb+srv://odyssic:9ksalmD9s1Em3GrX@dbl.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority/"
   };
   
 
-  //mongodb+srv://odyssic:<password>@dbl.lkw3g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+  
