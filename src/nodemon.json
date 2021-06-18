@@ -1,6 +1,7 @@
 {
     "env": {
         "Mongo_Atlas_PW": "9ksalmD9s1Em3GrX@dbl",
-        "JWT_KEY": "secret_this_should_be_longer"
+        "JWT_KEY": "secret_this_should_be_longer",
+        "MONGO_DB_URI": "mongodb+srv://odyssic:9ksalmD9s1Em3GrX@dbl.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority"
     }
 }

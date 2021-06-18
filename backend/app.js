@@ -13,10 +13,11 @@ const app = express();
 const password = "9ksalmD9s1Em3GrX";
 const userName = "odyssic:";
 const databaseName = "dbl";
+const uri = process.env.MONGO_DB_URI
 
 mongoose
     .connect(
-        "mongodb+srv://odyssic:9ksalmD9s1Em3GrX@dbl.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
+        uri, { useNewUrlParser: true, useUnifiedTopology: true }
     )
 
 .then(() => {
