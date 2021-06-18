@@ -1,5 +1,5 @@
-import { AuthService } from './../auth.service';
-import { MyMaterialModule } from '../../../modules/material.module';
+import { AuthService } from './../../../services/auth.service';
+
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 

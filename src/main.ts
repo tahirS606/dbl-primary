@@ -1,4 +1,5 @@
-import { environment } from '../backend/environments/environment.prod';
+import { environment } from './environments/environment';
+
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 

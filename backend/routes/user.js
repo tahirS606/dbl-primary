@@ -2,7 +2,6 @@ const express = require("express");
 const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken')
 const User = require('../models/user');
-
 const router = express.Router();
 
 
@@ -50,7 +49,7 @@ router.post("/login", (req, res, next) => {
                     email: fetchedUser.email,
                     userId: fetchedUser._id
                 },
-                process.env.JWT_KEY, { expiresIn: "1h" }
+                process.env.JWT_KEY, { expiresIn: "10h" }
             );
             res.status(200).json({
                 token: token,
