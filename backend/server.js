@@ -3,7 +3,6 @@ const debug = require("debug")("node-angular");
 const http = require("http");
 
 
-
 const normalizePort = (val) => {
     var port = parseInt(val, 10);
 
