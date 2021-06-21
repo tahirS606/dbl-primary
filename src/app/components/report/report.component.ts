@@ -10,6 +10,7 @@ import { FormBuilder,
   FormGroup,
   FormArray,
   FormControl,} from '@angular/forms';
+import { truncate } from 'lodash';
 
   declare const google: any;
 
@@ -108,11 +109,8 @@ export class ReportComponent implements OnInit {
       this.webData.forEach(() => this.tasksArray.push(new FormControl(false)));
     }
 
-    showSubmitTaskButton(){
-      this.checked = true
-    }
+   
 
-    
     addTaskstoArea() {
 
       function Collection(name: string, areas: [{}], tasks:[]) {
@@ -128,20 +126,16 @@ export class ReportComponent implements OnInit {
         : null);
 
         let tasks: [{}] =[{}]
+        tasks.shift()
         
         // filters out null objects
         allTasks.map((task:any)=>{
           if (task !== null){
             tasks.push(task)
-            
+            this.checked = true
           }
         })
 
-        this.showSubmitTaskButton()
-
-        // tasks.shift()
-
-        console.log('tasks', tasks)
 
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
@@ -161,8 +155,11 @@ export class ReportComponent implements OnInit {
         console.log('areas for report', this.areasForReport)
 
         this.form.reset()
+        this.checked = false
+        this.globalAreaObjects = [{}]
+        this.globalAreaObjects.shift()
+        console.log(this.globalAreaObjects, 'after clear')
         
-
         }
 
     saveReport(){
@@ -216,14 +213,14 @@ export class ReportComponent implements OnInit {
     this.initDrawingManager(map);
   }
 
-  public onClearButtonClicked() {
-    this.map.setMap(null);
-}
-
+//   public onClearButtonClicked() {
+//     this.map.setMap(null);
+// }
 
   initDrawingManager(map:any) {
 
-    const arrayOfAreaObjects:[{}]= [{}]
+    let arrayOfAreaObjects:[{}]= [{}]
+    arrayOfAreaObjects.shift()
     
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -284,16 +281,17 @@ export class ReportComponent implements OnInit {
       areaObject.name = polygonName
       areaObject.area = polyArrayLatLng
       
-      arrayOfAreaObjects.push(areaObject)
+      _self.globalAreaObjects.push(areaObject)
 
-      console.log('areaObject', areaObject)
+      console.log('areaObject', _self.globalAreaObjects)
 
     });
 
-    // collects all area objects =>
-    this.globalAreaObjects.push(arrayOfAreaObjects)
-    console.log('areas for report', this.globalAreaObjects)
+    console.log('global area objects after pass', this.globalAreaObjects)
+  }
 
+  clearArray(array:[]){
+    array
   }
 
 }
