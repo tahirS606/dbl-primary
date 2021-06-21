@@ -15,7 +15,7 @@ export class AuthService {
   private tokenTimer!: any;
   private authStatusListener = new Subject<boolean>()
 
-  BACKEND_URL = environment.apiUrl
+  // BACKEND_URL = environment.apiUrl
 
   getIsAuth() {
     return this.isAuthenticated;
@@ -42,12 +42,16 @@ export class AuthService {
         password: password
     }
     
-    this.http.post(this.BACKEND_URL + "user/signup", authData) 
-      .subscribe(response => {
-      console.log(response)
-    })
+    this.http.post(environment.apiUrl + "user/signup", authData) 
+    .subscribe(
+      () => {
+        this.router.navigate(["/"]);
+      },
+      error => {
+        this.authStatusListener.next(false);
+      }
        
-  }
+    )}
 
   login(
     email: string,
@@ -58,7 +62,7 @@ export class AuthService {
       email: email,
       password: password
     }
-    this.http.post<{ token: string, expiresIn: number }>(this.BACKEND_URL + "user/login", authData)
+    this.http.post<{ token: string, expiresIn: number }>(environment.apiUrl + "user/login", authData)
       .subscribe(response => {
 
       const token = response.token;

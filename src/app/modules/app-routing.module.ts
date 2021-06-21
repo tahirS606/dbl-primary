@@ -12,7 +12,10 @@ import { PropertyListComponent } from './../components/properties/property-list/
 import { ReportListComponent } from '../components/report-list/report-list.component';
 
 const routes: Routes = [
-  { path: '', component: PropertyListComponent },
+  { 
+    path: '/', 
+    component: PropertyListComponent 
+},
   {
     path: 'add-property',
     component: AddPropertyComponent,

@@ -49,7 +49,7 @@ router.post("/login", (req, res, next) => {
                     email: fetchedUser.email,
                     userId: fetchedUser._id
                 },
-                process.env.JWT_KEY, { expiresIn: "10h" }
+                "secret_this_should_be_longer", { expiresIn: "10h" }
             );
             res.status(200).json({
                 token: token,
