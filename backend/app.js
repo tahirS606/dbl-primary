@@ -9,7 +9,8 @@ const routesRoutes = require("./routes/routes")
 
 // have yet to update = connect with variables
 const app = express();
-const password = "9ksalmD9s1Em3GrX";
+// const password = "iav2DT12DP80gpfZ";
+// (newest)
 const url =
     "mongodb+srv://<username></username><password></password>.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority";
 const username = "odyssic";
@@ -46,13 +47,9 @@ app.use((req, res, next) => {
 });
 
 app.use("/properties", propertiesRoutes);
-
 app.use("/tasks", tasksRoutes)
-
 app.use("/user", userRoutes)
-
 app.use("/reports", reportsRoutes)
-
 app.use("/routes", routesRoutes)
 
 
