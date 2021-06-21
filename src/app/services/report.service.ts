@@ -1,3 +1,4 @@
+import { Property } from './../models/property.model';
 import { Subject } from 'rxjs';
 import { Report } from './../models/report.model';
 import { HttpClient } from '@angular/common/http';
@@ -21,6 +22,7 @@ reports: any;
 tasksCompleted!:any;
 lat!: number;
 long!: number;
+property!: Property
 
   constructor(
     private http: HttpClient
@@ -35,9 +37,21 @@ long!: number;
     ('http://localhost:3000/reports')
   }
 
-  
+  addReport(name: string, address: string, route: number, latitude: number, longitude: number) {
 
-  
+    // const report: Report = { id: '', property: property, tasks: tasks }
+    // this.http
+    //   .post<{ message: string; propertyId: string }>(
+    //     'http://localhost:3000/reports',
+    //     report, 
+    //   )
+    //   .subscribe((responseData) => {
+        // this.router.navigate(['/']);
+      // });
+      
   }
 
+  
+  
+}
 

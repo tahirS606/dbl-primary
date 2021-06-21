@@ -158,15 +158,16 @@ export class ReportComponent implements OnInit {
         
         }
 
-    saveReport(){
-      // example of property save
-      if (this.form.invalid) {
-        console.log('form is invalid');
-        return;
-      }
-      
-        
-    }
+        onSaveReport() {
+            this.reportService.addReport(
+              this.form.value.name,
+              this.address, 
+              this.form.value.route, 
+              this.latitude, 
+              this.longitude)        
+              this.form.reset();
+          } 
+          
     addTasks(){
       console.log('add tasks clicked')
       this.checkboxVisible = true;
@@ -237,8 +238,10 @@ export class ReportComponent implements OnInit {
         zIndex: 1,
         fullScreenControl: true, 
       },
+
     
     };
+    
 
     const drawingManager = new google.maps.drawing.DrawingManager(options);
     
@@ -247,6 +250,15 @@ export class ReportComponent implements OnInit {
     const _self = this; 
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
+
+      // idea for label polygon
+
+//       const bounds = new google.maps.LatLngBounds();
+
+//       const polygonCenter = bounds.getCenter();
+//       polygonCenter.label = "Hello world"
+  
+// ;
 
       _self.polygonComplete  = true; 
 

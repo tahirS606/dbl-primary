@@ -12,13 +12,8 @@
     </mat-card-content>
     <button (click)="addTasks()" [disabled]="!polygonComplete" color="primary" mat-button>Add Tasks to Area</button>
 
-    <button color="primary" mat-button [disabled]>Clear Map</button>
+    <button color="primary" mat-button disabled>Clear Map</button>
     <app-property-detail></app-property-detail>
-    <mat-action-row>
-        <a (click)="saveReport()" mat-button displayFlx color="primary">Save Report</a>
-        <!-- <a mat-button color="primary">Edit</a> -->
-        <a mat-button color="primary" [disabled]="!reportSaved">Submit</a>
-    </mat-action-row>
 
     <mat-card class="report">
         <mat-card-header>Report</mat-card-header>
@@ -26,7 +21,11 @@
             <div>{{area}}</div>
         </div>
     </mat-card>
-    {{areasForReport}}
+    <mat-action-row>
+        <a (click)="onSaveReport()" mat-button displayFlx color="primary" disabled>Save Report</a>
+        <!-- <a mat-button color="primary">Edit</a> -->
+        <a mat-button color="primary" [disabled]="!reportSaved">Submit</a>
+    </mat-action-row>
 </mat-card>
 
 <!-- submit report -->
@@ -45,6 +44,6 @@
   </label>
         <br/>
         <!-- <mat-form-field matFormFieldControl>Add Photo</mat-form-field> -->
-        <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()">Submit</button>
+        <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" [disabled]>Submit</button>
     </form>
 </mat-card>
