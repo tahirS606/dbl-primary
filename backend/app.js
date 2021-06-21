@@ -17,7 +17,7 @@ const databaseName = "dbl";
 
 mongoose
     .connect(
-        "mongodb+srv://odyssic:" + process.env.MONGO_ATLAS_PW + "lkw3g.mongodb.net/dbl?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
+        "mongodb+srv://odyssic:iav2DT12DP80gpfZ@dbl.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
     )
 
 .then(() => {
@@ -28,6 +28,9 @@ mongoose
     });
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// app.use("/", express.static(path.join(__dirname, "angular")));
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");

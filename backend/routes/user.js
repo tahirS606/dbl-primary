@@ -22,11 +22,11 @@ router.post("/signup", (req, res, next) => {
             })
             .catch(err => {
                 res.status(500).json({
-                    error: err
+                    message: "Invalid authentication credentials!"
                 });
             });
     });
-});
+})
 
 router.post("/login", (req, res, next) => {
     let fetchedUser;
@@ -50,7 +50,7 @@ router.post("/login", (req, res, next) => {
                     email: fetchedUser.email,
                     userId: fetchedUser._id
                 },
-                process.env.JWT_KEY, { expiresIn: "1h" }
+                "secret_this_should_be_longer", { expiresIn: "1h" }
             );
             res.status(200).json({
                 token: token,
