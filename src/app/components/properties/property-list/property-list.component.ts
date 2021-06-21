@@ -19,7 +19,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
   propertiesPerPage = 10;
   pageSizeOptions = [5, 10, 25, 50];
   currentPage = 1;
-  isLoading: boolean = true;
+  isLoading!: boolean
   totalProperties!: number;
   userIsAuthenticated = false;
 
@@ -41,7 +41,6 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       .getPropertyUpdateListener()
       .subscribe(
         (propertyData: { properties: Property[]; propertiesCount: number }) => {
-          this.isLoading = false;
           this.totalProperties = propertyData.propertiesCount;
           this.properties = propertyData.properties;
         }

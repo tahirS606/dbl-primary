@@ -22,8 +22,11 @@
 
     <mat-card class="report">
         <mat-card-header>Report</mat-card-header>
+        <div *ngFor="let area of areasForReport">
+            <div>{{area}}</div>
+        </div>
     </mat-card>
-
+    {{areasForReport}}
 </mat-card>
 
 <!-- submit report -->

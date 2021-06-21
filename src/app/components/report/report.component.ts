@@ -1,16 +1,14 @@
+import { Component, OnInit } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
-
 import { Task } from './../../models/task.model';
 import { ActivatedRoute } from '@angular/router';
 import { Property } from './../../models/property.model';
-import { Component, ComponentFactoryResolver, OnInit, Output } from '@angular/core';
 import { FormBuilder,  
   FormGroup,
   FormArray,
   FormControl,} from '@angular/forms';
-import { truncate } from 'lodash';
 
   declare const google: any;
 
@@ -47,8 +45,6 @@ export class ReportComponent implements OnInit {
   // report features
 
   areasForReport: [{}] = [{}]
-  arrayOfAreaObjects!: [{}] 
-  areasWithTasks!: [{}]
   globalAreaObjects: [{}] = [{}]
 
   count: number = 0 
@@ -65,10 +61,9 @@ export class ReportComponent implements OnInit {
   reportSubmittedBy!: string; 
   atLeastOneAreaSaved: boolean = false; 
 
-  tasks: Task[] = []
   form!: FormGroup;
   date = new Date();
-
+  
  
 
   checkboxVisible:boolean = false;
@@ -153,7 +148,8 @@ export class ReportComponent implements OnInit {
         console.log('new Collection', newCollection)
 
         console.log('areas for report', this.areasForReport)
-
+        
+        
         this.form.reset()
         this.checked = false
         this.globalAreaObjects = [{}]
@@ -184,9 +180,9 @@ export class ReportComponent implements OnInit {
     console.log(this.reportDate)
     this.areasForReport.shift()
 
-    const fetchedTasks = this.reportService.getTasks().subscribe();
+    // fetching tasks from database, the piece works but not active yet
 
-    console.log('fetchedTasks', fetchedTasks)
+    // const fetchedTasks = this.reportService.getTasks().subscribe();
 
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     
@@ -215,7 +211,7 @@ export class ReportComponent implements OnInit {
 
 //   public onClearButtonClicked() {
 //     this.map.setMap(null);
-// }
+// } doesn't work
 
   initDrawingManager(map:any) {
 

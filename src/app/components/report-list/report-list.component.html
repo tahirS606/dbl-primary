@@ -1,6 +1,5 @@
 <div *ngFor="let report of reports">
     {{report?.date | date}}
-    <p>{{report?.propertyName | titlecase}}</p>
 </div>
 
 <div *ngIf="!reports">

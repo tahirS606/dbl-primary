@@ -1,3 +1,5 @@
+import { Subject } from 'rxjs';
+import { Report } from './../models/report.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 
@@ -5,6 +7,10 @@ import { Injectable, OnInit } from '@angular/core';
   providedIn: 'root'
 })
 export class ReportService implements OnInit{
+
+  private reportUpdated = new Subject<{
+    report: Report ;
+  }>();
 
   ngOnInit(){
 
@@ -29,6 +35,7 @@ long!: number;
     ('http://localhost:3000/reports')
   }
 
+  
 
   
   }

@@ -1,8 +1,7 @@
-<ng-template *ngIf="isLoading">
-    <mat-progress-spinner color="accent"></mat-progress-spinner>
-</ng-template>
+<mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
 
-<div *ngIf="properties.length <= 0">
+
+<div *ngIf="properties.length <= 0 && !isLoading">
     <h3 class="please-add-props">Please add properties</h3>
 </div>
 
