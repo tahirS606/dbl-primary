@@ -1,7 +1,8 @@
 const express = require("express");
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcrypt")
 const jwt = require('jsonwebtoken')
 const User = require('../models/user');
+
 const router = express.Router();
 
 
@@ -49,7 +50,7 @@ router.post("/login", (req, res, next) => {
                     email: fetchedUser.email,
                     userId: fetchedUser._id
                 },
-                "secret_this_should_be_longer", { expiresIn: "10h" }
+                process.env.JWT_KEY, { expiresIn: "1h" }
             );
             res.status(200).json({
                 token: token,
@@ -57,7 +58,6 @@ router.post("/login", (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log('auth failed')
             return res.status(401).json({
                 message: "Auth failed"
             });

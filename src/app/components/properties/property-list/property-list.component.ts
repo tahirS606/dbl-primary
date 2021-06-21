@@ -1,7 +1,6 @@
-import { AuthService } from './../../../services/auth.service';
 import { PropertyService } from './../../../services/property.service';
 
-
+import { AuthService } from './../../auth/auth.service';
 import { Property } from './../../../models/property.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs'  ;

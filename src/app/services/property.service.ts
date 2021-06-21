@@ -1,11 +1,11 @@
-import { environment } from './../../environments/environment';
-
 import { HttpClient } from '@angular/common/http';
 import { Property } from './../models/property.model';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { of } from 'rxjs'
+
 
 @Injectable({
   providedIn: 'root',
@@ -20,15 +20,15 @@ export class PropertyService {
   }>();
   private updatedProperties: any;
   routes: any; 
-  baseUrl= environment.apiUrl
 
   constructor(private http: HttpClient , private router: Router) {}
+  baseUrl='http://localhost:3000/'
 
   getProperties(propertiesPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${propertiesPerPage}&page=${currentPage}`;
     this.http
       .get<{ message: string; properties: any; maxProperties: number }>(
-        this.baseUrl + 'properties/' + queryParams
+        'http://localhost:3000/properties' + queryParams
       )
       .pipe(
         map((propertyData) => {
@@ -53,7 +53,42 @@ export class PropertyService {
         });
       });
   }
+
+  // http$!: Observable<any> = this.http.get('http://localhost:3000/properties');
+
+
+  // getPropertyRoutesSorted(){
+
+  //   const routeList:[{}] = [{}]
+  //   routeList.shift()
+
+
+  //   this.http$.pipe(
+  //     map((propertyData:any) => {
+  //       return {
+  //         routes: propertyData.properties
+  //       }
+  //     }).map((propertyWithRoute: any) => {
+  //       propertyWithRoute
+  //       return {
+  //         route: propertyWithRoute.route
+  //       };
+  //     }).map((routeSolo: number)=>{
+  //         // console.log('routeSolo', routeSolo);
+  //         const routeNumber: number = Object.values(routeSolo)[0]
+  //         routeList.push(routeNumber)
+  //         const nonDuplicateRoutes = [...new Set(routeList)]
+
+  //         const sortedArray = nonDuplicateRoutes.sort()
+  //         console.log('non duplicate routes', nonDuplicateRoutes)
+  //         return sortedArray
+  //         })
+  //         .subscribe((routeData:any) => {
+  //           this.routes = routeData.routes
+  //         })
+  // }
     
+        
     
   getPropertyUpdateListener() {
     return this.propertiesUpdated.asObservable();
@@ -64,7 +99,7 @@ export class PropertyService {
     const property: Property = { id: '', name: name, address: address, route: route, latitude: latitude, longitude: longitude }
     this.http
       .post<{ message: string; propertyId: string }>(
-        this.baseUrl + 'properties/',
+        'http://localhost:3000/properties',
         property, 
       )
       .subscribe((responseData) => {
@@ -75,19 +110,19 @@ export class PropertyService {
 
   getProperty(id: string) {
     return this.http.get<{ _id: string; name: string; address: string; route: number, latitude: number; longitude: number }>(
-      this.baseUrl + 'properties/' + id
+      'http://localhost:3000/properties/' + id
     )
   }
 
   getPropertiesByRoute(){
     return this.http.get<{_id: string; name: string; address: string; latitude: number; longitude: number }>(
-      this.baseUrl + 'properties/')
+      'http://localhost:3000/properties/')
   }
 
   updateProperty(id: string, name: string, address: string, route: number, longitude: number, latitude: number ) {
     const property: Property = { id: id, name: name, address: address, route: route, longitude: longitude, latitude: latitude };
     this.http
-      .put(this.baseUrl + 'properties/' + id, property)
+      .put('http://localhost:3000/properties/' + id, property)
       .subscribe((response) => {
         this.router.navigate(['/']);
         return response
@@ -95,7 +130,7 @@ export class PropertyService {
   }
 
   deleteProperty(propertyId: string) {
-    return this.http.delete(this.baseUrl + 'properties/' + propertyId);
+    return this.http.delete('http://localhost:3000/properties/' + propertyId);
   }
 
 }
