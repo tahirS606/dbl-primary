@@ -54,42 +54,9 @@ export class PropertyService {
       });
   }
 
-  // http$!: Observable<any> = this.http.get('http://localhost:3000/properties');
-
-
-  // getPropertyRoutesSorted(){
-
-  //   const routeList:[{}] = [{}]
-  //   routeList.shift()
-
-
-  //   this.http$.pipe(
-  //     map((propertyData:any) => {
-  //       return {
-  //         routes: propertyData.properties
-  //       }
-  //     }).map((propertyWithRoute: any) => {
-  //       propertyWithRoute
-  //       return {
-  //         route: propertyWithRoute.route
-  //       };
-  //     }).map((routeSolo: number)=>{
-  //         // console.log('routeSolo', routeSolo);
-  //         const routeNumber: number = Object.values(routeSolo)[0]
-  //         routeList.push(routeNumber)
-  //         const nonDuplicateRoutes = [...new Set(routeList)]
-
-  //         const sortedArray = nonDuplicateRoutes.sort()
-  //         console.log('non duplicate routes', nonDuplicateRoutes)
-  //         return sortedArray
-  //         })
-  //         .subscribe((routeData:any) => {
-  //           this.routes = routeData.routes
-  //         })
-  // }
+ 
     
-        
-    
+  
   getPropertyUpdateListener() {
     return this.propertiesUpdated.asObservable();
   }

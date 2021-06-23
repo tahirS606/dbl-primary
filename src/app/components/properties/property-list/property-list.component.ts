@@ -37,7 +37,6 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       this.currentPage
     );
     this.propertiesSub = this.propertyService
-
       .getPropertyUpdateListener()
       .subscribe(
         (propertyData: { properties: Property[]; propertiesCount: number }) => {
