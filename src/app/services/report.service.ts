@@ -1,9 +1,14 @@
+import { map } from 'rxjs/operators';
 import { Property } from './../models/property.model';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Report } from './../models/report.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { report } from 'node:process';
+
+import { environment } from './../../environments/environment';
+
+const BACKEND_URL= environment.apiUrl
 
 @Injectable({
   providedIn: 'root'
@@ -30,19 +35,46 @@ property!: Property
   ) { }
 
   getTasks(){
-    return this.http.get<{id: string, name: string}>('http://localhost:3000/tasks')
+    return this.http.get<{id: string, name: string}>(BACKEND_URL+ "tasks")
+  }
+
+  getReportUpdateListener() {
+    return this.reportsUpdated.asObservable();
   }
 
   getAllReports(){
-    const fetchedReports = this.http.get<{reports:any}>
-    ('http://localhost:3000/reports')
+    return this.http.get<{message: string, reports: any}>
+    (BACKEND_URL + "reports").pipe(
+      map((reportData)=>{
+        return {
+          reports: reportData.reports.map((
+            report: any)=>{
+              return {
+                date: report.date
+              }
+            }
+          )
+        }
+      })
+    ).subscribe((reportData)=>{
+      this.reports = reportData.reports;
+      this.reportsUpdated.next({
+        reports: [...this.reports]
+      })
+    })
   }
 
-  getReportByProperty(propertyID:string){
-    const reports = this.http.get<Report[]>(
-      'http://localhost:3000/reports'
-    ).subscribe(data=>{})
-  }
+  private reportsUpdated = new Subject<{
+    reports: Report[];
+  }>();
+
+  // getReportByProperty(propertyID:string){
+  //   const reports = this.http.get<Report[]>(
+  //     'http://localhost:3000/reports'
+  //   ).map(if reportData.propertyId === propertyID){
+  //     console.log(reportData)
+  //   }
+  // }
 
   addReport(
     date: any, 
@@ -64,7 +96,7 @@ property!: Property
   }
     this.http
       .post<{ message: string; propertyId: string }>(
-        'http://localhost:3000/reports',
+        BACKEND_URL + "reports",
         report, 
       )
       .subscribe((responseData) => {
@@ -72,8 +104,7 @@ property!: Property
       });
 
       
-      
-      
+
   }
 
 

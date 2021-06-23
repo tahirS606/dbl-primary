@@ -36,6 +36,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       this.propertiesPerPage,
       this.currentPage
     );
+    
     this.propertiesSub = this.propertyService
       .getPropertyUpdateListener()
       .subscribe(
