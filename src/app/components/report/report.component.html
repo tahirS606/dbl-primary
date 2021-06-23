@@ -1,32 +1,38 @@
 <mat-card class="main-card">
 
     <mat-card-title>
-        <mat-icon routerLink="" color="primary">home</mat-icon>
+        <mat-icon routerLink="" color="primary">arrow_back_ios</mat-icon>
         <h2 class="report-title">Report for {{date | date}}</h2>
     </mat-card-title>
     <mat-card-content class="map-container">
-        <agm-map #map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="true"
-            [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
-        </agm-map>
+        <div class="map-container">
+            <agm-map #map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="true"
+                [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
+            </agm-map>
+            <mat-action-row class="map-menu">
+                <button (click)="addTasks()" [disabled]="!polygonComplete" color="primary" mat-raised-button>Add Tasks to Area</button>
+
+                <button color="primary" mat-raised-button color="primary" disabled>Clear Map</button>
+            </mat-action-row>
+        </div>
 
     </mat-card-content>
-    <button (click)="addTasks()" [disabled]="!polygonComplete" color="primary" mat-button>Add Tasks to Area</button>
 
-    <button color="primary" mat-button disabled>Clear Map</button>
-    <app-property-detail></app-property-detail>
+    <app-property-detail>
+    </app-property-detail>
+    <h4 class='details-container'>Report Details</h4>
 
-    <mat-card class="report">
-        <mat-card-header>Report</mat-card-header>
-        <div *ngFor="let area of areasForReport">
-            <div>{{area}}</div>
-        </div>
-    </mat-card>
+    <div *ngFor="let area of areasForReport">
+        <div>{{area}}</div>
+    </div>
     <mat-action-row>
-        <a (click)="onSaveReport()" mat-button displayFlx color="primary" disabled>Save Report</a>
-        <!-- <a mat-button color="primary">Edit</a> -->
-        <a mat-button color="primary" [disabled]="!reportSaved">Submit</a>
+        <a (click)="onSaveReport()" mat-button displayFlx color="primary">Save Report</a>
+        <!-- <a mat-button color="primary">Edit</a>
+            <a mat-button color="primary" [disabled]="!reportSaved">Submit</a> -->
     </mat-action-row>
+
 </mat-card>
+
 
 <!-- submit report -->
 

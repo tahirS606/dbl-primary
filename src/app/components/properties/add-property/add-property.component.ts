@@ -74,7 +74,6 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('propertyId')) {
         this.addMode = false;
-        // get id from url
         this.propertyId = this.activatedRoute.snapshot.paramMap.get('propertyId');
         this.propertyService
           .getProperty(this.propertyId)
@@ -128,6 +127,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
         this.longitude
       );
     }
+    this.form.valid;
     this.form.reset();
   }
 

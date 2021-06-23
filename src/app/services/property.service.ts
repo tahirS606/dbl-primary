@@ -72,7 +72,6 @@ export class PropertyService {
       .subscribe((responseData) => {
         this.router.navigate(['/']);
       });
-      
   }
 
   getProperty(id: string) {

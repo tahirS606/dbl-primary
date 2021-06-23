@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
-import { Task } from './../../models/task.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Property } from './../../models/property.model';
 import { FormBuilder,  
   FormGroup,
@@ -18,6 +17,8 @@ import { FormBuilder,
   styleUrls: ['./report.component.css'],
 })
 export class ReportComponent implements OnInit {
+
+  Object = Object;
 
   map: any; 
   latitude!: number; 
@@ -49,6 +50,7 @@ export class ReportComponent implements OnInit {
 
   count: number = 0 
 
+stringAreas: any
 
   reportSaved:boolean = false; 
   report!: Report;
@@ -58,6 +60,7 @@ export class ReportComponent implements OnInit {
   
 
   reportDate: any;
+  reportTime: any; 
   reportSubmittedBy!: string; 
   atLeastOneAreaSaved: boolean = false; 
 
@@ -85,12 +88,13 @@ export class ReportComponent implements OnInit {
 
   showCheckbox(){
     this.checkboxVisible = false; 
-    console.log(this.checkboxVisible)
+    // console.log(this.checkboxVisible)
   }
 
   constructor(
     private propertyService: PropertyService ,
     private route: ActivatedRoute,
+    private router: Router,
     private formBuilder: FormBuilder,
     public reportService: ReportService,
     ) { 
@@ -103,8 +107,6 @@ export class ReportComponent implements OnInit {
     private addCheckboxesToForm() {
       this.webData.forEach(() => this.tasksArray.push(new FormControl(false)));
     }
-
-   
 
     addTaskstoArea() {
 
@@ -131,45 +133,46 @@ export class ReportComponent implements OnInit {
           }
         })
 
-
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
 
         const newCollection = new (Collection as any)(collectionName, this.globalAreaObjects, tasks)
 
         this.areasForReport.push(newCollection)
-
-        console.log('new Collection', newCollection)
+        
+        // console.log('new Collection', newCollection)
 
         newCollection.name = collectionName 
         newCollection.areas = this.globalAreaObjects
         newCollection.tasks = tasks
 
-        console.log('new Collection', newCollection)
+        // console.log('new Collection', newCollection)
 
-        console.log('areas for report', this.areasForReport)
-        
-        
         this.form.reset()
         this.checked = false
         this.globalAreaObjects = [{}]
         this.globalAreaObjects.shift()
-        console.log(this.globalAreaObjects, 'after clear')
-        
+
+        console.log('this.areasForReport', this.areasForReport)
+        console.log(typeof(this.areasForReport))
         }
 
         onSaveReport() {
             this.reportService.addReport(
-              this.form.value.name,
-              this.address, 
-              this.form.value.route, 
-              this.latitude, 
-              this.longitude)        
+              this.reportDate, 
+              this.reportTime, 
+              this.propertyId, 
+              this.property.name,
+              this.property.address,
+              this.areasForReport
+              )        
+
               this.form.reset();
+              this.router.navigate(['/'])
           } 
           
     addTasks(){
-      console.log('add tasks clicked')
+      // console.log('add tasks clicked')
       this.checkboxVisible = true;
     }
 
@@ -178,7 +181,8 @@ export class ReportComponent implements OnInit {
   ngOnInit(): void {
 
     this.reportDate = this.date; 
-    console.log(this.reportDate)
+    this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes()
+    // console.log(this.reportDate)
     this.areasForReport.shift()
 
     // fetching tasks from database, the piece works but not active yet
@@ -257,8 +261,6 @@ export class ReportComponent implements OnInit {
 
 //       const polygonCenter = bounds.getCenter();
 //       polygonCenter.label = "Hello world"
-  
-// ;
 
       _self.polygonComplete  = true; 
 
@@ -273,16 +275,18 @@ export class ReportComponent implements OnInit {
   
       // the last point of polygon should be always the same as the first point
       polyArrayLatLng.push(polyArrayLatLng[0]);
-
-      number = number+1 
+      number = number + 1 
+      
       let polygonName = 'Area ' + number
     
-      console.log('Area ', number, polyArrayLatLng);
+      // console.log('Area ', number, polyArrayLatLng);
 
       let area = []
 
       area.push(polygonName)
       area.push(polyArrayLatLng)
+
+      console.log('area', area)
 
       let areaObject = {name: '', area: [{}] }
 
@@ -291,11 +295,11 @@ export class ReportComponent implements OnInit {
       
       _self.globalAreaObjects.push(areaObject)
 
-      console.log('areaObject', _self.globalAreaObjects)
-
+      // console.log('areaObject', _self.globalAreaObjects)
     });
 
-    console.log('global area objects after pass', this.globalAreaObjects)
+    // console.log('global area objects after pass', this.globalAreaObjects)
+
   }
 
   clearArray(array:[]){

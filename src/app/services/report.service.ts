@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { Report } from './../models/report.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
+import { report } from 'node:process';
 
 @Injectable({
   providedIn: 'root'
@@ -37,19 +38,45 @@ property!: Property
     ('http://localhost:3000/reports')
   }
 
-  addReport(name: string, address: string, route: number, latitude: number, longitude: number) {
+  getReportByProperty(propertyID:string){
+    const reports = this.http.get<Report[]>(
+      'http://localhost:3000/reports'
+    ).subscribe(data=>{})
+  }
 
-    // const report: Report = { id: '', property: property, tasks: tasks }
-    // this.http
-    //   .post<{ message: string; propertyId: string }>(
-    //     'http://localhost:3000/reports',
-    //     report, 
-    //   )
-    //   .subscribe((responseData) => {
-        // this.router.navigate(['/']);
-      // });
+  addReport(
+    date: any, 
+    time: any, 
+    propertyId: string, 
+    propertyName: string,  
+    propertyAddress: string, 
+    tasks: [{}]) 
+    {
+    const report: 
+    Report = { 
+      id: '', 
+      date: date,
+      time: time, 
+      propertyId: propertyId, 
+      propertyName: propertyName, 
+      propertyAddress: propertyAddress, 
+      tasks: tasks
+  }
+    this.http
+      .post<{ message: string; propertyId: string }>(
+        'http://localhost:3000/reports',
+        report, 
+      )
+      .subscribe((responseData) => {
+        console.log('report', responseData)
+      });
+
+      
+      
       
   }
+
+
 
   
   
