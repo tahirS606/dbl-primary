@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: lightblue;
+    /* background-color: lightblue; */
 }
 
 mat-icon {
@@ -10,7 +10,6 @@ mat-icon {
 }
 
 header {
-    background-color: var(--header-color);
     padding: 2em;
 }
 
@@ -23,14 +22,25 @@ header .title {
     padding: 25px;
 }
 
+.details-container {
+    padding: 12px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
 main {
     display: flex;
     flex-grow: 1;
 }
 
-.left-bar {
+
+/* .left-bar {
     width: 20em;
     background-color: var(--sidebar-color);
+} */
+
+.map-container {
+    position: relative;
 }
 
 .map {
@@ -38,10 +48,18 @@ main {
     width: 100vw;
 }
 
-footer {
+.map-menu {
+    position: absolute;
+    z-index: 22;
+    top: 50px;
+    left: 50px;
+}
+
+
+/* footer {
     background-color: var(--header-color);
     padding: 1em;
-}
+} */
 
 .main-card {
     margin: 12px;
@@ -61,6 +79,10 @@ mat-action-row {
     padding-top: 12px;
 }
 
+mat-card {
+    padding: 25px;
+}
+
 mat-card-title {
     display: flex;
     align-content: center;
@@ -71,16 +93,10 @@ mat-card-title {
 mat-icon {
     padding-top: 12px;
     cursor: pointer;
-    color: primary;
 }
 
 
 /* .report-title {} */
-
-.map-container {
-    flex-grow: 1;
-    position: relative;
-}
 
 .check-box-card {
     width: 150px;
@@ -94,4 +110,13 @@ mat-icon {
 
 .centered {
     margin: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    font-weight: bold;
 }

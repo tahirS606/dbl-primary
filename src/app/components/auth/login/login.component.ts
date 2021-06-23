@@ -3,6 +3,11 @@ import { AuthService } from './../auth.service';
 import { MyMaterialModule } from '../../../modules/material.module';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+
+const googleLogoURL = 
+"https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg";
 
 @Component({
   // omit if something will get loaded through routing
@@ -24,8 +29,17 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(
+    private matIconRegistry: MatIconRegistry,
     public authService: AuthService, 
-    private router: Router) {}
+    private router: Router,
+    private domSanitizer: DomSanitizer,
+    
+    
+    ) {
+      this.matIconRegistry.addSvgIcon(
+        "logo",
+        this.domSanitizer.bypassSecurityTrustResourceUrl(googleLogoURL));
+    }
 
   ngOnInit(): void {}
 }

@@ -3,9 +3,12 @@ const mongoose = require("mongoose");
 
 const reportSchema = mongoose.Schema({
     date: Date,
+    reportTime: String,
     time: String,
     completedBy: String,
-    property: [],
+    propertyName: String,
+    propertyId: String,
+    PropertyAddress: String,
     tasks: []
 })
 
