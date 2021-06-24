@@ -38,6 +38,7 @@ export class ReportComponent implements OnInit {
   streetViewControl: boolean = false;
   polygonComplete: boolean = false; 
   checked: boolean = false
+  tasks: any
 
   // private geoCoder : any;
 
@@ -46,12 +47,12 @@ export class ReportComponent implements OnInit {
   // report features
 
   areasForReport: [{}] = [{}]
-  globalAreaObjects: [{}] = [{}]
+  // globalAreaObjects: [{}] = [{}]
 
+  polyArrayLatLng: [{}] = [{}]
+
+  // for collection name
   count: number = 0 
-
-stringAreas: any
-
   reportSaved:boolean = false; 
   report!: Report;
 
@@ -110,23 +111,16 @@ stringAreas: any
 
     addTaskstoArea() {
 
-      function Collection(name: string, areas: [{}], tasks:[]) {
-        name = name;
-        areas = areas;
-        tasks = tasks;
-      }
-      
-      // let collection:{name: string, areas:[{}], tasks:[]}  ={name: '', areas:[{}], tasks:[]}  
-
-
+    
+    
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
         : null);
 
-        let tasks: [{}] =[{}]
+        let tasks: [{}] = [{}]
         tasks.shift()
         
         // filters out null objects
-        allTasks.map((task:any)=>{
+        allTasks.map((task:string)=>{
           if (task !== null){
             tasks.push(task)
             this.checked = true
@@ -136,22 +130,32 @@ stringAreas: any
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
 
-        const newCollection = new (Collection as any)(collectionName, this.globalAreaObjects, tasks)
+        function Collection(name: string, areas: [], tasks:[{}]) {
+          name = name;
+          areas = areas;
+          tasks = tasks;
+        }
 
-        this.areasForReport.push(newCollection)
-        
+        const newCollection = new (Collection as any)(collectionName, this.polyArrayLatLng, tasks)
+
         // console.log('new Collection', newCollection)
 
         newCollection.name = collectionName 
-        newCollection.areas = this.globalAreaObjects
+        newCollection.areas = this.polyArrayLatLng
         newCollection.tasks = tasks
+
+        this.areasForReport.push(newCollection)
 
         // console.log('new Collection', newCollection)
 
+        console.log('newCollection', newCollection)
+
         this.form.reset()
         this.checked = false
-        this.globalAreaObjects = [{}]
-        this.globalAreaObjects.shift()
+        this.polyArrayLatLng = [{}]
+        this.polyArrayLatLng.shift()
+        // this.globalAreaObjects = [{}]
+        // this.globalAreaObjects.shift()
 
         console.log('this.areasForReport', this.areasForReport)
         console.log(typeof(this.areasForReport))
@@ -169,6 +173,7 @@ stringAreas: any
 
               this.form.reset();
               this.router.navigate(['/'])
+              console.log(this.areasForReport)
           } 
           
     addTasks(){
@@ -182,12 +187,9 @@ stringAreas: any
 
     this.reportDate = this.date; 
     this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes()
-    // console.log(this.reportDate)
     this.areasForReport.shift()
+    // this.globalAreaObjects.shift()
 
-    // fetching tasks from database, the piece works but not active yet
-
-    // const fetchedTasks = this.reportService.getTasks().subscribe();
 
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     
@@ -250,7 +252,7 @@ stringAreas: any
     const drawingManager = new google.maps.drawing.DrawingManager(options);
     
     drawingManager.setMap(map);
-    let number = 0;
+    // let number = 0;
     const _self = this; 
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
@@ -265,35 +267,35 @@ stringAreas: any
       _self.polygonComplete  = true; 
 
       const len = polygon.getPath().getLength();
-      const polyArrayLatLng = [];
+      // let polyArrayLatLng = []
       
       for (let i = 0; i < len; i++) {
         const vertex = polygon.getPath().getAt(i);
         const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
-        polyArrayLatLng.push(vertexLatLng);
+        _self.polyArrayLatLng.push(vertexLatLng);
       }
   
       // the last point of polygon should be always the same as the first point
-      polyArrayLatLng.push(polyArrayLatLng[0]);
-      number = number + 1 
+      _self.polyArrayLatLng.push(_self.polyArrayLatLng[0]);
+      // number = number + 1 
       
-      let polygonName = 'Area ' + number
+      // let polygonName = 'Area ' + number
     
       // console.log('Area ', number, polyArrayLatLng);
 
-      let area = []
+      // let area = []
 
-      area.push(polygonName)
-      area.push(polyArrayLatLng)
+      // // area.push(polygonName)
+      // area.push(polyArrayLatLng)
 
-      console.log('area', area)
+      // console.log('area', area)
 
-      let areaObject = {name: '', area: [{}] }
+// let areaObject = {name: '', area: [{}] }
 
-      areaObject.name = polygonName
-      areaObject.area = polyArrayLatLng
+      // areaObject.name = polygonName
+      // areaObject.area = polyArrayLatLng
       
-      _self.globalAreaObjects.push(areaObject)
+      // _self.globalAreaObjects = polyArrayLatLng
 
       // console.log('areaObject', _self.globalAreaObjects)
     });

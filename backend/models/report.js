@@ -1,4 +1,3 @@
-const { assertNamedType } = require("graphql");
 const mongoose = require("mongoose");
 
 const reportSchema = mongoose.Schema({
@@ -9,7 +8,7 @@ const reportSchema = mongoose.Schema({
     propertyName: String,
     propertyId: String,
     PropertyAddress: String,
-    tasks: []
+    tasks: [{}]
 })
 
 module.exports = mongoose.model("Report", reportSchema);
