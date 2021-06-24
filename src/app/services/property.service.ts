@@ -1,10 +1,15 @@
+
+
 import { HttpClient } from '@angular/common/http';
 import { Property } from './../models/property.model';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { of } from 'rxjs'
+
+import { environment } from './../../environments/environment';
+
+const BACKEND_URL= environment.apiUrl
 
 
 @Injectable({
@@ -22,13 +27,14 @@ export class PropertyService {
   routes: any; 
 
   constructor(private http: HttpClient , private router: Router) {}
-  baseUrl='http://localhost:3000/'
+  
 
   getProperties(propertiesPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${propertiesPerPage}&page=${currentPage}`;
     this.http
       .get<{ message: string; properties: any; maxProperties: number }>(
-        'http://localhost:3000/properties' + queryParams
+        BACKEND_URL + 
+        'properties/' + queryParams
       )
       .pipe(
         map((propertyData) => {
@@ -66,7 +72,7 @@ export class PropertyService {
     const property: Property = { id: '', name: name, address: address, route: route, latitude: latitude, longitude: longitude }
     this.http
       .post<{ message: string; propertyId: string }>(
-        'http://localhost:3000/properties',
+        BACKEND_URL + 'properties/',
         property, 
       )
       .subscribe((responseData) => {
@@ -76,19 +82,15 @@ export class PropertyService {
 
   getProperty(id: string) {
     return this.http.get<{ _id: string; name: string; address: string; route: number, latitude: number; longitude: number }>(
-      'http://localhost:3000/properties/' + id
+      BACKEND_URL + 'properties/' + id
     )
   }
 
-  getPropertiesByRoute(){
-    return this.http.get<{_id: string; name: string; address: string; latitude: number; longitude: number }>(
-      'http://localhost:3000/properties/')
-  }
 
   updateProperty(id: string, name: string, address: string, route: number, longitude: number, latitude: number ) {
     const property: Property = { id: id, name: name, address: address, route: route, longitude: longitude, latitude: latitude };
     this.http
-      .put('http://localhost:3000/properties/' + id, property)
+      .put(BACKEND_URL + 'properties/' + id, property)
       .subscribe((response) => {
         this.router.navigate(['/']);
         return response
@@ -96,7 +98,7 @@ export class PropertyService {
   }
 
   deleteProperty(propertyId: string) {
-    return this.http.delete('http://localhost:3000/properties/' + propertyId);
+    return this.http.delete(BACKEND_URL + 'properties/' + propertyId);
   }
 
 }

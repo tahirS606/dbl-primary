@@ -10,10 +10,18 @@ ul {
     display: flex;
 }
 
+.logo {
+    height: 75px;
+    margin: 12px;
+    padding-top: 20px;
+}
+
 .spacer {
     flex: 1 1 auto;
 }
 
 .mat-toolbar {
     background-color: #ffffff;
+    padding: 5px;
+    height: 80px;
 }
