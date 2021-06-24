@@ -5,5 +5,5 @@ export interface Report {
     propertyId: string,
     propertyName: string,
     propertyAddress: string, 
-    tasks: [{}]
+    tasks: any
   }

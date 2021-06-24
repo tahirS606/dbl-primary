@@ -3,6 +3,16 @@ const router = express.Router();
 const Report = require("../models/report");
 const checkAuth = require("../middleware/check-auth");
 
+router.get("/:id", (req, res, next) => {
+    Route.findById(req.params.id).then((route) => {
+        if (Route) {
+            res.status(200).json(route)
+        } else {
+            res.status(404).json({ message: "route not found" });
+        }
+    });
+});
+
 router.post("", checkAuth,
     (req, res, next) => {
         const report = new Report({
@@ -16,10 +26,7 @@ router.post("", checkAuth,
             propertyLatitude: req.body.propertyLatitude,
             propertyLongitude: req.body.propertyLongitude,
             mapZoom: req.body.mapZoom,
-            tasks: [{
-                areas: [{ lat: req.body.lat, long: req.body.long }],
-                tasksCompleted: req.body.tasksCompleted,
-            }],
+            tasks: req.body.tasks,
             // 
         });
 

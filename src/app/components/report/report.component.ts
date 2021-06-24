@@ -130,6 +130,27 @@ export class ReportComponent implements OnInit {
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
 
+        // const newCollection = new (Collection as any)(collectionName, this.globalAreaObjects, tasks)
+
+        // this.areasForReport.push(newCollection)
+
+        // console.log('new Collection', newCollection)
+
+        // newCollection.name = collectionName 
+        // newCollection.areas = this.globalAreaObjects
+        // newCollection.tasks = tasks
+
+        // console.log('new Collection', newCollection)
+
+        // console.log('areas for report', this.areasForReport)
+        
+        
+        // this.form.reset()
+        // this.checked = false
+        // this.globalAreaObjects = [{}]
+        // this.globalAreaObjects.shift()
+        // console.log(this.globalAreaObjects, 'after clear')
+
         function Collection(name: string, areas: [], tasks:[{}]) {
           name = name;
           areas = areas;
