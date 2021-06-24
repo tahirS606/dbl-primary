@@ -20,6 +20,16 @@ export class ReportComponent implements OnInit {
 
   Object = Object;
 
+  fillColor: string = "#21b0ff"
+
+  // to rotate through colors
+
+  // #740c9a 	(116,12,154)
+	// #4e4ec4 	(78,78,196)
+	// #21b0ff 	(33,176,255)
+	// #aa52b4 	(170,82,180)
+	// #ff218c 	(255,33,140)
+
   map: any; 
   latitude!: number; 
   longitude!: number; 
@@ -39,6 +49,8 @@ export class ReportComponent implements OnInit {
   polygonComplete: boolean = false; 
   checked: boolean = false
   tasks: any
+
+  readyToSave: boolean = false
 
   // private geoCoder : any;
 
@@ -138,7 +150,6 @@ export class ReportComponent implements OnInit {
 
         const newCollection = new (Collection as any)(collectionName, this.polyArrayLatLng, tasks)
 
-        // console.log('new Collection', newCollection)
 
         newCollection.name = collectionName 
         newCollection.areas = this.polyArrayLatLng
@@ -146,7 +157,8 @@ export class ReportComponent implements OnInit {
 
         this.areasForReport.push(newCollection)
 
-        // console.log('new Collection', newCollection)
+        this.readyToSave = true
+
 
         console.log('newCollection', newCollection)
 
@@ -154,8 +166,7 @@ export class ReportComponent implements OnInit {
         this.checked = false
         this.polyArrayLatLng = [{}]
         this.polyArrayLatLng.shift()
-        // this.globalAreaObjects = [{}]
-        // this.globalAreaObjects.shift()
+    
 
         console.log('this.areasForReport', this.areasForReport)
         
@@ -177,7 +188,6 @@ export class ReportComponent implements OnInit {
           } 
           
     addTasks(){
-      // console.log('add tasks clicked')
       this.checkboxVisible = true;
     }
 
@@ -188,7 +198,6 @@ export class ReportComponent implements OnInit {
     this.reportDate = this.date; 
     this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes()
     this.areasForReport.shift()
-    // this.globalAreaObjects.shift()
 
 
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
@@ -216,10 +225,6 @@ export class ReportComponent implements OnInit {
     this.initDrawingManager(map);
   }
 
-//   public onClearButtonClicked() {
-//     this.map.setMap(null);
-// } doesn't work
-
   initDrawingManager(map:any) {
 
     let arrayOfAreaObjects:[{}]= [{}]
@@ -233,18 +238,17 @@ export class ReportComponent implements OnInit {
       },
 
       polygonOptions: {
-        outline: true, 
+        outline: false, 
         draggable: true,
         editable: true,
-        fillColor: "#ffff00",
-        fillOpacity: .25,
-        strokeWeight: 5,
-        strokeColor: 'blue',
+        fillColor: this.fillColor,
+        fillOpacity: .20,
+        strokeWeight: 7,
+        strokeColor: "#00008b",
         clickable: true,
         zIndex: 1,
-        fullScreenControl: true, 
+        // fullScreenControl: true, 
       },
-
     
     };
     
@@ -252,7 +256,6 @@ export class ReportComponent implements OnInit {
     const drawingManager = new google.maps.drawing.DrawingManager(options);
     
     drawingManager.setMap(map);
-    // let number = 0;
     const _self = this; 
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
@@ -267,7 +270,6 @@ export class ReportComponent implements OnInit {
       _self.polygonComplete  = true; 
 
       const len = polygon.getPath().getLength();
-      // let polyArrayLatLng = []
       
       for (let i = 0; i < len; i++) {
         const vertex = polygon.getPath().getAt(i);
@@ -275,32 +277,10 @@ export class ReportComponent implements OnInit {
         _self.polyArrayLatLng.push(vertexLatLng);
       }
   
-      // the last point of polygon should be always the same as the first point
       _self.polyArrayLatLng.push(_self.polyArrayLatLng[0]);
-      // number = number + 1 
       
-      // let polygonName = 'Area ' + number
-    
-      // console.log('Area ', number, polyArrayLatLng);
-
-      // let area = []
-
-      // // area.push(polygonName)
-      // area.push(polyArrayLatLng)
-
-      // console.log('area', area)
-
-// let areaObject = {name: '', area: [{}] }
-
-      // areaObject.name = polygonName
-      // areaObject.area = polyArrayLatLng
-      
-      // _self.globalAreaObjects = polyArrayLatLng
-
-      // console.log('areaObject', _self.globalAreaObjects)
     });
 
-    // console.log('global area objects after pass', this.globalAreaObjects)
 
   }
 

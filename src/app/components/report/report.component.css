@@ -79,6 +79,10 @@ mat-action-row {
     padding-top: 12px;
 }
 
+button {
+    margin: 12px;
+}
+
 mat-card {
     padding: 25px;
 }

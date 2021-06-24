@@ -8,7 +8,7 @@ const reportSchema = mongoose.Schema({
     propertyName: String,
     propertyId: String,
     PropertyAddress: String,
-    tasks: [{}]
+    tasks: [Object]
 })
 
 module.exports = mongoose.model("Report", reportSchema);

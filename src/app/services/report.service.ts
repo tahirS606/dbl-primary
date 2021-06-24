@@ -4,8 +4,6 @@ import { Subject, Observable } from 'rxjs';
 import { Report } from './../models/report.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { report } from 'node:process';
-
 import { environment } from './../../environments/environment';
 
 const BACKEND_URL= environment.apiUrl
