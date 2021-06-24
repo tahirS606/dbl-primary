@@ -8,7 +8,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "start-nodemon": "nodemon server.js",
+        "start-nodemon": "nodemon ./backend/server.js",
         "start-parcel": "parcel index.html",
         "build-parcel": "parcel build --public-url . index.html"
     },
