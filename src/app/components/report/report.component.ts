@@ -158,7 +158,7 @@ export class ReportComponent implements OnInit {
         // this.globalAreaObjects.shift()
 
         console.log('this.areasForReport', this.areasForReport)
-        console.log(typeof(this.areasForReport))
+        
         }
 
         onSaveReport() {
