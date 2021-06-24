@@ -9,6 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 const googleLogoURL = 
 "https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg";
 
+
 @Component({
   // omit if something will get loaded through routing
   // selector: 'app-login',
@@ -16,7 +17,8 @@ const googleLogoURL =
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  isLoading: boolean = true;
+  
+  
 
 
   onLogin(form: NgForm) {
@@ -24,7 +26,6 @@ export class LoginComponent implements OnInit {
       return
     }
     this.authService.login(form.value.email, form.value.password);
-    this.isLoading = false;
     this.router.navigateByUrl('/')
   }
 
@@ -41,5 +42,7 @@ export class LoginComponent implements OnInit {
         this.domSanitizer.bypassSecurityTrustResourceUrl(googleLogoURL));
     }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.isLoading = false;
+  }
 }

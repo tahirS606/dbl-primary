@@ -50,6 +50,8 @@ export class ReportComponent implements OnInit {
   checked: boolean = false
   tasks: any
 
+  readyToSave: boolean = false
+
   // private geoCoder : any;
 
   zoomControl: boolean = false;
@@ -154,6 +156,8 @@ export class ReportComponent implements OnInit {
         newCollection.tasks = tasks
 
         this.areasForReport.push(newCollection)
+
+        this.readyToSave = true
 
 
         console.log('newCollection', newCollection)
