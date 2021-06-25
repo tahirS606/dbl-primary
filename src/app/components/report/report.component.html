@@ -10,7 +10,7 @@
     <mat-card class="check-box-card" *ngIf="checkboxVisible">
         <mat-icon (click)="showCheckbox()">close</mat-icon>
         <mat-card-title class='centered'>
-            <h1>Tasks</h1>
+            <h1>Services</h1>
         </mat-card-title>
         <form (ngSubmit)="addTasks();" [formGroup]="form">
             <label formArrayName="tasks" *ngFor="let tasks of tasksArray.controls; let i=index">
@@ -21,16 +21,16 @@
           </label>
             <br/>
             <!-- <mat-form-field matFormFieldControl>Add Photo</mat-form-field> -->
-            <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" [disabled]>Submit</button>
+            <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" [disabled]>Add</button>
         </form>
     </mat-card>
 </mat-card-content>
 
 <mat-action-row displayFlx>
-    <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-raised-button>Add Tasks to Area</button>
-    <button color="primary" mat-raised-button color="primary" disabled>Clear Map</button>
+    <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-raised-button>Add Services</button>
+    <button color="primary" mat-raised-button color="primary" disabled>Clear</button>
 
-    <button class="submit-button" (click)="onSaveReport()" mat-raised-button [disabled]="!readyToSave" color="primary">Submit Report</button>
+
 </mat-action-row>
 
 
@@ -39,33 +39,33 @@
 <!-- <a mat-button color="primary">Edit</a>
             <a mat-button color="primary" [disabled]="!reportSaved">Submit</a> -->
 
-
-
-<div class="details-container">
-    <h2>Report for {{date | date}}</h2>
-</div>
-
 <app-property-detail>
 </app-property-detail>
 <div class="details-container">
 
-    <p>Report Details</p>
+    <h3 *ngIf="reportData">Report for {{date | date}}</h3>
 
-    <div *ngFor="let area of reportData">
-        <div class="collection-container">
-            <div>Name: {{area.name | json}}</div>
-            <p>Tasks:</p>
-            <div class="task-container">
-                <div *ngFor="let task of area.tasks"> {{task}}
-                </div>
-                <div>Time: {{area.time | date:'shortTime'}}</div>
-                <!-- <div>areas to map: {{area.areas | json}}</div> -->
+    <div class="collection-container">
+
+        <div *ngFor="let area of reportData">
+            <div class="collection">
+                <div><span class="strong">Name: </span> {{area.name | json}}</div>
+                <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
+                <span class="strong">Services:</span>
+                <ul>
+                    <span *ngFor="let task of area.tasks"> 
+                    <li>{{task}}</li></span>
+
+                </ul>
+
             </div>
 
+
+
+
         </div>
-
-        <!-- <div *ngFor="let key of Object.keys(objs)">
-    my key: {{key}}
-    my object {{objs[key] | json}} <!-- hier I could use ngFor again with Object.keys(objs[key]) -->
-
-        <!-- submit report -->
+    </div>
+</div>
+<mat-action-row displayFlx>
+    <button *ngIf="readyToSave" class="submit-button" (click)="onSaveReport()" mat-raised-button [disabled]="!readyToSave" color="primary">Submit Report</button>
+</mat-action-row>

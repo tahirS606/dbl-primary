@@ -41,6 +41,10 @@ mat-expansion-panel {
     margin: 12px;
 }
 
+.button {
+    margin: 12px;
+}
+
 mat-progress-spinner {
     width: 25px;
 }

@@ -1,23 +1,5 @@
-body {
-    font-family: "Roboto";
-    font-weight: bold;
-}
-
-h1 {
-    padding: 0px;
-}
-
 .details-container {
     padding: 12px;
     margin-bottom: 12px;
     margin: 24px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-p {
-    font-weight: bold;
 }

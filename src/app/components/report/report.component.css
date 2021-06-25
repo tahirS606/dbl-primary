@@ -9,16 +9,22 @@ mat-icon {
     flex: flex-end;
 }
 
-collection-container {
-    margin: 10px
+.strong {
+    font-weight: bold;
 }
 
 header {
     padding: 2em;
 }
 
-task-container {
+.collection {
+    padding: 10px;
+}
+
+.collection-container {
     display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
 }
 
 header .title {
@@ -34,8 +40,12 @@ mat-icon {
     padding: 25px;
 }
 
+ul {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 .details-container {
-    padding: 12px;
     margin-left: 24px;
     margin-right: 24px;
 }
@@ -71,7 +81,7 @@ mat-action-row {
 }
 
 button {
-    margin: 12px;
+    margin: 8px;
 }
 
 mat-card {
@@ -92,8 +102,7 @@ mat-icon {
 
 .check-box-card {
     width: 150px;
-    margin-left: 40%;
-    margin-top: 100px;
+    margin-left: auto;
     margin-right: auto;
     padding: 12px;
 }
