@@ -247,7 +247,7 @@ export class ReportComponent implements OnInit {
         strokeColor: "#00008b",
         clickable: true,
         zIndex: 1,
-        // fullScreenControl: true, 
+        fullScreenControl: true, 
       },
     
     };

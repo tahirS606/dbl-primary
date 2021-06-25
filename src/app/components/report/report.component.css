@@ -46,11 +46,11 @@ main {
 .map {
     height: 200px;
     width: 100vw;
+    z-index: 1;
 }
 
 .map-menu {
     position: absolute;
-    z-index: 22;
     top: 50px;
     left: 50px;
 }
@@ -68,6 +68,7 @@ main {
 
 agm-map {
     height: 44vh;
+    z-index: 1;
 }
 
 mat-action-row {
@@ -110,6 +111,7 @@ mat-icon {
     position: absolute;
     padding: 12px;
     opacity: 95%;
+    z-index: 22;
 }
 
 .centered {

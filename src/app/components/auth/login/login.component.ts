@@ -18,8 +18,6 @@ const googleLogoURL =
 })
 export class LoginComponent implements OnInit {
   
-  
-
 
   onLogin(form: NgForm) {
     if (form.invalid) {
@@ -43,6 +41,6 @@ export class LoginComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    // this.isLoading = false;
+    
   }
 }
