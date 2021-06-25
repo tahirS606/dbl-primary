@@ -4,22 +4,39 @@
         <mat-icon routerLink="" color="primary">arrow_back_ios</mat-icon>
         <h2 class="report-title">Report for {{date | date}}</h2>
     </mat-card-title>
-    <mat-card-content class="map-container">
-        <div class="map-container">
-            <agm-map #map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="true"
-                [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
-            </agm-map>
-            <mat-action-row displayFlx>
-                <button (click)="addTasks()" [disabled]="!polygonComplete" color="primary" mat-raised-button>Add Tasks to Area</button>
-
-                <button color="primary" mat-raised-button color="primary" disabled>Clear Map</button>
-                <button (click)="onSaveReport()" mat-raised-button [disabled]="!readyToSave" color="primary">Save Report</button>
-                <!-- <a mat-button color="primary">Edit</a>
-            <a mat-button color="primary" [disabled]="!reportSaved">Submit</a> -->
-            </mat-action-row>
-        </div>
-
+    <mat-card-content displayFlx>
+        <agm-map #map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="true"
+            [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
+        </agm-map>
+        <mat-card class="check-box-card" *ngIf="checkboxVisible">
+            <mat-icon (click)="showCheckbox()">close</mat-icon>
+            <mat-card-title class='centered'>
+                <h1>Tasks</h1>
+            </mat-card-title>
+            <form (ngSubmit)="addTasks();" [formGroup]="form">
+                <label formArrayName="tasks" *ngFor="let tasks of tasksArray.controls; let i=index">
+            <mat-checkbox [formControlName]="i">  
+              {{webData[i].name}}
+            </mat-checkbox>
+            <br/>
+          </label>
+                <br/>
+                <!-- <mat-form-field matFormFieldControl>Add Photo</mat-form-field> -->
+                <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" [disabled]>Submit</button>
+            </form>
+        </mat-card>
     </mat-card-content>
+
+    <mat-action-row displayFlx>
+        <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-raised-button>Add Tasks to Area</button>
+        <button color="primary" mat-raised-button color="primary" disabled>Clear Map</button>
+
+        <!-- <a mat-button color="primary">Edit</a>
+            <a mat-button color="primary" [disabled]="!reportSaved">Submit</a> -->
+    </mat-action-row>
+
+
+
 
     <app-property-detail>
     </app-property-detail>
@@ -32,24 +49,8 @@
     </div>
 
 
+    <button (click)="onSaveReport()" mat-raised-button [disabled]="!readyToSave" color="primary">Save Report</button>
+
 </mat-card>
 
 <!-- submit report -->
-
-<mat-card class="check-box-card" *ngIf="checkboxVisible">
-    <mat-icon (click)="showCheckbox()">close</mat-icon>
-    <mat-card-title class='centered'>
-        <h1>Tasks</h1>
-    </mat-card-title>
-    <form (ngSubmit)="addTasks();" [formGroup]="form">
-        <label formArrayName="tasks" *ngFor="let tasks of tasksArray.controls; let i=index">
-    <mat-checkbox [formControlName]="i">  
-      {{webData[i].name}}
-    </mat-checkbox>
-    <br/>
-  </label>
-        <br/>
-        <!-- <mat-form-field matFormFieldControl>Add Photo</mat-form-field> -->
-        <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" [disabled]>Submit</button>
-    </form>
-</mat-card>

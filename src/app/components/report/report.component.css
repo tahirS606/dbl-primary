@@ -34,14 +34,11 @@ main {
 }
 
 
-/* .left-bar {
-    width: 20em;
-    background-color: var(--sidebar-color);
-} */
+/* .map-container {
+    /* display: flex; */
 
-.map-container {
-    position: relative;
-}
+
+/* } */
 
 .map {
     height: 200px;
@@ -49,11 +46,12 @@ main {
     z-index: 1;
 }
 
-.map-menu {
+
+/* .map-menu {
     position: absolute;
     top: 50px;
     left: 50px;
-}
+} */
 
 
 /* footer {
@@ -105,10 +103,10 @@ mat-icon {
 
 .check-box-card {
     width: 150px;
-    margin-left: 40%;
+    /* margin-left: 40%;
     margin-top: 100px;
-    margin-right: auto;
-    position: absolute;
+    margin-right: auto; */
+    /* position: absolute; */
     padding: 12px;
     opacity: 95%;
     z-index: 22;
