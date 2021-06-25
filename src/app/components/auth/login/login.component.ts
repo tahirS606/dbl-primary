@@ -1,10 +1,11 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from './../auth.service';
+
 import { MyMaterialModule } from '../../../modules/material.module';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AuthService } from 'src/app/services/auth.service';
 
 const googleLogoURL = 
 "https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg";
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private matIconRegistry: MatIconRegistry,
-    public authService: AuthService, 
+    public authService: AuthService , 
     private router: Router,
     private domSanitizer: DomSanitizer,
     

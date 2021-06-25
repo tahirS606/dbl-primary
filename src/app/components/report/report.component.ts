@@ -187,7 +187,7 @@ export class ReportComponent implements OnInit {
               this.router.navigate(['/'])
               console.log(this.areasForReport)
           } 
-          
+           
     addTasks(){
       this.checkboxVisible = true;
       this.addTasksToAreaButtonShowing = false;
