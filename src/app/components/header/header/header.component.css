@@ -16,12 +16,18 @@ ul {
     padding-top: 20px;
 }
 
+
+/* mat-action-row {
+    justify-content: space-between;
+} */
+
 .spacer {
     flex: 1 1 auto;
 }
 
-.mat-toolbar {
+mat-toolbar {
     background-color: #ffffff;
-    padding: 5px;
+    padding: 10px;
     height: 80px;
+    margin: 10px;
 }

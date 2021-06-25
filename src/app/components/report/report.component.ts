@@ -73,6 +73,7 @@ export class ReportComponent implements OnInit {
   // idea: 'collections' added to report. 
   
   
+  reportData: any;
 
   reportDate: any;
   reportTime: any; 
@@ -143,18 +144,20 @@ export class ReportComponent implements OnInit {
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
 
-        function Collection(name: string, areas: [], tasks:[{}]) {
+        function Collection(name: string, areas: [], tasks:[{}], time: Date) {
           name = name;
           areas = areas;
           tasks = tasks;
+          time = time; 
         }
 
-        const newCollection = new (Collection as any)(collectionName, this.polyArrayLatLng, tasks)
+        const newCollection = new (Collection as any)(collectionName, this.polyArrayLatLng, tasks, this.date)
 
 
         newCollection.name = collectionName 
         newCollection.areas = this.polyArrayLatLng
         newCollection.tasks = tasks
+        newCollection.time = this.date
 
         this.areasForReport.push(newCollection)
 
@@ -170,6 +173,9 @@ export class ReportComponent implements OnInit {
     
 
         console.log('this.areasForReport', this.areasForReport)
+
+        this.reportData = Object.values(this.areasForReport)
+        console.log('this report data', this.reportData)
         
         }
 
