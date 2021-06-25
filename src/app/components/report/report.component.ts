@@ -50,6 +50,8 @@ export class ReportComponent implements OnInit {
   checked: boolean = false
   tasks: any
 
+  addTasksToAreaButtonShowing: boolean = false
+
   readyToSave: boolean = false
 
   // private geoCoder : any;
@@ -122,9 +124,8 @@ export class ReportComponent implements OnInit {
     }
 
     addTaskstoArea() {
+      
 
-    
-    
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
         : null);
 
@@ -189,6 +190,8 @@ export class ReportComponent implements OnInit {
           
     addTasks(){
       this.checkboxVisible = true;
+      this.addTasksToAreaButtonShowing = false;
+       
     }
 
     
@@ -268,6 +271,7 @@ export class ReportComponent implements OnInit {
 //       polygonCenter.label = "Hello world"
 
       _self.polygonComplete  = true; 
+      _self.addTasksToAreaButtonShowing = true
 
       const len = polygon.getPath().getLength();
       
