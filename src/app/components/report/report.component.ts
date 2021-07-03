@@ -22,6 +22,8 @@ export class ReportComponent implements OnInit {
 
   fillColor: string = "#21b0ff"
 
+  fillColorsArray: String[] = ["#740c9a", "#4e4ec4", "#21b0ff", "#aa52b4", "#ff218c"  ]
+
   // to rotate through colors
 
   // #740c9a 	(116,12,154)
