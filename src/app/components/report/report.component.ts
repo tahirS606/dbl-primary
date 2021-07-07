@@ -160,6 +160,12 @@ export class ReportComponent implements OnInit {
         newCollection.tasks = tasks
         newCollection.time = this.date
 
+      this.selectedShape.setOptions({strokeColor: 'red', fillColor: 'green'});
+        console.log('selected shapes by index', this.selectedShapes[0-(this.polygonCount -1)])
+
+        console.log('keys method', Object.keys(this.selectedShapes)[0])
+        console.log(this.selectedShapes.length)
+
         this.areasForReport.push(newCollection)
 
         this.readyToSave = true
@@ -170,12 +176,12 @@ export class ReportComponent implements OnInit {
         this.checked = false
         this.polyArrayLatLng = [{}]
         this.polyArrayLatLng.shift()
+        this.polygonCount = 0;
     
 
-        console.log('this.areasForReport', this.areasForReport)
-
-        this.reportData = Object.values(this.areasForReport)
-        console.log('this report data', this.reportData)
+        // console.log('this.areasForReport', this.areasForReport)
+        // this.reportData = Object.values(this.areasForReport)
+        // console.log('this report data', this.reportData)
         
         }
 
@@ -257,18 +263,17 @@ export class ReportComponent implements OnInit {
         outline: false, 
         draggable: true,
         editable: true,
-        fillColor: this.strokeColorsArray[this.count],
+        // fillColor: this.strokeColorsArray[this.count],
         fillOpacity: .20,
         strokeWeight: 7,
         strokeColor: this.strokeColorsArray[this.count],
-        clickable: true,
+        // clickable: true,
         zIndex: 1,
         fullScreenControl: true, 
       },
     
     };
     
-
     const drawingManager = new google.maps.drawing.DrawingManager(options);
 
     drawingManager.setMap(map);
