@@ -8,6 +8,7 @@ import { FormBuilder,
   FormGroup,
   FormArray,
   FormControl,} from '@angular/forms';
+import { _MatSelectBase } from '@angular/material/select';
 
   declare const google: any;
 
@@ -20,17 +21,12 @@ export class ReportComponent implements OnInit {
 
   Object = Object;
 
-  fillColor: string = "#21b0ff"
+  strokeColor: string = "#21b0ff"
 
-  fillColorsArray: String[] = ["#740c9a", "#4e4ec4", "#21b0ff", "#aa52b4", "#ff218c"  ]
+  index: Number = 0
 
-  // to rotate through colors
-
-  // #740c9a 	(116,12,154)
-	// #4e4ec4 	(78,78,196)
-	// #21b0ff 	(33,176,255)
-	// #aa52b4 	(170,82,180)
-	// #ff218c 	(255,33,140)
+  strokeColorsArray: String[] = [
+    "#740c9a", "#4e4ec4", "#21b0ff", "#aa52b4", "#ff218c", "#12b8da", "#49997c", "#027ab0", "#e51a1a", "#eed630" ]
 
   map: any; 
   latitude!: number; 
@@ -52,6 +48,10 @@ export class ReportComponent implements OnInit {
   checked: boolean = false
   tasks: any
 
+  selectedShape: any
+  selectedShapes: [{}] = [{}]
+  polygonCount: number = 0;
+
   addTasksToAreaButtonShowing: boolean = false
 
   readyToSave: boolean = false
@@ -63,7 +63,6 @@ export class ReportComponent implements OnInit {
   // report features
 
   areasForReport: [{}] = [{}]
-  // globalAreaObjects: [{}] = [{}]
 
   polyArrayLatLng: [{}] = [{}]
 
@@ -165,7 +164,6 @@ export class ReportComponent implements OnInit {
 
         this.readyToSave = true
 
-
         console.log('newCollection', newCollection)
 
         this.form.reset()
@@ -180,6 +178,12 @@ export class ReportComponent implements OnInit {
         console.log('this report data', this.reportData)
         
         }
+
+        // https://stackoverflow.com/questions/5932710/changing-google-maps-polygon-color-fill-on-click
+
+//         myPolygon.setOptions({strokeWeight: 2.0, fillColor: 'green'});
+// // polygon is clicked
+// myPolygon.setOptions({strokeWeight: 6.0});
 
         onSaveReport() {
             this.reportService.addReport(
@@ -209,6 +213,7 @@ export class ReportComponent implements OnInit {
     this.reportDate = this.date; 
     this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes()
     this.areasForReport.shift()
+    this.selectedShapes.shift()
 
 
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
@@ -245,17 +250,17 @@ export class ReportComponent implements OnInit {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: true,
       drawingControlOptions: {
-        drawingModes: ["polygon"]
+        drawingModes: ["polygon", "circle"], 
       },
 
       polygonOptions: {
         outline: false, 
         draggable: true,
         editable: true,
-        fillColor: this.fillColor,
+        fillColor: this.strokeColorsArray[this.count],
         fillOpacity: .20,
         strokeWeight: 7,
-        strokeColor: "#00008b",
+        strokeColor: this.strokeColorsArray[this.count],
         clickable: true,
         zIndex: 1,
         fullScreenControl: true, 
@@ -265,18 +270,14 @@ export class ReportComponent implements OnInit {
     
 
     const drawingManager = new google.maps.drawing.DrawingManager(options);
-    
+
     drawingManager.setMap(map);
     const _self = this; 
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
 
-      // idea for label polygon
-
-//       const bounds = new google.maps.LatLngBounds();
-
-//       const polygonCenter = bounds.getCenter();
-//       polygonCenter.label = "Hello world"
+      _self.polygonCount +=1
+      console.log('poly count', _self.polygonCount)
 
       _self.polygonComplete  = true; 
       _self.addTasksToAreaButtonShowing = true
@@ -288,16 +289,23 @@ export class ReportComponent implements OnInit {
         const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
         _self.polyArrayLatLng.push(vertexLatLng);
       }
+
+      // works==>
+      // polygon.setOptions({strokeColor: 'red', fillColor: 'green'});
   
       _self.polyArrayLatLng.push(_self.polyArrayLatLng[0]);
+
+      _self.selectedShape = polygon
+      _self.selectedShapes.push(polygon)
+      console.log('selected shapes', _self.selectedShapes)
+
+      // _self.selectedShape.setOptions({strokeColor: 'red', fillColor: 'green'});
       
     });
 
 
   }
 
-  clearArray(array:[]){
-    array
-  }
-
 }
+
+// ideas: polygonCount to count polygons, selectedShapes, and then change style of those polygons that are in the collection. (1-3, for instance) / or change initial color based on count of polygons. this.count. By having htat be the index. But it only goes to the first one, doesn't change. 
