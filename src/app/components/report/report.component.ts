@@ -35,7 +35,7 @@ export class ReportComponent implements OnInit {
   propertyId!: any; 
   address: any;
 
- initialColor: string = "blue"
+ initialColor: string = "white"
 
   shape: any; 
 
@@ -168,11 +168,7 @@ export class ReportComponent implements OnInit {
         newCollection.selectedShapes = this.selectedShapes
         newCollection.color = this.strokeColorsArray[this.count]
 
-        this.selectedShapes.forEach((shape: any)=>{console.log('shapes in selected shapes', shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'green'}))})
-
-        // console.log('index position of selected shapes', this.selectedShapes[0])
-
-      // this.selectedShape.setOptions({strokeColor: , fillColor: 'green'});
+        this.selectedShapes.forEach((shape: any)=>{console.log('shapes in selected shapes', shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'white'}))})
 
       console.log('selected shape', this.selectedShape)
 
@@ -216,8 +212,6 @@ export class ReportComponent implements OnInit {
       this.addTasksToAreaButtonShowing = false;
        
     }
-
-    
 
   ngOnInit(): void {
 
@@ -268,8 +262,8 @@ export class ReportComponent implements OnInit {
         outline: false, 
         draggable: true,
         editable: true,
-        // fillColor: this.strokeColorsArray[this.count],
-        fillOpacity: .20,
+        fillColor: 'white',
+        fillOpacity: .4,
         strokeWeight: 7,
         strokeColor: this.initialColor,
         // clickable: true,
