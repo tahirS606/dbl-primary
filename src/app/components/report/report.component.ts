@@ -35,6 +35,8 @@ export class ReportComponent implements OnInit {
   propertyId!: any; 
   address: any;
 
+ initialColor: string = "blue"
+
   shape: any; 
 
   // map features
@@ -51,7 +53,7 @@ export class ReportComponent implements OnInit {
   tasks: any
 
   selectedShape: any
-  selectedShapes: [{}] = [{}]
+  selectedShapes: {}[] = []
   polygonCount: number = 0;
 
   addTasksToAreaButtonShowing: boolean = false
@@ -147,7 +149,7 @@ export class ReportComponent implements OnInit {
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
 
-        function Collection(name: string, areas: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String) {
+        function Collection(name: string, areas: [], tasks:[{}], time: Date, selectedShapes:[], color: String) {
           name = name;
           areas = areas;
           tasks = tasks;
@@ -166,9 +168,13 @@ export class ReportComponent implements OnInit {
         newCollection.selectedShapes = this.selectedShapes
         newCollection.color = this.strokeColorsArray[this.count]
 
-        this.selectedShapes.forEach((x)=>{console.log('shapes in selected shapes', x)})
+        this.selectedShapes.forEach((shape: any)=>{console.log('shapes in selected shapes', shape.setOptions({strokeColor: 'red', fillColor: 'green'}))})
+
+        // console.log('index position of selected shapes', this.selectedShapes[0])
 
       this.selectedShape.setOptions({strokeColor: 'red', fillColor: 'green'});
+
+      console.log('selected shape', this.selectedShape)
 
         this.areasForReport.push(newCollection)
 
@@ -179,7 +185,7 @@ export class ReportComponent implements OnInit {
         this.form.reset()
         this.checked = false
         this.polyArrayLatLng = [{}]
-        this.selectedShapes = [{}]
+        this.selectedShapes = []
         this.selectedShapes.shift()
         this.polyArrayLatLng.shift()
         this.polygonCount = 0;
@@ -187,8 +193,6 @@ export class ReportComponent implements OnInit {
 
     
         this.reportData = Object.values(this.areasForReport)
-      
-        
         }
 
 
@@ -267,7 +271,7 @@ export class ReportComponent implements OnInit {
         // fillColor: this.strokeColorsArray[this.count],
         fillOpacity: .20,
         strokeWeight: 7,
-        strokeColor: this.strokeColorsArray[this.count],
+        strokeColor: this.initialColor,
         // clickable: true,
         zIndex: 1,
         fullScreenControl: true, 
