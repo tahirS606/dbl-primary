@@ -8,6 +8,7 @@ import { FormBuilder,
   FormGroup,
   FormArray,
   FormControl,} from '@angular/forms';
+import { _MatSelectBase } from '@angular/material/select';
 
   declare const google: any;
 
@@ -20,15 +21,12 @@ export class ReportComponent implements OnInit {
 
   Object = Object;
 
-  fillColor: string = "#21b0ff"
+  strokeColor: string = "#21b0ff"
 
-  // to rotate through colors
+  index: Number = 0
 
-  // #740c9a 	(116,12,154)
-	// #4e4ec4 	(78,78,196)
-	// #21b0ff 	(33,176,255)
-	// #aa52b4 	(170,82,180)
-	// #ff218c 	(255,33,140)
+  strokeColorsArray: String[] = [
+    "#740c9a", "#4e4ec4", "#21b0ff", "#aa52b4", "#ff218c", "#12b8da", "#49997c", "#027ab0", "#e51a1a", "#eed630" ]
 
   map: any; 
   latitude!: number; 
@@ -36,6 +34,10 @@ export class ReportComponent implements OnInit {
   property!: Property;
   propertyId!: any; 
   address: any;
+
+ initialColor: string = "white"
+
+  shape: any; 
 
   // map features
   zoom = 21; 
@@ -50,6 +52,10 @@ export class ReportComponent implements OnInit {
   checked: boolean = false
   tasks: any
 
+  selectedShape: any
+  selectedShapes: {}[] = []
+  polygonCount: number = 0;
+
   addTasksToAreaButtonShowing: boolean = false
 
   readyToSave: boolean = false
@@ -61,7 +67,6 @@ export class ReportComponent implements OnInit {
   // report features
 
   areasForReport: [{}] = [{}]
-  // globalAreaObjects: [{}] = [{}]
 
   polyArrayLatLng: [{}] = [{}]
 
@@ -144,11 +149,13 @@ export class ReportComponent implements OnInit {
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
 
-        function Collection(name: string, areas: [], tasks:[{}], time: Date) {
+        function Collection(name: string, areas: [], tasks:[{}], time: Date, selectedShapes:[], color: String) {
           name = name;
           areas = areas;
           tasks = tasks;
           time = time; 
+          selectedShapes = selectedShapes; 
+          color = color; 
         }
 
         const newCollection = new (Collection as any)(collectionName, this.polyArrayLatLng, tasks, this.date)
@@ -158,26 +165,32 @@ export class ReportComponent implements OnInit {
         newCollection.areas = this.polyArrayLatLng
         newCollection.tasks = tasks
         newCollection.time = this.date
+        newCollection.selectedShapes = this.selectedShapes
+        newCollection.color = this.strokeColorsArray[this.count]
+
+        this.selectedShapes.forEach((shape: any)=>{console.log('shapes in selected shapes', shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'white'}))})
+
+      console.log('selected shape', this.selectedShape)
 
         this.areasForReport.push(newCollection)
 
         this.readyToSave = true
-
 
         console.log('newCollection', newCollection)
 
         this.form.reset()
         this.checked = false
         this.polyArrayLatLng = [{}]
+        this.selectedShapes = []
+        this.selectedShapes.shift()
         this.polyArrayLatLng.shift()
+        this.polygonCount = 0;
     
 
-        console.log('this.areasForReport', this.areasForReport)
-
+    
         this.reportData = Object.values(this.areasForReport)
-        console.log('this report data', this.reportData)
-        
         }
+
 
         onSaveReport() {
             this.reportService.addReport(
@@ -200,13 +213,12 @@ export class ReportComponent implements OnInit {
        
     }
 
-    
-
   ngOnInit(): void {
 
     this.reportDate = this.date; 
     this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes()
     this.areasForReport.shift()
+    this.selectedShapes.shift()
 
 
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
@@ -243,38 +255,33 @@ export class ReportComponent implements OnInit {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: true,
       drawingControlOptions: {
-        drawingModes: ["polygon"]
+        drawingModes: ["polygon", "circle"], 
       },
 
       polygonOptions: {
         outline: false, 
         draggable: true,
         editable: true,
-        fillColor: this.fillColor,
-        fillOpacity: .20,
+        fillColor: 'white',
+        fillOpacity: .4,
         strokeWeight: 7,
-        strokeColor: "#00008b",
-        clickable: true,
+        strokeColor: this.initialColor,
+        // clickable: true,
         zIndex: 1,
         fullScreenControl: true, 
       },
     
     };
     
-
     const drawingManager = new google.maps.drawing.DrawingManager(options);
-    
+
     drawingManager.setMap(map);
     const _self = this; 
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
 
-      // idea for label polygon
-
-//       const bounds = new google.maps.LatLngBounds();
-
-//       const polygonCenter = bounds.getCenter();
-//       polygonCenter.label = "Hello world"
+      _self.polygonCount +=1
+      console.log('poly count', _self.polygonCount)
 
       _self.polygonComplete  = true; 
       _self.addTasksToAreaButtonShowing = true
@@ -286,16 +293,24 @@ export class ReportComponent implements OnInit {
         const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
         _self.polyArrayLatLng.push(vertexLatLng);
       }
+
+      // works==>
+      // polygon.setOptions({strokeColor: 'red', fillColor: 'green'});
   
       _self.polyArrayLatLng.push(_self.polyArrayLatLng[0]);
+
+      _self.selectedShape = polygon
+      _self.selectedShapes.push(polygon)
+
+      console.log('selected shapes', _self.selectedShapes)
+
+      // _self.selectedShape.setOptions({strokeColor: 'red', fillColor: 'green'});
       
     });
 
 
   }
 
-  clearArray(array:[]){
-    array
-  }
-
 }
+
+// ideas: polygonCount to count polygons, selectedShapes, and then change style of those polygons that are in the collection. (1-3, for instance) / or change initial color based on count of polygons. this.count. By having htat be the index. But it only goes to the first one, doesn't change. 

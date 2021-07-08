@@ -47,8 +47,11 @@
 
     <div class="collection-container">
 
+
+
         <div *ngFor="let area of reportData">
-            <div class="collection">
+            <div [ngStyle]="{'backgroundColor': area.color}" class="collection">
+                <div>{{area.color}}</div>
                 <div><span class="strong">Name: </span> {{area.name | json}}</div>
                 <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
                 <span class="strong">Services:</span>
