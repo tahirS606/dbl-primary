@@ -168,11 +168,11 @@ export class ReportComponent implements OnInit {
         newCollection.selectedShapes = this.selectedShapes
         newCollection.color = this.strokeColorsArray[this.count]
 
-        this.selectedShapes.forEach((shape: any)=>{console.log('shapes in selected shapes', shape.setOptions({strokeColor: 'red', fillColor: 'green'}))})
+        this.selectedShapes.forEach((shape: any)=>{console.log('shapes in selected shapes', shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'green'}))})
 
         // console.log('index position of selected shapes', this.selectedShapes[0])
 
-      this.selectedShape.setOptions({strokeColor: 'red', fillColor: 'green'});
+      // this.selectedShape.setOptions({strokeColor: , fillColor: 'green'});
 
       console.log('selected shape', this.selectedShape)
 
