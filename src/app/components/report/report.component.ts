@@ -35,6 +35,8 @@ export class ReportComponent implements OnInit {
   propertyId!: any; 
   address: any;
 
+  shape: any; 
+
   // map features
   zoom = 21; 
   minZoom = 18;
@@ -145,11 +147,13 @@ export class ReportComponent implements OnInit {
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
 
-        function Collection(name: string, areas: [], tasks:[{}], time: Date) {
+        function Collection(name: string, areas: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String) {
           name = name;
           areas = areas;
           tasks = tasks;
           time = time; 
+          selectedShapes = selectedShapes; 
+          color = color; 
         }
 
         const newCollection = new (Collection as any)(collectionName, this.polyArrayLatLng, tasks, this.date)
@@ -159,12 +163,12 @@ export class ReportComponent implements OnInit {
         newCollection.areas = this.polyArrayLatLng
         newCollection.tasks = tasks
         newCollection.time = this.date
+        newCollection.selectedShapes = this.selectedShapes
+        newCollection.color = this.strokeColorsArray[this.count]
+
+        this.selectedShapes.forEach((x)=>{console.log('shapes in selected shapes', x)})
 
       this.selectedShape.setOptions({strokeColor: 'red', fillColor: 'green'});
-        console.log('selected shapes by index', this.selectedShapes[0-(this.polygonCount -1)])
-
-        console.log('keys method', Object.keys(this.selectedShapes)[0])
-        console.log(this.selectedShapes.length)
 
         this.areasForReport.push(newCollection)
 
@@ -175,21 +179,18 @@ export class ReportComponent implements OnInit {
         this.form.reset()
         this.checked = false
         this.polyArrayLatLng = [{}]
+        this.selectedShapes = [{}]
+        this.selectedShapes.shift()
         this.polyArrayLatLng.shift()
         this.polygonCount = 0;
     
 
-        // console.log('this.areasForReport', this.areasForReport)
-        // this.reportData = Object.values(this.areasForReport)
-        // console.log('this report data', this.reportData)
+    
+        this.reportData = Object.values(this.areasForReport)
+      
         
         }
 
-        // https://stackoverflow.com/questions/5932710/changing-google-maps-polygon-color-fill-on-click
-
-//         myPolygon.setOptions({strokeWeight: 2.0, fillColor: 'green'});
-// // polygon is clicked
-// myPolygon.setOptions({strokeWeight: 6.0});
 
         onSaveReport() {
             this.reportService.addReport(
@@ -302,6 +303,7 @@ export class ReportComponent implements OnInit {
 
       _self.selectedShape = polygon
       _self.selectedShapes.push(polygon)
+
       console.log('selected shapes', _self.selectedShapes)
 
       // _self.selectedShape.setOptions({strokeColor: 'red', fillColor: 'green'});
