@@ -2,7 +2,6 @@ import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { AuthService } from './../../services/auth.service';
 import { PropertyService } from './../../services/property.service';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute} from '@angular/router';
 import { Property } from './../../models/property.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';

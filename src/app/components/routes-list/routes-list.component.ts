@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { PropertyService } from './../../services/property.service';
 
 
@@ -35,15 +34,6 @@ export class RoutesListComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
-  // @Input("routelist")
-
-//  private updateContent(arr : [{}]){
-
-//   // arr.filter((v,i,a)=>a.findIndex(t=>(t.route == v.route)===i);
-//   // console.log (arr)
-//  };
 
   ngAfterViewInit():void {
 
