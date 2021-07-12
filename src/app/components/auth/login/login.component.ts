@@ -18,25 +18,11 @@ export class LoginComponent implements OnInit {
   isSignedin!: boolean;  
   
 
-  onLogin(form: NgForm) {
-    if (form.invalid) {
-      return
-    }
-    this.authService.login(form.value.email, form.value.password);
-    this.router.navigateByUrl('/')
-  }
-
   constructor(
-    private matIconRegistry: MatIconRegistry,
-    public authService: AuthService , 
     private router: Router,
-    private domSanitizer: DomSanitizer,
     private socialAuthService: SocialAuthService
     
-    
-    ) {
-      
-    }
+    ) {}
 
     
 
@@ -49,11 +35,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  googleSignin(): void {
+  googleSignin(){
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    
+    this.router.navigate(['/'])
+    
   }
 
-  logout(): void {
+  logout(){
     this.socialAuthService.signOut();
   }
 }
