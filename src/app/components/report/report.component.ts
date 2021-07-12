@@ -38,9 +38,6 @@ export class ReportComponent implements OnInit {
   propertyId!: any; 
   address: any;
 
-  // img: any;
-  imgBase64:any=''
-
  initialColor: string = "white"
 
   shape: any; 
@@ -67,27 +64,20 @@ export class ReportComponent implements OnInit {
 
   readyToSave: boolean = false
 
-  // private geoCoder : any;
-
   zoomControl: boolean = false;
 
   // report features
 
   areasForReport: [{}] = [{}]
-
   polyArrayLatLng: [{}] = [{}]
 
   // for collection name
   count: number = 0 
   reportSaved:boolean = false; 
   report!: Report;
-
-  // idea: 'collections' added to report. 
-  
-  
   reportData: any;
 
-  @ViewChild('screen', { static: true }) screen: any;
+  @ViewChild('mapCapture', { static: true }) mapCapture: any;
 
 
   reportDate: any;
@@ -231,7 +221,7 @@ export class ReportComponent implements OnInit {
 
     capture(){
       this.captureService
-        .getImage(this.screen.nativeElement, true)
+        .getImage(this.mapCapture.nativeElement, true)
         .pipe(
           tap((img:any) => {
             this.img = img;
@@ -343,8 +333,6 @@ export class ReportComponent implements OnInit {
       _self.selectedShapesCumulative.push(polygon)
 
       console.log('selected shapes', _self.selectedShapes)
-
-      // _self.selectedShape.setOptions({strokeColor: 'red', fillColor: 'green'});
       
     });
 

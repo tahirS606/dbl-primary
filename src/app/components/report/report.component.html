@@ -1,13 +1,10 @@
 <!-- <mat-icon routerLink="" color="primary">
     arrow_back_ios</mat-icon> -->
-<div #screen>
+<div #mapCapture>
     <agm-map #map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="true"
         [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
     </agm-map>
 </div>
-<!-- 
-<ngx-capture [target]="screen" (resultImage)="saveImage($event)"></ngx-capture> -->
-
 
 <mat-card-content displayFlx>
 
