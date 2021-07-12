@@ -1,3 +1,6 @@
+import { GoogleLoginProvider } from 'angularx-social-login';
+import { SocialLoginModule } from 'angularx-social-login';
+import { SocialAuthServiceConfig } from 'angularx-social-login';
 import { ReportComponent } from './components/report/report.component';
 import { NgxCaptureModule } from 'ngx-capture';
 
@@ -48,6 +51,7 @@ import { UniquePipe } from './pipes/unique.pipe';
     UniquePipe,
     
     
+    
   ],
   imports: [
     AgmCoreModule .forRoot({
@@ -69,6 +73,20 @@ import { UniquePipe } from './pipes/unique.pipe';
  
   // multi says don't override additionals, just add
   providers: [{
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(
+            '751908540662-tqna3m89pe5p7713u996a6a17tc484ft.apps.googleusercontent.com'
+          )
+        }
+      ]
+    } as SocialAuthServiceConfig,
+  } , 
+  {
     provide: HTTP_INTERCEPTORS, 
     useClass: AuthInterceptor, multi: true}, 
     PolygonManager],
