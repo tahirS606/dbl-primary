@@ -1,5 +1,5 @@
-import { GoogleLoginProvider } from 'angularx-social-login';
 import { SocialLoginModule } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 import { SocialAuthServiceConfig } from 'angularx-social-login';
 import { ReportComponent } from './components/report/report.component';
 import { NgxCaptureModule } from 'ngx-capture';
@@ -52,6 +52,7 @@ import { UniquePipe } from './pipes/unique.pipe';
     
     
     
+    
   ],
   imports: [
     AgmCoreModule .forRoot({
@@ -69,9 +70,9 @@ import { UniquePipe } from './pipes/unique.pipe';
     NgPipesModule, 
     NgxCaptureModule,
     ReactiveFormsModule,
+    SocialLoginModule,
   ],
  
-  // multi says don't override additionals, just add
   providers: [{
     provide: 'SocialAuthServiceConfig',
     useValue: {

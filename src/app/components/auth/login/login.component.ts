@@ -1,23 +1,21 @@
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { MyMaterialModule } from '../../../modules/material.module';
+import { SocialUser, SocialAuthService, GoogleLoginProvider, } from 'angularx-social-login';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from 'src/app/services/auth.service';
 
-const googleLogoURL = 
-"https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg";
-
 
 @Component({
-  // omit if something will get loaded through routing
-  // selector: 'app-login',
+  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+
+  user!: SocialUser;
+  isSignedin!: boolean;  
   
 
   onLogin(form: NgForm) {
@@ -33,15 +31,29 @@ export class LoginComponent implements OnInit {
     public authService: AuthService , 
     private router: Router,
     private domSanitizer: DomSanitizer,
+    private socialAuthService: SocialAuthService
     
     
     ) {
-      this.matIconRegistry.addSvgIcon(
-        "logo",
-        this.domSanitizer.bypassSecurityTrustResourceUrl(googleLogoURL));
+      
     }
 
-  ngOnInit(): void {
     
+
+  ngOnInit(): void {
+
+    this.socialAuthService.authState.subscribe((user) => {
+      this.user = user;
+      this.isSignedin = (user != null);
+      console.log(this.user);
+    });
+  }
+
+  googleSignin(): void {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  logout(): void {
+    this.socialAuthService.signOut();
   }
 }
