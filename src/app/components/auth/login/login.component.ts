@@ -37,12 +37,11 @@ export class LoginComponent implements OnInit {
 
   googleSignin(){
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    
     this.router.navigate(['/'])
     
   }
 
-  logout(){
+  logout() {
     this.socialAuthService.signOut();
   }
 }
