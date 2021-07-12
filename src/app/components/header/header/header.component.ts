@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
+
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,6 +18,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) {
   }
 
+  authData!: {} 
+
   // private token: string;
 
   ngOnInit() {
@@ -26,7 +30,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
-      // console.log(isAuthenticated)
     })
 
   }

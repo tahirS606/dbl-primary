@@ -53,27 +53,10 @@ export class ReportListComponent implements OnInit, OnDestroy{
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
-    })
-      
-        
+    })   
   }
 
-  // modeling below =>
-    
-        // this.propertyService
-        //   .getProperty(this.propertyId)
-        //   .subscribe((propertyData) => {
-        //     this.property = {
-        //       id: propertyData._id,
-        //       name: propertyData.name,
-        //       address: propertyData.address,
-        //       route: propertyData.route, 
-        //       latitude: propertyData.latitude, 
-        //       longitude: propertyData.longitude
-        //     };
-    // this.reportService(this.propertyId).subscribe(this.reports)=>{
-      
-    // }
+  
    
 
     ngOnDestroy() {

@@ -27,6 +27,7 @@ router.post("", checkAuth,
             propertyLongitude: req.body.propertyLongitude,
             mapZoom: req.body.mapZoom,
             tasks: req.body.tasks,
+            image: req.body.mapImage,
             // 
         });
 

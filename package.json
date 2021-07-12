@@ -55,6 +55,7 @@
         "lodash": "^4.17.21",
         "mongoose": "^5.12.3",
         "mongoose-unique-validator": "^2.0.3",
+        "ngx-capture": "^0.10.2",
         "ngx-google-places-autocomplete": "^2.0.5",
         "ngx-pipes": "^2.7.5",
         "ngx-toastr": "^13.2.1",

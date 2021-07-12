@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Property } from './../../models/property.model';
+import { NgxCaptureService } from 'ngx-capture';
 import { FormBuilder,  
   FormGroup,
   FormArray,
   FormControl,} from '@angular/forms';
 import { _MatSelectBase } from '@angular/material/select';
+
 
   declare const google: any;
 
@@ -35,6 +38,9 @@ export class ReportComponent implements OnInit {
   propertyId!: any; 
   address: any;
 
+  // img: any;
+  imgBase64:any=''
+
  initialColor: string = "white"
 
   shape: any; 
@@ -54,6 +60,7 @@ export class ReportComponent implements OnInit {
 
   selectedShape: any
   selectedShapes: {}[] = []
+  selectedShapesCumulative: {}[] =[]
   polygonCount: number = 0;
 
   addTasksToAreaButtonShowing: boolean = false
@@ -79,6 +86,9 @@ export class ReportComponent implements OnInit {
   
   
   reportData: any;
+
+  @ViewChild('screen', { static: true }) screen: any;
+
 
   reportDate: any;
   reportTime: any; 
@@ -114,6 +124,7 @@ export class ReportComponent implements OnInit {
 
   constructor(
     private propertyService: PropertyService ,
+    private captureService:NgxCaptureService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
@@ -168,9 +179,8 @@ export class ReportComponent implements OnInit {
         newCollection.selectedShapes = this.selectedShapes
         newCollection.color = this.strokeColorsArray[this.count]
 
-        this.selectedShapes.forEach((shape: any)=>{console.log('shapes in selected shapes', shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'white'}))})
+        this.selectedShapes.forEach((shape: any)=>{ shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'white'})})
 
-      console.log('selected shape', this.selectedShape)
 
         this.areasForReport.push(newCollection)
 
@@ -191,6 +201,8 @@ export class ReportComponent implements OnInit {
         this.reportData = Object.values(this.areasForReport)
         }
 
+        mapImage: any;
+
 
         onSaveReport() {
             this.reportService.addReport(
@@ -199,7 +211,8 @@ export class ReportComponent implements OnInit {
               this.propertyId, 
               this.property.name,
               this.property.address,
-              this.areasForReport
+              this.areasForReport,
+              this.mapImage
               )        
 
               this.form.reset();
@@ -211,6 +224,32 @@ export class ReportComponent implements OnInit {
       this.checkboxVisible = true;
       this.addTasksToAreaButtonShowing = false;
        
+    }
+
+    img = ""
+
+
+    capture(){
+      this.captureService
+        .getImage(this.screen.nativeElement, true)
+        .pipe(
+          tap((img:any) => {
+            this.img = img;
+            console.log('img', img);
+          })
+        )
+        .subscribe();
+    }
+
+    saveImage(img: string) {
+      console.log('img', img);
+    }
+
+    clearMap(){
+      window.location.reload()
+      // this.selectedShapesCumulative.forEach((shape:any)=>{
+      //   shape.remove()
+      
     }
 
   ngOnInit(): void {
@@ -294,13 +333,14 @@ export class ReportComponent implements OnInit {
         _self.polyArrayLatLng.push(vertexLatLng);
       }
 
-      // works==>
-      // polygon.setOptions({strokeColor: 'red', fillColor: 'green'});
+      
   
       _self.polyArrayLatLng.push(_self.polyArrayLatLng[0]);
 
       _self.selectedShape = polygon
       _self.selectedShapes.push(polygon)
+
+      _self.selectedShapesCumulative.push(polygon)
 
       console.log('selected shapes', _self.selectedShapes)
 
@@ -313,4 +353,3 @@ export class ReportComponent implements OnInit {
 
 }
 
-// ideas: polygonCount to count polygons, selectedShapes, and then change style of those polygons that are in the collection. (1-3, for instance) / or change initial color based on count of polygons. this.count. By having htat be the index. But it only goes to the first one, doesn't change. 

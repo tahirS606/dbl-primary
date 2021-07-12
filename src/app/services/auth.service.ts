@@ -7,7 +7,6 @@ import { environment } from './../../environments/environment';
 
 const BACKEND_URL= environment.apiUrl
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +15,8 @@ export class AuthService {
   private token!: string | null
   private tokenTimer!: any;
   private authStatusListener = new Subject<boolean>()
+
+  authData!: {}
 
   getIsAuth() {
     return this.isAuthenticated;
@@ -58,6 +59,7 @@ export class AuthService {
       email: email,
       password: password
     }
+
     this.http.post<{ token: string, expiresIn: number }>(BACKEND_URL + "user/login/", authData)
       .subscribe(response => {
 
@@ -74,6 +76,10 @@ export class AuthService {
           this.saveAuthData(token, expirationDate)
         this.router.navigate(['/'])
       } 
+
+      console.log('authData', authData)
+      this.authData = authData
+
     })
   }
 
@@ -90,7 +96,7 @@ export class AuthService {
       this.setAuthTimer(expiresIn / 1000)
       this.authStatusListener.next(true);
     }
-    
+
   }
 
   logout() {

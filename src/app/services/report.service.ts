@@ -80,7 +80,8 @@ property!: Property
     propertyId: string, 
     propertyName: string,  
     propertyAddress: string, 
-    tasks: [{}]) 
+    tasks: [{}],
+    mapImage: string) 
     {
     const report: 
     Report = { 
@@ -90,7 +91,8 @@ property!: Property
       propertyId: propertyId, 
       propertyName: propertyName, 
       propertyAddress: propertyAddress, 
-      tasks: tasks
+      tasks: tasks, 
+      mapImage: mapImage
   }
     this.http
       .post<{ message: string; propertyId: string }>(
@@ -104,10 +106,6 @@ property!: Property
       
 
   }
-
-
-
-  
   
 }
 

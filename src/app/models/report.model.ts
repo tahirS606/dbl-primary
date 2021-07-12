@@ -5,5 +5,6 @@ export interface Report {
     propertyId: string,
     propertyName: string,
     propertyAddress: string, 
-    tasks: any
+    tasks: any,
+    mapImage: any 
   }

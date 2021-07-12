@@ -22,12 +22,13 @@ header {
     border-radius: 7px;
     margin: 6px;
     color: white;
-    height: 250px;
+    height: 150px;
 }
 
 .collection-container {
     display: flex;
-    flex-flow: row-wrap;
+    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: flex-start;
 }
 

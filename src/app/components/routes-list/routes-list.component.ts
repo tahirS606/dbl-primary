@@ -37,13 +37,13 @@ export class RoutesListComponent implements OnInit, AfterViewInit {
 
 
 
-  @Input("routelist")
+  // @Input("routelist")
 
- private updateContent(arr : [{}]){
+//  private updateContent(arr : [{}]){
 
-  // arr.filter((v,i,a)=>a.findIndex(t=>(t.route == v.route)===i);
-  // console.log (arr)
- };
+//   // arr.filter((v,i,a)=>a.findIndex(t=>(t.route == v.route)===i);
+//   // console.log (arr)
+//  };
 
   ngAfterViewInit():void {
 
