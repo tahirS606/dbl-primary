@@ -12,4 +12,7 @@ export class DisplayReportComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
 }
+
+// probably easier to have a screen shot of map

@@ -1,5 +1,5 @@
 import { ReportComponent } from './components/report/report.component';
-
+import { NgxCaptureModule } from 'ngx-capture';
 
 
 import { AuthInterceptor } from './components/auth/auth-interceptor';
@@ -63,6 +63,7 @@ import { UniquePipe } from './pipes/unique.pipe';
     HttpClientModule,
     MyMaterialModule,
     NgPipesModule, 
+    NgxCaptureModule,
     ReactiveFormsModule,
   ],
  

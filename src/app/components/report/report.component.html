@@ -1,9 +1,10 @@
 <!-- <mat-icon routerLink="" color="primary">
     arrow_back_ios</mat-icon> -->
-<agm-map #map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="true"
-    [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
-</agm-map>
-
+<div #mapCapture>
+    <agm-map #map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="true"
+        [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
+    </agm-map>
+</div>
 
 <mat-card-content displayFlx>
 
@@ -28,16 +29,15 @@
 
 <mat-action-row displayFlx>
     <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-raised-button>Add Services</button>
-    <button color="primary" mat-raised-button color="primary" disabled>Clear</button>
+    <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear Map</button>
+    <button mat-raised-button color="primary" (click)="capture()">Capture Test</button>
+
+    <h2>My Capture:</h2>
+    <img src="{{img}}" />
 
 
 </mat-action-row>
 
-
-
-
-<!-- <a mat-button color="primary">Edit</a>
-            <a mat-button color="primary" [disabled]="!reportSaved">Submit</a> -->
 
 <app-property-detail>
 </app-property-detail>
@@ -47,11 +47,8 @@
 
     <div class="collection-container">
 
-
-
         <div *ngFor="let area of reportData">
-            <div [ngStyle]="{'backgroundColor': area.color}" class="collection">
-                <div>{{area.color}}</div>
+            <div [ngStyle]="{'color': area.color}" class="collection">
                 <div><span class="strong">Name: </span> {{area.name | json}}</div>
                 <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
                 <span class="strong">Services:</span>

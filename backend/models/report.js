@@ -8,7 +8,8 @@ const reportSchema = mongoose.Schema({
     propertyName: String,
     propertyId: String,
     PropertyAddress: String,
-    tasks: [Object]
+    tasks: [Object],
+    mapImage: String,
 })
 
 module.exports = mongoose.model("Report", reportSchema);
