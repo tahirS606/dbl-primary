@@ -1,32 +1,29 @@
+.button-container {
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 50px;
+    flex-basis: auto;
+}
+
+mat-button {
+    padding: 12px;
+    margin: 12px;
+}
+
+.button {
+    margin: 12px;
+}
+
 mat-card-content {
     font-size: 200%;
 }
 
-
-/* mat-card {
-    /* border: solid red; */
-
-
-/* width: 55px;
-    height: 55px; */
-
-
-/* margin: 12px;
-    vertical-align: middle; */
-
-
-/* } */
-
-*/ mat-button {
-    padding: 12px;
-}
-
-.route-container {
-    display: flex;
-    flex-flow: row wrap;
-    margin: 50px;
-}
-
 p {
     margin: auto;
+}
+
+h1 {
+    text-align: center;
 }

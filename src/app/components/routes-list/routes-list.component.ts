@@ -16,55 +16,38 @@ import { Component, OnInit, AfterViewInit, TemplateRef, ViewChildren, Input, Dir
   templateUrl: './routes-list.component.html',
   styleUrls: ['./routes-list.component.css']
 })
-export class RoutesListComponent implements OnInit, AfterViewInit {
+export class RoutesListComponent implements OnInit {
 
-  routes: any = []
-  displayRoutes: [] = []
-  properties!: Property[]
-  private propertiesUpdated = new Subject<{
-    properties: Property[];
-    propertiesCount: number;
-  }>();
-  displayProperties:[] = []
-
+  routes!: {}[]
+ 
   constructor(
-    private propertyService: PropertyService,
-    private http: HttpClient,
-  ) { 
+    
+  ) {}
 
-  }
-
-
-  ngAfterViewInit():void {
-
-    // this.updateContent()    
-}
   
   ngOnInit(): void {
 
-    this.routes = this.http
-    .get<{ properties: any }>(
-      'http://localhost:3000/properties'
-    )
-    .pipe(
-      map((propertyData) => {
-        return {
-          routes: propertyData.properties
-          .map((property: any) => {
-            return {route: property.route,
-            }
-          })
-        };
-        
-      })
+    this.routes = [
+      { route: 1 },
+      { route: 2 },
+      { route: 3 },
+      { route: 4 },
+      { route: 5 },
+      { route: 6 },
+      { route: 7 },
+      { route: 8 },
+      { route: 9 },
+      { route: 10 },
+      { route: 11 },
+      { route: 12 },
+      { route: 13 },
+      { route: 14 },
+      { route: 15 },
+      { route: 16 },
+      { route: 17 },
 
-    )
-    .subscribe((routeData) => {
       
-      this.routes = routeData.routes
-      console.log('this.routes', routeData)
-      console.log('this.routes', this.routes)
-      });
+    ]
 
 
     };

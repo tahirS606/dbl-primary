@@ -13,8 +13,8 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
+
 router.get("", (req, res, next) => {
-    // query parameters for paginator
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
     const propertyQuery = Property.find();
