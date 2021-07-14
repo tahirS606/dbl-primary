@@ -24,6 +24,8 @@ export class PropertyListComponent implements OnInit, OnDestroy {
   totalProperties!: number;
   userIsAuthenticated = false;
 
+  userId!: string; 
+
   accordianIsOpen!:boolean;
 
   constructor(
@@ -37,6 +39,8 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       this.propertiesPerPage,
       this.currentPage
     );
+
+    this.userId = this.authService.getUserId()
     
     this.propertiesSub = this.propertyService
       .getPropertyUpdateListener()
@@ -49,6 +53,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
+      this.userId = this.authService.getUserId();
     })
     this.isLoading = false;
     

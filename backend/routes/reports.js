@@ -28,7 +28,8 @@ router.post("", checkAuth,
             mapZoom: req.body.mapZoom,
             tasks: req.body.tasks,
             image: req.body.mapImage,
-            // 
+            creator: req.userData.userId,
+
         });
 
 

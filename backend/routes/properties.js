@@ -47,6 +47,7 @@ router.get("", (req, res, next) => {
                 route: req.body.route,
                 latitude: req.body.latitude,
                 longitude: req.body.longitude,
+                creator: req.userData.userId
             });
 
             property.save().then((addedProperty) => {
