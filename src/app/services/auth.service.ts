@@ -1,4 +1,3 @@
-import { User } from './../models/user.model';
 import { AuthData } from './../components/auth/auth-data.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +15,8 @@ export class AuthService {
   private token!: string | null
   private tokenTimer!: any;
   private userId!: string; 
-  private user!: User; 
+  private userEmail!: string; 
+  
   private authStatusListener = new Subject<boolean>()
 
   authData!: {}
@@ -27,6 +27,10 @@ export class AuthService {
 
   getToken() {
     return this.token;
+  }
+
+  getUserEmail(){
+    return this.userEmail;
   }
 
   getUserId(){
@@ -67,7 +71,7 @@ export class AuthService {
       password: password
     }
 
-    this.http.post<{ token: string, expiresIn: number, userId: string }>(BACKEND_URL + "user/login/", authData)
+    this.http.post<{ token: string, expiresIn: number, userId: string, userEmail: string }>(BACKEND_URL + "user/login/", authData)
       .subscribe(response => {
 
       const token = response.token;
@@ -77,6 +81,7 @@ export class AuthService {
           this.setAuthTimer(expiresInDuration);
         this.isAuthenticated = true;
         this.userId = response.userId; 
+        this.userEmail = response.userEmail; 
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + (expiresInDuration * 1000));
@@ -114,6 +119,7 @@ export class AuthService {
     this.clearAuthData
     clearTimeout(this.tokenTimer);
     this.userId = ''; 
+    this.userEmail = ''; 
     this.router.navigate(['/']);
     
   }

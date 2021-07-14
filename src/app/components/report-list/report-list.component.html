@@ -1,5 +1,5 @@
-<div *ngFor="let report of reports">
-    {{report.date}}
+<div *ngFor="let report of reportsArray">
+    {{report | json}}
 </div>
 
 <div *ngIf="!reports">

@@ -30,10 +30,7 @@
 <mat-action-row displayFlx>
     <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-raised-button>Add Services</button>
     <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear Map</button>
-    <button mat-raised-button color="primary" (click)="capture()">Capture Test</button>
 
-    <h2>My Capture:</h2>
-    <img src="{{img}}" />
 
 
 </mat-action-row>

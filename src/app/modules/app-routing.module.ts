@@ -12,7 +12,7 @@ import { PropertyListComponent } from './../components/properties/property-list/
 import { ReportListComponent } from '../components/report-list/report-list.component';
 
 const routes: Routes = [
-  { path: '', component: PropertyListComponent },
+  { path: 'properties', component: PropertyListComponent },
   {
     path: 'add-property',
     component: AddPropertyComponent,
@@ -37,10 +37,11 @@ const routes: Routes = [
   },
 
   {
-    path: 'reports/:propertyId',
-    component: ReportListComponent,
+    path: 'reports',
+    component: ReportListComponent, 
     canActivate: [AuthGuard]
   },
+
   {
     path: 'user/login',
     component: LoginComponent,
