@@ -21,10 +21,11 @@ export class ReportListComponent implements OnInit, OnDestroy{
   private reportsSub!: Subscription;
   private authStatusSub!: Subscription;
 
-  reports!: Report[];
+  reports!: any
   propertyId!: any; 
   userIsAuthenticated = false;
   property!: Property; 
+  reportsArray!: [{}]
   
 
   constructor(
@@ -37,16 +38,25 @@ export class ReportListComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
-    this.propertyId = this.activatedRoute.snapshot.paramMap.get('propertyId');
+    this.reportsToArray()
 
-    this.ReportService.getAllReports;
+    // this.reports = this.ReportService.getAllReports()
+
+    console.log(this.reportsArray)
 
     this.reportsSub =  this.ReportService
     .getReportUpdateListener()
     .subscribe(
       (reportData:{ reports: Report[]})=>{
         this.reports = reportData.reports; 
+      }
+    );
 
+    this.reports = this.ReportService
+    .getReportUpdateListener()
+    .subscribe(
+      (reportData:{ reports: Report[]})=>{
+        this.reports = reportData.reports; 
       }
     );
 
@@ -56,7 +66,12 @@ export class ReportListComponent implements OnInit, OnDestroy{
     })   
   }
 
-  
+  reportsToArray(){
+    for( let i in this.reportsSub) {   
+    console.log('reports pushing', this.reports[i]);
+    this.reportsArray.push(this.reports[i]);
+    console.log('this.reportsArray', this.reportsArray)
+  }}
    
 
     ngOnDestroy() {

@@ -5,6 +5,8 @@
 <H1>Route {{selectedRoute}}</H1>
 
 
+<p *ngIf="properties.length ==0">There are no properties on this route</p>
+
 <div *ngFor="let property of properties | orderBy">
 
     <!-- <mat-accordion multi="true"> -->

@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { tap } from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReportService } from './../../services/report.service';
@@ -37,6 +38,9 @@ export class ReportComponent implements OnInit {
   property!: Property;
   propertyId!: any; 
   address: any;
+  creator!: string; 
+  mapZoom!: number; 
+  
 
  initialColor: string = "white"
 
@@ -119,6 +123,7 @@ export class ReportComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     public reportService: ReportService,
+    private authService: AuthService,
     ) { 
       this.form = this.formBuilder.group({
         tasks: new FormArray([])
@@ -185,6 +190,7 @@ export class ReportComponent implements OnInit {
         this.selectedShapes.shift()
         this.polyArrayLatLng.shift()
         this.polygonCount = 0;
+        this.mapZoom = this.zoom
     
 
     
@@ -202,7 +208,9 @@ export class ReportComponent implements OnInit {
               this.property.name,
               this.property.address,
               this.areasForReport,
-              this.mapImage
+              this.mapImage,
+              this.creator, 
+              this.mapZoom,
               )        
 
               this.form.reset();
@@ -216,24 +224,24 @@ export class ReportComponent implements OnInit {
        
     }
 
-    img = ""
+    // img = ""
 
 
-    capture(){
-      this.captureService
-        .getImage(this.mapCapture.nativeElement, true)
-        .pipe(
-          tap((img:any) => {
-            this.img = img;
-            console.log('img', img);
-          })
-        )
-        .subscribe();
-    }
+    // capture(){
+    //   this.captureService
+    //     .getImage(this.mapCapture.nativeElement, true)
+    //     .pipe(
+    //       tap((img:any) => {
+    //         this.img = img;
+    //         console.log('img', img);
+    //       })
+    //     )
+    //     .subscribe();
+    // }
 
-    saveImage(img: string) {
-      console.log('img', img);
-    }
+    // saveImage(img: string) {
+    //   console.log('img', img);
+    // }
 
     clearMap(){
       window.location.reload()
@@ -243,7 +251,7 @@ export class ReportComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
+    this.creator = this.authService.getUserId();
     this.reportDate = this.date; 
     this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes()
     this.areasForReport.shift()

@@ -11,6 +11,7 @@ const reportSchema = mongoose.Schema({
     tasks: [Object],
     mapImage: String,
     creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    mapZoom: Number,
 })
 
 module.exports = mongoose.model("Report", reportSchema);

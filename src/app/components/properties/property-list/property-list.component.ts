@@ -40,7 +40,6 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       this.currentPage
     );
 
-    this.userId = this.authService.getUserId()
     
     this.propertiesSub = this.propertyService
       .getPropertyUpdateListener()
@@ -57,7 +56,6 @@ export class PropertyListComponent implements OnInit, OnDestroy {
     })
     this.isLoading = false;
     
-  console.log('this.properties', this.properties)
   }
 
 

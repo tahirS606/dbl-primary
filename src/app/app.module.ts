@@ -31,6 +31,8 @@ import { RoutesListComponent } from './components/routes-list/routes-list.compon
 import { RouteComponent } from './components/route/route.component';
 import {NgPipesModule} from 'ngx-pipes';
 import { UniquePipe } from './pipes/unique.pipe';
+import { LoggedinasComponent } from './loggedinas/loggedinas.component';
+import { ReportsListComponent } from './reports-list/reports-list.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { UniquePipe } from './pipes/unique.pipe';
     SearchPropertiesComponent,
     SignUpComponent,
     UniquePipe,
+    LoggedinasComponent,
+    ReportsListComponent,
     
     
     

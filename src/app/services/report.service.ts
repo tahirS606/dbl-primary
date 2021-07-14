@@ -21,45 +21,27 @@ export class ReportService implements OnInit{
 
   }
 
-tasks:[] =[]
+
 reports: any; 
 tasksCompleted!:any;
 lat!: number;
 long!: number;
-property!: Property
+property!: Property;
+creator!: string;
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getTasks(){
-    return this.http.get<{id: string, name: string}>(BACKEND_URL+ "tasks")
-  }
+ 
 
   getReportUpdateListener() {
     return this.reportsUpdated.asObservable();
   }
 
   getAllReports(){
-    return this.http.get<{message: string, reports: any}>
-    (BACKEND_URL + "reports").pipe(
-      map((reportData)=>{
-        return {
-          reports: reportData.reports.map((
-            report: any)=>{
-              return {
-                date: report.date
-              }
-            }
-          )
-        }
-      })
-    ).subscribe((reportData)=>{
-      this.reports = reportData.reports;
-      this.reportsUpdated.next({
-        reports: [...this.reports]
-      })
-    })
+    return this.http.get<{message: string, reports: Report[]}>
+    (BACKEND_URL + "reports").subscribe((reports)=>{console.log('reports', reports)})
   }
 
   private reportsUpdated = new Subject<{
@@ -81,7 +63,10 @@ property!: Property
     propertyName: string,  
     propertyAddress: string, 
     tasks: [{}],
-    mapImage: string) 
+    mapImage: string, 
+    creator: string,
+    mapZoom: number
+    ) 
     {
     const report: 
     Report = { 
@@ -92,7 +77,9 @@ property!: Property
       propertyName: propertyName, 
       propertyAddress: propertyAddress, 
       tasks: tasks, 
-      mapImage: mapImage
+      mapImage: mapImage,
+      creator: creator,
+      mapZoom: mapZoom
   }
     this.http
       .post<{ message: string; propertyId: string }>(
