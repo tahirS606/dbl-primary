@@ -1,10 +1,8 @@
+import { AuthService } from './../../../services/auth.service';
 import { SocialUser, SocialAuthService, GoogleLoginProvider, } from 'angularx-social-login';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
-import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -20,7 +18,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private authService: AuthService
     
     ) {}
 
@@ -43,5 +42,13 @@ export class LoginComponent implements OnInit {
 
   logout() {
     this.socialAuthService.signOut();
+  }
+
+  onLogin(form: NgForm) {
+    if (form.invalid) {
+      return
+    }
+    this.authService.login(form.value.email, form.value.password);
+    this.router.navigateByUrl('/')
   }
 }

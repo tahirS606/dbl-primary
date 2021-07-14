@@ -6,7 +6,7 @@ const propertiesRoutes = require("./routes/properties");
 const tasksRoutes = require("./routes/tasks")
 const userRoutes = require("./routes/user");
 const reportsRoutes = require("./routes/reports")
-const routesRoutes = require("./routes/routes")
+    // const routesRoutes = require("./routes/routes")
 
 // have yet to update = connect with variables
 const app = express();
@@ -52,8 +52,7 @@ app.use("/properties", propertiesRoutes);
 app.use("/tasks", tasksRoutes)
 app.use("/user", userRoutes)
 app.use("/reports", reportsRoutes)
-app.use("/routes", routesRoutes)
-
+    // app.use("/routes", routesRoutes)
 app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, "angular", "index.html"))
 })

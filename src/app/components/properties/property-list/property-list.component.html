@@ -1,9 +1,5 @@
 <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
 
-<!-- 
-<div *ngIf="properties.length <= 0 && !isLoading">
-    <h3 class="please-add-props">Please add properties</h3>
-</div> -->
 
 <div *ngIf="!isLoading">
 
@@ -17,7 +13,7 @@
       
     <div *ngFor="let property of properties | orderBy">
 
-        <!-- <mat-accordion multi="true"> -->
+       
 
         <mat-expansion-panel multi="false">
             <mat-expansion-panel-header>

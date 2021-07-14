@@ -51,6 +51,8 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       this.userIsAuthenticated = isAuthenticated;
     })
     this.isLoading = false;
+    
+  console.log('this.properties', this.properties)
   }
 
 

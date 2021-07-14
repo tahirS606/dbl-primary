@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { environment } from './../../environments/environment';
+import { filter } from 'lodash';
 
 const BACKEND_URL= environment.apiUrl
 
@@ -86,6 +87,11 @@ export class PropertyService {
     )
   }
 
+  // getPropertiesbyRoute(route: number) {
+  //   return this.http.get<Property[]>(
+  //     BACKEND_URL + 'properties/' 
+  //   )
+  // }
 
   updateProperty(id: string, name: string, address: string, route: number, longitude: number, latitude: number ) {
     const property: Property = { id: id, name: name, address: address, route: route, longitude: longitude, latitude: latitude };
@@ -100,5 +106,6 @@ export class PropertyService {
   deleteProperty(propertyId: string) {
     return this.http.delete(BACKEND_URL + 'properties/' + propertyId);
   }
-
+  
 }
+
