@@ -5,7 +5,8 @@ const propertySchema = mongoose.Schema({
     address: String,
     route: Number,
     latitude: Number,
-    longitude: Number
+    longitude: Number,
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 })
 
 module.exports = mongoose.model("Property", propertySchema);

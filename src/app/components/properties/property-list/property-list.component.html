@@ -1,5 +1,9 @@
 <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
 
+<p *ngIf="userIsAuthenticated">Logged in as: {{userId}}</p>
+
+<p *ngIf="!userIsAuthenticated">Please log in</p>
+
 
 <div *ngIf="!isLoading">
 

@@ -10,6 +10,7 @@ const reportSchema = mongoose.Schema({
     PropertyAddress: String,
     tasks: [Object],
     mapImage: String,
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 })
 
 module.exports = mongoose.model("Report", reportSchema);

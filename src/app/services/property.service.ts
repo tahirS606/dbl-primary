@@ -45,7 +45,8 @@ export class PropertyService {
                 name: property.name,
                 address: property.address,
                 id: property._id,
-                route: property.route
+                route: property.route, 
+                creator: property.creator, 
               };
             }),
             maxProperties: propertyData.maxProperties,
@@ -53,6 +54,7 @@ export class PropertyService {
         })
       )
       .subscribe((routeData) => {
+        console.log('routeData', routeData)
         this.properties = routeData.properties;
         this.propertiesUpdated.next({
           properties: [...this.properties],
