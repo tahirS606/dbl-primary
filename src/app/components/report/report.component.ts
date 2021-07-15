@@ -1,5 +1,4 @@
 import { AuthService } from 'src/app/services/auth.service';
-import { tap } from 'rxjs/operators';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
@@ -13,7 +12,6 @@ import { FormBuilder,
   FormControl,} from '@angular/forms';
 import { _MatSelectBase } from '@angular/material/select';
 
-
   declare const google: any;
 
 @Component({
@@ -24,13 +22,12 @@ import { _MatSelectBase } from '@angular/material/select';
 export class ReportComponent implements OnInit {
 
   Object = Object;
-
   strokeColor: string = "#21b0ff"
-
   index: Number = 0
 
   strokeColorsArray: String[] = [
     "#740c9a", "#4e4ec4", "#21b0ff", "#aa52b4", "#ff218c", "#12b8da", "#49997c", "#027ab0", "#e51a1a", "#eed630" ]
+
 
   map: any; 
   latitude!: number; 
@@ -40,11 +37,9 @@ export class ReportComponent implements OnInit {
   address: any;
   creator!: string; 
   mapZoom!: number; 
-  
-
  initialColor: string = "white"
-
   shape: any; 
+  imagePreview!: string;
 
   // map features
   zoom = 21; 
@@ -58,20 +53,15 @@ export class ReportComponent implements OnInit {
   polygonComplete: boolean = false; 
   checked: boolean = false
   tasks: any
-
   selectedShape: any
   selectedShapes: {}[] = []
   selectedShapesCumulative: {}[] =[]
   polygonCount: number = 0;
-
   addTasksToAreaButtonShowing: boolean = false
-
   readyToSave: boolean = false
-
   zoomControl: boolean = false;
 
   // report features
-
   areasForReport: [{}] = [{}]
   polyArrayLatLng: [{}] = [{}]
 
@@ -81,21 +71,16 @@ export class ReportComponent implements OnInit {
   report!: Report;
   reportData: any;
 
+  files!: any
+
   @ViewChild('mapCapture', { static: true }) mapCapture: any;
-
-
   reportDate: any;
   reportTime: any; 
   reportSubmittedBy!: string; 
   atLeastOneAreaSaved: boolean = false; 
-
   form!: FormGroup;
   date = new Date();
-  
- 
-
   checkboxVisible:boolean = false;
-
   addTasksButtonDisabled: boolean = true;
   taskCheckboxButtonDisabled: boolean = true;
 
@@ -113,7 +98,6 @@ export class ReportComponent implements OnInit {
 
   showCheckbox(){
     this.checkboxVisible = false; 
-    // console.log(this.checkboxVisible)
   }
 
   constructor(
@@ -129,6 +113,8 @@ export class ReportComponent implements OnInit {
         tasks: new FormArray([])
       });
       this.addCheckboxesToForm();
+
+      
     }
 
     private addCheckboxesToForm() {
@@ -137,14 +123,12 @@ export class ReportComponent implements OnInit {
 
     addTaskstoArea() {
       
-
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
         : null);
 
         let tasks: [{}] = [{}]
         tasks.shift()
         
-        // filters out null objects
         allTasks.map((task:string)=>{
           if (task !== null){
             tasks.push(task)
@@ -166,7 +150,6 @@ export class ReportComponent implements OnInit {
 
         const newCollection = new (Collection as any)(collectionName, this.polyArrayLatLng, tasks, this.date)
 
-
         newCollection.name = collectionName 
         newCollection.areas = this.polyArrayLatLng
         newCollection.tasks = tasks
@@ -176,11 +159,8 @@ export class ReportComponent implements OnInit {
 
         this.selectedShapes.forEach((shape: any)=>{ shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'white'})})
 
-
         this.areasForReport.push(newCollection)
-
         this.readyToSave = true
-
         console.log('newCollection', newCollection)
 
         this.form.reset()
@@ -190,10 +170,8 @@ export class ReportComponent implements OnInit {
         this.selectedShapes.shift()
         this.polyArrayLatLng.shift()
         this.polygonCount = 0;
-        this.mapZoom = this.zoom
-
-    
-        this.reportData = Object.values(this.areasForReport)
+        this.mapZoom = this.zoom;
+        this.reportData = Object.values(this.areasForReport);
         }
 
         mapImage: any;
@@ -223,25 +201,6 @@ export class ReportComponent implements OnInit {
        
     }
 
-    // img = ""
-
-
-    // capture(){
-    //   this.captureService
-    //     .getImage(this.mapCapture.nativeElement, true)
-    //     .pipe(
-    //       tap((img:any) => {
-    //         this.img = img;
-    //         console.log('img', img);
-    //       })
-    //     )
-    //     .subscribe();
-    // }
-
-    // saveImage(img: string) {
-    //   console.log('img', img);
-    // }
-
     clearMap(){
       window.location.reload()
       // this.selectedShapesCumulative.forEach((shape:any)=>{
@@ -249,7 +208,40 @@ export class ReportComponent implements OnInit {
       
     }
 
+    imageFileArray: {}[] = [{}]
+    imagePreviewArray: string[] = []
+
+    onImagePicked(event: Event) {
+      let imageFile;
+      let imagePreview: string = '';
+      let eventCasttoHtml = event.target as HTMLInputElement;
+      if (eventCasttoHtml.files) {
+        imageFile = eventCasttoHtml.files[0];
+        // this.form.patchValue({ image: imageFile });
+        // this.form.get('image')?.updateValueAndValidity();
+        const reader = new FileReader();
+        reader.onload = () => {
+          imagePreview = reader.result as string;
+          this.imagePreviewArray.push(imagePreview)
+          console.log('image preview in reader', imagePreview)
+        };
+        reader.readAsDataURL(imageFile);
+        console.log(imageFile);
+        // console.log(this.form);
+
+        this.imageFileArray.push(imageFile)
+        console.log('imageFileArray', this.imageFileArray)
+        console.log('image preview', imagePreview)
+        
+        console.log('this.imagepreviewarray', this.imagePreviewArray)
+
+      } else {
+        return;
+      }
+    }
+
   ngOnInit(): void {
+
     this.creator = this.authService.getUserId();
     this.reportDate = this.date; 
     this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes()
