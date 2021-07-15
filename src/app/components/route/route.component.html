@@ -5,7 +5,7 @@
 <H1>Route {{selectedRoute}}</H1>
 
 
-<p *ngIf="properties.length ==0">There are no properties on this route</p>
+<!-- <p *ngIf="!properties">There are no properties on this route</p> -->
 
 <div *ngFor="let property of properties | orderBy">
 
@@ -19,7 +19,7 @@
                 <h5>{{ property?.address }}</h5>
             </mat-panel-title>
 
-            <!-- <agm-map #map id="map" [latitude]="getLat(property.id)" [longitude]="getLong(property.id)" [mapTypeId]="'hybrid'"></agm-map> -->
+            <agm-map #map [latitude]="property?.latitude" [longitude]="property?.longitude" [zoom]="20" [mapTypeId]="'hybrid'" [draggable]="false"></agm-map>
 
             <mat-panel-description>
 

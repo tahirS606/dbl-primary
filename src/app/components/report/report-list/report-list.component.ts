@@ -1,14 +1,14 @@
-import { AuthService } from './../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ReportService } from './../../services/report.service';
-import { PropertyService } from './../../services/property.service';
+import { ReportService } from '../../../services/report.service';
+import { PropertyService } from '../../../services/property.service';
 
 
-import { Property } from './../../models/property.model';
+import { Property } from '../../../models/property.model';
 import { ActivatedRoute } from '@angular/router';
 
-import { Report } from './../../models/report.model';
+import { Report } from '../../../models/report.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({

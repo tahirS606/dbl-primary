@@ -44,9 +44,12 @@ export class PropertyService {
               return {
                 name: property.name,
                 address: property.address,
+                latitude: property.latitude,  
+                longitude: property.longitude, 
                 id: property._id,
                 route: property.route, 
                 creator: property.creator, 
+                mapZoom: property.mapZoom
               };
             }),
             maxProperties: propertyData.maxProperties,
@@ -88,12 +91,6 @@ export class PropertyService {
       BACKEND_URL + 'properties/' + id
     )
   }
-
-  // getPropertiesbyRoute(route: number) {
-  //   return this.http.get<Property[]>(
-  //     BACKEND_URL + 'properties/' 
-  //   )
-  // }
 
   updateProperty(id: string, name: string, address: string, route: number, longitude: number, latitude: number ) {
     const property: Property = { id: id, name: name, address: address, route: route, longitude: longitude, latitude: latitude };

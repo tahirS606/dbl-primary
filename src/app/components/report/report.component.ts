@@ -191,7 +191,6 @@ export class ReportComponent implements OnInit {
         this.polyArrayLatLng.shift()
         this.polygonCount = 0;
         this.mapZoom = this.zoom
-    
 
     
         this.reportData = Object.values(this.areasForReport)
