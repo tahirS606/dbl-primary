@@ -36,7 +36,6 @@ export class RouteComponent implements OnInit, OnDestroy{
     public propertyService: PropertyService,
     private authService: AuthService,
     private route : ActivatedRoute,
-    
   ) { }
 
   ngOnInit() {

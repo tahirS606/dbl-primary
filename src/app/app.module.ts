@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PropertyListComponent } from './components/properties/property-list/property-list.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReportListComponent } from './components/report-list/report-list.component';
+import { ReportListComponent } from './components/report/report-list/report-list.component';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete"
 import { AgmDrawingModule } from '@agm/drawing';
 import { AutocompleteAddressComponent } from './components/properties/autocomplete-address/autocomplete-address.component';
