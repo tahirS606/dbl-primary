@@ -19,7 +19,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { GermanAddress } from '@angular-material-extensions/google-maps-autocomplete';
+
 
 @Component({
   selector: 'app-add-property',
