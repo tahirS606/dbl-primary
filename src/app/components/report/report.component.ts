@@ -208,21 +208,33 @@ export class ReportComponent implements OnInit {
       
     }
 
+    imageFileArray: {}[] = [{}]
+    imagePreviewArray: string[] = []
+
     onImagePicked(event: Event) {
       let imageFile;
+      let imagePreview: string = '';
       let eventCasttoHtml = event.target as HTMLInputElement;
       if (eventCasttoHtml.files) {
         imageFile = eventCasttoHtml.files[0];
-        this.form.patchValue({ image: imageFile });
-        this.form.get('image')?.updateValueAndValidity();
+        // this.form.patchValue({ image: imageFile });
+        // this.form.get('image')?.updateValueAndValidity();
         const reader = new FileReader();
         reader.onload = () => {
-          this.imagePreview = reader.result as string;
+          imagePreview = reader.result as string;
+          this.imagePreviewArray.push(imagePreview)
+          console.log('image preview in reader', imagePreview)
         };
         reader.readAsDataURL(imageFile);
-  
         console.log(imageFile);
-        console.log(this.form);
+        // console.log(this.form);
+
+        this.imageFileArray.push(imageFile)
+        console.log('imageFileArray', this.imageFileArray)
+        console.log('image preview', imagePreview)
+        
+        console.log('this.imagepreviewarray', this.imagePreviewArray)
+
       } else {
         return;
       }

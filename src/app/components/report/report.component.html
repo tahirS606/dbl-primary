@@ -38,12 +38,14 @@
 
 </mat-action-row>
 
+<div *ngFor="let image of imagePreviewArray">
+    <img src="{{image}}">
+</div>
+
 <input (change)="onImagePicked($event)" hidden type="file" #filePicker>
 <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
     <img [src]="imagePreview" />
 </div>
-
-
 
 <app-property-detail>
 </app-property-detail>
