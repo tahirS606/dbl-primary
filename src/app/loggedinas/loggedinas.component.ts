@@ -25,6 +25,7 @@ export class LoggedinasComponent implements OnInit, AfterViewInit {
 
     this.userId = this.authService.getUserId();
 
+    // need subscription?
     this.userEmail = this.authService.getUserEmail();
 
     this.userIsAuthenticated = this.authService.getIsAuth();

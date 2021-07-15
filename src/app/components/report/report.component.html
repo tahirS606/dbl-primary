@@ -21,60 +21,56 @@
             <br/>
           </label>
             <br/>
-            <!-- <mat-form-field matFormFieldControl>Add Photo</mat-form-field> -->
             <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" [disabled]>Add</button>
         </form>
     </mat-card>
 </mat-card-content>
 
 <mat-action-row displayFlx>
-    <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-raised-button>Add Services</button>
+    <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
     <button type="button" mat-button color="primary" (click)="filePicker.click()">
         Add image
     </button>
-    <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear Map</button>
-
-
+    <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear All</button>
 
 </mat-action-row>
 
-<div class="images">
-    <div *ngFor="let image of imagePreviewArray">
-
-        <div class="frame" style="background-image: url('{{image}}')"></div>
-        <!-- <img src="{{image}}"> -->
-    </div>
-
-</div>
-
 <input (change)="onImagePicked($event)" hidden type="file" #filePicker>
-<div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
-    <img [src]="imagePreview" />
-</div>
 
+<h1 class="title" *ngIf="reportData || imagePreviewArray">Report for {{date | date}}</h1>
+
+<!-- <h3 class="title">Property:</h3> -->
 <app-property-detail>
 </app-property-detail>
-<div class="details-container">
 
-    <h3 *ngIf="reportData">Report for {{date | date}}</h3>
+<h2 *ngIf="reportData" class="title">Services</h2>
 
-    <div class="collection-container">
-
-        <div *ngFor="let area of reportData">
-            <div [ngStyle]="{'color': area.color}" class="collection">
-                <div><span class="strong">Name: </span> {{area.name | json}}</div>
-                <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
-                <span class="strong">Services:</span>
-                <ul>
-                    <span *ngFor="let task of area.tasks"> 
+<div class="collection-container">
+    <div *ngFor="let area of reportData">
+        <div [ngStyle]="{'color': area.color}" class="collection">
+            <div><span class="strong">Name: </span> {{area.name | json}}</div>
+            <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
+            <span class="strong">Services:</span>
+            <ul>
+                <span *ngFor="let task of area.tasks"> 
                     <li>{{task}}</li></span>
+            </ul>
 
-                </ul>
-
-            </div>
         </div>
     </div>
 </div>
+
+
+<div class="title">
+    <h2 *ngIf="imagePreviewArray.length ==1">Image</h2>
+    <h2 *ngIf="imagePreviewArray.length >1">Images</h2>
+</div>
+<div class="images">
+    <div *ngFor="let image of imagePreviewArray">
+        <div class="frame" style="background-image: url('{{image}}')"></div>
+    </div>
+</div>
+
 <mat-action-row displayFlx>
-    <button *ngIf="readyToSave " class="submit-button " (click)="onSaveReport() " mat-raised-button [disabled]="!readyToSave " color="primary ">Submit Report</button>
+    <button class="submit-button" (click)="onSaveReport()" mat-raised-button [disabled]="!readyToSave" color="primary">Submit Report</button>
 </mat-action-row>
