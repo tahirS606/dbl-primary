@@ -38,8 +38,13 @@
 
 </mat-action-row>
 
-<div *ngFor="let image of imagePreviewArray">
-    <img src="{{image}}">
+<div class="images">
+    <div *ngFor="let image of imagePreviewArray">
+
+        <div class="frame" style="background-image: url('{{image}}')"></div>
+        <!-- <img src="{{image}}"> -->
+    </div>
+
 </div>
 
 <input (change)="onImagePicked($event)" hidden type="file" #filePicker>
