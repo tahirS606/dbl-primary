@@ -47,6 +47,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
  initialColor: string = "white"
   shape: any; 
   imagePreview!: string;
+  userOnsite: boolean = false
 
   // map features
   zoom = 21; 
@@ -79,6 +80,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
   reportData: any;
 
   files!: any
+
+  
 
   @ViewChild('mapCapture', { static: true }) mapCapture: any;
   reportDate: any;
@@ -246,42 +249,39 @@ export class ReportComponent implements OnInit, AfterViewInit {
       }
     }
 
-    locationTracker!: any;
+   
 
+   geolocate(){
+     this.findMe()
+   }
 
+   async findMe() {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      console.log('position', position)
+      this.userLocation = position
+      console.log('userlocation', this.userLocation)
+      return position
+    })
+  }
 
-    async geolocate() {
-
-      navigator.geolocation.getCurrentPosition(position => {
-        const { latitude, longitude } = position.coords;
-        console.log(latitude, longitude)
-        console.log(position)
-        
-      })
-    }
-
-    onGeolocateSuccess(coordinates: {coords: {latitude: number, longitude: number}}) {
-      const { latitude, longitude } = coordinates.coords;
-      console.log('Found coordinates: ', latitude, longitude);
-    }
+  
+calculateDistance() {
+  
+    const mexicoCity = new google.maps.LatLng(19.432608, -99.133209);
+    const jacksonville = new google.maps.LatLng(40.730610, -73.935242);
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(mexicoCity, jacksonville);
+    console.log('distance', distance)
+  }
     
-    onGeolocateError(error: any) {
-      console.warn(error.code, error.message);
-     
-      if (error.code === 1) {
-        // they said no
-      } else if (error.code === 2) {
-        // position unavailable
-      } else if (error.code === 3) {
-        // timeout
-      }
-    }
-
   ngOnInit(): void {
 
-    this.geolocate();
+    this.calculateDistance()
 
-    
+    this.findMe().then((position)=>{
+      console.log(position)
+    })
+
     this.creator = this.authService.getUserId();
     this.reportDate = this.date; 
     this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes()

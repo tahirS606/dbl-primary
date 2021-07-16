@@ -14,17 +14,7 @@ export class GeolocationService {
 
   constructor() { }
 
-  async findMe() {
-    if (navigator.geolocation) {
-      return navigator.geolocation.getCurrentPosition((position) => {
-        this.showPosition(position)
-        
-        return position
-      });
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  }
+  
 
 async trackMe() {
     if (navigator.geolocation) {

@@ -61,7 +61,7 @@ import { ReportsListComponent } from './reports-list/reports-list.component';
   imports: [
     AgmCoreModule .forRoot({
       apiKey: 'AIzaSyDbpD2C4fBsYbzVQwEr1rIaNbl8zVyimok',
-      libraries: ['drawing', 'places']
+      libraries: ['drawing', 'places', 'geometry']
     }),
     AgmDrawingModule,
     AppRoutingModule,
