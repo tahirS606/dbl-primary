@@ -279,16 +279,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
+    this.geolocate();
+
     
-
-    // this.locationTracker = this.geoService.trackMe();
-
-    console.log('locationTracker', this.locationTracker)
-
-    // this.userLocation = this.geoService.findMe();
-
-    console.log('user location', this.userLocation)
-
     this.creator = this.authService.getUserId();
     this.reportDate = this.date; 
     this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes()

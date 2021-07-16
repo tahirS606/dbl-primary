@@ -14,31 +14,17 @@ export class GeolocationService {
 
   constructor() { }
 
-  options: {} = {
-    enableHighAccuracy: true,
-    timeout: 10000,
-    maximumAge: 0
-  };
-
-  success(pos: any): any {
-    var crd = pos.coords;
-    console.log('Your current position is:');
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude: ${crd.longitude}`);
-    console.log(`More or less ${crd.accuracy} meters.`);
+  async findMe() {
+    if (navigator.geolocation) {
+      return navigator.geolocation.getCurrentPosition((position) => {
+        this.showPosition(position)
+        
+        return position
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
   }
-
-  error(err: any) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
-
-  async findMe() { 
-    if (window.navigator && window.navigator.geolocation)
-    { navigator.geolocation.getCurrentPosition(this.success, this.error, this.options);
-    } else
-    {console.log('error getting location')}
-  }
-  
 
 async trackMe() {
     if (navigator.geolocation) {
