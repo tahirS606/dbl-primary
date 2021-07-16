@@ -65,7 +65,8 @@ creator!: string;
     tasks: [{}],
     mapImage: string, 
     creator: string,
-    mapZoom: number
+    mapZoom: number,
+    imagePreviewArray: string[],
     ) 
     {
     const report: 
@@ -79,7 +80,8 @@ creator!: string;
       tasks: tasks, 
       mapImage: mapImage,
       creator: creator,
-      mapZoom: mapZoom
+      mapZoom: mapZoom,
+      imagePreviewArray: imagePreviewArray, 
   }
     this.http
       .post<{ message: string; propertyId: string }>(

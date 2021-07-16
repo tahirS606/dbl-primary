@@ -8,5 +8,6 @@ export interface Report {
     tasks: any,
     mapImage: any,
     creator: string,
-    mapZoom: number
+    mapZoom: number,
+    imagePreviewArray: string[],
   }

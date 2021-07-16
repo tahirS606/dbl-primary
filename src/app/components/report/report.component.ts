@@ -188,6 +188,7 @@ export class ReportComponent implements OnInit {
               this.mapImage,
               this.creator, 
               this.mapZoom,
+              this.imagePreviewArray,
               )        
 
               this.form.reset();
@@ -203,9 +204,6 @@ export class ReportComponent implements OnInit {
 
     clearMap(){
       window.location.reload()
-      // this.selectedShapesCumulative.forEach((shape:any)=>{
-      //   shape.remove()
-      
     }
 
     imageFileArray: {}[] = [{}]
