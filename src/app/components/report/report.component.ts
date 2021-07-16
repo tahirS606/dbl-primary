@@ -1,5 +1,6 @@
+import { GeolocationService } from './../../geolocation.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
@@ -19,7 +20,7 @@ import { _MatSelectBase } from '@angular/material/select';
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
 })
-export class ReportComponent implements OnInit {
+export class ReportComponent implements OnInit, AfterViewInit {
 
   Object = Object;
   strokeColor: string = "#21b0ff"
@@ -27,6 +28,12 @@ export class ReportComponent implements OnInit {
 
   strokeColorsArray: String[] = [
     "#740c9a", "#4e4ec4", "#21b0ff", "#aa52b4", "#ff218c", "#12b8da", "#49997c", "#027ab0", "#e51a1a", "#eed630" ]
+
+    userLocation!: any; 
+
+    ngAfterViewInit(){
+     
+    }
 
 
   map: any; 
@@ -108,6 +115,7 @@ export class ReportComponent implements OnInit {
     private formBuilder: FormBuilder,
     public reportService: ReportService,
     private authService: AuthService,
+    private geoService: GeolocationService,
     ) { 
       this.form = this.formBuilder.group({
         tasks: new FormArray([])
@@ -238,7 +246,48 @@ export class ReportComponent implements OnInit {
       }
     }
 
+    locationTracker!: any;
+
+
+
+    async geolocate() {
+
+      navigator.geolocation.getCurrentPosition(position => {
+        const { latitude, longitude } = position.coords;
+        console.log(latitude, longitude)
+        console.log(position)
+        
+      })
+    }
+
+    onGeolocateSuccess(coordinates: {coords: {latitude: number, longitude: number}}) {
+      const { latitude, longitude } = coordinates.coords;
+      console.log('Found coordinates: ', latitude, longitude);
+    }
+    
+    onGeolocateError(error: any) {
+      console.warn(error.code, error.message);
+     
+      if (error.code === 1) {
+        // they said no
+      } else if (error.code === 2) {
+        // position unavailable
+      } else if (error.code === 3) {
+        // timeout
+      }
+    }
+
   ngOnInit(): void {
+
+    
+
+    // this.locationTracker = this.geoService.trackMe();
+
+    console.log('locationTracker', this.locationTracker)
+
+    // this.userLocation = this.geoService.findMe();
+
+    console.log('user location', this.userLocation)
 
     this.creator = this.authService.getUserId();
     this.reportDate = this.date; 
