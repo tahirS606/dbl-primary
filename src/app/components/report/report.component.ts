@@ -5,7 +5,7 @@ import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Property } from './../../models/property.model';
-import { NgxCaptureService } from 'ngx-capture';
+import Swal from 'sweetalert2';
 import { FormBuilder,  
   FormGroup,
   FormArray,
@@ -102,7 +102,6 @@ export class ReportComponent implements OnInit {
 
   constructor(
     private propertyService: PropertyService ,
-    private captureService:NgxCaptureService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
@@ -237,6 +236,42 @@ export class ReportComponent implements OnInit {
         return;
       }
     }
+
+    Swal: any
+    
+    
+    tinyAlert(){
+      Swal.fire('Hey there!');
+    }
+    
+    successNotification(){
+      Swal.fire('Hi', 'We have been informed!', 'success')
+    }
+    
+    alertConfirmation(){
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'This process is irreversible.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, go ahead.',
+        cancelButtonText: 'No, let me think'
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Removed!',
+            'Product removed successfully.',
+            'success'
+          )
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Cancelled',
+            'Product still in our database.)',
+            'error'
+          )
+        }
+      })
+    }  
 
   ngOnInit(): void {
 

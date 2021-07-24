@@ -33,6 +33,12 @@
     </button>
     <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear All</button>
 
+    <button (click)="tinyAlert()">Simple Notification</button>
+
+    <button (click)="successNotification()">Sucess Notification</button>
+
+    <button (click)="alertConfirmation()">Show me Confirmation</button>
+
 </mat-action-row>
 
 <input (change)="onImagePicked($event)" hidden type="file" #filePicker>

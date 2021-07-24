@@ -3,6 +3,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import { SocialAuthServiceConfig } from 'angularx-social-login';
 import { ReportComponent } from './components/report/report.component';
 import { NgxCaptureModule } from 'ngx-capture';
+import Swal from 'sweetalert2';
 
 
 import { AuthInterceptor } from './components/auth/auth-interceptor';
@@ -54,9 +55,6 @@ import { ReportsListComponent } from './reports-list/reports-list.component';
     LoggedinasComponent,
     ReportsListComponent,
     
-    
-    
-    
   ],
   imports: [
     AgmCoreModule .forRoot({
@@ -75,6 +73,7 @@ import { ReportsListComponent } from './reports-list/reports-list.component';
     NgxCaptureModule,
     ReactiveFormsModule,
     SocialLoginModule,
+    
   ],
  
   providers: [{
