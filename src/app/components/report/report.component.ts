@@ -191,7 +191,7 @@ export class ReportComponent implements OnInit {
               )        
 
               this.form.reset();
-              this.router.navigate(['/'])
+              this.router.navigate(['add-propety'])
               console.log(this.areasForReport)
           } 
            
@@ -214,8 +214,7 @@ export class ReportComponent implements OnInit {
       let eventCasttoHtml = event.target as HTMLInputElement;
       if (eventCasttoHtml.files) {
         imageFile = eventCasttoHtml.files[0];
-        // this.form.patchValue({ image: imageFile });
-        // this.form.get('image')?.updateValueAndValidity();
+      
         const reader = new FileReader();
         reader.onload = () => {
           imagePreview = reader.result as string;
@@ -241,7 +240,7 @@ export class ReportComponent implements OnInit {
     
     
     tinyAlert(){
-      Swal.fire('Hey there!');
+      Swal.fire('Report Saved!');
     }
     
     successNotification(){
@@ -250,23 +249,23 @@ export class ReportComponent implements OnInit {
     
     alertConfirmation(){
       Swal.fire({
-        title: 'Are you sure?',
-        text: 'This process is irreversible.',
+        title: 'Ready to submit?',
+        text: 'Report cannot be edited once submitted.',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, go ahead.',
-        cancelButtonText: 'No, let me think'
+        confirmButtonText: 'Yes, save report.',
+        cancelButtonText: 'Go back to editing'
       }).then((result) => {
         if (result.value) {
           Swal.fire(
-            'Removed!',
-            'Product removed successfully.',
+            'Thank you!',
+            'Report Submitted.',
             'success'
           )
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire(
-            'Cancelled',
-            'Product still in our database.)',
+            'Ok',
+            'Complete report and then save.)',
             'error'
           )
         }

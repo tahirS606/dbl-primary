@@ -55,9 +55,11 @@ export class AuthService {
     }
     
     this.http.post(BACKEND_URL + "user/signup/", authData)
-      .subscribe(response => {
-      console.log(response)
-    })
+      .subscribe(()=>{
+        this.router.navigateByUrl('/');
+      }, error =>{
+        this.authStatusListener.next(false)
+      })
        
   }
 
@@ -93,6 +95,9 @@ export class AuthService {
       console.log('authData', authData)
       this.authData = authData
 
+    }, error => {
+      this.authStatusListener.next(false);
+      this.router.navigate(['user/login'])
     })
   }
 
