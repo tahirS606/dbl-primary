@@ -54,6 +54,10 @@ router.get("", (req, res, next) => {
                 res.status(201).json({
                     message: "Property added successfully",
                     propertyId: addedProperty._id,
+                }).catch(error => {
+                    res.status(500).json({
+                        message: "Adding property failed"
+                    })
                 });
             });
         });
@@ -65,10 +69,16 @@ router.get("", (req, res, next) => {
             address: req.body.address,
             route: req.body.route,
         });
-        Property.updateOne({ _id: req.params.id }, property).then((result) => {
-            console.log(result);
-            res.status(200).json({ message: "update completed" });
-        });
+        Property.updateOne({ _id: req.params.id }, property).then((result => {
+                if (result.nModified > 0) {
+                    res.status(200).json({ message: "Update successful" });
+                } else {
+                    res.status(401).json({ message: "Not Authorized." });
+                }
+            })
+            .catch(error => {
+                res.status(500).json({ message: "Couldn't update Property" })
+            }))
     });
 
     router.delete("/:id", checkAuth, (req, res, next) => {

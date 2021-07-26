@@ -1,10 +1,6 @@
 import { AgmDrawingModule } from '@agm/drawing';
-
-// agm drawing module
-
 import { NgModule } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon'
-
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,6 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/google-maps-autocomplete';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDialogModule} from '@angular/material/dialog'
 
 @NgModule({
   imports: [
@@ -28,6 +25,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
+    MatDialogModule,
     MatGoogleMapsAutocompleteModule,
     MatGridListModule,
     MatPaginatorModule,
@@ -39,6 +37,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     AgmDrawingModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatExpansionModule,
     MatToolbarModule,
     MatFormFieldModule,

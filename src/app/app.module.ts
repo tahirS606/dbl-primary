@@ -1,3 +1,4 @@
+import { ErrorComponent } from './components/auth/error/error.component';
 import { ErrorInterceptor } from './../../error-interceptor';
 import { SocialLoginModule } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
@@ -91,13 +92,12 @@ import { ReportsListComponent } from './reports-list/reports-list.component';
       ]
     } as SocialAuthServiceConfig,
   } , 
-  {
-    provide: HTTP_INTERCEPTORS, 
+  { provide: HTTP_INTERCEPTORS, 
     useClass: AuthInterceptor, multi: true}, 
-    {
-    provide: HTTP_INTERCEPTORS, 
+    {provide: HTTP_INTERCEPTORS, 
     useClass: ErrorInterceptor, multi: true},
     PolygonManager],
   bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent]
 })
 export class AppModule {}
