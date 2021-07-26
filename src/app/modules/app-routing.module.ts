@@ -30,6 +30,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
 
   },
+
   {
     path: 'new-report/:propertyId',
     component: ReportComponent,
@@ -42,6 +43,12 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
 
+  {
+    path: 'reports/:reportId',
+    component: AddPropertyComponent,
+    canActivate: [AuthGuard]
+
+  },
   {
     path: 'user/login',
     component: LoginComponent,

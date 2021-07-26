@@ -26,7 +26,8 @@ export class PropertyDetailComponent implements OnInit {
   ngOnInit() {
 
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
-    console.log(this.propertyId)
+    
+    
         this.propertyService
           .getProperty(this.propertyId)
           .subscribe((propertyData) => {

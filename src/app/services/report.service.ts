@@ -48,13 +48,11 @@ creator!: string;
     reports: Report[];
   }>();
 
-  // getReportByProperty(propertyID:string){
-  //   const reports = this.http.get<Report[]>(
-  //     'http://localhost:3000/reports'
-  //   ).map(if reportData.propertyId === propertyID){
-  //     console.log(reportData)
-  //   }
-  // }
+  getReport(id: string) {
+    return this.http.get<{report : Report}>(
+      BACKEND_URL + 'reports/' + id
+    )
+  }
 
   addReport(
     date: any, 
@@ -63,7 +61,6 @@ creator!: string;
     propertyName: string,  
     propertyAddress: string, 
     tasks: [{}],
-    mapImage: string, 
     creator: string,
     mapZoom: number,
     imagePreviewArray: string[],
@@ -78,7 +75,6 @@ creator!: string;
       propertyName: propertyName, 
       propertyAddress: propertyAddress, 
       tasks: tasks, 
-      mapImage: mapImage,
       creator: creator,
       mapZoom: mapZoom,
       imagePreviewArray: imagePreviewArray, 

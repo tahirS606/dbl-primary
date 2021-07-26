@@ -78,6 +78,7 @@ export class ReportComponent implements OnInit {
   reportTime: any; 
   reportSubmittedBy!: string; 
   atLeastOneAreaSaved: boolean = false; 
+
   form!: FormGroup;
   date = new Date();
   checkboxVisible:boolean = false;
@@ -184,15 +185,12 @@ export class ReportComponent implements OnInit {
               this.property.name,
               this.property.address,
               this.areasForReport,
-              this.mapImage,
               this.creator, 
               this.mapZoom,
               this.imagePreviewArray,
               )        
-
               this.form.reset();
-              this.router.navigate(['add-propety'])
-              console.log(this.areasForReport)
+              this.router.navigate(['new-report/' + this.propertyId])
           } 
            
     addTasks(){
@@ -219,17 +217,12 @@ export class ReportComponent implements OnInit {
         reader.onload = () => {
           imagePreview = reader.result as string;
           this.imagePreviewArray.push(imagePreview)
-          console.log('image preview in reader', imagePreview)
         };
-        reader.readAsDataURL(imageFile);
-        console.log(imageFile);
-        // console.log(this.form);
-
-        this.imageFileArray.push(imageFile)
-        console.log('imageFileArray', this.imageFileArray)
-        console.log('image preview', imagePreview)
+        // reader.readAsDataURL(imageFile);
         
-        console.log('this.imagepreviewarray', this.imagePreviewArray)
+        // this.imageFileArray.push(imageFile)
+        console.log('imageFile', imagePreview)
+        console.log('imageFileArray', this.imagePreviewArray)
 
       } else {
         return;
@@ -237,7 +230,6 @@ export class ReportComponent implements OnInit {
     }
 
     Swal: any
-    
     
     tinyAlert(){
       Swal.fire('Report Saved!');

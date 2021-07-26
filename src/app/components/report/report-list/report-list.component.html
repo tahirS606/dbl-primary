@@ -1,7 +1,5 @@
-<div *ngFor="let report of reportsArray">
-    {{report | json}}
+<div *ngFor="let report of reports">
+    {{report.propertyName}}
 </div>
 
-<div *ngIf="!reports">
-    <h4>There are no reports for this property yet</h4>
-</div>
+<div>Component working</div>
