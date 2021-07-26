@@ -6,7 +6,7 @@ import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Property } from './../../models/property.model';
-import { NgxCaptureService } from 'ngx-capture';
+import Swal from 'sweetalert2';
 import { FormBuilder,  
   FormGroup,
   FormArray,
@@ -88,6 +88,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   reportTime: any; 
   reportSubmittedBy!: string; 
   atLeastOneAreaSaved: boolean = false; 
+
   form!: FormGroup;
   date = new Date();
   checkboxVisible:boolean = false;
@@ -112,7 +113,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
   constructor(
     private propertyService: PropertyService ,
-    private captureService:NgxCaptureService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
@@ -196,15 +196,12 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.property.name,
               this.property.address,
               this.areasForReport,
-              this.mapImage,
               this.creator, 
               this.mapZoom,
               this.imagePreviewArray,
               )        
-
               this.form.reset();
-              this.router.navigate(['/'])
-              console.log(this.areasForReport)
+              this.router.navigate(['new-report/' + this.propertyId])
           } 
            
     addTasks(){
@@ -226,29 +223,60 @@ export class ReportComponent implements OnInit, AfterViewInit {
       let eventCasttoHtml = event.target as HTMLInputElement;
       if (eventCasttoHtml.files) {
         imageFile = eventCasttoHtml.files[0];
-        // this.form.patchValue({ image: imageFile });
-        // this.form.get('image')?.updateValueAndValidity();
+      
         const reader = new FileReader();
         reader.onload = () => {
           imagePreview = reader.result as string;
           this.imagePreviewArray.push(imagePreview)
-          console.log('image preview in reader', imagePreview)
         };
-        reader.readAsDataURL(imageFile);
-        console.log(imageFile);
-        // console.log(this.form);
-
-        this.imageFileArray.push(imageFile)
-        console.log('imageFileArray', this.imageFileArray)
-        console.log('image preview', imagePreview)
+        // reader.readAsDataURL(imageFile);
         
-        console.log('this.imagepreviewarray', this.imagePreviewArray)
+        // this.imageFileArray.push(imageFile)
+        console.log('imageFile', imagePreview)
+        console.log('imageFileArray', this.imagePreviewArray)
 
       } else {
         return;
       }
     }
 
+<<<<<<< HEAD
+    Swal: any
+    
+    tinyAlert(){
+      Swal.fire('Report Saved!');
+    }
+    
+    successNotification(){
+      Swal.fire('Hi', 'We have been informed!', 'success')
+    }
+    
+    alertConfirmation(){
+      Swal.fire({
+        title: 'Ready to submit?',
+        text: 'Report cannot be edited once submitted.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, save report.',
+        cancelButtonText: 'Go back to editing'
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Thank you!',
+            'Report Submitted.',
+            'success'
+          )
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Ok',
+            'Complete report and then save.)',
+            'error'
+          )
+        }
+      })
+    }  
+
+=======
    
 
    geolocate(){
@@ -274,6 +302,7 @@ calculateDistance() {
     console.log('distance', distance)
   }
     
+>>>>>>> main
   ngOnInit(): void {
 
     this.calculateDistance()

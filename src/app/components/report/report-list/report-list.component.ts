@@ -22,56 +22,41 @@ export class ReportListComponent implements OnInit, OnDestroy{
   private authStatusSub!: Subscription;
 
   reports!: any
-  propertyId!: any; 
   userIsAuthenticated = false;
-  property!: Property; 
-  reportsArray!: [{}]
+  
+  isLoading!: boolean; 
   
 
   constructor(
-    private propertyService:PropertyService,
-    private ReportService: ReportService,
-    private activatedRoute: ActivatedRoute,
-    private http: HttpClient,
+    private reportService: ReportService,
     private authService: AuthService
     ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
 
-    this.reportsToArray()
+    this.isLoading = true;
 
-    // this.reports = this.ReportService.getAllReports()
+    this.reportService.getAllReports();
 
-    console.log(this.reportsArray)
-
-    this.reportsSub =  this.ReportService
+    this.reportsSub =  this.reportService
     .getReportUpdateListener()
     .subscribe(
       (reportData:{ reports: Report[]})=>{
         this.reports = reportData.reports; 
       }
+      
     );
 
-    this.reports = this.ReportService
-    .getReportUpdateListener()
-    .subscribe(
-      (reportData:{ reports: Report[]})=>{
-        this.reports = reportData.reports; 
-      }
-    );
+    console.log('this.reports', this.reports)
 
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
-    })   
+    }) 
+    
   }
 
-  reportsToArray(){
-    for( let i in this.reportsSub) {   
-    console.log('reports pushing', this.reports[i]);
-    this.reportsArray.push(this.reports[i]);
-    console.log('this.reportsArray', this.reportsArray)
-  }}
+
    
 
     ngOnDestroy() {

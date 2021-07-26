@@ -35,6 +35,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
+    
     this.propertyService.getProperties(
       this.propertiesPerPage,
       this.currentPage
