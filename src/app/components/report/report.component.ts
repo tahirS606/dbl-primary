@@ -1,5 +1,6 @@
+import { GeolocationService } from './../../geolocation.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
@@ -19,7 +20,7 @@ import { _MatSelectBase } from '@angular/material/select';
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
 })
-export class ReportComponent implements OnInit {
+export class ReportComponent implements OnInit, AfterViewInit {
 
   Object = Object;
   strokeColor: string = "#21b0ff"
@@ -27,6 +28,12 @@ export class ReportComponent implements OnInit {
 
   strokeColorsArray: String[] = [
     "#740c9a", "#4e4ec4", "#21b0ff", "#aa52b4", "#ff218c", "#12b8da", "#49997c", "#027ab0", "#e51a1a", "#eed630" ]
+
+    userLocation!: any; 
+
+    ngAfterViewInit(){
+     
+    }
 
 
   map: any; 
@@ -40,6 +47,7 @@ export class ReportComponent implements OnInit {
  initialColor: string = "white"
   shape: any; 
   imagePreview!: string;
+  userOnsite: boolean = false
 
   // map features
   zoom = 21; 
@@ -72,6 +80,8 @@ export class ReportComponent implements OnInit {
   reportData: any;
 
   files!: any
+
+  
 
   @ViewChild('mapCapture', { static: true }) mapCapture: any;
   reportDate: any;
@@ -108,6 +118,7 @@ export class ReportComponent implements OnInit {
     private formBuilder: FormBuilder,
     public reportService: ReportService,
     private authService: AuthService,
+    private geoService: GeolocationService,
     ) { 
       this.form = this.formBuilder.group({
         tasks: new FormArray([])
@@ -229,6 +240,7 @@ export class ReportComponent implements OnInit {
       }
     }
 
+<<<<<<< HEAD
     Swal: any
     
     tinyAlert(){
@@ -264,7 +276,40 @@ export class ReportComponent implements OnInit {
       })
     }  
 
+=======
+   
+
+   geolocate(){
+     this.findMe()
+   }
+
+   async findMe() {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      console.log('position', position)
+      this.userLocation = position
+      console.log('userlocation', this.userLocation)
+      return position
+    })
+  }
+
+  
+calculateDistance() {
+  
+    const mexicoCity = new google.maps.LatLng(19.432608, -99.133209);
+    const jacksonville = new google.maps.LatLng(40.730610, -73.935242);
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(mexicoCity, jacksonville);
+    console.log('distance', distance)
+  }
+    
+>>>>>>> main
   ngOnInit(): void {
+
+    this.calculateDistance()
+
+    this.findMe().then((position)=>{
+      console.log(position)
+    })
 
     this.creator = this.authService.getUserId();
     this.reportDate = this.date; 
