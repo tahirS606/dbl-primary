@@ -32,13 +32,7 @@
         Add image
     </button>
     <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear All</button>
-    <button mat-button (click)="geolocate()">Geolocate</button>
 
-    <!-- <button mat-button (click)="tinyAlert()">Simple Notification</button>
-
-    <button mat-button (click)="successNotification()">Sucess Notification</button>
-
-    <button mat-button (click)="alertConfirmation()">Show me Confirmation</button> -->
 
 </mat-action-row>
 
@@ -48,7 +42,7 @@
 
 <!-- <h3 class="title">Property:</h3> -->
 <app-property-detail>
-</app-property-detail>
+</app-property-detail>s
 
 <h2 *ngIf="reportData" class="title">Services</h2>
 
@@ -79,5 +73,5 @@
 </div>
 
 <mat-action-row displayFlx>
-    <button class="submit-button" (click)="onSaveReport()" mat-raised-button [disabled]="!readyToSave" color="primary" (click)="tinyAlert()">Submit Report</button>
+    <button class="submit-button" (click)="onSaveReport()" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
 </mat-action-row>

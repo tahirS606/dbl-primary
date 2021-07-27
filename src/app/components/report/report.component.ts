@@ -29,7 +29,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   strokeColorsArray: String[] = [
     "#740c9a", "#4e4ec4", "#21b0ff", "#aa52b4", "#ff218c", "#12b8da", "#49997c", "#027ab0", "#e51a1a", "#eed630" ]
 
-    userLocation!: any; 
+    userLocation!: any
 
     ngAfterViewInit(){
      
@@ -47,7 +47,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
  initialColor: string = "white"
   shape: any; 
   imagePreview!: string;
-  userOnsite: boolean = false
+  userOnsite!: boolean
 
   // map features
   zoom = 21; 
@@ -69,6 +69,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
   readyToSave: boolean = false
   zoomControl: boolean = false;
 
+  userLongitude!: number
+  userLatitude!: number
+
   // report features
   areasForReport: [{}] = [{}]
   polyArrayLatLng: [{}] = [{}]
@@ -80,10 +83,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
   reportData: any;
 
   files!: any
-
-  
-
-  @ViewChild('mapCapture', { static: true }) mapCapture: any;
   reportDate: any;
   reportTime: any; 
   reportSubmittedBy!: string; 
@@ -283,28 +282,36 @@ export class ReportComponent implements OnInit, AfterViewInit {
    async findMe() {
     navigator.geolocation.getCurrentPosition(position => {
       const { latitude, longitude } = position.coords;
-      console.log('position', position)
-      this.userLocation = position
-      console.log('userlocation', this.userLocation)
-      return position
+      
+      this.userLocation = {latitude: latitude, longitude: longitude}
+      this.userLongitude = this.userLocation.longitude
+      this.userLatitude = this.userLocation.latitude
+      this.calculateDistance();
     })
   }
 
+  distance!: number; 
+
   
-calculateDistance() {
+  async calculateDistance() {
   
-    const mexicoCity = new google.maps.LatLng(19.432608, -99.133209);
-    const jacksonville = new google.maps.LatLng(40.730610, -73.935242);
-    const distance = google.maps.geometry.spherical.computeDistanceBetween(mexicoCity, jacksonville);
-    console.log('distance', distance)
+    const propertyLocation = new google.maps.LatLng(this.latitude, this.longitude);
+
+    const userLocation = new google.maps.LatLng(this.userLatitude, this.userLongitude);
+    
+    this.distance = google.maps.geometry.spherical.computeDistanceBetween(userLocation, propertyLocation);
+    console.log('this.distance', this.distance)
+
+    if (this.distance < 20){
+      this.userOnsite = true;
+      console.log('useronsite', this.userOnsite)
+    }
+
   }
     
-  ngOnInit(): void {
+  ngOnInit(){
 
-    this.findMe().then((position)=>{
-      console.log(position)
-    })
-
+    this.userOnsite = false; 
     this.creator = this.authService.getUserId();
     this.reportDate = this.date; 
     this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes()
@@ -328,6 +335,7 @@ calculateDistance() {
 
             this.latitude = this.property.latitude;
           this.longitude = this.property.longitude; 
+          console.log('property address lat and long', this.latitude, this.longitude)
 
     });
     
@@ -335,7 +343,11 @@ calculateDistance() {
 
    onMapReady(map:any) {
     this.initDrawingManager(map);
-    this.calculateDistance();
+    this.findMe().then((position)=>{
+      console.log(position)
+    })
+    
+
   }
 
   initDrawingManager(map:any) {
