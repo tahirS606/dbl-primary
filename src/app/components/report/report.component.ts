@@ -229,9 +229,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
           imagePreview = reader.result as string;
           this.imagePreviewArray.push(imagePreview)
         };
-        // reader.readAsDataURL(imageFile);
+        reader.readAsDataURL(imageFile);
         
-        // this.imageFileArray.push(imageFile)
+        this.imageFileArray.push(imageFile)
         console.log('imageFile', imagePreview)
         console.log('imageFileArray', this.imagePreviewArray)
 
@@ -240,7 +240,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
       }
     }
 
-<<<<<<< HEAD
     Swal: any
     
     tinyAlert(){
@@ -275,8 +274,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         }
       })
     }  
-
-=======
    
 
    geolocate(){
@@ -302,10 +299,7 @@ calculateDistance() {
     console.log('distance', distance)
   }
     
->>>>>>> main
   ngOnInit(): void {
-
-    this.calculateDistance()
 
     this.findMe().then((position)=>{
       console.log(position)
@@ -341,6 +335,7 @@ calculateDistance() {
 
    onMapReady(map:any) {
     this.initDrawingManager(map);
+    this.calculateDistance();
   }
 
   initDrawingManager(map:any) {
@@ -363,7 +358,6 @@ calculateDistance() {
         fillOpacity: .4,
         strokeWeight: 7,
         strokeColor: this.initialColor,
-        // clickable: true,
         zIndex: 1,
         fullScreenControl: true, 
       },
@@ -392,7 +386,6 @@ calculateDistance() {
       }
 
       
-  
       _self.polyArrayLatLng.push(_self.polyArrayLatLng[0]);
 
       _self.selectedShape = polygon
