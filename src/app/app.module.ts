@@ -1,8 +1,11 @@
+import { ErrorComponent } from './components/auth/error/error.component';
+import { ErrorInterceptor } from './../../error-interceptor';
 import { SocialLoginModule } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { SocialAuthServiceConfig } from 'angularx-social-login';
 import { ReportComponent } from './components/report/report.component';
 import { NgxCaptureModule } from 'ngx-capture';
+import Swal from 'sweetalert2';
 
 
 import { AuthInterceptor } from './components/auth/auth-interceptor';
@@ -33,6 +36,7 @@ import {NgPipesModule} from 'ngx-pipes';
 import { UniquePipe } from './pipes/unique.pipe';
 import { LoggedinasComponent } from './loggedinas/loggedinas.component';
 import { ReportsListComponent } from './reports-list/reports-list.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -53,15 +57,13 @@ import { ReportsListComponent } from './reports-list/reports-list.component';
     UniquePipe,
     LoggedinasComponent,
     ReportsListComponent,
-    
-    
-    
+    DialogComponent,
     
   ],
   imports: [
     AgmCoreModule .forRoot({
       apiKey: 'AIzaSyDbpD2C4fBsYbzVQwEr1rIaNbl8zVyimok',
-      libraries: ['drawing', 'places']
+      libraries: ['drawing', 'places', 'geometry']
     }),
     AgmDrawingModule,
     AppRoutingModule,
@@ -75,6 +77,7 @@ import { ReportsListComponent } from './reports-list/reports-list.component';
     NgxCaptureModule,
     ReactiveFormsModule,
     SocialLoginModule,
+    
   ],
  
   providers: [{
@@ -91,11 +94,12 @@ import { ReportsListComponent } from './reports-list/reports-list.component';
       ]
     } as SocialAuthServiceConfig,
   } , 
-  {
-    provide: HTTP_INTERCEPTORS, 
+  { provide: HTTP_INTERCEPTORS, 
     useClass: AuthInterceptor, multi: true}, 
+    {provide: HTTP_INTERCEPTORS, 
+    useClass: ErrorInterceptor, multi: true},
     PolygonManager],
   bootstrap: [AppComponent],
-  
+  entryComponents: [ErrorComponent]
 })
 export class AppModule {}

@@ -6,7 +6,6 @@ export interface Report {
     propertyName: string,
     propertyAddress: string, 
     tasks: any,
-    mapImage: any,
     creator: string,
     mapZoom: number,
     imagePreviewArray: string[],

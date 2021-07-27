@@ -1,7 +1,8 @@
+import { Subscription } from 'rxjs';
 import { AuthService } from './../../../services/auth.service';
 import { SocialUser, SocialAuthService, GoogleLoginProvider, } from 'angularx-social-login';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 
@@ -10,10 +11,12 @@ import { NgForm } from '@angular/forms';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   user!: SocialUser;
   isSignedin!: boolean;  
+  isLoading = false
+  private authStatusSub!: Subscription
   
 
   constructor(
@@ -26,6 +29,12 @@ export class LoginComponent implements OnInit {
     
 
   ngOnInit(): void {
+
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        this.isLoading = false
+      }
+    )
 
     this.socialAuthService.authState.subscribe((user) => {
       this.user = user;
@@ -50,5 +59,10 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login(form.value.email, form.value.password);
     this.router.navigateByUrl('/')
+  }
+
+  ngOnDestroy(){
+    this.authStatusSub.unsubscribe();
+
   }
 }

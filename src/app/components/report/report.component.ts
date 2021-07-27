@@ -1,11 +1,12 @@
+import { GeolocationService } from './../../geolocation.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Property } from './../../models/property.model';
-import { NgxCaptureService } from 'ngx-capture';
+import Swal from 'sweetalert2';
 import { FormBuilder,  
   FormGroup,
   FormArray,
@@ -19,7 +20,7 @@ import { _MatSelectBase } from '@angular/material/select';
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
 })
-export class ReportComponent implements OnInit {
+export class ReportComponent implements OnInit, AfterViewInit {
 
   Object = Object;
   strokeColor: string = "#21b0ff"
@@ -27,6 +28,12 @@ export class ReportComponent implements OnInit {
 
   strokeColorsArray: String[] = [
     "#740c9a", "#4e4ec4", "#21b0ff", "#aa52b4", "#ff218c", "#12b8da", "#49997c", "#027ab0", "#e51a1a", "#eed630" ]
+
+    userLocation!: any; 
+
+    ngAfterViewInit(){
+     
+    }
 
 
   map: any; 
@@ -40,6 +47,7 @@ export class ReportComponent implements OnInit {
  initialColor: string = "white"
   shape: any; 
   imagePreview!: string;
+  userOnsite: boolean = false
 
   // map features
   zoom = 21; 
@@ -73,11 +81,14 @@ export class ReportComponent implements OnInit {
 
   files!: any
 
+  
+
   @ViewChild('mapCapture', { static: true }) mapCapture: any;
   reportDate: any;
   reportTime: any; 
   reportSubmittedBy!: string; 
   atLeastOneAreaSaved: boolean = false; 
+
   form!: FormGroup;
   date = new Date();
   checkboxVisible:boolean = false;
@@ -102,12 +113,12 @@ export class ReportComponent implements OnInit {
 
   constructor(
     private propertyService: PropertyService ,
-    private captureService:NgxCaptureService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     public reportService: ReportService,
     private authService: AuthService,
+    private geoService: GeolocationService,
     ) { 
       this.form = this.formBuilder.group({
         tasks: new FormArray([])
@@ -185,15 +196,12 @@ export class ReportComponent implements OnInit {
               this.property.name,
               this.property.address,
               this.areasForReport,
-              this.mapImage,
               this.creator, 
               this.mapZoom,
               this.imagePreviewArray,
               )        
-
               this.form.reset();
-              this.router.navigate(['/'])
-              console.log(this.areasForReport)
+              this.router.navigate(['new-report/' + this.propertyId])
           } 
            
     addTasks(){
@@ -215,30 +223,87 @@ export class ReportComponent implements OnInit {
       let eventCasttoHtml = event.target as HTMLInputElement;
       if (eventCasttoHtml.files) {
         imageFile = eventCasttoHtml.files[0];
-        // this.form.patchValue({ image: imageFile });
-        // this.form.get('image')?.updateValueAndValidity();
+      
         const reader = new FileReader();
         reader.onload = () => {
           imagePreview = reader.result as string;
           this.imagePreviewArray.push(imagePreview)
-          console.log('image preview in reader', imagePreview)
         };
         reader.readAsDataURL(imageFile);
-        console.log(imageFile);
-        // console.log(this.form);
-
-        this.imageFileArray.push(imageFile)
-        console.log('imageFileArray', this.imageFileArray)
-        console.log('image preview', imagePreview)
         
-        console.log('this.imagepreviewarray', this.imagePreviewArray)
+        this.imageFileArray.push(imageFile)
+        console.log('imageFile', imagePreview)
+        console.log('imageFileArray', this.imagePreviewArray)
 
       } else {
         return;
       }
     }
 
+    Swal: any
+    
+    tinyAlert(){
+      Swal.fire('Report Saved!');
+    }
+    
+    successNotification(){
+      Swal.fire('Hi', 'We have been informed!', 'success')
+    }
+    
+    alertConfirmation(){
+      Swal.fire({
+        title: 'Ready to submit?',
+        text: 'Report cannot be edited once submitted.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, save report.',
+        cancelButtonText: 'Go back to editing'
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Thank you!',
+            'Report Submitted.',
+            'success'
+          )
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Ok',
+            'Complete report and then save.)',
+            'error'
+          )
+        }
+      })
+    }  
+   
+
+   geolocate(){
+     this.findMe()
+   }
+
+   async findMe() {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      console.log('position', position)
+      this.userLocation = position
+      console.log('userlocation', this.userLocation)
+      return position
+    })
+  }
+
+  
+calculateDistance() {
+  
+    const mexicoCity = new google.maps.LatLng(19.432608, -99.133209);
+    const jacksonville = new google.maps.LatLng(40.730610, -73.935242);
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(mexicoCity, jacksonville);
+    console.log('distance', distance)
+  }
+    
   ngOnInit(): void {
+
+    this.findMe().then((position)=>{
+      console.log(position)
+    })
 
     this.creator = this.authService.getUserId();
     this.reportDate = this.date; 
@@ -270,6 +335,7 @@ export class ReportComponent implements OnInit {
 
    onMapReady(map:any) {
     this.initDrawingManager(map);
+    this.calculateDistance();
   }
 
   initDrawingManager(map:any) {
@@ -292,7 +358,6 @@ export class ReportComponent implements OnInit {
         fillOpacity: .4,
         strokeWeight: 7,
         strokeColor: this.initialColor,
-        // clickable: true,
         zIndex: 1,
         fullScreenControl: true, 
       },
@@ -321,7 +386,6 @@ export class ReportComponent implements OnInit {
       }
 
       
-  
       _self.polyArrayLatLng.push(_self.polyArrayLatLng[0]);
 
       _self.selectedShape = polygon
