@@ -74,7 +74,7 @@ creator!: string;
       propertyName: propertyName, 
       propertyAddress: propertyAddress, 
       // tasks: tasks, 
-      // creator: creator,
+      creator: creator,
       mapZoom: mapZoom,
       // imagePreviewArray: imagePreviewArray, 
   }
