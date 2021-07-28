@@ -1,6 +1,5 @@
-import { map } from 'rxjs/operators';
 import { Property } from './../models/property.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Report } from './../models/report.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
@@ -74,10 +73,10 @@ creator!: string;
       propertyId: propertyId, 
       propertyName: propertyName, 
       propertyAddress: propertyAddress, 
-      tasks: tasks, 
-      creator: creator,
+      // tasks: tasks, 
+      // creator: creator,
       mapZoom: mapZoom,
-      imagePreviewArray: imagePreviewArray, 
+      // imagePreviewArray: imagePreviewArray, 
   }
     this.http
       .post<{ message: string; propertyId: string }>(

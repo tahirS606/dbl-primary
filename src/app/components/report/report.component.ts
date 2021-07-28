@@ -44,9 +44,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
   address: any;
   creator!: string; 
   mapZoom!: number; 
- initialColor: string = "white"
+  initialColor: string = "white"
   shape: any; 
   imagePreview!: string;
+
   userOnsite!: boolean
 
   // map features
@@ -69,8 +70,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
   readyToSave: boolean = false
   zoomControl: boolean = false;
 
-  userLongitude!: number
-  userLatitude!: number
+  userLongitude: number = 0
+  userLatitude: number = 0
 
   // report features
   areasForReport: [{}] = [{}]
@@ -81,6 +82,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   reportSaved:boolean = false; 
   report!: Report;
   reportData: any;
+  distance: number = 0 
 
   files!: any
   reportDate: any;
@@ -123,8 +125,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         tasks: new FormArray([])
       });
       this.addCheckboxesToForm();
-
-      
     }
 
     private addCheckboxesToForm() {
@@ -159,7 +159,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         }
 
         const newCollection = new (Collection as any)(collectionName, this.polyArrayLatLng, tasks, this.date)
-
         newCollection.name = collectionName 
         newCollection.areas = this.polyArrayLatLng
         newCollection.tasks = tasks
@@ -171,7 +170,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         this.areasForReport.push(newCollection)
         this.readyToSave = true
-        console.log('newCollection', newCollection)
+        // console.log('newCollection', newCollection)
 
         this.form.reset()
         this.checked = false
@@ -183,9 +182,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         this.mapZoom = this.zoom;
         this.reportData = Object.values(this.areasForReport);
         }
-
-        mapImage: any;
-
 
         onSaveReport() {
             this.reportService.addReport(
@@ -218,7 +214,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     onImagePicked(event: Event) {
       let imageFile;
-      let imagePreview: string = '';
+      let imagePreview;
       let eventCasttoHtml = event.target as HTMLInputElement;
       if (eventCasttoHtml.files) {
         imageFile = eventCasttoHtml.files[0];
@@ -286,12 +282,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
       this.userLocation = {latitude: latitude, longitude: longitude}
       this.userLongitude = this.userLocation.longitude
       this.userLatitude = this.userLocation.latitude
-      this.calculateDistance();
     })
   }
-
-  distance!: number; 
-
   
   async calculateDistance() {
   
@@ -306,19 +298,16 @@ export class ReportComponent implements OnInit, AfterViewInit {
       this.userOnsite = true;
       console.log('useronsite', this.userOnsite)
     }
-
   }
-    
+
   ngOnInit(){
 
     this.userOnsite = false; 
     this.creator = this.authService.getUserId();
     this.reportDate = this.date; 
-    this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes()
-    this.areasForReport.shift()
-    this.selectedShapes.shift()
-
-
+    this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes();
+    this.areasForReport.shift();
+    this.selectedShapes.shift();
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     
         this.propertyService
@@ -333,9 +322,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
               longitude: propertyData.longitude
             };
 
-            this.latitude = this.property.latitude;
+          this.latitude = this.property.latitude;
           this.longitude = this.property.longitude; 
-          console.log('property address lat and long', this.latitude, this.longitude)
+
+          console.log('property address lat and long', this.latitude, this.longitude);
 
     });
     
@@ -346,8 +336,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
     this.findMe().then((position)=>{
       console.log(position)
     })
-    
-
+    this.calculateDistance();
   }
 
   initDrawingManager(map:any) {
@@ -383,11 +372,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
 
-      _self.polygonCount +=1
-      console.log('poly count', _self.polygonCount)
-
+      _self.polygonCount +=1;
       _self.polygonComplete  = true; 
-      _self.addTasksToAreaButtonShowing = true
+      _self.addTasksToAreaButtonShowing = true;
 
       const len = polygon.getPath().getLength();
       
@@ -397,20 +384,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
         _self.polyArrayLatLng.push(vertexLatLng);
       }
 
-      
       _self.polyArrayLatLng.push(_self.polyArrayLatLng[0]);
-
-      _self.selectedShape = polygon
-      _self.selectedShapes.push(polygon)
-
-      _self.selectedShapesCumulative.push(polygon)
-
-      console.log('selected shapes', _self.selectedShapes)
-      
+      _self.selectedShape = polygon;
+      _self.selectedShapes.push(polygon);
+      _self.selectedShapesCumulative.push(polygon);    
     });
-
-
   }
-
 }
 

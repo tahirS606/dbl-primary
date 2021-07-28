@@ -1,13 +1,10 @@
-<!-- <mat-icon routerLink="" color="primary">
-    arrow_back_ios</mat-icon> -->
-<div #mapCapture>
+<div>
     <agm-map #map id="map" [zoom]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="true"
         [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
     </agm-map>
 </div>
 
 <mat-card-content displayFlx>
-
     <mat-card class="check-box-card" *ngIf="checkboxVisible">
         <mat-icon (click)="showCheckbox()">close</mat-icon>
         <mat-card-title class='centered'>
@@ -40,16 +37,15 @@
 
 <h1 class="title" *ngIf="reportData || imagePreviewArray">Report for {{date | date}}</h1>
 
-<!-- <h3 class="title">Property:</h3> -->
 <app-property-detail>
-</app-property-detail>s
+</app-property-detail>
 
 <h2 *ngIf="reportData" class="title">Services</h2>
 
 <div class="collection-container">
     <div *ngFor="let area of reportData">
         <div [ngStyle]="{'color': area.color}" class="collection">
-            <div><span class="strong">Name: </span> {{area.name | json}}</div>
+            <div><span class="strong">Name: </span> {{area.name }}</div>
             <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
             <span class="strong">Services:</span>
             <ul>
@@ -71,6 +67,11 @@
         <div class="frame" style="background-image: url('{{image}}')"></div>
     </div>
 </div>
+
+<p>property: {{latitude}}, {{longitude}}</p>
+<p>user: {{userLatitude}}, {{userLongitude}}</p>
+
+<p>{{distance}}</p>
 
 <mat-action-row displayFlx>
     <button class="submit-button" (click)="onSaveReport()" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>

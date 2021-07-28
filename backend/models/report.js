@@ -4,14 +4,13 @@ const reportSchema = mongoose.Schema({
     date: Date,
     reportTime: String,
     time: String,
-    completedBy: String,
     propertyName: String,
     propertyId: String,
-    PropertyAddress: String,
-    tasks: [Object],
-    mapImage: String,
-    creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    propertyAddress: String,
+    // tasks: { type: mixed },
+    // creator: { type: mongoose.Schema.Types.ObjectId },
     mapZoom: Number,
+    imagePreviewArray: [String],
 })
 
 module.exports = mongoose.model("Report", reportSchema);
