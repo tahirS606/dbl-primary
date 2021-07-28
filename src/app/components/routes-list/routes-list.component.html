@@ -1,8 +1,6 @@
-<div class="route-container" #routelist>
+<div class="route-container" #routelist fxLayout>
     <div *ngFor="let route of routes | unique | orderBy: 'route' ">
-        <a #route [id]="route.route" mat-button color="primary">{{route.route }}
+        <a #route [id]="route.route" mat-button color="primary" [routerLink]="['/routes/', route.route]">{{route.route }}
         </a>
     </div>
 </div>
-
-<!-- [routerLink]="['/routes/', route.route]" -->

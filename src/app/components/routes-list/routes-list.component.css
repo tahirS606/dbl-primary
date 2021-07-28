@@ -1,4 +1,4 @@
-.button-container {
+.route-container {
     display: flex;
     justify-content: left;
     flex-direction: row;
@@ -10,20 +10,4 @@
 mat-button {
     padding: 12px;
     margin: 12px;
-}
-
-.button {
-    margin: 12px;
-}
-
-mat-card-content {
-    font-size: 200%;
-}
-
-p {
-    margin: auto;
-}
-
-h1 {
-    text-align: center;
 }
