@@ -7,10 +7,10 @@ const reportSchema = mongoose.Schema({
     propertyName: String,
     propertyId: String,
     propertyAddress: String,
-    // tasks: { type: mixed },
+    tasks: Array,
     creator: String,
     mapZoom: Number,
-    imagePreviewArray: [String],
+    // imagePreviewArray: [String],
 })
 
 module.exports = mongoose.model("Report", reportSchema);

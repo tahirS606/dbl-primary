@@ -1,6 +1,6 @@
 import { GeolocationService } from './../../geolocation.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
@@ -31,10 +31,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     userLocation!: any
 
-    ngAfterViewInit(){
-     
-    }
-
 
   map: any; 
   latitude!: number; 
@@ -47,6 +43,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   initialColor: string = "white"
   shape: any; 
   imagePreview!: string;
+  distance: number = 0
 
   userOnsite!: boolean
 
@@ -82,8 +79,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
   reportSaved:boolean = false; 
   report!: Report;
   reportData: any;
-  distance: number = 0 
-
   files!: any
   reportDate: any;
   reportTime: any; 
@@ -170,8 +165,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         this.areasForReport.push(newCollection)
         this.readyToSave = true
-        // console.log('newCollection', newCollection)
-
         this.form.reset()
         this.checked = false
         this.polyArrayLatLng = [{}]
@@ -193,7 +186,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.areasForReport,
               this.creator, 
               this.mapZoom,
-              this.imagePreviewArray,
+              // this.imagePreviewArray,
               )        
               this.form.reset();
               this.router.navigate(['new-report/' + this.propertyId])
@@ -270,11 +263,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
       })
     }  
    
-
-   geolocate(){
-     this.findMe()
-   }
-
    async findMe() {
     navigator.geolocation.getCurrentPosition(position => {
       const { latitude, longitude } = position.coords;
@@ -283,22 +271,26 @@ export class ReportComponent implements OnInit, AfterViewInit {
       this.userLongitude = this.userLocation.longitude
       this.userLatitude = this.userLocation.latitude
     })
+
   }
   
   async calculateDistance() {
   
-    const propertyLocation = new google.maps.LatLng(this.latitude, this.longitude);
+    let propertyLocation = new google.maps.LatLng(this.latitude, this.longitude);
 
-    const userLocation = new google.maps.LatLng(this.userLatitude, this.userLongitude);
+    let userLocation = new google.maps.LatLng(this.userLatitude, this.userLongitude);
     
     this.distance = google.maps.geometry.spherical.computeDistanceBetween(userLocation, propertyLocation);
-    console.log('this.distance', this.distance)
 
-    if (this.distance < 20){
-      this.userOnsite = true;
-      console.log('useronsite', this.userOnsite)
-    }
+    console.log('calculate distance ran')
   }
+
+ 
+
+  ngAfterViewInit(){
+    
+  }
+
 
   ngOnInit(){
 
@@ -336,8 +328,22 @@ export class ReportComponent implements OnInit, AfterViewInit {
     this.findMe().then((position)=>{
       console.log(position)
     })
-    this.calculateDistance();
   }
+
+  watchPosition() {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(this.showPosition);
+    } else {
+      "Geolocation is not supported by this browser.";
+    }
+  }
+  
+  showPosition(position: any) {
+    console.log('position in track position',
+      position.coords.latitude, 
+      position.coords.longitude)
+  }
+
 
   initDrawingManager(map:any) {
 

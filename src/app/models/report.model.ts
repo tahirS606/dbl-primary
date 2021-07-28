@@ -5,7 +5,7 @@ export interface Report {
     propertyId: string,
     propertyName: string,
     propertyAddress: string, 
-    // tasks: [object],
+    tasks: any, 
     creator: string,
     mapZoom: number,
     // imagePreviewArray: [string],
