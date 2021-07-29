@@ -229,6 +229,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
 
     Swal: any
+
+    notOnSiteAlert(){
+      Swal.fire('You are not on site! Please go to the site to create a report.')
+    }
     
     tinyAlert(){
       Swal.fire('Report Saved!');
@@ -283,6 +287,14 @@ export class ReportComponent implements OnInit, AfterViewInit {
     this.distance = google.maps.geometry.spherical.computeDistanceBetween(userLocation, propertyLocation);
 
     console.log('calculate distance ran')
+
+    if (this.distance < 1400) {
+      this.userOnsite = true
+    } else {
+      this.userOnsite = false;
+      this.notOnSiteAlert()
+      
+    }
   }
 
  

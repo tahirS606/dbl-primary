@@ -4,7 +4,7 @@
     </agm-map>
 </div>
 
-<mat-card-content displayFlx>
+<mat-card-content fxLayout>
     <mat-card class="check-box-card" *ngIf="checkboxVisible">
         <mat-icon (click)="showCheckbox()">close</mat-icon>
         <mat-card-title class='centered'>
@@ -18,13 +18,13 @@
             <br/>
           </label>
             <br/>
-            <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" [disabled]>Add</button>
+            <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" (click)="calculateDistance()" [disabled]>Add</button>
         </form>
     </mat-card>
 </mat-card-content>
 
-<mat-action-row displayFlx>
-    <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
+<mat-action-row fxLayout>
+    <button (click)="addTasks()" (click)="calculateDistance()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
     <button type="button" mat-button color="primary" (click)="filePicker.click()">
         Add image
     </button>
@@ -69,11 +69,10 @@
 
 <p>property: {{latitude}}, {{longitude}}</p>
 
-<p> user: {{userLatitude}} {{userLongitude}}</p>
+<p> user: {{userLatitude}}, {{userLongitude}}</p>
 
 <p>{{distance}}</p>
 
-<mat-action-row displayFlx>
-    <button class="submit-button" (click)="onSaveReport()" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()" (click)="calculateDistance()">Submit Report</button>
-    <button mat-button (click)="calculateDistance()">Calculate Distance</button>
+<mat-action-row fxLayout fxLayoutAlign="center">
+    <button class="submit-button" (click)="onSaveReport()" alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
 </mat-action-row>
