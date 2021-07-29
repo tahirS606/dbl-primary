@@ -1,6 +1,6 @@
 import { GeolocationService } from './../../geolocation.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
@@ -12,6 +12,8 @@ import { FormBuilder,
   FormArray,
   FormControl,} from '@angular/forms';
 import { _MatSelectBase } from '@angular/material/select';
+
+  declare const $: any;
 
   declare const google: any;
 
@@ -60,9 +62,8 @@ export class ReportComponent implements OnInit {
   polygonComplete: boolean = false; 
   checked: boolean = false
   tasks: any
-  selectedShape: any
   selectedShapes: {}[] = []
-  selectedShapesCumulative: {}[] =[]
+ 
   addTasksToAreaButtonShowing: boolean = false
   readyToSave: boolean = false
   zoomControl: boolean = false;
@@ -111,7 +112,7 @@ export class ReportComponent implements OnInit {
     private formBuilder: FormBuilder,
     public reportService: ReportService,
     private authService: AuthService,
-    private geoService: GeolocationService,
+    
     ) { 
       this.form = this.formBuilder.group({
         tasks: new FormArray([])
@@ -145,7 +146,7 @@ export class ReportComponent implements OnInit {
             this.longitude = this.property.longitude; 
   
             console.log('property address lat and long', this.latitude, this.longitude);
-  
+
       });
       
     }
@@ -172,7 +173,7 @@ export class ReportComponent implements OnInit {
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
 
-        function Collection(name: string, areas: [], tasks:[{}], time: Date, selectedShapes:[], color: String) {
+        function Collection(name: string, areas: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String) {
           name = name;
           areas = areas;
           tasks = tasks;
@@ -186,7 +187,7 @@ export class ReportComponent implements OnInit {
         newCollection.areas = this.polyArrayLatLng
         newCollection.tasks = tasks
         newCollection.time = this.date
-        newCollection.selectedShapes = this.selectedShapes
+        // newCollection.selectedShapes = this.selectedShapes
         newCollection.color = this.strokeColorsArray[this.count]
 
         this.selectedShapes.forEach((shape: any)=>{ shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'white'})})
@@ -210,7 +211,7 @@ export class ReportComponent implements OnInit {
               this.propertyId, 
               this.property.name,
               this.property.address,
-              this.reportData,
+              this.areasForReport,
               this.creator, 
               this.mapZoom,
               this.imagePreviewArray,
@@ -373,9 +374,13 @@ export class ReportComponent implements OnInit {
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
 
-      // _self.polygonCount +=1;
       _self.polygonComplete  = true; 
       _self.addTasksToAreaButtonShowing = true;
+
+      _self.selectedShapes.push(polygon)
+      
+      console.log('poly', polygon)
+      console.log('selectedShapes', _self.selectedShapes)
 
       const len = polygon.getPath().getLength();
       
@@ -384,12 +389,14 @@ export class ReportComponent implements OnInit {
         const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
         _self.polyArrayLatLng.push(vertexLatLng);
       }
-
-      _self.polyArrayLatLng.push(_self.polyArrayLatLng[0]);
-      _self.selectedShape = polygon;
-      // _self.selectedShapes.push(polygon);
-      _self.selectedShapesCumulative.push(polygon);    
+    
     });
+
+    console.log('selectedShapes', this.selectedShapes)
+
+    
   }
+
+ 
 }
 
