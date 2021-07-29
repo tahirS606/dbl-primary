@@ -35,6 +35,35 @@ creator!: string;
     private http: HttpClient
   ) { }
 
+  getReportsByProperty(id: string){
+    return this.http.get<{message: string, reports: any}>
+    (BACKEND_URL + "reports/"
+    )
+    .pipe(
+      map((reportData) =>{
+        console.log('reportData', reportData)
+        return {
+          reports: reportData.reports.map((report: any)=> {
+            return {
+              id: report._id, 
+              date: report.date, 
+              time: report.time, 
+              propertyName: 
+              report.propertyName,
+              propertyId: report.propertyId,
+              propertyAddress: report.propertyAddress, 
+              tasks: report.tasks, 
+              creator: report.creator, 
+              mapZoom: report.mapZoom, 
+              imagePreviewArray: report.imagePreviewArray,
+            }
+          })
+        }
+      })
+    )
+
+  }
+
  
 
   getReportUpdateListener() {
@@ -67,8 +96,6 @@ creator!: string;
       })
     )
   }
-
-  
 
   getReport(id: string) {
     return this.http.get<{report : Report}>(

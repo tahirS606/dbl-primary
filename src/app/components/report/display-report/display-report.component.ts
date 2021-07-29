@@ -1,5 +1,5 @@
 import { Report } from './../../../models/report.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ReportService } from './../../../services/report.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,18 +10,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplayReportComponent implements OnInit {
 
-  reportId!: string
+  reportId!: any
   report!: Report
 
   constructor( 
-    reportService: ReportService,
+    private reportService: ReportService,
     private route: ActivatedRoute,
     ) { }
 
   ngOnInit() {
 
-    // this.reportId = this.route.snapshot.paramMap.get('reportId');
-    
+    this.reportId = this.route.snapshot.paramMap.get('reportId');
+    console.log('report id', this.reportId);
+
+    this.reportService.getReport(this.reportId).subscribe((reportData:any) => {
+      this.report = {
+      id: reportData._id, 
+      date: reportData.date, 
+      time: reportData.time,  
+      propertyId: reportData.propertyId, 
+      propertyName: reportData.propertyName, 
+      propertyAddress: reportData.propertyAddress, 
+      tasks: reportData.tasks,  
+      creator: reportData.creator, 
+      mapZoom: reportData.mapZoom, 
+      imagePreviewArray: reportData.imagePreviewArray, 
+      };
+});
+
 //     subscribe((reportData: any) => {
 //       this.report = {
 //         id: reportData._id,
@@ -46,4 +62,3 @@ export class DisplayReportComponent implements OnInit {
 
 }
 
-// probably easier to have a screen shot of map

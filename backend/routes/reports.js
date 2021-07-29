@@ -4,14 +4,37 @@ const Report = require("../models/report");
 const checkAuth = require("../middleware/check-auth");
 
 router.get("/:id", (req, res, next) => {
-    Route.findById(req.params.id).then((route) => {
-        if (Route) {
-            res.status(200).json(route)
+    Report.findById(req.params.id).then((report) => {
+        if (Report) {
+            res.status(200).json(report)
         } else {
-            res.status(404).json({ message: "route not found" });
+            res.status(404).json({ message: "report not found" });
         }
     });
 });
+
+// router.get("/by-property/:id", (req, res, next) => {
+//             Report.reports.find({
+//                     $elemMatch: propertyId: id);
+//                 .then((documents) => {
+//                     if (Report) {
+//                         res.status(200).json({
+//                             message: 'reports fetched successfully',
+//                             reports: documents
+//                         })
+//                         console.log(documents)
+//                     } else {
+//                         res.status(400).json({
+//                             message: 'fetch failed'
+//                         })
+//                     };
+//                 }); pretty();
+//             })
+
+
+
+
+
 
 router.post("", checkAuth,
     (req, res, next) => {
