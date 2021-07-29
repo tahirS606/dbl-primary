@@ -6,6 +6,8 @@ const reportSchema = mongoose.Schema({
     propertyName: String,
     propertyId: String,
     propertyAddress: String,
+    propertyLatitude: Number,
+    propertyLongitude: Number,
     tasks: Array,
     creator: String,
     mapZoom: Number,

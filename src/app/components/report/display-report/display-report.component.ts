@@ -13,6 +13,11 @@ export class DisplayReportComponent implements OnInit {
   reportId!: any
   report!: Report
 
+  mapZoom: number = 17; 
+  longitude!: number;
+  latitude!: number;
+  
+
   constructor( 
     private reportService: ReportService,
     private route: ActivatedRoute,
@@ -31,6 +36,8 @@ export class DisplayReportComponent implements OnInit {
       propertyId: reportData.propertyId, 
       propertyName: reportData.propertyName, 
       propertyAddress: reportData.propertyAddress, 
+      propertyLatitude: reportData.propertyLatitude, 
+      propertyLongitude: reportData.propertyLongitude, 
       tasks: reportData.tasks,  
       creator: reportData.creator, 
       mapZoom: reportData.mapZoom, 
@@ -38,23 +45,7 @@ export class DisplayReportComponent implements OnInit {
       };
 });
 
-//     subscribe((reportData: any) => {
-//       this.report = {
-//         id: reportData._id,
-//         propertyAddress: reportData.address,
-//         date: reportData.date, 
-//         propertyId: reportData.propertyId,
-//         tasks: reportData.tasks, 
-//         creator: reportData.creator, 
-//         time: reportData.time,
-//         mapZoom: reportData.mapZoom, 
-//         propertyName: reportData.propertyName,
-//         imagePreviewArray: reportData.imagePreviewArray,
-
-//       };
-// });
-
-    // this.reportsService.getReport(reportId)
+ 
 
 
   }

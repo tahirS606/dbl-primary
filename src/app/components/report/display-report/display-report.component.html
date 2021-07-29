@@ -1,3 +1,36 @@
 <p>display-report works!</p>
 
 <h1> {{report.id}}</h1>
+
+<p>Date: {{report.date | date}} </p>
+<p>Time: {{report.time}} </p>
+<p>PropertyId: {{report.propertyId}}</p>
+<p>Property Name: {{report.propertyName}}</p>
+<p>Property Address: {{report.propertyAddress}}</p>
+<p>Tasks: {{report.tasks}}</p>
+<p>Creator: {{report.creator}}</p>,
+<p>Map Zoom: {{report.mapZoom}}</p>
+
+<div class="title">
+    <h2 *ngIf="report.imagePreviewArray.length ==1">Image</h2>
+    <h2 *ngIf="report.imagePreviewArray.length >1">Images</h2>
+</div>
+<p *ngIf="report.imagePreviewArray.length>0">Images:</p>
+
+<div class="images">
+    <div *ngFor="let image of report.imagePreviewArray">
+        <div class="frame" style="background-image: url('{{image}}')"></div>
+    </div>
+</div>
+
+
+
+<p>Property Latitude: {{report.propertyLongitude}}</p>
+<p>Property Longitude: {{report.propertyLatitude}}</p>
+
+<div>
+    <agm-map #map id="map" [zoom]='mapZoom' [latitude]='report.propertyLatitude' [longitude]='report.propertyLongitude' [mapTypeId]="'hybrid'">
+    </agm-map>
+
+    <agm-map #map [zoom]="20 " [mapTypeId]=" 'hybrid' " [draggable]="false "></agm-map>
+</div>

@@ -1,0 +1,152 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* background-color: lightblue; */
+}
+
+mat-icon {
+    flex: flex-end;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+header {
+    padding: 2em;
+}
+
+.collection {
+    padding: 10px;
+    border-radius: 7px;
+    margin: 6px;
+    color: white;
+    height: 150px;
+}
+
+.collection-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: 35px;
+}
+
+header .title {
+    font-size: 28px;
+}
+
+mat-icon {
+    margin: 25px;
+}
+
+.report {
+    margin: 25px;
+    padding: 25px;
+}
+
+ul {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.details-container {
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+img {
+    width: 80%;
+    height: 70%;
+}
+
+main {
+    display: flex;
+    flex-grow: 1;
+}
+
+.map {
+    height: 200px;
+    width: 100vw;
+    z-index: 1;
+}
+
+.main-card {
+    margin: 12px;
+    padding: 25px;
+}
+
+agm-map {
+    height: 44vh;
+    z-index: 1;
+}
+
+mat-action-row {
+    align-items: flex-start;
+}
+
+.report-title {
+    padding-left: 12px;
+    padding-top: 12px;
+}
+
+button {
+    margin: 8px;
+}
+
+mat-card {
+    padding: 25px;
+}
+
+mat-card-title {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+mat-icon {
+    padding-top: 12px;
+    cursor: pointer;
+}
+
+.check-box-card {
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 12px;
+}
+
+.centered {
+    margin: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    font-weight: bold;
+}
+
+.images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 22px;
+}
+
+.title {
+    margin-left: 35px;
+}
+
+.frame {
+    height: 250px;
+    width: 250px;
+    background: transparent no-repeat center;
+    background-size: cover;
+    margin: 15px;
+}

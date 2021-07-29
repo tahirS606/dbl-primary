@@ -210,6 +210,8 @@ export class ReportComponent implements OnInit {
               this.propertyId, 
               this.property.name,
               this.property.address,
+              this.property.longitude, 
+              this.property.latitude, 
               this.areasForReport,
               this.creator, 
               this.mapZoom,
