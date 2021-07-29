@@ -28,7 +28,6 @@ const routes: Routes = [
     path: 'edit-property/:propertyId',
     component: AddPropertyComponent,
     canActivate: [AuthGuard]
-
   },
 
   {

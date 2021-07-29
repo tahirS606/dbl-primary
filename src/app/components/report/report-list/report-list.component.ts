@@ -1,14 +1,7 @@
+import { Report } from './../../../models/report.model';
 import { AuthService } from '../../../services/auth.service';
-import { Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Subscription, Subject } from 'rxjs';
 import { ReportService } from '../../../services/report.service';
-import { PropertyService } from '../../../services/property.service';
-
-
-import { Property } from '../../../models/property.model';
-import { ActivatedRoute } from '@angular/router';
-
-import { Report } from '../../../models/report.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
@@ -23,10 +16,15 @@ export class ReportListComponent implements OnInit, OnDestroy{
 
   reports!: any
   userIsAuthenticated = false;
+  private reportsUpdated = new Subject<{
+    reports: Report[];
+  }>();
   
   isLoading!: boolean; 
-  
+  transformedReports!: any
 
+  Object = Object;
+  
   constructor(
     private reportService: ReportService,
     private authService: AuthService
@@ -35,30 +33,31 @@ export class ReportListComponent implements OnInit, OnDestroy{
   ngOnInit() {
 
     this.isLoading = true;
+    this.reportService.getAllReports().subscribe((reportDisplayData: any)=>{
+        console.log(reportDisplayData)
+        this.reports = reportDisplayData.reports; 
+        this.reportsUpdated.next({
+          reports: [...this.reports]
+        })
+      })
 
-    this.reportService.getAllReports();
 
-    this.reportsSub =  this.reportService
+    this.reportsSub = this.reportService
     .getReportUpdateListener()
     .subscribe(
-      (reportData:{ reports: Report[]})=>{
-        this.reports = reportData.reports; 
+      (reportData: {reports: Report[];
+      })=>{
+        this.reports = reportData.reports
       }
-      
-    );
+    )
 
-    console.log('this.reports', this.reports)
-
+    
+  
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
     }) 
-    
   }
-
-
-   
-
     ngOnDestroy() {
       this.reportsSub.unsubscribe();
       this.authStatusSub.unsubscribe();

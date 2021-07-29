@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Property } from './../models/property.model';
 import { Subject } from 'rxjs';
 import { Report } from './../models/report.model';
@@ -12,16 +13,18 @@ const BACKEND_URL= environment.apiUrl
 })
 export class ReportService implements OnInit{
 
-  private reportUpdated = new Subject<{
-    report: Report ;
+  private reports: Report [] = [];
+  private _reports = new Subject <Report[]>();
+
+  private reportsUpdated = new Subject<{
+    reports: Report[];
   }>();
+  private updatedReports: any;
 
   ngOnInit(){
 
   }
 
-
-reports: any; 
 tasksCompleted!:any;
 lat!: number;
 long!: number;
@@ -39,13 +42,32 @@ creator!: string;
   }
 
   getAllReports(){
-    return this.http.get<{message: string, reports: Report[]}>
-    (BACKEND_URL + "reports").subscribe((reports)=>{console.log('reports', reports)})
+    return this.http.get<{message: string, reports: any}>
+    (BACKEND_URL + "reports/"
+    )
+    .pipe(
+      map((reportData) =>{
+        console.log('reportData', reportData)
+        return {
+          reports: reportData.reports.map((report: any)=> {
+            return {
+              date: report.date, 
+              time: report.time, 
+              propertyName: report.propertyName,
+              propertyId: report.propertyId,
+              propertyAddress: report.propertyAddress, 
+              tasks: report.tasks, 
+              creator: report.creator, 
+              mapZoom: report.mapZoom, 
+              imagePreviewArray: report.imagePreviewArray,
+            }
+          })
+        }
+      })
+    )
   }
 
-  private reportsUpdated = new Subject<{
-    reports: Report[];
-  }>();
+  
 
   getReport(id: string) {
     return this.http.get<{report : Report}>(

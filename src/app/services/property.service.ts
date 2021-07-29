@@ -1,17 +1,13 @@
-
-
 import { HttpClient } from '@angular/common/http';
 import { Property } from './../models/property.model';
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
 import { environment } from './../../environments/environment';
-import { filter } from 'lodash';
+
 
 const BACKEND_URL= environment.apiUrl
-
 
 @Injectable({
   providedIn: 'root',

@@ -49,7 +49,7 @@ router.get("", (req, res, next) => {
             if (Report) {
                 res.status(200).json({
                     message: 'reports fetched successfully',
-                    fetchedReports: documents
+                    reports: documents
                 })
                 console.log(documents)
             } else {

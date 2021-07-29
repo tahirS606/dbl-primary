@@ -1,4 +1,3 @@
-import { GeolocationService } from './../../geolocation.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from './../../services/report.service';
@@ -94,7 +93,7 @@ export class ReportComponent implements OnInit {
     { id: 2, name: 'Mowing' },
     { id: 3, name: 'Weeding' },
     { id: 4, name: 'Blowing' },
-    { id: 5, name: 'Trimming' }
+    { id: 5, name: 'Trimming' },
   ];
 
   get tasksArray() {
@@ -317,9 +316,17 @@ export class ReportComponent implements OnInit {
     if (this.distance < 1400) {
       this.userOnsite = true
     } else {
-      this.userOnsite = false;
-      this.notOnSiteAlert()
+      this.disableReport()
     }
+  }
+
+  disableReport(){
+    this.notOnSiteAlert();
+    this.userOnsite = false;
+    this.readyToSave = false; 
+    this.checkboxVisible = false;
+    this.addTasksToAreaButtonShowing = false;
+
   }
 
    onMapReady(map:any) {
@@ -373,6 +380,8 @@ export class ReportComponent implements OnInit {
     const _self = this; 
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
+
+      _self.calculateDistance()
 
       _self.polygonComplete  = true; 
       _self.addTasksToAreaButtonShowing = true;
