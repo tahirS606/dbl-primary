@@ -45,9 +45,10 @@
 <div class="collection-container">
     <div *ngFor="let area of reportData">
         <div [ngStyle]="{'color': area.color}" class="collection">
-            <div><span class="strong">Name: </span> {{area.name }}</div>
+            <!-- <div><span class="strong">Name: </span> {{area.name }}</div> -->
             <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
-            <span class="strong">Services:</span>
+            <span *ngIf="area.tasks.length == 1" class="strong">Service:</span>
+            <span *ngIf="area.tasks.length > 1" class="strong">Services:</span>
             <ul>
                 <span *ngFor="let task of area.tasks"> 
                     <li>{{task}}</li></span>
