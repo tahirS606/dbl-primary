@@ -51,6 +51,7 @@ creator!: string;
         return {
           reports: reportData.reports.map((report: any)=> {
             return {
+              id: report._id, 
               date: report.date, 
               time: report.time, 
               propertyName: report.propertyName,

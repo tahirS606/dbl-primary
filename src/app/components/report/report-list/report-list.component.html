@@ -1,6 +1,6 @@
 <div *ngFor="let report of reports">
     <div>
-        {{report | json}}
-        <a mat-button color="primary" [routerLink]="['/reports', report._id]">Report Details</a
+        {{report.propertyAddress}}
+        <a mat-button color="primary" [routerLink]="['/reports', report.id]">Report Details</a
             >
     </div>
