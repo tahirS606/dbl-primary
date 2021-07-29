@@ -5,7 +5,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import { SocialAuthServiceConfig } from 'angularx-social-login';
 import { ReportComponent } from './components/report/report.component';
 import { NgxCaptureModule } from 'ngx-capture';
-import Swal from 'sweetalert2';
+
 
 
 import { AuthInterceptor } from './components/auth/auth-interceptor';
@@ -58,6 +58,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     LoggedinasComponent,
     ReportsListComponent,
     DialogComponent,
+    ErrorComponent,
     
   ],
   imports: [

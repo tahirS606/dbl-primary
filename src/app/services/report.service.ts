@@ -59,7 +59,7 @@ creator!: string;
     propertyId: string, 
     propertyName: string,  
     propertyAddress: string, 
-    tasks: [{}],
+    tasks: any,
     creator: string,
     mapZoom: number,
     imagePreviewArray: string[],
@@ -73,10 +73,10 @@ creator!: string;
       propertyId: propertyId, 
       propertyName: propertyName, 
       propertyAddress: propertyAddress, 
-      // tasks: tasks, 
-      // creator: creator,
+      tasks: tasks, 
+      creator: creator,
       mapZoom: mapZoom,
-      // imagePreviewArray: imagePreviewArray, 
+      imagePreviewArray: imagePreviewArray, 
   }
     this.http
       .post<{ message: string; propertyId: string }>(

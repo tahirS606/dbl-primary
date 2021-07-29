@@ -1,6 +1,6 @@
 import { GeolocationService } from './../../geolocation.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Input } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
@@ -20,7 +20,7 @@ import { _MatSelectBase } from '@angular/material/select';
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
 })
-export class ReportComponent implements OnInit, AfterViewInit {
+export class ReportComponent implements OnInit {
 
   Object = Object;
   strokeColor: string = "#21b0ff"
@@ -29,12 +29,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   strokeColorsArray: String[] = [
     "#740c9a", "#4e4ec4", "#21b0ff", "#aa52b4", "#ff218c", "#12b8da", "#49997c", "#027ab0", "#e51a1a", "#eed630" ]
 
-    userLocation!: any
-
-    ngAfterViewInit(){
-     
-    }
-
+  userLocation!: any
 
   map: any; 
   latitude!: number; 
@@ -47,8 +42,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
   initialColor: string = "white"
   shape: any; 
   imagePreview!: string;
+  distance: number = 0
 
-  userOnsite!: boolean
+  imageFileArray: {}[] = [{}];
+  imagePreviewArray: string[] = [];
+  userOnsite: boolean = false; 
 
   // map features
   zoom = 21; 
@@ -65,7 +63,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
   selectedShape: any
   selectedShapes: {}[] = []
   selectedShapesCumulative: {}[] =[]
-  polygonCount: number = 0;
   addTasksToAreaButtonShowing: boolean = false
   readyToSave: boolean = false
   zoomControl: boolean = false;
@@ -82,19 +79,14 @@ export class ReportComponent implements OnInit, AfterViewInit {
   reportSaved:boolean = false; 
   report!: Report;
   reportData: any;
-  distance: number = 0 
-
-  files!: any
   reportDate: any;
   reportTime: any; 
-  reportSubmittedBy!: string; 
   atLeastOneAreaSaved: boolean = false; 
 
   form!: FormGroup;
   date = new Date();
   checkboxVisible:boolean = false;
   addTasksButtonDisabled: boolean = true;
-  taskCheckboxButtonDisabled: boolean = true;
 
   webData = [
     { id: 1, name: 'Raking' },
@@ -125,6 +117,37 @@ export class ReportComponent implements OnInit, AfterViewInit {
         tasks: new FormArray([])
       });
       this.addCheckboxesToForm();
+    }
+
+    ngOnInit(){
+
+      this.userOnsite = false; 
+      this.creator = this.authService.getUserId();
+      this.reportDate = this.date; 
+      this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes();
+      this.areasForReport.shift();
+      this.selectedShapes.shift();
+      this.propertyId = this.route.snapshot.paramMap.get('propertyId');
+      
+          this.propertyService
+            .getProperty(this.propertyId)
+            .subscribe((propertyData) => {
+              this.property = {
+                id: propertyData._id,
+                name: propertyData.name,
+                address: propertyData.address,
+                route: propertyData.route, 
+                latitude: propertyData.latitude, 
+                longitude: propertyData.longitude
+              };
+  
+            this.latitude = this.property.latitude;
+            this.longitude = this.property.longitude; 
+  
+            console.log('property address lat and long', this.latitude, this.longitude);
+  
+      });
+      
     }
 
     private addCheckboxesToForm() {
@@ -168,17 +191,14 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         this.selectedShapes.forEach((shape: any)=>{ shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'white'})})
 
-        this.areasForReport.push(newCollection)
-        this.readyToSave = true
-        // console.log('newCollection', newCollection)
-
-        this.form.reset()
-        this.checked = false
-        this.polyArrayLatLng = [{}]
-        this.selectedShapes = []
-        this.selectedShapes.shift()
-        this.polyArrayLatLng.shift()
-        this.polygonCount = 0;
+        this.areasForReport.push(newCollection);
+        this.readyToSave = true;
+        this.form.reset();
+        this.checked = false;
+        this.polyArrayLatLng = [{}];
+        this.selectedShapes = [];
+        this.selectedShapes.shift();
+        this.polyArrayLatLng.shift();
         this.mapZoom = this.zoom;
         this.reportData = Object.values(this.areasForReport);
         }
@@ -190,12 +210,13 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.propertyId, 
               this.property.name,
               this.property.address,
-              this.areasForReport,
+              this.reportData,
               this.creator, 
               this.mapZoom,
               this.imagePreviewArray,
               )        
               this.form.reset();
+              this.readyToSave = false;
               this.router.navigate(['new-report/' + this.propertyId])
           } 
            
@@ -208,9 +229,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
     clearMap(){
       window.location.reload()
     }
-
-    imageFileArray: {}[] = [{}]
-    imagePreviewArray: string[] = []
 
     onImagePicked(event: Event) {
       let imageFile;
@@ -236,6 +254,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
 
     Swal: any
+
+    notOnSiteAlert(){
+      Swal.fire('You are not on site! Please go to the site to create a report.')
+    }
     
     tinyAlert(){
       Swal.fire('Report Saved!');
@@ -270,11 +292,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
       })
     }  
    
-
-   geolocate(){
-     this.findMe()
-   }
-
    async findMe() {
     navigator.geolocation.getCurrentPosition(position => {
       const { latitude, longitude } = position.coords;
@@ -283,52 +300,25 @@ export class ReportComponent implements OnInit, AfterViewInit {
       this.userLongitude = this.userLocation.longitude
       this.userLatitude = this.userLocation.latitude
     })
+
   }
   
   async calculateDistance() {
   
-    const propertyLocation = new google.maps.LatLng(this.latitude, this.longitude);
+    let propertyLocation = new google.maps.LatLng(this.latitude, this.longitude);
 
-    const userLocation = new google.maps.LatLng(this.userLatitude, this.userLongitude);
+    let userLocation = new google.maps.LatLng(this.userLatitude, this.userLongitude);
     
     this.distance = google.maps.geometry.spherical.computeDistanceBetween(userLocation, propertyLocation);
-    console.log('this.distance', this.distance)
 
-    if (this.distance < 20){
-      this.userOnsite = true;
-      console.log('useronsite', this.userOnsite)
+    console.log('calculate distance ran')
+
+    if (this.distance < 1400) {
+      this.userOnsite = true
+    } else {
+      this.userOnsite = false;
+      this.notOnSiteAlert()
     }
-  }
-
-  ngOnInit(){
-
-    this.userOnsite = false; 
-    this.creator = this.authService.getUserId();
-    this.reportDate = this.date; 
-    this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes();
-    this.areasForReport.shift();
-    this.selectedShapes.shift();
-    this.propertyId = this.route.snapshot.paramMap.get('propertyId');
-    
-        this.propertyService
-          .getProperty(this.propertyId)
-          .subscribe((propertyData) => {
-            this.property = {
-              id: propertyData._id,
-              name: propertyData.name,
-              address: propertyData.address,
-              route: propertyData.route, 
-              latitude: propertyData.latitude, 
-              longitude: propertyData.longitude
-            };
-
-          this.latitude = this.property.latitude;
-          this.longitude = this.property.longitude; 
-
-          console.log('property address lat and long', this.latitude, this.longitude);
-
-    });
-    
   }
 
    onMapReady(map:any) {
@@ -336,11 +326,23 @@ export class ReportComponent implements OnInit, AfterViewInit {
     this.findMe().then((position)=>{
       console.log(position)
     })
-    this.calculateDistance();
+  }
+
+  watchPosition() {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(this.showPosition);
+    } else {
+      "Geolocation is not supported by this browser.";
+    }
+  }
+  
+  showPosition(position: any) {
+    console.log('position in track position',
+      position.coords.latitude, 
+      position.coords.longitude)
   }
 
   initDrawingManager(map:any) {
-
     let arrayOfAreaObjects:[{}]= [{}]
     arrayOfAreaObjects.shift()
     
@@ -362,7 +364,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         zIndex: 1,
         fullScreenControl: true, 
       },
-    
     };
     
     const drawingManager = new google.maps.drawing.DrawingManager(options);
@@ -372,7 +373,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
 
-      _self.polygonCount +=1;
+      // _self.polygonCount +=1;
       _self.polygonComplete  = true; 
       _self.addTasksToAreaButtonShowing = true;
 
@@ -386,7 +387,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
       _self.polyArrayLatLng.push(_self.polyArrayLatLng[0]);
       _self.selectedShape = polygon;
-      _self.selectedShapes.push(polygon);
+      // _self.selectedShapes.push(polygon);
       _self.selectedShapesCumulative.push(polygon);    
     });
   }

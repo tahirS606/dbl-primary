@@ -4,7 +4,7 @@
     </agm-map>
 </div>
 
-<mat-card-content displayFlx>
+<mat-card-content fxLayout>
     <mat-card class="check-box-card" *ngIf="checkboxVisible">
         <mat-icon (click)="showCheckbox()">close</mat-icon>
         <mat-card-title class='centered'>
@@ -18,13 +18,13 @@
             <br/>
           </label>
             <br/>
-            <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" [disabled]>Add</button>
+            <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" (click)="calculateDistance()" [disabled]>Add</button>
         </form>
     </mat-card>
 </mat-card-content>
 
-<mat-action-row displayFlx>
-    <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
+<mat-action-row fxLayout>
+    <button (click)="addTasks()" (click)="calculateDistance()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
     <button type="button" mat-button color="primary" (click)="filePicker.click()">
         Add image
     </button>
@@ -45,14 +45,14 @@
 <div class="collection-container">
     <div *ngFor="let area of reportData">
         <div [ngStyle]="{'color': area.color}" class="collection">
-            <div><span class="strong">Name: </span> {{area.name }}</div>
+            <!-- <div><span class="strong">Name: </span> {{area.name }}</div> -->
             <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
-            <span class="strong">Services:</span>
+            <span *ngIf="area.tasks.length == 1" class="strong">Service:</span>
+            <span *ngIf="area.tasks.length > 1" class="strong">Services:</span>
             <ul>
                 <span *ngFor="let task of area.tasks"> 
                     <li>{{task}}</li></span>
             </ul>
-
         </div>
     </div>
 </div>
@@ -69,10 +69,11 @@
 </div>
 
 <p>property: {{latitude}}, {{longitude}}</p>
-<p>user: {{userLatitude}}, {{userLongitude}}</p>
+
+<p> user: {{userLatitude}}, {{userLongitude}}</p>
 
 <p>{{distance}}</p>
 
-<mat-action-row displayFlx>
-    <button class="submit-button" (click)="onSaveReport()" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
+<mat-action-row fxLayout fxLayoutAlign="center">
+    <button class="submit-button" (click)="onSaveReport()" alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
 </mat-action-row>
