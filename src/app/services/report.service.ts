@@ -59,10 +59,10 @@ creator!: string;
     propertyId: string, 
     propertyName: string,  
     propertyAddress: string, 
-    tasks: any,
+    // tasks: any,
     creator: string,
     mapZoom: number,
-    // imagePreviewArray: string[],
+    imagePreviewArray: string[],
     ) 
     {
     const report: 
@@ -73,10 +73,10 @@ creator!: string;
       propertyId: propertyId, 
       propertyName: propertyName, 
       propertyAddress: propertyAddress, 
-      tasks: tasks, 
+      // tasks: tasks, 
       creator: creator,
       mapZoom: mapZoom,
-      // imagePreviewArray: imagePreviewArray, 
+      imagePreviewArray: imagePreviewArray, 
   }
     this.http
       .post<{ message: string; propertyId: string }>(

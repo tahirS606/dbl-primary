@@ -26,7 +26,7 @@ router.post("", checkAuth,
             propertyLatitude: req.body.propertyLatitude,
             propertyLongitude: req.body.propertyLongitude,
             mapZoom: req.body.mapZoom,
-            tasks: req.body.tasks,
+            // tasks: req.body.tasks,
             creator: req.userData.userId,
             mapZoom: req.body.mapZoom
 
@@ -40,8 +40,6 @@ router.post("", checkAuth,
             });
         });
     });
-
-// add put version (from properties example)
 
 
 router.get("", (req, res, next) => {

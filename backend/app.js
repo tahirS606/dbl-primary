@@ -29,10 +29,10 @@ mongoose
         console.log("Connect Failed!");
     });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(express.json({ limit: '1000gb' }));
+app.use(express.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
 
-// allows angular to access static
+// allows angular to access static for deploy
 app.use("/", express.static(path.join(__dirname, "angular")));
 
 app.use((req, res, next) => {
@@ -52,10 +52,8 @@ app.use("/properties", propertiesRoutes);
 app.use("/tasks", tasksRoutes)
 app.use("/user", userRoutes)
 app.use("/reports", reportsRoutes)
-    // app.use("/routes", routesRoutes)
 app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, "angular", "index.html"))
 })
-
 
 module.exports = app;

@@ -20,7 +20,7 @@ import { _MatSelectBase } from '@angular/material/select';
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
 })
-export class ReportComponent implements OnInit, AfterViewInit {
+export class ReportComponent implements OnInit {
 
   Object = Object;
   strokeColor: string = "#21b0ff"
@@ -183,10 +183,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.propertyId, 
               this.property.name,
               this.property.address,
-              this.areasForReport,
+              // this.areasForReport,
               this.creator, 
               this.mapZoom,
-              // this.imagePreviewArray,
+              this.imagePreviewArray,
               )        
               this.form.reset();
               this.router.navigate(['new-report/' + this.propertyId])
@@ -298,10 +298,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
   }
 
  
-
-  ngAfterViewInit(){
-    
-  }
 
 
   ngOnInit(){
