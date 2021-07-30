@@ -56,7 +56,6 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       this.userId = this.authService.getUserId();
     })
     this.isLoading = false;
-    
   }
 
 

@@ -5,6 +5,8 @@ export interface Report {
     propertyId: string,
     propertyName: string,
     propertyAddress: string, 
+    propertyLatitude: number, 
+    propertyLongitude:  number, 
     tasks: any, 
     creator: string,
     mapZoom: number,

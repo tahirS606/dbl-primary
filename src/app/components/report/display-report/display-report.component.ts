@@ -1,5 +1,5 @@
 import { Report } from './../../../models/report.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ReportService } from './../../../services/report.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,35 +10,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplayReportComponent implements OnInit {
 
-  reportId!: string
+  reportId!: any
   report!: Report
 
+  mapZoom: number = 17; 
+  longitude!: number;
+  latitude!: number;
+  
+
   constructor( 
-    reportService: ReportService,
+    private reportService: ReportService,
     private route: ActivatedRoute,
     ) { }
 
   ngOnInit() {
 
-    // this.reportId = this.route.snapshot.paramMap.get('reportId');
-    
-//     subscribe((reportData: any) => {
-//       this.report = {
-//         id: reportData._id,
-//         propertyAddress: reportData.address,
-//         date: reportData.date, 
-//         propertyId: reportData.propertyId,
-//         tasks: reportData.tasks, 
-//         creator: reportData.creator, 
-//         time: reportData.time,
-//         mapZoom: reportData.mapZoom, 
-//         propertyName: reportData.propertyName,
-//         imagePreviewArray: reportData.imagePreviewArray,
+    this.reportId = this.route.snapshot.paramMap.get('reportId');
+    console.log('report id', this.reportId);
 
-//       };
-// });
+    this.reportService.getReport(this.reportId).subscribe((reportData:any) => {
+      this.report = {
+      id: reportData._id, 
+      date: reportData.date, 
+      time: reportData.time,  
+      propertyId: reportData.propertyId, 
+      propertyName: reportData.propertyName, 
+      propertyAddress: reportData.propertyAddress, 
+      propertyLatitude: reportData.propertyLatitude, 
+      propertyLongitude: reportData.propertyLongitude, 
+      tasks: reportData.tasks,  
+      creator: reportData.creator, 
+      mapZoom: reportData.mapZoom, 
+      imagePreviewArray: reportData.imagePreviewArray, 
+      };
+});
 
-    // this.reportsService.getReport(reportId)
+ 
 
 
   }
@@ -46,4 +53,3 @@ export class DisplayReportComponent implements OnInit {
 
 }
 
-// probably easier to have a screen shot of map

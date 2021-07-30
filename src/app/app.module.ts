@@ -37,6 +37,7 @@ import { UniquePipe } from './pipes/unique.pipe';
 import { LoggedinasComponent } from './loggedinas/loggedinas.component';
 import { ReportsListComponent } from './reports-list/reports-list.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { ReportlistbypropertyComponent } from './components.reports/reportlistbyproperty/reportlistbyproperty.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     ReportsListComponent,
     DialogComponent,
     ErrorComponent,
+    ReportlistbypropertyComponent,
     
   ],
   imports: [

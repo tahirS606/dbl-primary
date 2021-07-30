@@ -35,6 +35,35 @@ creator!: string;
     private http: HttpClient
   ) { }
 
+  getReportsByProperty(id: string){
+    return this.http.get<{message: string, reports: any}>
+    (BACKEND_URL + "reports/"
+    )
+    .pipe(
+      map((reportData) =>{
+        console.log('reportData', reportData)
+        return {
+          reports: reportData.reports.map((report: any)=> {
+            return {
+              id: report._id, 
+              date: report.date, 
+              time: report.time, 
+              propertyName: 
+              report.propertyName,
+              propertyId: report.propertyId,
+              propertyAddress: report.propertyAddress, 
+              tasks: report.tasks, 
+              creator: report.creator, 
+              mapZoom: report.mapZoom, 
+              imagePreviewArray: report.imagePreviewArray,
+            }
+          })
+        }
+      })
+    )
+
+  }
+
  
 
   getReportUpdateListener() {
@@ -51,6 +80,7 @@ creator!: string;
         return {
           reports: reportData.reports.map((report: any)=> {
             return {
+              id: report._id, 
               date: report.date, 
               time: report.time, 
               propertyName: report.propertyName,
@@ -67,8 +97,6 @@ creator!: string;
     )
   }
 
-  
-
   getReport(id: string) {
     return this.http.get<{report : Report}>(
       BACKEND_URL + 'reports/' + id
@@ -81,6 +109,8 @@ creator!: string;
     propertyId: string, 
     propertyName: string,  
     propertyAddress: string, 
+    propertyLatitude: number, 
+    propertyLongitude: number, 
     tasks: any,
     creator: string,
     mapZoom: number,
@@ -95,6 +125,8 @@ creator!: string;
       propertyId: propertyId, 
       propertyName: propertyName, 
       propertyAddress: propertyAddress, 
+      propertyLatitude: propertyLatitude, 
+      propertyLongitude: propertyLongitude, 
       tasks: tasks, 
       creator: creator,
       mapZoom: mapZoom,

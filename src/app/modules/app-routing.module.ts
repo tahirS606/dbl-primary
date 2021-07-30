@@ -1,3 +1,5 @@
+import { ReportlistbypropertyComponent } from './../components.reports/reportlistbyproperty/reportlistbyproperty.component';
+import { DisplayReportComponent } from './../components/report/display-report/display-report.component';
 import { RouteComponent } from './../components/route/route.component';
 import { RoutesListComponent } from './../components/routes-list/routes-list.component';
 import { AuthGuard } from './../components/auth/auth.guard';
@@ -44,10 +46,16 @@ const routes: Routes = [
 
   {
     path: 'reports/:reportId',
-    component: AddPropertyComponent,
+    component: DisplayReportComponent,
     canActivate: [AuthGuard]
-
   },
+
+  {
+    path: 'reports/by-property/:propertyId',
+    component: ReportlistbypropertyComponent, 
+    canActivate: [AuthGuard]
+  },
+
   {
     path: 'user/login',
     component: LoginComponent,
@@ -60,7 +68,6 @@ const routes: Routes = [
     path: 'routes',
     component: RoutesListComponent
 }
-  
 ];
 
 @NgModule({
