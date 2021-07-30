@@ -217,10 +217,18 @@ export class ReportComponent implements OnInit {
               this.mapZoom,
               this.imagePreviewArray,
               )        
+              
+              this.router.navigate(['reports/'])
               this.form.reset();
               this.readyToSave = false;
-              this.router.navigate(['new-report/' + this.propertyId])
+
           } 
+
+          reportId!: any
+
+    getReportIdForRedirect(id: string){
+      this.reportId = this.reportService.getReport(id).subscribe()
+    }
            
     addTasks(){
       this.checkboxVisible = true;
