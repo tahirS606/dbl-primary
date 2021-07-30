@@ -8,7 +8,7 @@ const reportSchema = mongoose.Schema({
     propertyAddress: String,
     propertyLatitude: Number,
     propertyLongitude: Number,
-    tasks: Array,
+    areasForReport: Array,
     creator: String,
     mapZoom: Number,
     imagePreviewArray: Array,

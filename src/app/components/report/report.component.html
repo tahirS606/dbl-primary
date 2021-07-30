@@ -4,6 +4,8 @@
     </agm-map>
 </div>
 
+
+
 <mat-card-content fxLayout>
     <mat-card class="check-box-card" *ngIf="checkboxVisible">
         <mat-icon (click)="showCheckbox()">close</mat-icon>
@@ -35,45 +37,44 @@
 
 <input (change)="onImagePicked($event)" hidden type="file" #filePicker>
 
-<h1 class="title" *ngIf="reportData || imagePreviewArray">Report for {{date | date}}</h1>
+<div class="report">
+    <h1 *ngIf="reportData || imagePreviewArray">Report for {{date | date }}</h1>
 
-<app-property-detail>
-</app-property-detail>
+    <app-property-detail>
+    </app-property-detail>
 
-<h2 *ngIf="reportData" class="title">Services</h2>
+    <h2 *ngIf="reportData" class="title">Services</h2>
 
-<div class="collection-container">
-    <div *ngFor="let area of reportData">
-        <div [ngStyle]="{'color': area.color}" class="collection">
-            <!-- <div><span class="strong">Name: </span> {{area.name }}</div> -->
-            <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
-            <span *ngIf="area.tasks.length == 1" class="strong">Service:</span>
-            <span *ngIf="area.tasks.length > 1" class="strong">Services:</span>
-            <ul>
-                <span *ngFor="let task of area.tasks"> 
+    <div class="collection-container">
+        <div *ngFor="let area of reportData">
+            <div [ngStyle]="{'color': area.color}" class="collection">
+                <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
+                <ul>
+                    <span *ngFor="let task of area.tasks"> 
                     <li>{{task}}</li></span>
-            </ul>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
 
 
-<div class="title">
-    <h2 *ngIf="imagePreviewArray.length ==1">Image</h2>
-    <h2 *ngIf="imagePreviewArray.length >1">Images</h2>
-</div>
-<div class="images">
-    <div *ngFor="let image of imagePreviewArray">
-        <div class="frame" style="background-image: url('{{image}}')"></div>
+    <div class="title">
+        <h2 *ngIf="imagePreviewArray.length ==1">Image</h2>
+        <h2 *ngIf="imagePreviewArray.length >1">Images</h2>
     </div>
-</div>
+    <div class="images">
+        <div *ngFor="let image of imagePreviewArray">
+            <div class="frame" style="background-image: url('{{image}}')"></div>
+        </div>
+    </div>
 
-<!-- <p>property: {{latitude}}, {{longitude}}</p>
+    <!-- <p>property: {{latitude}}, {{longitude}}</p>
 
 <p> user: {{userLatitude}}, {{userLongitude}}</p>
 
 <p>{{distance}}</p> -->
 
-<mat-action-row fxLayout fxLayoutAlign="center">
-    <button class="submit-button" (click)="onSaveReport()" alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
-</mat-action-row>
+    <mat-action-row fxLayout fxLayoutAlign="center">
+        <button class="submit-button" (click)="onSaveReport()" alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
+    </mat-action-row>
+</div>

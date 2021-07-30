@@ -7,7 +7,7 @@ export interface Report {
     propertyAddress: string, 
     propertyLatitude: number, 
     propertyLongitude:  number, 
-    tasks: any, 
+    areasForReport: any, 
     creator: string,
     mapZoom: number,
     imagePreviewArray: any,

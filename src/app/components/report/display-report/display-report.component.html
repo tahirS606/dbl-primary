@@ -1,36 +1,58 @@
-<p>display-report works!</p>
+<!-- <h1> {{report?.id}}</h1> -->
 
-<h1> {{report.id}}</h1>
+<div class="report-container">
 
-<p>Date: {{report.date | date}} </p>
-<p>Time: {{report.time}} </p>
-<p>PropertyId: {{report.propertyId}}</p>
-<p>Property Name: {{report.propertyName}}</p>
-<p>Property Address: {{report.propertyAddress}}</p>
-<p>Tasks: {{report.tasks}}</p>
-<p>Creator: {{report.creator}}</p>,
-<p>Map Zoom: {{report.mapZoom}}</p>
+    <h1>Report for {{report.date | date}}</h1>
 
-<div class="title">
-    <h2 *ngIf="report.imagePreviewArray.length ==1">Image</h2>
-    <h2 *ngIf="report.imagePreviewArray.length >1">Images</h2>
-</div>
-<p *ngIf="report.imagePreviewArray.length>0">Images:</p>
+    <div><span class="strong"> Property Name:</span> {{report?.propertyName}}</div>
+    <div>
+        <span class="strong">Property Address:</span> {{report?.propertyAddress}}</div>
 
-<div class="images">
-    <div *ngFor="let image of report.imagePreviewArray">
-        <div class="frame" style="background-image: url('{{image}}')"></div>
+    <span class="strong">Time:</span>{{report?.time | date:"shortTime" }}
+
+    <h2>Services:</h2>
+
+    <div class="collection-container">
+        <div *ngFor="let area of report.areasForReport">
+            <div [ngStyle]="{'color': area.color}" class="collection">
+                <div><span class="strong">Time: </span> {{area.time | date:"shortTime"}}</div>
+
+                <div *ngFor="let task of area.tasks">
+                    <p>{{task}}</p>
+                    <ul>
+                        <span *ngFor="let task of task.tasks">
+                        <li>{{task}}</li></span>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
+    <!-- </div> -->
+
+    <!-- <p>Creator: {{report?.creator}}</p>,
+    <p>Map Zoom: {{report?.mapZoom}}</p> -->
+
+    <div class="title">
+        <h2 *ngIf="report?.imagePreviewArray.length ==1">Image</h2>
+        <h2 *ngIf="report?.imagePreviewArray.length >1">Images</h2>
+    </div>
+    <p *ngIf="report?.imagePreviewArray.length>0">Images:</p>
+
+    <div class="images">
+        <div *ngFor="let image of report?.imagePreviewArray">
+            <div class="frame" style="background-image: url('{{image}}')"></div>
+        </div>
+    </div>
+
+    <!-- <p>Property Latitude: {{report?.propertyLongitude}}</p>
+    <p>Property Longitude: {{report?.propertyLatitude}}</p> -->
 </div>
 
-
-
-<p>Property Latitude: {{report.propertyLongitude}}</p>
-<p>Property Longitude: {{report.propertyLatitude}}</p>
-
-<div>
-    <agm-map #map id="map" [zoom]='mapZoom' [latitude]='report.propertyLatitude' [longitude]='report.propertyLongitude' [mapTypeId]="'hybrid'">
+<!-- <div>
+    <agm-map #map id="map" [zoom]='21' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="22" [minZoom]="12" (mapReady)="onMapReady($event)" [fullscreenControl]="true" [zoomControl]="false" [rotateControl]="true" [scaleControl]="true"
+        [streetViewControl]="false">
     </agm-map>
-
-    <agm-map #map [zoom]="20 " [mapTypeId]=" 'hybrid' " [draggable]="false "></agm-map>
-</div>
+</div> -->

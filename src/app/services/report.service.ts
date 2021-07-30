@@ -64,8 +64,6 @@ creator!: string;
 
   }
 
- 
-
   getReportUpdateListener() {
     return this.reportsUpdated.asObservable();
   }
@@ -111,11 +109,12 @@ creator!: string;
     propertyAddress: string, 
     propertyLatitude: number, 
     propertyLongitude: number, 
-    tasks: any,
+    areasForReport: any,
     creator: string,
     mapZoom: number,
     imagePreviewArray: string[],
     ) 
+  
     {
     const report: 
     Report = { 
@@ -127,7 +126,7 @@ creator!: string;
       propertyAddress: propertyAddress, 
       propertyLatitude: propertyLatitude, 
       propertyLongitude: propertyLongitude, 
-      tasks: tasks, 
+      areasForReport: areasForReport, 
       creator: creator,
       mapZoom: mapZoom,
       imagePreviewArray: imagePreviewArray, 

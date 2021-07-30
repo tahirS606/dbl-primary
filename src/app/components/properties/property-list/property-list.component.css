@@ -3,6 +3,10 @@ h1 {
     padding: 12px;
 }
 
+.report-container {
+    margin: 25px;
+}
+
 mat-paginator {
     width: 100vw;
     margin-top: 2rem;
@@ -18,18 +22,14 @@ mat-action-row {
     padding: 10px
 }
 
+ul {
+    margin-left: 0;
+    padding-left: 0
+}
+
 .please-add-props {
     margin: auto;
     padding: 2rem;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-p {
-    font-weight: bold;
 }
 
 .thumbnail-header {

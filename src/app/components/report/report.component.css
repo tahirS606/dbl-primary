@@ -17,20 +17,20 @@ header {
     padding: 2em;
 }
 
-.collection {
-    padding: 10px;
-    border-radius: 7px;
-    margin: 6px;
-    color: white;
-    height: 150px;
-}
-
 .collection-container {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: flex-start;
     margin-left: 35px;
+}
+
+s .collection {
+    padding: 10px;
+    border-radius: 7px;
+    margin: 6px;
+    /* color: white; */
+    height: 150px;
 }
 
 header .title {
@@ -120,15 +120,6 @@ mat-icon {
 
 .centered {
     margin: auto;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-p {
-    font-weight: bold;
 }
 
 .images {

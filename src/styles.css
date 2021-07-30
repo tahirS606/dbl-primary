@@ -13,3 +13,21 @@ body {
     --sidebar-color: #FAE6BE;
     --text-color: black;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding-top: 12px;
+    padding-bottom: 6px;
+}
+
+
+/* padding: 12px; */
+
+.strong {
+    font-weight: bold;
+    padding-right: 5px;
+}

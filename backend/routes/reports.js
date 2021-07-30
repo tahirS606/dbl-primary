@@ -49,7 +49,7 @@ router.post("", checkAuth,
             propertyLatitude: req.body.propertyLatitude,
             propertyLongitude: req.body.propertyLongitude,
             mapZoom: req.body.mapZoom,
-            // tasks: req.body.tasks,
+            areasForReport: req.body.areasForReport,
             creator: req.userData.userId,
             mapZoom: req.body.mapZoom
 

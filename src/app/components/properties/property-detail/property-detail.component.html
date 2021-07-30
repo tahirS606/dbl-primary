@@ -1,8 +1,10 @@
 <div class="details-container">
-    <h1>{{property?.name | titlecase }}</h1>
 
-    <p>{{property?.address }}</p>
+    <div><span class="strong">Property Name:</span>{{property?.name | titlecase }}</div>
 
-    <h4> Route: {{property?.route}}</h4>
+    <div><span class="strong">Address:</span>{{property?.address }}
+    </div>
+
+    <div><span class="strong"> Route:</span> {{property?.route}}</div>
 
 </div>

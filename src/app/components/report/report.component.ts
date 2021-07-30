@@ -124,7 +124,8 @@ export class ReportComponent implements OnInit {
       this.userOnsite = false; 
       this.creator = this.authService.getUserId();
       this.reportDate = this.date; 
-      this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes();
+      this.reportTime = this.date;
+      // this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes();
       this.areasForReport.shift();
       this.selectedShapes.shift();
       this.propertyId = this.route.snapshot.paramMap.get('propertyId');
@@ -201,6 +202,8 @@ export class ReportComponent implements OnInit {
         this.polyArrayLatLng.shift();
         this.mapZoom = this.zoom;
         this.reportData = Object.values(this.areasForReport);
+        this.areasForReport = this.reportData;
+        console.log('areas for report', this.areasForReport)
         }
 
         onSaveReport() {
@@ -227,7 +230,7 @@ export class ReportComponent implements OnInit {
           reportId!: any
 
     getReportIdForRedirect(id: string){
-      this.reportId = this.reportService.getReport(id).subscribe()
+      this.reportId = this.reportService.getReport(id)
     }
            
     addTasks(){
