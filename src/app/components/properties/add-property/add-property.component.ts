@@ -54,7 +54,7 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
 }
 
   ngOnInit() {
-    console.log('addMode', this.addMode)
+    
     //===> Form Controls
     this.form = new FormGroup({
       name: new FormControl(null, {
@@ -73,8 +73,9 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
 
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('propertyId')) {
-        this.addMode = false;
         this.propertyId = this.activatedRoute.snapshot.paramMap.get('propertyId');
+        this.addMode = false;
+        
         this.propertyService
           .getProperty(this.propertyId)
           .subscribe((propertyData) => {
@@ -86,12 +87,12 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
               latitude: this.latitude, 
               longitude: this.longitude
             };
-            // populates form for editing =>
             this.form.setValue({
               name: this.property.name,
               address: this.property.address,
               route: this.property.route, 
             });
+            this.form.valid;
           });
       } else {
         this.addMode = true;
@@ -136,8 +137,6 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     this.route = $event.route
     this.latitude = $event.geoLocation.latitude;
     this.longitude = $event.geoLocation.longitude;
-    console.log('this.address', this.address, this.route, this.latitude, this.longitude)
-    
   }
 
   }

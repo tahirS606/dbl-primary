@@ -35,7 +35,7 @@ creator!: string;
     private http: HttpClient
   ) { }
 
-  getReportsByProperty(id: string){
+  getReportsByProperty(propertyId: string){
     return this.http.get<{message: string, reports: any}>
     (BACKEND_URL + "reports/"
     )
@@ -56,6 +56,13 @@ creator!: string;
               creator: report.creator, 
               mapZoom: report.mapZoom, 
               imagePreviewArray: report.imagePreviewArray,
+            }
+          }).map((filteredData: any)=>{
+            if (filteredData.propertyId === propertyId){
+              console.log('filteredData', filteredData)
+              return filteredData
+            } else {
+              console.log('no reports match')
             }
           })
         }
