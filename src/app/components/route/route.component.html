@@ -30,7 +30,7 @@
         >
           <!-- admin -->
           <a mat-button color="primary" [routerLink]="['/edit-property', property.id]">Edit Property</a>
-                <a mat-button color="primary" [routerLink]="['/reports', property.id]" disabled>Reports</a>
+                <a mat-button color="primary" [routerLink]="['/reports/by-property', property.id]">Reports</a>
                 <button mat-button color="warn" (click)="onDelete(property.id)">Delete</button>
 
             </mat-action-row>

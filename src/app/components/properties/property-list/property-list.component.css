@@ -3,9 +3,6 @@ h1 {
     padding: 12px;
 }
 
-.report-container {
-    margin: 25px;
-}
 
 mat-paginator {
     width: 100vw;

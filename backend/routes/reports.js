@@ -13,28 +13,31 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-// router.get("/by-property/:id", (req, res, next) => {
-//             Report.reports.find({
-//                     $elemMatch: propertyId: id);
-//                 .then((documents) => {
-//                     if (Report) {
-//                         res.status(200).json({
-//                             message: 'reports fetched successfully',
-//                             reports: documents
-//                         })
-//                         console.log(documents)
-//                     } else {
-//                         res.status(400).json({
-//                             message: 'fetch failed'
-//                         })
-//                     };
-//                 }); pretty();
+// var MongoClient = require('mongodb').MongoClient;
+// var url = "mongodb://localhost:27017/";
+
+// MongoClient.connect(url, function(err, db) {
+//     if (err) throw err;
+//     var dbo = db.db("mydb");
+//     var query = { propertyId: "Park Lane 38" };
+//     dbo.collection("customers").find(query).toArray(function(err, result) {
+//         if (err) throw err;
+//         console.log(result);
+//         db.close();
+//     });
+// });
+
+// router.get("", checkAuth,
+//     (req, res, next) => {
+//         Report.find({ propertyId: req.query.propertyId })
+//             .then(function(reports) {
+//                 res.json(reports);
+//                 console.log(reports)
 //             })
-
-
-
-
-
+//             .catch(function(error) {
+//                 console.log("There was error retrieving reports" + error);
+//             });
+//     });
 
 router.post("", checkAuth,
     (req, res, next) => {
@@ -54,6 +57,8 @@ router.post("", checkAuth,
             mapZoom: req.body.mapZoom
 
         });
+
+
 
 
         report.save().then((addedReport) => {

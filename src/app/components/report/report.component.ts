@@ -269,7 +269,7 @@ export class ReportComponent implements OnInit {
     Swal: any
 
     notOnSiteAlert(){
-      Swal.fire('You are not on site! Please go to the site to create a report.')
+      Swal.fire('You are not on site! (Or your location services are turned off). Please go to the site to create a report.')
     }
     
     tinyAlert(){
