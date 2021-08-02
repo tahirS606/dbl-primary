@@ -4,6 +4,25 @@ const jwt = require('jsonwebtoken')
 const Property = require('../models/property');
 
 
+exports.editProperty = (req, res, next) => {
+    const property = new Property({
+        _id: req.body.id,
+        name: req.body.name,
+        address: req.body.address,
+        route: req.body.route,
+    });
+    Property.updateOne({ _id: req.params.id }, property).then((result => {
+            if (result.nModified > 0) {
+                res.status(200).json({ message: "Update successful" });
+            } else {
+                res.status(401).json({ message: "Not Authorized." });
+            }
+        })
+        .catch(error => {
+            res.status(500).json({ message: "Couldn't update Property" })
+        }))
+}
+
 
 exports.createProperty = (req, res, next) => {
     const property = new Property({
@@ -58,24 +77,6 @@ exports.deleteProperty = (req, res, next) => {
     })
 }
 
-exports.editProperty = (req, res, next) => {
-    const property = new Property({
-        _id: req.body.id,
-        name: req.body.name,
-        address: req.body.address,
-        route: req.body.route,
-    });
-    Property.updateOne({ _id: req.params.id }, property).then((result => {
-            if (result.nModified > 0) {
-                res.status(200).json({ message: "Update successful" });
-            } else {
-                res.status(401).json({ message: "Not Authorized." });
-            }
-        })
-        .catch(error => {
-            res.status(500).json({ message: "Couldn't update Property" })
-        }))
-}
 
 exports.getPropertyById = (req, res, next) => {
     Property.findById(req.params.id).then((property) => {

@@ -93,7 +93,7 @@ export class PropertyService {
     this.http
       .put(BACKEND_URL + 'properties/' + id, property)
       .subscribe((response) => {
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
         return response
       });
   }
