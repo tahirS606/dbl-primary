@@ -10,18 +10,19 @@
     <mat-action-row *ngIf="userIsAuthenticated">
 
 
+        <mat-form-field class="form-field">
+            <input matInput type="text" placeholder="Search for Address" [(ngModel)]='listFilter'>
+
+            <button mat-button *ngIf="listFilter" matSuffix mat-icon-button aria-label="Clear" (click)="listFilter=''">
+              <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+        <a class="button" mat-raised-button routerLink="/add-property" routerLinkActive="mat-primary" color="primary">Add Property
+        <mat-icon >add</mat-icon></a>
 
 
-        <a class="button" mat-raised-button routerLink="/add-property" routerLinkActive="mat-primary" color="primary">Add Property</a>
-
-        <a mat-raised-button class="button" routerLinkActive="mat-primary" color="primary">Search</a>
     </mat-action-row>
-    <mat-form-field class="form-field">
-        <input matInput type="text" placeholder="Search for Address" [(ngModel)]='listFilter'>
-        <button mat-button *ngIf="listFilter" matSuffix mat-icon-button aria-label="Clear" (click)="listFilter=''">
-          <mat-icon>close</mat-icon>
-        </button>
-    </mat-form-field>
+
     <div class='row' *ngIf='listFilter'>
         <div>
             <h4>Filtered by: {{listFilter}}</h4>

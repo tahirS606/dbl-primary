@@ -12,6 +12,17 @@ mat-autocomplete {
     width: 100px;
 }
 
+mat-action-row {
+    display: flex;
+    justify-content: end;
+    align-items: flex-start
+}
+
+.search-icon {
+    padding-top: 200px;
+    padding: 6px;
+}
+
 .form-field {
     width: 200px;
 }

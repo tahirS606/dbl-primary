@@ -39,7 +39,7 @@ export class ReportListComponent implements OnInit, OnDestroy{
         this.reportsUpdated.next({
           reports: [...this.reports]
         })
-      })
+      });
 
 
     this.reportsSub = this.reportService
