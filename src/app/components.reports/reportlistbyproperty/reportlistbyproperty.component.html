@@ -1,6 +1,6 @@
 <!-- <p>reportlistbyproperty works!</p> -->
 
-<div class="collection" *ngFor="let report of filteredReports">
+<div class="collection" *ngFor="let report of filteredReports | orderBy:'-date'">
     <div>
         {{report?.date | date}} <strong>{{report?.propertyName |titlecase}}</strong> {{report?.propertyAddress}}
         <a mat-button color="primary" [routerLink]="['/reports', report.id]">View</a

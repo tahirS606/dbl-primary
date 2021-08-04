@@ -2,7 +2,7 @@ import { AuthData } from './../components/auth/auth-data.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from './../../environments/environment';
 
 const BACKEND_URL= environment.apiUrl
@@ -80,7 +80,7 @@ export class AuthService {
       this.token = token;
         if (token) {
           const expiresInDuration = response.expiresIn;
-          this.setAuthTimer(expiresInDuration);
+        this.setAuthTimer(expiresInDuration);
         this.isAuthenticated = true;
         this.userId = response.userId; 
         this.userEmail = response.userEmail; 
