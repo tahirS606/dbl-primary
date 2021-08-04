@@ -26,6 +26,23 @@ export class PropertyListComponent implements OnInit, OnDestroy {
 
   userId!: string; 
 
+  private _listFilter = '';
+  get listFilter(): string {
+    return this._listFilter;
+  }
+  set listFilter(value: string) {
+    this._listFilter = value;
+    this.filteredProperties = this.performFilter(value);
+  }
+
+  performFilter(filterBy: string): Property[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.properties.filter((property: Property) =>
+      property.name.toLocaleLowerCase().includes(filterBy));
+  }
+
+  filteredProperties: Property[] = [];
+
   accordianIsOpen!:boolean;
 
   constructor(
