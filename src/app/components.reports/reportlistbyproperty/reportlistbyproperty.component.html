@@ -1,4 +1,6 @@
-<!-- <p>reportlistbyproperty works!</p> -->
+<div class="collection" *ngIf="filteredReports.length === 0">
+    <p>There are no reports for this property!</p>
+</div>
 
 <div class="collection" *ngFor="let report of filteredReports | orderBy:'-date'">
     <div>
