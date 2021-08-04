@@ -38,12 +38,12 @@ export class PropertyListComponent implements OnInit, OnDestroy {
   performFilter(filterBy: string): Property[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.properties.filter((property: Property) =>
-      property.name.toLocaleLowerCase().includes(filterBy));
-  }
+      property.address.toLocaleLowerCase().includes(filterBy)) }
 
   filteredProperties: Property[] = [];
 
   accordianIsOpen!:boolean;
+  value = 'Clear me';
 
   constructor(
     public propertyService: PropertyService,

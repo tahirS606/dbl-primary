@@ -8,6 +8,14 @@ mat-paginator {
     margin-top: 2rem;
 }
 
+mat-autocomplete {
+    width: 100px;
+}
+
+.form-field {
+    width: 200px;
+}
+
 mat-accordian {
     margin-bottom: 12px;
     margin-top: 12px;
