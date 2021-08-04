@@ -71,8 +71,6 @@ this.reportSub = this.reportService
 
   onMapReady(map:any) {
     this.initDrawingManager(map);
-    // this.findMe().then((position)=>{
-    //   console.log(position)
     
   }
 

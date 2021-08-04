@@ -7,7 +7,7 @@ import { AuthService } from './../../services/auth.service';
 import { PropertyService } from './../../services/property.service';
 import { ActivatedRoute} from '@angular/router';
 import { Property } from './../../models/property.model';
-import { Component, OnInit, OnDestroy, Pipe } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-route',

@@ -35,40 +35,12 @@ creator!: string;
     private http: HttpClient
   ) { }
 
-  getReportsByProperty(propertyId: string){
-    return this.http.get<{message: string, reports: any}>
-    (BACKEND_URL + "reports/"
-    )
-    .pipe(
-      map((reportData) =>{
-        console.log('reportData', reportData)
-        return {
-          reports: reportData.reports.map((report: any)=> {
-            return {
-              id: report._id, 
-              date: report.date, 
-              time: report.time, 
-              propertyName: 
-              report.propertyName,
-              propertyId: report.propertyId,
-              propertyAddress: report.propertyAddress, 
-              tasks: report.tasks, 
-              creator: report.creator, 
-              mapZoom: report.mapZoom, 
-              imagePreviewArray: report.imagePreviewArray,
-            }
-          }).map((filteredData: any)=>{
-            if (filteredData.propertyId === propertyId){
-              console.log('filteredData', filteredData)
-              return filteredData
-            } else {
-              console.log('no reports match')
-            }
-          })
-        }
-      })
-    )
+  getReportsByProperty(propertyId : string){
+    return this.http.get<{message: string, reports: any}>(BACKEND_URL + "reports/" + propertyId).pipe(map((filteredReport)=>{
+       
+    }
 
+    ))
   }
 
   getReportUpdateListener() {

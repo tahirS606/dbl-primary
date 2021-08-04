@@ -10,10 +10,9 @@ exports.getReportById = (req, res, next) => {
     });
 }
 
-exports.getReportByProperty = (req, res, next) => {
-    Report.find({ propertyId: req.params.propertyId }).then((result) => {
-        console.log(result)
-    })
+exports.getReportsByProperty = (req, res, next) => {
+
+    Report.find({ propertyId: req.params.propertyId }).forEach(printjson)
 }
 
 exports.createReport =
