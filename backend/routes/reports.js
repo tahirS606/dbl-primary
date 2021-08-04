@@ -9,6 +9,6 @@ const ReportController = require('../controllers/report')
 router.get("/:id", ReportController.getReportById);
 router.post("", checkAuth, ReportController.createReport);
 router.get("", ReportController.getAllReports);
-// router.get("/reports-by-property/:propertyId", ReportController.GetReportsByProperty)
+router.get("", ReportController.getReportsByProperty)
 
 module.exports = router;

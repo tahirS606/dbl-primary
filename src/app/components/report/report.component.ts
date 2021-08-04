@@ -125,7 +125,6 @@ export class ReportComponent implements OnInit {
       this.creator = this.authService.getUserId();
       this.reportDate = this.date; 
       this.reportTime = this.date;
-      // this.reportTime = this.reportDate.getHours() + ":" + this.reportDate.getMinutes();
       this.areasForReport.shift();
       this.selectedShapes.shift();
       this.propertyId = this.route.snapshot.paramMap.get('propertyId');
@@ -394,18 +393,14 @@ export class ReportComponent implements OnInit {
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
 
-      _self.calculateDistance()
+      // _self.calculateDistance()
 
       _self.polygonComplete  = true; 
       _self.addTasksToAreaButtonShowing = true;
 
-      _self.selectedShapes.push(polygon)
-      
-      console.log('poly', polygon)
-      console.log('selectedShapes', _self.selectedShapes)
-
+      _self.selectedShapes.push(polygon);
+    
       const len = polygon.getPath().getLength();
-      
       for (let i = 0; i < len; i++) {
         const vertex = polygon.getPath().getAt(i);
         const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};

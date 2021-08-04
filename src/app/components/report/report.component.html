@@ -4,8 +4,6 @@
     </agm-map>
 </div>
 
-
-
 <mat-card-content fxLayout>
     <mat-card class="check-box-card" *ngIf="checkboxVisible">
         <mat-icon (click)="showCheckbox()">close</mat-icon>
@@ -20,19 +18,17 @@
             <br/>
           </label>
             <br/>
-            <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" (click)="calculateDistance()" [disabled]>Add</button>
+            <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" [disabled]>Add</button>
         </form>
     </mat-card>
 </mat-card-content>
 
 <mat-action-row fxLayout>
-    <button (click)="addTasks()" (click)="calculateDistance()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
+    <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
     <button type="button" mat-button color="primary" (click)="filePicker.click()">
         Add image
     </button>
     <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear All</button>
-
-
 </mat-action-row>
 
 <input (change)="onImagePicked($event)" hidden type="file" #filePicker>
@@ -56,7 +52,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="title">
         <h2 *ngIf="imagePreviewArray.length ==1">Image</h2>
