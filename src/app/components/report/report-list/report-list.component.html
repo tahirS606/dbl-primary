@@ -1,6 +1,5 @@
 <div *ngFor="let report of reports | orderBy:'-date'">
     <div>
         {{report.propertyAddress}}
-        <a mat-button color="primary " [routerLink]="[ '/reports', report.id] ">Report Details</a
-            >
+        <a mat-button color="primary" [routerLink]="[ '/reports', report.id]">View</a>
     </div>

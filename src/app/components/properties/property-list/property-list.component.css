@@ -8,14 +8,37 @@ mat-paginator {
     margin-top: 2rem;
 }
 
+mat-autocomplete {
+    width: 100px;
+}
+
+mat-action-row {
+    display: flex;
+    justify-content: end;
+    align-items: flex-start
+}
+
+.form-field {
+    width: 200px;
+}
+
 mat-accordian {
     margin-bottom: 12px;
     margin-top: 12px;
 }
 
+.list-filter-preview-container {
+    display: flex;
+}
+
+.list-filter-preview {
+    align-items: center;
+}
+
 mat-action-row {
     align-items: flex-start;
-    padding: 10px
+    padding: 10px;
+    justify-content: baseline;
 }
 
 ul {
@@ -39,6 +62,10 @@ mat-expansion-panel {
 
 .button {
     margin: 12px;
+}
+
+.no-search-match {
+    padding: 25px;
 }
 
 mat-progress-spinner {

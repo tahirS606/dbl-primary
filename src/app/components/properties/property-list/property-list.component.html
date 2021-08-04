@@ -4,37 +4,86 @@
 
     <H1>Properties</H1>
 
+
+
+
     <mat-action-row *ngIf="userIsAuthenticated">
-        <a class="button" mat-raised-button routerLink="/add-property" routerLinkActive="mat-primary" color="primary">Add Property</a>
 
-        <a mat-raised-button class="button" routerLinkActive="mat-primary" color="primary" disabled>Search</a>
+        <mat-form-field class="form-field">
+            <input matInput type="text" placeholder="Search for Address" [(ngModel)]='listFilter'>
+
+            <button mat-button *ngIf="listFilter" matSuffix mat-icon-button aria-label="Clear" (click)="listFilter=''">
+              <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+        <a class="button" mat-raised-button routerLink="/add-property" routerLinkActive="mat-primary" color="primary">Add Property
+        <mat-icon >add</mat-icon></a>
+
+
     </mat-action-row>
-    <div *ngFor="let property of properties | orderBy">
 
-        <mat-expansion-panel multi="false">
-            <mat-expansion-panel-header>
-                <h4>{{ property?.name | titlecase }}</h4>
-            </mat-expansion-panel-header>
-            <mat-panel-title>
-                <h5>{{ property?.address }}</h5>
-            </mat-panel-title>
+    <div *ngIf='!listFilter'>
+        <div *ngFor="let property of properties | orderBy">
 
-            <mat-panel-description>
+            <mat-expansion-panel multi="false">
+                <mat-expansion-panel-header>
+                    <h4>{{ property?.name | titlecase }}</h4>
+                </mat-expansion-panel-header>
+                <mat-panel-title>
+                    <h5>{{ property?.address }}</h5>
+                </mat-panel-title>
 
-                <h4>Route: {{property.route}}</h4>
-            </mat-panel-description>
-            <mat-action-row *ngIf="userIsAuthenticated">
-                <a mat-button color="primary" [routerLink]="['/new-report', property.id]">Create Report</a
+                <mat-panel-description>
+
+                    <h4>Route: {{property.route}}</h4>
+                </mat-panel-description>
+                <mat-action-row *ngIf="userIsAuthenticated">
+                    <a mat-button color="primary" [routerLink]="['/new-report', property.id]">Create Report</a
         >
           <!-- admin -->
           <a mat-button color="primary" [routerLink]="['/edit-property', property.id]">Edit Property</a>
-                <a mat-button color="primary" [routerLink]="['/reports/by-property/', property.id]">Reports</a>
-                <button mat-button color="warn" (click)="onDelete(property.id)">Delete</button>
+                    <a mat-button color="primary" [routerLink]="['/reports/by-property/', property.id]">Reports</a>
+                    <button mat-button color="warn" (click)="onDelete(property.id)">Delete</button>
 
-            </mat-action-row>
-        </mat-expansion-panel>
-        <!-- </mat-accordion> -->
+                </mat-action-row>
+            </mat-expansion-panel>
+            <!-- </mat-accordion> -->
 
+        </div>
     </div>
 </div>
-<mat-paginator [length]=" totalProperties " [pageSize]="propertiesPerPage " [pageSizeOptions]="pageSizeOptions " (page)="onPageChange($event) " *ngIf="properties.length> 0"></mat-paginator>
+<div>
+    <div *ngIf='listFilter'>
+        <div *ngIf="filteredProperties.length===0">
+            <p class="no-search-match">
+                No Properties Match Your Search.
+
+            </p>
+        </div>
+        <div *ngFor='let property of filteredProperties'>
+            <mat-expansion-panel multi="false">
+                <mat-expansion-panel-header>
+                    <h4>{{ property?.name | titlecase }}</h4>
+                </mat-expansion-panel-header>
+                <mat-panel-title>
+                    <h5>{{ property?.address }}</h5>
+                </mat-panel-title>
+
+                <mat-panel-description>
+
+                    <h4>Route: {{property.route}}</h4>
+                </mat-panel-description>
+                <mat-action-row *ngIf="userIsAuthenticated">
+                    <a mat-button color="primary" [routerLink]="['/new-report', property.id]">Create Report</a>
+                    <!-- admin -->
+                    <a mat-button color="primary" [routerLink]="['/edit-property', property.id]">Edit Property</a>
+                    <a mat-button color="primary" [routerLink]="['/reports/by-property/', property.id]">Reports</a>
+                    <button mat-button color="warn" (click)="onDelete(property.id)">Delete</button>
+
+                </mat-action-row>
+            </mat-expansion-panel>
+        </div>
+
+
+
+        <mat-paginator [length]=" totalProperties " [pageSize]="propertiesPerPage " [pageSizeOptions]="pageSizeOptions " (page)="onPageChange($event) " *ngIf="properties.length> 0"></mat-paginator>
