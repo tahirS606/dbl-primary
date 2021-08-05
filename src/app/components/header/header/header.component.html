@@ -1,8 +1,9 @@
 <mat-toolbar>
-    <p>{{authData}}</p>
+
     <a routerLink="/"><img src="./assets/images/dbl-logo.png" class="logo"></a>
     <span class="spacer"></span>
     <ul>
+        <p>{{authData | json}}</p>
         <li *ngIf="userIsAuthenticated">
             <a mat-button routerLink="/" routerLinkActive="mat-primary">Routes</a
       >
@@ -23,6 +24,9 @@
         </li>
         <li *ngIf="userIsAuthenticated">
             <button (click)="onLogout()" mat-button>Logout</button>
+            <p>{{authData | json}}</p>
         </li>
     </ul>
+
+    <p>{{authData | json}}</p>
 </mat-toolbar>

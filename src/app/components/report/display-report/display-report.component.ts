@@ -17,12 +17,11 @@ export class DisplayReportComponent implements OnInit {
   report!: Report
   reportSub!: Subscription;
 
-  mapZoom: number = 17; 
+  mapZoom!: number; 
   longitude!: number;
   latitude!: number;
 
-  
-  
+  map: any
 
   constructor( 
     private reportService: ReportService,
@@ -36,7 +35,6 @@ export class DisplayReportComponent implements OnInit {
     this.reportService
     .getReport(this.reportId)
     .subscribe((reportData:any) => {
-      
       this.report = {
       id: reportData._id, 
       date: reportData.date, 
@@ -51,11 +49,7 @@ export class DisplayReportComponent implements OnInit {
       mapZoom: reportData.mapZoom, 
       imagePreviewArray: reportData.imagePreviewArray, 
       };
-    
 });
-
-this.latitude = this.report.propertyLatitude;
-this.longitude = this.report.propertyLongitude;
 
 this.reportSub = this.reportService
       .getReportUpdateListener()
@@ -64,18 +58,20 @@ this.reportSub = this.reportService
           this.report = reportData.report;
         }
     );
-
- console.log('this.report', this.report)
-
   }
 
   onMapReady(map:any) {
     this.initDrawingManager(map);
     
   }
+  panelOpenState: boolean = false;
 
   ngAfterViewInit(){
     console.log('this.report', this.report)
+    this.latitude = this.report.propertyLatitude;
+  this.longitude = this.report.propertyLongitude;
+  this.mapZoom = this.report.mapZoom
+    
   }
 
   initDrawingManager(map:any) {

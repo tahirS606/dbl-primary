@@ -1,19 +1,17 @@
-<!-- <h1> {{report?.id}}</h1> -->
-
 <div class="report-container">
 
-    <h1>Report for {{report.date | date}}</h1>
+    <h1>Report for {{report?.date | date }}</h1>
 
-    <div><span class="strong"> Property Name:</span> {{report?.propertyName}}</div>
+    <div><span class="primary strong">Name:</span> {{report?.propertyName}}</div>
     <div>
-        <span class="strong">Property Address:</span> {{report?.propertyAddress}}</div>
+        <span class="strong primary">Address:</span> {{report?.propertyAddress}}</div>
 
-    <span class="strong">Time:</span>{{report?.time | date:"shortTime" }}
+    <span class="strong primary">Time:</span>{{report?.time | date:"shortTime" }}
 
     <h2>Services:</h2>
 
     <div class="collection-container">
-        <div *ngFor="let area of report.areasForReport">
+        <div *ngFor="let area of report?.areasForReport">
             <div [ngStyle]="{'color': area.color}" class="collection">
                 <div><span class="strong">Time: </span> {{area.time | date:"shortTime"}}</div>
 
@@ -27,15 +25,9 @@
             </div>
         </div>
     </div>
+    <!-- <p>Creator: {{report?.creator}}</p> -->
 
-
-
-    <!-- </div> -->
-
-    <!-- <p>Creator: {{report?.creator}}</p>,
-    <p>Map Zoom: {{report?.mapZoom}}</p> -->
-
-    <div class="title">
+    <!-- <div class="title">
         <h2 *ngIf="report?.imagePreviewArray.length ==1">Image</h2>
         <h2 *ngIf="report?.imagePreviewArray.length >1">Images</h2>
     </div>
@@ -45,14 +37,22 @@
         <div *ngFor="let image of report?.imagePreviewArray">
             <div class="frame" style="background-image: url('{{image}}')"></div>
         </div>
-    </div>
-
-    <!-- <p>Property Latitude: {{report?.propertyLongitude}}</p>
-    <p>Property Longitude: {{report?.propertyLatitude}}</p> -->
+    </div> -->
 </div>
 
-<!-- <div>
-    <agm-map #map id="map" [zoom]='21' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="22" [minZoom]="12" (mapReady)="onMapReady($event)" [fullscreenControl]="true" [zoomControl]="false" [rotateControl]="true" [scaleControl]="true"
-        [streetViewControl]="false">
-    </agm-map>
-</div> -->
+
+
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <div>
+                    <p class="centered primary strong">View a Map of Services Performed</p>
+                </div>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <agm-map #map [latitude]="32" [longitude]="222" [zoom]="mapZoom" [mapTypeId]="'hybrid'" [draggable]="false"></agm-map>
+    </mat-expansion-panel>
+</mat-accordion>
