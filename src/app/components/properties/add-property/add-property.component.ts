@@ -1,3 +1,4 @@
+import { UniquePipe } from './../../../pipes/unique.pipe';
 import { PropertyService } from './../../../services/property.service';
 
 

@@ -31,7 +31,7 @@ export class ReportlistbypropertyComponent implements OnInit {
     private reportService: ReportService,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
 
     this.reportService.getAllReports().subscribe((reportDisplayData: any)=>{
@@ -46,9 +46,7 @@ export class ReportlistbypropertyComponent implements OnInit {
       })
     })
     
-    // this.filteredReports = this.reports.filter((report: Report) => report.propertyId === this.propertyId);
-    // console.log('filtered reports', this.filteredReports)
-
+    
 
   this.reportsSub = this.reportService
       .getReportUpdateListener()

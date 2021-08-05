@@ -65,7 +65,7 @@ const routes: Routes = [
     component: SignUpComponent,
   },
 {
-    path: 'routes',
+    path: '',
     component: RoutesListComponent
 }
 ];

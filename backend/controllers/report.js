@@ -11,7 +11,7 @@ exports.getReportById = (req, res, next) => {
 }
 
 exports.getReportsByProperty = (req, res, next) => {
-
+    
     Report.find({ propertyId: req.params.propertyId }).forEach(printjson)
 }
 

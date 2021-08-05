@@ -1,25 +1,19 @@
+<h1>Properties</h1>
 <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>
-
 <div *ngIf="!isLoading">
-
-    <H1>Properties</H1>
-
-
-
-
     <mat-action-row *ngIf="userIsAuthenticated">
-
-        <mat-form-field class="form-field">
-            <input matInput type="text" placeholder="Search for Address" [(ngModel)]='listFilter'>
-
-            <button mat-button *ngIf="listFilter" matSuffix mat-icon-button aria-label="Clear" (click)="listFilter=''">
+        <div class="form-field-container">
+            <mat-form-field class="form-field button">
+                <input matInput type="text" placeholder="Search for Address" [(ngModel)]='listFilter'>
+                <button mat-button *ngIf="listFilter" matSuffix mat-icon-button aria-label="Clear" (click)="listFilter=''">
               <mat-icon>close</mat-icon>
             </button>
-        </mat-form-field>
+            </mat-form-field>
+            <mat-icon color="primary" class="search-icon">search</mat-icon>
+        </div>
         <a class="button" mat-raised-button routerLink="/add-property" routerLinkActive="mat-primary" color="primary">Add Property
-        <mat-icon >add</mat-icon></a>
-
-
+        <mat-icon >add</mat-icon>
+        </a>
     </mat-action-row>
 
     <div *ngIf='!listFilter'>
@@ -73,7 +67,7 @@
 
                     <h4>Route: {{property.route}}</h4>
                 </mat-panel-description>
-                <mat-action-row *ngIf="userIsAuthenticated">
+                <mat-action-row class="button-row" *ngIf="userIsAuthenticated">
                     <a mat-button color="primary" [routerLink]="['/new-report', property.id]">Create Report</a>
                     <!-- admin -->
                     <a mat-button color="primary" [routerLink]="['/edit-property', property.id]">Edit Property</a>

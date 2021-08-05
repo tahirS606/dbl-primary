@@ -1,13 +1,4 @@
-import { PropertyService } from './../../services/property.service';
-
-
-import { Property } from './../../models/property.model';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Subject, of } from 'rxjs';
-
-
-import { Component, OnInit, AfterViewInit, TemplateRef, ViewChildren, Input, Directive } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 
@@ -45,8 +36,6 @@ export class RoutesListComponent implements OnInit {
       { route: 15 },
       { route: 16 },
       { route: 17 },
-
-      
     ]
 
 
