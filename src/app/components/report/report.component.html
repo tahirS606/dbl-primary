@@ -25,7 +25,7 @@
 
 <mat-action-row fxLayout>
     <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
-    <button type="button" mat-button color="primary" (click)="filePicker.click()" [disabled]="checkboxVisible">
+    <button type="button" mat-button color="primary" (click)="filePicker.click()">
         Add image
     </button>
     <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear All</button>

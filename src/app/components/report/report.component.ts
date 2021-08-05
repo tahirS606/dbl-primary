@@ -338,13 +338,13 @@ export class ReportComponent implements OnInit {
     this.readyToSave = false; 
     this.checkboxVisible = false;
     this.addTasksToAreaButtonShowing = false;
-
   }
 
    onMapReady(map:any) {
     this.initDrawingManager(map);
     this.findMe().then((position)=>{
       console.log(position)
+      this.calculateDistance()
     })
   }
 
@@ -393,7 +393,7 @@ export class ReportComponent implements OnInit {
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
 
-      // _self.calculateDistance()
+      _self.calculateDistance()
 
       _self.polygonComplete  = true; 
       _self.addTasksToAreaButtonShowing = true;
