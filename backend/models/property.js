@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const propertySchema = mongoose.Schema({
     name: String,
-    address: String,
+    address: { type: String, unique: true, required: true, sparse: true },
     route: Number,
     latitude: Number,
     longitude: Number,

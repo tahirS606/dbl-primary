@@ -18,8 +18,7 @@ h1,
 h2,
 h3,
 h4,
-h5
-h6 {
+h5 h6 {
     padding-top: 12px;
     padding-bottom: 6px;
 }
@@ -29,5 +28,8 @@ h6 {
 
 .strong {
     font-weight: bold;
-    padding-right: 5px;
+}
+
+.primary {
+    color: #3F51B5;
 }

@@ -29,7 +29,6 @@ export class RouteComponent implements OnInit, OnDestroy{
   isLoading: boolean = true;
   totalProperties!: number;
   userIsAuthenticated = false;
-
   accordianIsOpen!:boolean;
 
   constructor(
@@ -41,13 +40,11 @@ export class RouteComponent implements OnInit, OnDestroy{
   ngOnInit() {
 
     this.selectedRoute = this.route.snapshot.paramMap.get('route');
-
-   
       this.isLoading = true;
       this.propertyService.getProperties(
         this.propertiesPerPage,
-        this.currentPage
-      );
+        this.currentPage,
+      )
       
       this.propertiesSub = this.propertyService
         .getPropertyUpdateListener()

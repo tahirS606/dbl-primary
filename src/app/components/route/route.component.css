@@ -40,11 +40,6 @@ p {
     padding-top: 12px;
 }
 
-mat-expansion-panel {
-    color: black;
-    margin: 12px;
-}
-
 mat-progress-spinner {
     width: 25px;
 }
@@ -53,7 +48,6 @@ agm-map {
     height: 25vh;
 }
 
-.map-thumbnail {
-    height: 50px;
-    width: 10%;
+.collection {
+    padding-left: 25px;
 }

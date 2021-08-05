@@ -1,11 +1,10 @@
-import { PropertyService } from './../../../services/property.service';
-
-
-import { Property } from './../../../models/property.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs'  ;
-import { PageEvent } from '@angular/material/paginator';
+
 import { AuthService } from 'src/app/services/auth.service';
+import { PageEvent } from '@angular/material/paginator';
+import { PropertyService } from './../../../services/property.service';
+import { Property } from './../../../models/property.model';
 
 @Component({
   selector: 'app-property-list',

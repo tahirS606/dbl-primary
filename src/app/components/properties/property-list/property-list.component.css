@@ -1,82 +1,98 @@
-h1 {
-    text-align: center;
-    padding: 12px;
-}
-
-mat-paginator {
-    width: 100vw;
-    margin-top: 2rem;
-}
-
-mat-autocomplete {
-    width: 100px;
-}
-
-mat-action-row {
-    display: flex;
-    justify-content: end;
-    align-items: flex-start
-}
-
-.form-field {
-    width: 200px;
-}
-
-mat-accordian {
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-
-.list-filter-preview-container {
-    display: flex;
-}
-
-.list-filter-preview {
-    align-items: center;
-}
-
-mat-action-row {
-    align-items: flex-start;
-    padding: 10px;
-    justify-content: baseline;
-}
-
-ul {
-    margin-left: 0;
-    padding-left: 0
-}
-
-.please-add-props {
-    margin: auto;
-    padding: 2rem;
-}
-
-.thumbnail-header {
-    padding-top: 12px;
-}
-
-mat-expansion-panel {
-    color: black;
-    margin: 12px;
-}
-
-.button {
-    margin: 12px;
-}
-
-.no-search-match {
-    padding: 25px;
-}
-
-mat-progress-spinner {
-    width: 25px;
-}
-
-agm-map {
-    height: 25vh;
-}
-
-.map-thumbnail {
-    height: 50px;
-    width: 10%;
-}
+    h1 {
+        text-align: center;
+        padding: 12px;
+    }
+    
+    mat-paginator {
+        width: 100vw;
+        margin-top: 2rem;
+    }
+    
+    mat-autocomplete {
+        width: 100px;
+    }
+    
+    mat-action-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    .button-row {
+        display: flex;
+        justify-content: end;
+        align-items: flex-start;
+    }
+    
+    .search-icon {
+        padding-top: 20px;
+    }
+    
+    .form-field-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+    
+    .form-field {
+        width: 150px;
+    }
+    
+    mat-accordian {
+        margin-bottom: 12px;
+        margin-top: 12px;
+    }
+    
+    .list-filter-preview-container {
+        display: flex;
+    }
+    
+    .list-filter-preview {
+        align-items: center;
+    }
+    
+    mat-action-row {
+        align-items: flex-start;
+        padding: 10px;
+        justify-content: baseline;
+    }
+    
+    ul {
+        margin-left: 0;
+        padding-left: 0
+    }
+    
+    .please-add-props {
+        margin: auto;
+        padding: 2rem;
+    }
+    
+    .thumbnail-header {
+        padding-top: 12px;
+    }
+    
+    mat-expansion-panel {
+        color: black;
+        margin: 12px;
+    }
+    
+    .button {
+        margin: 12px;
+    }
+    
+    .no-search-match {
+        padding: 25px;
+    }
+    
+    mat-progress-spinner {
+        width: 25px;
+    }
+    
+    agm-map {
+        height: 25vh;
+    }
+    
+    .map-thumbnail {
+        height: 50px;
+        width: 10%;
+    }

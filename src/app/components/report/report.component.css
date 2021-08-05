@@ -25,11 +25,10 @@ header {
     margin-left: 35px;
 }
 
-s .collection {
+.collection {
     padding: 10px;
     border-radius: 7px;
     margin: 6px;
-    /* color: white; */
     height: 150px;
 }
 
@@ -38,7 +37,7 @@ header .title {
 }
 
 mat-icon {
-    margin: 25px;
+    margin: 5px;
 }
 
 .report {

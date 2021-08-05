@@ -1,40 +1,45 @@
+<H1>
+
+    Route {{selectedRoute}}</H1>
+
 <mat-progress-spinner *ngIf="isLoading" color="accent">
 </mat-progress-spinner>
 
+<div class="collection" *ngIf="properties.length === 0">
+    <p>There are properties on this route for this property!</p>
+</div>
 
-<H1>Route {{selectedRoute}}</H1>
+
+<div *ngIf="properties">
+    <div *ngFor="let property of properties | orderBy">
+
+        <!-- <mat-accordion multi="true"> -->
+        <div *ngIf="property.route==selectedRoute">
+            <mat-expansion-panel multi="false">
+                <mat-expansion-panel-header>
+                    <h4>{{ property?.name | titlecase }}</h4>
+                </mat-expansion-panel-header>
+                <mat-panel-title>
+                    <h5>{{ property?.address }}</h5>
+                </mat-panel-title>
+
+                <agm-map #map [latitude]="property?.latitude" [longitude]="property?.longitude" [zoom]="20" [mapTypeId]="'hybrid'" [draggable]="false"></agm-map>
 
 
-<!-- <p *ngIf="!properties">There are no properties on this route</p> -->
-
-<div *ngFor="let property of properties | orderBy">
-
-    <!-- <mat-accordion multi="true"> -->
-    <div *ngIf="property.route==selectedRoute">
-        <mat-expansion-panel multi="false">
-            <mat-expansion-panel-header>
-                <h4>{{ property?.name | titlecase }}</h4>
-            </mat-expansion-panel-header>
-            <mat-panel-title>
-                <h5>{{ property?.address }}</h5>
-            </mat-panel-title>
-
-            <agm-map #map [latitude]="property?.latitude" [longitude]="property?.longitude" [zoom]="20" [mapTypeId]="'hybrid'" [draggable]="false"></agm-map>
-
-            <mat-panel-description>
 
                 <h4>Route: {{property.route}}</h4>
-            </mat-panel-description>
-            <mat-action-row *ngIf="userIsAuthenticated">
-                <a mat-button color="primary" [routerLink]="['/new-report', property.id]">Create Report</a
+
+                <mat-action-row *ngIf="userIsAuthenticated">
+                    <a mat-button color="primary" [routerLink]="['/new-report', property.id]">Create Report</a
         >
           <!-- admin -->
           <a mat-button color="primary" [routerLink]="['/edit-property', property.id]">Edit Property</a>
-                <a mat-button color="primary" [routerLink]="['/reports/by-property', property.id]">Reports</a>
-                <button mat-button color="warn" (click)="onDelete(property.id)">Delete</button>
+                    <a mat-button color="primary" [routerLink]="['/reports/by-property', property.id]">Reports</a>
+                    <button mat-button color="warn" (click)="onDelete(property.id)">Delete</button>
 
-            </mat-action-row>
-        </mat-expansion-panel>
+                </mat-action-row>
+            </mat-expansion-panel>
 
+        </div>
     </div>
 </div>
