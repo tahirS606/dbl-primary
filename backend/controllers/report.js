@@ -11,7 +11,7 @@ exports.getReportById = (req, res, next) => {
 }
 
 exports.getReportsByProperty = (req, res, next) => {
-    
+
     Report.find({ propertyId: req.params.propertyId }).forEach(printjson)
 }
 
@@ -30,7 +30,8 @@ exports.createReport =
             mapZoom: req.body.mapZoom,
             areasForReport: req.body.areasForReport,
             creator: req.userData.userId,
-            mapZoom: req.body.mapZoom
+            mapZoom: req.body.mapZoom,
+            imagePreviewArray: req.body.imagePreviewArray,
 
         });
 

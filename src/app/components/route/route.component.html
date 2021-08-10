@@ -9,7 +9,6 @@
     <p>There are properties on this route for this property!</p>
 </div>
 
-
 <div *ngIf="properties">
     <div *ngFor="let property of properties | orderBy">
 
@@ -22,10 +21,6 @@
                 <mat-panel-title>
                     <h5>{{ property?.address }}</h5>
                 </mat-panel-title>
-
-                <agm-map #map [latitude]="property?.latitude" [longitude]="property?.longitude" [zoom]="20" [mapTypeId]="'hybrid'" [draggable]="false"></agm-map>
-
-
 
                 <h4>Route: {{property.route}}</h4>
 

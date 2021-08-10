@@ -13,8 +13,11 @@ mat-paginator {
 }
 
 mat-accordian {
-    margin-bottom: 12px;
-    margin-top: 12px;
+    margin: 12px;
+}
+
+mat-expansion-panel {
+    margin: 12px;
 }
 
 mat-action-row {

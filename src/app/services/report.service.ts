@@ -91,7 +91,7 @@ creator!: string;
     areasForReport: any,
     creator: string,
     mapZoom: number,
-    imagePreviewArray: string[],
+    imagePreviewArray: any,
     ) 
   
     {

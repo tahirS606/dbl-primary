@@ -186,7 +186,6 @@ export class ReportComponent implements OnInit {
         newCollection.areas = this.polyArrayLatLng
         newCollection.tasks = tasks
         newCollection.time = this.date
-        // newCollection.selectedShapes = this.selectedShapes
         newCollection.color = this.strokeColorsArray[this.count]
 
         this.selectedShapes.forEach((shape: any)=>{ shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'white'})})
@@ -202,7 +201,7 @@ export class ReportComponent implements OnInit {
         this.mapZoom = this.zoom;
         this.reportData = Object.values(this.areasForReport);
         this.areasForReport = this.reportData;
-        console.log('areas for report', this.areasForReport)
+        
         }
 
         onSaveReport() {
@@ -257,8 +256,8 @@ export class ReportComponent implements OnInit {
         reader.readAsDataURL(imageFile);
         
         this.imageFileArray.push(imageFile)
-        console.log('imageFile', imagePreview)
-        console.log('imageFileArray', this.imagePreviewArray)
+        // console.log('imageFile', imagePreview)
+        console.log('imagePreviewArray', this.imagePreviewArray)
 
       } else {
         return;
@@ -344,7 +343,7 @@ export class ReportComponent implements OnInit {
     this.initDrawingManager(map);
     this.findMe().then((position)=>{
       console.log(position)
-      this.calculateDistance()
+      // this.calculateDistance()
     })
   }
 
@@ -393,7 +392,7 @@ export class ReportComponent implements OnInit {
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
 
-      _self.calculateDistance()
+      // _self.calculateDistance()
 
       _self.polygonComplete  = true; 
       _self.addTasksToAreaButtonShowing = true;
