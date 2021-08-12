@@ -1,3 +1,5 @@
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ErrorComponent } from './components/auth/error/error.component';
 import { ErrorInterceptor } from './../../error-interceptor';
 import { SocialLoginModule } from 'angularx-social-login';
@@ -80,6 +82,8 @@ import { ReportlistbypropertyComponent } from './components.reports/reportlistby
     NgxCaptureModule,
     ReactiveFormsModule,
     SocialLoginModule,
+    ShareButtonsModule,
+    ShareIconsModule ,
     
   ],
  
