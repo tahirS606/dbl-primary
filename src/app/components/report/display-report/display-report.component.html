@@ -1,5 +1,7 @@
-<div *ngIf="isLoading">
-    <mat-spinner></mat-spinner>
+<div class="watermark-container">
+    <div *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+    </div>
 </div>
 
 <div *ngIf="report" class="report-container">
@@ -20,7 +22,7 @@
     </mat-accordion>
 
     <div class="title-with-share">
-        <h1>Report for {{report?.date | date }}</h1><button mat-raised-button>Share</button>
+        <h1>Report for {{report?.date | date }}</h1><button mat-raised-button>Share <mat-icon>share</mat-icon></button>
     </div>
 
 
@@ -29,9 +31,9 @@
     <div>
         <span class="strong primary">Address:</span> {{report?.propertyAddress}}</div>
 
-    <span class="strong primary">Time:</span>{{report?.time | date:"shortTime" }}
+    <span class="strong primary">Completed At:</span>{{report?.time | date:"shortTime" }}
 
-    <h2>Services:</h2>
+    <!-- <h2>Services:</h2> -->
 
     <div class="collection-container">
         <div *ngFor="let area of report?.areasForReport">
@@ -63,6 +65,7 @@
             <div class="frame" style="background-image: url('{{image}}')"></div>
         </div>
     </div>
+
 
 
 </div>
