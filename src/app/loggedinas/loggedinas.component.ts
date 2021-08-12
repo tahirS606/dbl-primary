@@ -15,17 +15,13 @@ export class LoggedinasComponent implements OnInit, AfterViewInit {
   public authStatusSub!: Subscription;
   isLoading!: boolean; 
   authData!: {}
-
-
-
+  
   constructor(
     private authService: AuthService) { }
 
   ngOnInit(): void {
 
     this.userId = this.authService.getUserId();
-
-    // need subscription?
     this.userEmail = this.authService.getUserEmail();
 
     this.userIsAuthenticated = this.authService.getIsAuth();
@@ -36,7 +32,6 @@ export class LoggedinasComponent implements OnInit, AfterViewInit {
       this.userEmail = this.authService.getUserEmail();
     })
     this.isLoading = false;
-
   }
 
   ngAfterViewInit(){

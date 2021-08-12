@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 import { Report } from './../../../models/report.model';
 import { ActivatedRoute } from '@angular/router';
 import { ReportService } from './../../../services/report.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 
 declare const google: any;
 
@@ -11,15 +11,16 @@ declare const google: any;
   templateUrl: './display-report.component.html',
   styleUrls: ['./display-report.component.css']
 })
-export class DisplayReportComponent implements OnInit {
+export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy{
 
   reportId!: any
   report!: Report
   reportSub!: Subscription;
 
   mapZoom!: number; 
-  longitude!: number;
-  latitude!: number;
+  longitude: any
+  latitude: any
+  isLoading: boolean = true; 
 
   map: any
 
@@ -49,7 +50,12 @@ export class DisplayReportComponent implements OnInit {
       mapZoom: reportData.mapZoom, 
       imagePreviewArray: reportData.imagePreviewArray, 
       };
+      this.isLoading = false; 
+
+      this.getMapProps()
 });
+
+
 
 this.reportSub = this.reportService
       .getReportUpdateListener()
@@ -62,17 +68,27 @@ this.reportSub = this.reportService
 
   onMapReady(map:any) {
     this.initDrawingManager(map);
-    
-  }
-  panelOpenState: boolean = false;
-
-  ngAfterViewInit(){
-    console.log('this.report', this.report)
     this.latitude = this.report.propertyLatitude;
   this.longitude = this.report.propertyLongitude;
-  this.mapZoom = this.report.mapZoom
     
   }
+
+  panelOpenState: boolean = false;
+
+  loadMap: boolean = false;
+
+ngAfterViewInit(){
+    
+  setTimeout(() => this.loadMap = true, 0)
+
+  }
+
+  async getMapProps(){
+    this.latitude = this.report.propertyLatitude;
+    this.longitude = this.report.propertyLongitude;
+    this.mapZoom = this.report.mapZoom
+  }
+
 
   initDrawingManager(map:any) {
     
@@ -104,6 +120,12 @@ this.reportSub = this.reportService
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
     
     });
+  }
+
+  ngOnDestroy(){
+
+    this.reportSub.unsubscribe()
+
   }
 }
 

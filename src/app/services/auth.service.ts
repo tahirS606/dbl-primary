@@ -2,7 +2,7 @@ import { AuthData } from './../components/auth/auth-data.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { environment } from './../../environments/environment';
 
 const BACKEND_URL= environment.apiUrl
@@ -30,7 +30,9 @@ export class AuthService {
   }
 
   getUserEmail(){
+    console.log(this.userEmail)
     return this.userEmail;
+    
   }
 
   getUserId(){

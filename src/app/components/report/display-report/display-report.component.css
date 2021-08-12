@@ -7,6 +7,7 @@
 .report-container {
     margin: 25px;
     padding-left: 25px;
+    padding-bottom: 25px;
 }
 
 .strong {
@@ -17,14 +18,7 @@
     padding: 10px;
     border-radius: 7px;
     margin: 6px;
-}
-
-h1,
-h2,
-h3,
-h4 {
-    padding-left: 0;
-    margin-left: 0
+    color: white;
 }
 
 .collection-container {
@@ -32,7 +26,7 @@ h4 {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: flex-start;
-    margin-left: 35px;
+    margin: 35px;
 }
 
 mat-icon {
@@ -61,7 +55,7 @@ main {
 
 agm-map {
     z-index: 1;
-    height: 300px;
+    height: 200px;
 }
 
 mat-action-row {
@@ -75,6 +69,10 @@ mat-accordian {
 .report-title {
     padding-left: 12px;
     padding-top: 12px;
+}
+
+.report-subtitle {
+    margin-top: 12px;
 }
 
 button {
@@ -119,4 +117,9 @@ mat-icon {
     background: transparent no-repeat center;
     background-size: cover;
     margin: 15px;
+}
+
+mat-expansion-panel,
+mat-accordion {
+    margin: 12px;
 }

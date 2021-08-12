@@ -20,7 +20,7 @@ export class ReportListComponent implements OnInit, OnDestroy{
     reports: Report[];
   }>();
   
-  isLoading!: boolean; 
+  isLoading: boolean = true;
   transformedReports!: any
 
   Object = Object;
@@ -32,13 +32,13 @@ export class ReportListComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
 
-    this.isLoading = true;
     this.reportService.getAllReports().subscribe((reportDisplayData: any)=>{
         console.log(reportDisplayData)
         this.reports = reportDisplayData.reports; 
         this.reportsUpdated.next({
           reports: [...this.reports]
         })
+        this.isLoading = false; 
       });
 
 
@@ -47,8 +47,10 @@ export class ReportListComponent implements OnInit, OnDestroy{
     .subscribe(
       (reportData: {reports: Report[];
       })=>{
-        this.reports = reportData.reports
+        this.reports = reportData.reports;
+        
       }
+      
     )
 
     

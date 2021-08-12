@@ -57,7 +57,6 @@ export class ReportlistbypropertyComponent implements OnInit {
         }
     );
 
-    
 
     this.userIsAuthenticated = this.authService.getIsAuth();
 

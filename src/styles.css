@@ -14,22 +14,25 @@ body {
     --text-color: black;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 h6 {
-    padding-top: 12px;
-    padding-bottom: 6px;
-}
-
-
-/* padding: 12px; */
-
 .strong {
     font-weight: bold;
 }
 
 .primary {
     color: #3F51B5;
+}
+
+mat-spinner {
+    width: 15px;
+    margin: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
