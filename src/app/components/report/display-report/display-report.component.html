@@ -19,8 +19,9 @@
         </mat-expansion-panel>
     </mat-accordion>
 
-
-    <h1>Report for {{report?.date | date }}</h1>
+    <div class="title-with-share">
+        <h1>Report for {{report?.date | date }}</h1><button mat-raised-button>Share</button>
+    </div>
 
 
 
@@ -62,8 +63,6 @@
             <div class="frame" style="background-image: url('{{image}}')"></div>
         </div>
     </div>
-
-
 
 
 </div>

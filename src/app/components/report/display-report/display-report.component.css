@@ -4,6 +4,21 @@
     height: 100vh;
 }
 
+.title-with-share {
+    display: flex;
+    direction: row;
+    justify-content: space-between;
+}
+
+body {
+    margin: 0;
+    /* background-image: url('../watermark.png'); */
+    background-size: contain;
+    /* Make background take entire page */
+    background-position: center;
+    /* Center Background */
+}
+
 .report-container {
     margin: 25px;
     padding-left: 25px;
@@ -19,13 +34,14 @@
     border-radius: 7px;
     margin: 6px;
     color: white;
+    min-height: 222px;
 }
 
 .collection-container {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space;
     margin: 35px;
 }
 
@@ -121,5 +137,5 @@ mat-icon {
 
 mat-expansion-panel,
 mat-accordion {
-    margin: 12px;
+    margin-bottom: 12px;
 }
