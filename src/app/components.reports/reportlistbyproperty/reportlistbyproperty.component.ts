@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reportlistbyproperty.component.css']
 })
 export class ReportlistbypropertyComponent implements OnInit {
+  
 
   propertyId!: any
   reports!: Report[];
@@ -44,6 +45,7 @@ export class ReportlistbypropertyComponent implements OnInit {
       this.reportsUpdated.next({
         reports: [...this.reports]
       })
+      this.isLoading = false;
     })
     
     
@@ -57,7 +59,6 @@ export class ReportlistbypropertyComponent implements OnInit {
         }
     );
 
-    
 
     this.userIsAuthenticated = this.authService.getIsAuth();
 
@@ -65,7 +66,7 @@ export class ReportlistbypropertyComponent implements OnInit {
       this.userIsAuthenticated = isAuthenticated;
       this.userId = this.authService.getUserId();
     })
-    this.isLoading = false;
+    
 
 }
 }

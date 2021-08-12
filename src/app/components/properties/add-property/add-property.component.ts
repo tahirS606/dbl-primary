@@ -1,5 +1,7 @@
-import { UniquePipe } from './../../../pipes/unique.pipe';
+
 import { PropertyService } from './../../../services/property.service';
+
+import Swal from 'sweetalert2';
 
 
 import {
@@ -108,9 +110,9 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
 
   onSaveProperty() {
     if (this.form.invalid) {
-      console.log('form is invalid');
       return;
     }
+
     if (this.addMode) {
       this.propertyService.addProperty(
         this.form.value.name,
@@ -130,7 +132,15 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
       );
     }
     this.form.valid;
-    this.form.reset();
+    // this.form.reset();
+    this.propertyAddedAlert()
+    
+  }
+
+  Swal: any
+
+  propertyAddedAlert(){
+    Swal.fire('Property Added!');
   }
 
   onGermanAddressMapped($event: any) {

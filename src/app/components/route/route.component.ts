@@ -60,7 +60,6 @@ export class RouteComponent implements OnInit, OnDestroy{
       })
       this.isLoading = false;
       
-    console.log('this.properties', this.properties)
     }
   
   

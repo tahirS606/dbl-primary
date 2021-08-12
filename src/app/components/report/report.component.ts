@@ -1,5 +1,5 @@
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
@@ -21,14 +21,16 @@ import { _MatSelectBase } from '@angular/material/select';
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
 })
-export class ReportComponent implements OnInit {
+export class ReportComponent implements OnInit, AfterViewInit {
 
   Object = Object;
   strokeColor: string = "#21b0ff"
   index: Number = 0
 
   strokeColorsArray: String[] = [
-    "#740c9a", "#4e4ec4", "#21b0ff", "#aa52b4", "#ff218c", "#12b8da", "#49997c", "#027ab0", "#e51a1a", "#eed630" ]
+    "#708F4F", "#70C8CF", "#EFCD42", "#D1AD93", "#1E9DD8", "#CFDF6D" ]
+
+    // "#49997c", "#027ab0", "#e51a1a", "#eed630"
 
   userLocation!: any
 
@@ -48,6 +50,7 @@ export class ReportComponent implements OnInit {
   imageFileArray: {}[] = [{}];
   imagePreviewArray: string[] = [];
   userOnsite: boolean = false; 
+  userEmail: string = ''
 
   // map features
   zoom = 21; 
@@ -62,6 +65,7 @@ export class ReportComponent implements OnInit {
   checked: boolean = false
   tasks: any
   selectedShapes: {}[] = []
+  
  
   addTasksToAreaButtonShowing: boolean = false
   readyToSave: boolean = false
@@ -119,10 +123,15 @@ export class ReportComponent implements OnInit {
       this.addCheckboxesToForm();
     }
 
+
+    ngAfterViewInit(){
+      
+    }
+
     ngOnInit(){
+      this.calculateDistance()
 
       this.userOnsite = false; 
-      this.creator = this.authService.getUserId();
       this.reportDate = this.date; 
       this.reportTime = this.date;
       this.areasForReport.shift();

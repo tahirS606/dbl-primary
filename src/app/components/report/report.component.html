@@ -43,7 +43,7 @@
 
     <div class="collection-container">
         <div *ngFor="let area of reportData">
-            <div [ngStyle]="{'color': area.color}" class="collection">
+            <div [ngStyle]="{'background-color': area.color}" class="collection">
                 <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
                 <ul>
                     <span *ngFor="let task of area.tasks"> 
@@ -63,11 +63,11 @@
         </div>
     </div>
 
-    <!-- <p>property: {{latitude}}, {{longitude}}</p>
+    <p>property: {{latitude}}, {{longitude}}</p>
 
-<p> user: {{userLatitude}}, {{userLongitude}}</p>
+    <p> user: {{userLatitude}}, {{userLongitude}}</p>
 
-<p>{{distance}}</p> -->
+    <!-- <p>{{distance}}</p> -->
 
     <mat-action-row fxLayout fxLayoutAlign="center">
         <button class="submit-button" (click)="onSaveReport()" alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>

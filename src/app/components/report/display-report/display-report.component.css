@@ -4,9 +4,30 @@
     height: 100vh;
 }
 
+.title-with-share {
+    display: flex;
+    direction: row;
+    justify-content: space-between;
+}
+
+.watermark-container {
+    background-image: url(src/assets/images/dbl-watermark.png);
+    background-size: contain;
+    /* Make background take entire page */
+    background-position: center;
+    /* Center Background */
+    background-repeat: no-repeat;
+    /* width: 80%; */
+}
+
+body {
+    margin: 0;
+}
+
 .report-container {
     margin: 25px;
     padding-left: 25px;
+    padding-bottom: 25px;
 }
 
 .strong {
@@ -16,15 +37,9 @@
 .collection {
     padding: 10px;
     border-radius: 7px;
-    margin: 6px;
-}
-
-h1,
-h2,
-h3,
-h4 {
-    padding-left: 0;
-    margin-left: 0
+    margin: 3px;
+    color: white;
+    min-height: 222px;
 }
 
 .collection-container {
@@ -32,12 +47,15 @@ h4 {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: flex-start;
-    margin-left: 35px;
+    margin: 35px;
+    margin: auto;
+    margin: 12px;
 }
 
-mat-icon {
+
+/* mat-icon {
     margin: 25px;
-}
+} */
 
 ul {
     padding-top: 0px;
@@ -45,8 +63,7 @@ ul {
 }
 
 .details-container {
-    margin-left: 24px;
-    margin-right: 24px;
+    margin: auto;
 }
 
 img {
@@ -61,7 +78,7 @@ main {
 
 agm-map {
     z-index: 1;
-    height: 300px;
+    height: 200px;
 }
 
 mat-action-row {
@@ -77,8 +94,13 @@ mat-accordian {
     padding-top: 12px;
 }
 
+.report-subtitle {
+    margin-top: 12px;
+}
+
 button {
     margin: 8px;
+    padding: 4px;
 }
 
 mat-card {
@@ -119,4 +141,9 @@ mat-icon {
     background: transparent no-repeat center;
     background-size: cover;
     margin: 15px;
+}
+
+mat-expansion-panel,
+mat-accordion {
+    margin-bottom: 12px;
 }
