@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { Report } from './../../../models/report.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from './../../../services/report.service';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 
@@ -24,12 +24,21 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
 
   map: any
 
+  url!: string
+  windowUrl!: string
+
   constructor( 
     private reportService: ReportService,
     private route: ActivatedRoute,
+    private router: Router
     ) { }
 
   ngOnInit() {
+
+    this.url = this.router.url;
+    console.log('url', this.url)
+    this.windowUrl = window.location.href;
+    console.log('window url', this.windowUrl)
 
     this.reportId = this.route.snapshot.paramMap.get('reportId');
 
