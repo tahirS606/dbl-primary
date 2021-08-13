@@ -19,7 +19,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
   propertiesPerPage = 10;
   pageSizeOptions = [5, 10, 25, 50];
   currentPage = 1;
-  isLoading: boolean = true; 
+  isLoading: boolean = true
   totalProperties!: number;
   userIsAuthenticated = false;
 
@@ -50,6 +50,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+   
     
     this.propertyService.getProperties(
       this.propertiesPerPage,
@@ -63,10 +64,11 @@ export class PropertyListComponent implements OnInit, OnDestroy {
         (propertyData: { properties: Property[]; propertiesCount: number }) => {
           this.totalProperties = propertyData.propertiesCount;
           this.properties = propertyData.properties;
-          this.isLoading = false;
+          this.isLoading= false
         }
-        
     );
+
+    
 
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {

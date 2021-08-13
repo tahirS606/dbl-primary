@@ -1,7 +1,9 @@
-<div *ngIf="isLoading">
-    <mat-spinner></mat-spinner>
+<div class="watermark-container">
+    <div *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+    </div>
 </div>
-<div class="collection">
+<div *ngIf="!isLoading" class="collection">
     <div *ngFor="let report of reports | orderBy:'-date'">
         <div>
             <span class="primary bold">{{report?.date | date}} - </span> <strong>{{report?.propertyName |titlecase}}</strong> {{report?.propertyAddress}}

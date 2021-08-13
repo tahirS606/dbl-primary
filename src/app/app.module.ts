@@ -40,6 +40,7 @@ import { LoggedinasComponent } from './loggedinas/loggedinas.component';
 import { ReportsListComponent } from './reports-list/reports-list.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ReportlistbypropertyComponent } from './components.reports/reportlistbyproperty/reportlistbyproperty.component';
+import { BrandedSpinnerComponent } from './components/branded-spinner/branded-spinner.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { ReportlistbypropertyComponent } from './components.reports/reportlistby
     DialogComponent,
     ErrorComponent,
     ReportlistbypropertyComponent,
+    BrandedSpinnerComponent,
     
   ],
   imports: [
