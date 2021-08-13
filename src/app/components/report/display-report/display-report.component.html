@@ -7,10 +7,8 @@
 <div *ngIf="report" class="report-container">
 
 
-    <share-buttons [theme]="'modern-light-theme'" [include]="['linkedin','telegram','messenger','sms','email','print','copy']" [show]="5" [showText]="true" [size]="2
+    <share-buttons [theme]="'modern-light'" [include]="['linkedin','telegram','messenger','sms','email','print','copy']" [show]="5" [showText]="true" [size]="2
     " [title]="'Share buttons'" [description]="'share buttons'" [url]="url"></share-buttons>
-
-
 
     <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
