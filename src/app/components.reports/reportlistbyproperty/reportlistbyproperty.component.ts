@@ -3,14 +3,15 @@ import { Subscription, Subject } from 'rxjs';
 import { Report } from './../../models/report.model';
 import { ReportService } from './../../services/report.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { PropertyService } from 'src/app/services/property.service';
 
 @Component({
   selector: 'app-reportlistbyproperty',
   templateUrl: './reportlistbyproperty.component.html',
   styleUrls: ['./reportlistbyproperty.component.css']
 })
-export class ReportlistbypropertyComponent implements OnInit {
+export class ReportlistbypropertyComponent implements OnInit, OnDestroy {
   
 
   propertyId!: any
@@ -20,6 +21,7 @@ export class ReportlistbypropertyComponent implements OnInit {
   private authStatusSub!: Subscription;
   isLoading: boolean = true
   userId!: string; 
+  property: any;
   filteredReports!: Report[]
 
   private reportsUpdated = new Subject<{
@@ -30,18 +32,24 @@ export class ReportlistbypropertyComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private reportService: ReportService,
+    private propertyService: PropertyService
   ) { }
 
   ngOnInit() {
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
 
-    this.reportService.getAllReports().subscribe((reportDisplayData: any)=>{
+    this.property = this.propertyService.getProperty(this.propertyId).subscribe((property: any) =>{
+      this.property = property
+    })
+
+    console.log(this.property)
+
+    this.reportService.reportsWithoutImages().subscribe((reportDisplayData: any)=>{
       this.reports = reportDisplayData.reports;
 
       this.filteredReports = this.reports.filter((report: Report) => report.propertyId === this.propertyId);
-      console.log('reports', this.reports)
-      console.log('filtered reports', this.filteredReports)
-      
+      console.log('filtering completed')
+    
       this.reportsUpdated.next({
         reports: [...this.reports]
       })
@@ -54,7 +62,6 @@ export class ReportlistbypropertyComponent implements OnInit {
       .getReportUpdateListener()
       .subscribe(
         (reportData: { reports: Report[] }) => {
-         console.log(reportData.reports)
          this.reports = reportData.reports
         }
     );
@@ -68,5 +75,9 @@ export class ReportlistbypropertyComponent implements OnInit {
     })
     
 
+}
+
+ngOnDestroy(){
+  this.reportsSub.unsubscribe()
 }
 }

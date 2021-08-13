@@ -4,6 +4,9 @@
         <mat-spinner></mat-spinner>
     </div>
 </div>
+
+<mat-paginator [length]=" totalProperties " [pageSize]="propertiesPerPage " [pageSizeOptions]="pageSizeOptions " (page)="onPageChange($event) " *ngIf="properties.length> 0"></mat-paginator>
+
 <div *ngIf="!isLoading">
     <mat-action-row *ngIf="userIsAuthenticated">
         <div class="form-field-container">
@@ -80,6 +83,6 @@
 
                 </mat-action-row>
             </mat-expansion-panel>
-        </div>
 
-        <mat-paginator [length]=" totalProperties " [pageSize]="propertiesPerPage " [pageSizeOptions]="pageSizeOptions " (page)="onPageChange($event) " *ngIf="properties.length> 0"></mat-paginator>
+
+        </div>

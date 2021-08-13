@@ -20,7 +20,6 @@ export class PropertyService {
     properties: Property[];
     propertiesCount: number;
   }>();
-  private updatedProperties: any;
   routes: any; 
 
   constructor(private http: HttpClient , private router: Router) {}
@@ -61,9 +60,6 @@ export class PropertyService {
         });
       });
   }
-
- 
-    
   
   getPropertyUpdateListener() {
     return this.propertiesUpdated.asObservable();

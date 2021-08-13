@@ -4,6 +4,9 @@
     </div>
 </div>
 
+<h1>Reports</h1>
+<h3> {{property?.address}}</h3>
+
 <div *ngIf="filteredReports">
     <div class="collection" *ngIf="filteredReports.length === 0">
         <p>There are no reports for this property!</p>
@@ -11,7 +14,7 @@
 
     <div class="collection" *ngFor="let report of filteredReports | orderBy:'-date'">
         <div>
-            {{report?.date | date}} <strong>{{report?.propertyName |titlecase}}</strong> {{report?.propertyAddress}}
+            {{report?.date | date}} <strong>Time: </strong>{{report?.time | date}}
             <a mat-button color="primary" [routerLink]="['/reports', report.id]">View</a
             >
     <div>
