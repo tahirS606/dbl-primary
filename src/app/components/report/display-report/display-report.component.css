@@ -137,3 +137,8 @@ mat-expansion-panel,
 mat-accordion {
     margin-bottom: 12px;
 }
+
+.share-icons {
+    padding: 6px;
+    color: white;
+}
