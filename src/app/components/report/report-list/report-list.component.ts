@@ -1,3 +1,4 @@
+import { PageEvent } from '@angular/material/paginator';
 import { Report } from './../../../models/report.model';
 import { AuthService } from '../../../services/auth.service';
 import { Subscription, Subject } from 'rxjs';
@@ -14,6 +15,10 @@ export class ReportListComponent implements OnInit, OnDestroy{
   private reportsSub!: Subscription;
   private authStatusSub!: Subscription;
 
+  totalReports = 10;
+  reportsPerPage= 5;
+  pageSizeOptions = [1,2,5,10]
+
   reports!: any
   userIsAuthenticated = false;
   private reportsUpdated = new Subject<{
@@ -29,6 +34,11 @@ export class ReportListComponent implements OnInit, OnDestroy{
     private reportService: ReportService,
     private authService: AuthService
     ) {}
+
+    onChangedPage(pageData: PageEvent){
+      console.log(pageData)
+
+    }
 
   ngOnInit() {
 
