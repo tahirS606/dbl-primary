@@ -31,7 +31,7 @@ exports.createReport =
             areasForReport: req.body.areasForReport,
             creator: req.userData.userId,
             mapZoom: req.body.mapZoom,
-            imagePreviewArray: req.body.imagePreviewArray,
+            // imagePreviewArray: req.body.imagePreviewArray,
 
         });
 
@@ -44,7 +44,17 @@ exports.createReport =
     }
 
 exports.getAllReports = (req, res, next) => {
-    let fetchedReports;
+    const pageSize = +req.query.pagesize;
+    const currentPage = +req.query.page;
+    const reportQuery =
+        Report.find()
+
+    if (pageSize && currentPage) {
+        reportQuery
+            .skip(pageSize * (currentPage - 1))
+            .limit(pageSize)
+    }
+
     Report.find()
         .then((documents) => {
             if (Report) {
@@ -55,7 +65,7 @@ exports.getAllReports = (req, res, next) => {
                 console.log(documents)
             } else {
                 res.status(400).json({
-                    message: 'fetch failed'
+                    message: 'Could not Fetch Reports'
                 })
             };
         });

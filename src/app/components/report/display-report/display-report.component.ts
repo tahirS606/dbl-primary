@@ -3,6 +3,7 @@ import { Report } from './../../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from './../../../services/report.service';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { PropertyService } from 'src/app/services/property.service';
 
 declare const google: any;
 
@@ -26,10 +27,12 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
 
   url!: string
   windowUrl!: string
+  property: any;
 
   constructor( 
     private reportService: ReportService,
     private route: ActivatedRoute,
+    private propertyService: PropertyService, 
     private router: Router
     ) { }
 
@@ -57,11 +60,30 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
       areasForReport: reportData.areasForReport,  
       creator: reportData.creator, 
       mapZoom: reportData.mapZoom, 
-      imagePreviewArray: reportData.imagePreviewArray, 
+      // imagePreviewArray: reportData.imagePreviewArray, 
       };
+
+      this.propertyService
+            .getProperty(this.report.propertyId)
+            .subscribe((propertyData) => {
+              this.property = {
+                id: propertyData._id,
+                name: propertyData.name,
+                address: propertyData.address,
+                route: propertyData.route, 
+                latitude: propertyData.latitude, 
+              longitude: propertyData.longitude
+              };
+  
+            this.latitude = this.property.latitude;
+            this.longitude = this.property.longitude; 
+            this.mapZoom = this.report.mapZoom
+
+      });
+
       this.isLoading = false; 
 
-      this.getMapProps()
+      
 });
 
 
@@ -77,8 +99,7 @@ this.reportSub = this.reportService
 
   onMapReady(map:any) {
     this.initDrawingManager(map);
-    this.latitude = this.report.propertyLatitude;
-  this.longitude = this.report.propertyLongitude;
+   
     
   }
 
@@ -90,12 +111,6 @@ ngAfterViewInit(){
     
   setTimeout(() => this.loadMap = true, 0)
 
-  }
-
-  async getMapProps(){
-    this.latitude = this.report.propertyLatitude;
-    this.longitude = this.report.propertyLongitude;
-    this.mapZoom = this.report.mapZoom
   }
 
 

@@ -13,7 +13,10 @@ import { PropertyService } from 'src/app/services/property.service';
 })
 export class ReportlistbypropertyComponent implements OnInit, OnDestroy {
   
-
+  totalReports = 10;
+  reportsPerPage= 5;
+  pageSizeOptions = [1,2,5,10]
+  
   propertyId!: any
   reports!: Report[];
   reportsSub!: Subscription;
@@ -44,7 +47,7 @@ export class ReportlistbypropertyComponent implements OnInit, OnDestroy {
 
     console.log(this.property)
 
-    this.reportService.reportsWithoutImages().subscribe((reportDisplayData: any)=>{
+    this.reportService.getAllReports(this.reportsPerPage, 1).subscribe((reportDisplayData: any)=>{
       this.reports = reportDisplayData.reports;
 
       this.filteredReports = this.reports.filter((report: Report) => report.propertyId === this.propertyId);

@@ -10,5 +10,5 @@ export interface Report {
     areasForReport: any, 
     creator: string,
     mapZoom: number,
-    imagePreviewArray: any,
+    // imagePreviewArray: any,
   }

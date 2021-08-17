@@ -47,36 +47,12 @@ creator!: string;
     return this.reportsUpdated.asObservable();
   }
 
-  getAllReports(){
-    return this.http.get<{message: string, reports: any}>
-    (BACKEND_URL + "reports/"
-    )
-    .pipe(
-      map((reportData) =>{
-        console.log('reportData', reportData)
-        return {
-          reports: reportData.reports.map((report: any)=> {
-            return {
-              id: report._id, 
-              date: report.date, 
-              time: report.time, 
-              propertyName: report.propertyName,
-              propertyId: report.propertyId,
-              propertyAddress: report.propertyAddress, 
-              tasks: report.tasks, 
-              creator: report.creator, 
-              mapZoom: report.mapZoom, 
-              imagePreviewArray: report.imagePreviewArray,
-            }
-          })
-        }
-      })
-    )
-  }
+  getAllReports(reportsPerPage: number, currentPage: number){
 
-  reportsWithoutImages(){
+    const queryParams= `?pagesize=${reportsPerPage}&page=${currentPage}`;
+
     return this.http.get<{message: string, reports: any}>
-    (BACKEND_URL + "reports/"
+    (BACKEND_URL + "reports/" + queryParams
     )
     .pipe(
       map((reportData) =>{
@@ -93,6 +69,7 @@ creator!: string;
               tasks: report.tasks, 
               creator: report.creator, 
               mapZoom: report.mapZoom, 
+              
             }
           })
         }
@@ -117,7 +94,7 @@ creator!: string;
     areasForReport: any,
     creator: string,
     mapZoom: number,
-    imagePreviewArray: any,
+    
     ) 
   
     {
@@ -133,8 +110,7 @@ creator!: string;
       propertyLongitude: propertyLongitude, 
       areasForReport: areasForReport, 
       creator: creator,
-      mapZoom: mapZoom,
-      imagePreviewArray: imagePreviewArray, 
+      mapZoom: mapZoom
   }
     this.http
       .post<{ message: string; propertyId: string }>(

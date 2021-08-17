@@ -18,6 +18,7 @@ export class ReportListComponent implements OnInit, OnDestroy{
   totalReports = 10;
   reportsPerPage= 5;
   pageSizeOptions = [1,2,5,10]
+  currentPage = 1;
 
   reports!: any
   userIsAuthenticated = false;
@@ -36,13 +37,17 @@ export class ReportListComponent implements OnInit, OnDestroy{
     ) {}
 
     onChangedPage(pageData: PageEvent){
-      console.log(pageData)
+      this.currentPage = pageData.pageIndex + 1;
+      this.reportsPerPage = pageData.pageSize; 
+      
+      this.reportService.getAllReports(this.reportsPerPage, this.currentPage)
+      
 
     }
 
   ngOnInit() {
 
-    this.reportService.getAllReports().subscribe((reportDisplayData: any)=>{
+    this.reportService.getAllReports(this.reportsPerPage, this.currentPage).subscribe((reportDisplayData: any)=>{
         console.log(reportDisplayData)
         this.reports = reportDisplayData.reports; 
         this.reportsUpdated.next({

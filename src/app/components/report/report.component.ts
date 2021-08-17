@@ -225,7 +225,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.areasForReport,
               this.creator, 
               this.mapZoom,
-              this.imagePreviewArray,
+              // this.imagePreviewArray,
               )        
               
               this.router.navigate(['reports/'])
