@@ -15,11 +15,12 @@ export class AuthService {
   private token!: string | null
   private tokenTimer!: any;
   private userId!: string; 
-  private userEmail!: string; 
+  private userEmailSub= new Subject< any >();
+  private userEmail: string = ''
   
   private authStatusListener = new Subject<boolean>()
 
-  authData!: {}
+  authData!: any;
 
   getIsAuth() {
     return this.isAuthenticated;
@@ -30,9 +31,11 @@ export class AuthService {
   }
 
   getUserEmail(){
-    console.log(this.userEmail)
-    return this.userEmail;
-    
+
+    return this.userEmailSub.subscribe((userEmail)=>{
+      console.log(userEmail)
+    })
+
   }
 
   getUserId(){
@@ -96,6 +99,7 @@ export class AuthService {
 
       console.log('authData', authData)
       this.authData = authData
+      localStorage.setItem('authData', this.authData)
 
     }, error => {
       this.authStatusListener.next(false);

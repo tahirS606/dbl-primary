@@ -3,8 +3,11 @@ import { Report } from './../../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from './../../../services/report.service';
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { PropertyService } from 'src/app/services/property.service';
 
 declare const google: any;
+
+
 
 @Component({
   selector: 'app-display-report',
@@ -12,6 +15,8 @@ declare const google: any;
   styleUrls: ['./display-report.component.css']
 })
 export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy{
+
+  Object = Object;
 
   reportId!: any
   report!: Report
@@ -21,15 +26,19 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
   longitude: any
   latitude: any
   isLoading: boolean = true; 
+  disableDefaultUI: boolean = true; 
+  polygons: any;
 
   map: any
 
   url!: string
   windowUrl!: string
+  property: any;
 
   constructor( 
     private reportService: ReportService,
     private route: ActivatedRoute,
+    private propertyService: PropertyService, 
     private router: Router
     ) { }
 
@@ -57,11 +66,33 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
       areasForReport: reportData.areasForReport,  
       creator: reportData.creator, 
       mapZoom: reportData.mapZoom, 
-      imagePreviewArray: reportData.imagePreviewArray, 
+      // imagePreviewArray: reportData.imagePreviewArray, 
       };
+
+      this.polygons = this.report.areasForReport;
+      console.log('polygons', this.polygons)
+
+      this.propertyService
+            .getProperty(this.report.propertyId)
+            .subscribe((propertyData) => {
+              this.property = {
+                id: propertyData._id,
+                name: propertyData.name,
+                address: propertyData.address,
+                route: propertyData.route, 
+                latitude: propertyData.latitude, 
+              longitude: propertyData.longitude
+              };
+  
+            this.latitude = this.property.latitude;
+            this.longitude = this.property.longitude; 
+            this.mapZoom = this.report.mapZoom
+
+      });
+
       this.isLoading = false; 
 
-      this.getMapProps()
+      
 });
 
 
@@ -76,10 +107,8 @@ this.reportSub = this.reportService
   }
 
   onMapReady(map:any) {
-    this.initDrawingManager(map);
-    this.latitude = this.report.propertyLatitude;
-  this.longitude = this.report.propertyLongitude;
-    
+    // this.initDrawingManager(map);
+  
   }
 
   panelOpenState: boolean = false;
@@ -92,43 +121,32 @@ ngAfterViewInit(){
 
   }
 
-  async getMapProps(){
-    this.latitude = this.report.propertyLatitude;
-    this.longitude = this.report.propertyLongitude;
-    this.mapZoom = this.report.mapZoom
-  }
-
 
   initDrawingManager(map:any) {
     
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
-      drawingControl: true,
-      drawingControlOptions: {
-        drawingModes: ["polygon"], 
-      },
+      drawingControl: false,
+      }
 
-      polygonOptions: {
-        outline: false, 
-        draggable: true,
-        editable: true,
-        fillColor: 'white',
-        fillOpacity: .4,
-        strokeWeight: 7,
-        strokeColor: 'blue', 
-        zIndex: 1,
-        fullScreenControl: true, 
-      },
-    };
+    
+    const polygons = new google.maps.Polygon({
+        paths: this.report.areasForReport,
+        strokeColor: this.report.areasForReport.color,
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35
+      });
+
+      console.log('polygons', polygons)
+      polygons.setMap(this.map);
     
     const drawingManager = new google.maps.drawing.DrawingManager(options);
 
     drawingManager.setMap(map);
     const _self = this; 
 
-    google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
-    
-    });
   }
 
   ngOnDestroy(){

@@ -1,5 +1,5 @@
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
@@ -13,7 +13,6 @@ import { FormBuilder,
 import { _MatSelectBase } from '@angular/material/select';
 
   declare const $: any;
-
   declare const google: any;
 
 @Component({
@@ -21,6 +20,7 @@ import { _MatSelectBase } from '@angular/material/select';
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
 })
+
 export class ReportComponent implements OnInit, AfterViewInit {
 
   Object = Object;
@@ -53,7 +53,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
   userEmail: string = ''
 
   // map features
-  zoom = 21; 
+  @Input() zoom = 21; 
+  @Output() zoomChange!: number
   minZoom = 18;
   maxZoom = 23; 
   disableDefaultUI: boolean = true;
@@ -147,13 +148,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
                 address: propertyData.address,
                 route: propertyData.route, 
                 latitude: propertyData.latitude, 
-                longitude: propertyData.longitude
+              longitude: propertyData.longitude
               };
   
             this.latitude = this.property.latitude;
             this.longitude = this.property.longitude; 
-  
-            console.log('property address lat and long', this.latitude, this.longitude);
 
       });
       
@@ -225,7 +224,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.areasForReport,
               this.creator, 
               this.mapZoom,
-              this.imagePreviewArray,
+              // this.imagePreviewArray,
               )        
               
               this.router.navigate(['reports/'])
@@ -363,7 +362,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
       "Geolocation is not supported by this browser.";
     }
   }
-  
+
   showPosition(position: any) {
     console.log('position in track position',
       position.coords.latitude, 
@@ -378,7 +377,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: true,
       drawingControlOptions: {
-        drawingModes: ["polygon", "circle"], 
+        drawingModes: ["polygon"], 
       },
 
       polygonOptions: {
@@ -414,6 +413,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
         const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
         _self.polyArrayLatLng.push(vertexLatLng);
       }
+
+      console.log('zoom', _self.zoom)
     
     });
 
