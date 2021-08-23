@@ -7,12 +7,16 @@ import { PropertyService } from 'src/app/services/property.service';
 
 declare const google: any;
 
+
+
 @Component({
   selector: 'app-display-report',
   templateUrl: './display-report.component.html',
   styleUrls: ['./display-report.component.css']
 })
 export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy{
+
+  Object = Object;
 
   reportId!: any
   report!: Report
@@ -22,6 +26,7 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
   longitude: any
   latitude: any
   isLoading: boolean = true; 
+  disableDefaultUI: boolean = true; 
 
   map: any
 
@@ -98,9 +103,8 @@ this.reportSub = this.reportService
   }
 
   onMapReady(map:any) {
-    this.initDrawingManager(map);
-   
-    
+    // this.initDrawingManager(map);
+  
   }
 
   panelOpenState: boolean = false;
@@ -118,32 +122,26 @@ ngAfterViewInit(){
     
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
-      drawingControl: true,
-      drawingControlOptions: {
-        drawingModes: ["polygon"], 
-      },
+      drawingControl: false,
+      
+      }
 
-      polygonOptions: {
-        outline: false, 
-        draggable: true,
-        editable: true,
-        fillColor: 'white',
-        fillOpacity: .4,
-        strokeWeight: 7,
-        strokeColor: 'blue', 
-        zIndex: 1,
-        fullScreenControl: true, 
-      },
-    };
+    
+    // const polygon = new google.maps.Polygon({
+    //     paths: this.report.areasForReport,
+    //     strokeColor: this.report.areasForReport.color,
+    //     strokeOpacity: 0.8,
+    //     strokeWeight: 2,
+    //     fillColor: "#FF0000",
+    //     fillOpacity: 0.35
+    //   });
+    //   polygon.setMap(this.map);
     
     const drawingManager = new google.maps.drawing.DrawingManager(options);
 
     drawingManager.setMap(map);
     const _self = this; 
 
-    google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
-    
-    });
   }
 
   ngOnDestroy(){

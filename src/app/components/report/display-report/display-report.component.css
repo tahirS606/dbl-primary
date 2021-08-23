@@ -68,7 +68,9 @@ main {
 
 agm-map {
     z-index: 1;
-    height: 200px;
+    height: 300px;
+    margin-bottom: 1rem;
+    cursor: pointer;
 }
 
 mat-action-row {
@@ -141,4 +143,8 @@ mat-accordion {
 .share-icons {
     padding: 6px;
     color: white;
+}
+
+.button {
+    visibility: hidden;
 }

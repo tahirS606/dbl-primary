@@ -5,11 +5,6 @@
 </div>
 
 <div *ngIf="report" class="report-container">
-
-
-    <share-buttons [theme]="'modern-light'" [include]="['linkedin','telegram','messenger','sms','email','print','copy']" [show]="5" [showText]="true" [size]="2
-    " [title]="'Share buttons'" [description]="'share buttons'" [url]="url"></share-buttons>
-
     <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
@@ -21,7 +16,8 @@
                 <mat-panel-description>
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <agm-map #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="false">
+            <agm-map #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="false" [mapDraggable]="false" [disableDefaultUI]="true" gestureHandling="none"
+                [clickableIcons]="false">
             </agm-map>
         </mat-expansion-panel>
     </mat-accordion>
@@ -57,8 +53,6 @@
         </div>
     </div>
     <p>Creator: {{report?.creator}}</p>
-    <p>Latitude: {{report?.propertyLatitude}}</p>
-    <p>Longitude {{report?.propertyLongitude}}</p>
 
     <!-- <div>
         <h2 *ngIf="report?.imagePreviewArray.length ==1">Image</h2>
@@ -69,5 +63,10 @@
             <div class="frame" style="background-image: url('{{image}}')"></div>
         </div>
     </div> -->
+
+    <h1>Share Report</h1>
+
+    <share-buttons [theme]="'modern-light'" [include]="['linkedin','telegram','messenger','sms','email','print','copy']" [show]="5" [showText]="true" [size]="2
+" [title]="'Share buttons'" [description]="'share buttons'" [url]="url"></share-buttons>
 
 </div>
