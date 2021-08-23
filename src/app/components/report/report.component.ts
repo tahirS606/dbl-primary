@@ -13,7 +13,6 @@ import { FormBuilder,
 import { _MatSelectBase } from '@angular/material/select';
 
   declare const $: any;
-
   declare const google: any;
 
 @Component({
@@ -21,6 +20,7 @@ import { _MatSelectBase } from '@angular/material/select';
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
 })
+
 export class ReportComponent implements OnInit, AfterViewInit {
 
   Object = Object;
@@ -363,8 +363,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
   }
 
-  
-  
   showPosition(position: any) {
     console.log('position in track position',
       position.coords.latitude, 

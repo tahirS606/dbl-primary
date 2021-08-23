@@ -27,6 +27,7 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
   latitude: any
   isLoading: boolean = true; 
   disableDefaultUI: boolean = true; 
+  polygons: any;
 
   map: any
 
@@ -67,6 +68,9 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
       mapZoom: reportData.mapZoom, 
       // imagePreviewArray: reportData.imagePreviewArray, 
       };
+
+      this.polygons = this.report.areasForReport;
+      console.log('polygons', this.polygons)
 
       this.propertyService
             .getProperty(this.report.propertyId)
@@ -123,19 +127,20 @@ ngAfterViewInit(){
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: false,
-      
       }
 
     
-    // const polygon = new google.maps.Polygon({
-    //     paths: this.report.areasForReport,
-    //     strokeColor: this.report.areasForReport.color,
-    //     strokeOpacity: 0.8,
-    //     strokeWeight: 2,
-    //     fillColor: "#FF0000",
-    //     fillOpacity: 0.35
-    //   });
-    //   polygon.setMap(this.map);
+    const polygons = new google.maps.Polygon({
+        paths: this.report.areasForReport,
+        strokeColor: this.report.areasForReport.color,
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35
+      });
+
+      console.log('polygons', polygons)
+      polygons.setMap(this.map);
     
     const drawingManager = new google.maps.drawing.DrawingManager(options);
 

@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { PageEvent } from '@angular/material/paginator';
 import { PropertyService } from './../../../services/property.service';
 import { Property } from './../../../models/property.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-property-list',
@@ -51,7 +52,6 @@ export class PropertyListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
    
-    
     this.propertyService.getProperties(
       this.propertiesPerPage,
       this.currentPage
@@ -77,9 +77,34 @@ export class PropertyListComponent implements OnInit, OnDestroy {
     })
     
   }
+  
+  Swal: any
+
+  deleteConfirmation(){
+    Swal.fire({
+      title: 'Are you sure you want to remove this property',
+      text: 'This cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete.',
+      cancelButtonText: 'No, go back'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Thank you!',
+          'Property Deleted'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Ok'
+        )
+      }
+    })
+  }  
 
 
   onDelete(propertyId: string) {
+    
     this.isLoading = true;
     this.propertyService.deleteProperty(propertyId).subscribe(() => {
       this.propertyService.getProperties(
@@ -89,7 +114,12 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       console.log(this.propertiesPerPage);
       console.log(this.currentPage);
       this.isLoading = false;
+      this.propertyDeletedAlert()
     });
+  }
+
+  propertyDeletedAlert(){
+    Swal.fire('Property Deleted!');
   }
 
   onPageChange(pageData: PageEvent) {

@@ -18,7 +18,9 @@
             </mat-expansion-panel-header>
             <agm-map #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="false" [mapDraggable]="false" [disableDefaultUI]="true" gestureHandling="none"
                 [clickableIcons]="false">
+                <!-- <agm-polygon *ngFor="let polygon of report?.areasForReport" [paths]="polygon"></agm-polygon> -->
             </agm-map>
+
         </mat-expansion-panel>
     </mat-accordion>
 
