@@ -13,7 +13,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/google-maps-autocomplete';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatDialogModule} from '@angular/material/dialog'
+import {MatDialogModule} from '@angular/material/dialog';
+    
+
+  
 
 @NgModule({
   imports: [
@@ -48,7 +51,8 @@ import {MatDialogModule} from '@angular/material/dialog'
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    
   ],
 })
 export class MyMaterialModule {}

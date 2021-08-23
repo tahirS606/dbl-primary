@@ -6,8 +6,6 @@ import { SocialLoginModule } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { SocialAuthServiceConfig } from 'angularx-social-login';
 import { ReportComponent } from './components/report/report.component';
-import { NgxCaptureModule } from 'ngx-capture';
-
 
 
 import { AuthInterceptor } from './components/auth/auth-interceptor';
@@ -80,12 +78,14 @@ import { BrandedSpinnerComponent } from './components/branded-spinner/branded-sp
     GooglePlaceModule,
     HttpClientModule,
     MyMaterialModule,
+    
     NgPipesModule, 
-    NgxCaptureModule,
+    
     ReactiveFormsModule,
     SocialLoginModule,
     ShareButtonsModule,
     ShareIconsModule ,
+
     
   ],
  

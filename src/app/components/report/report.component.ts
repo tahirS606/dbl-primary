@@ -23,6 +23,16 @@ import { _MatSelectBase } from '@angular/material/select';
 
 export class ReportComponent implements OnInit, AfterViewInit {
 
+  checkedTemplate: any; 
+
+  isOpen = false;
+ 
+  isOpenChange($event: boolean) {
+    this.isOpen = $event;
+  }
+
+
+
   Object = Object;
   strokeColor: string = "#21b0ff"
   index: Number = 0
@@ -93,6 +103,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
   checkboxVisible:boolean = false;
   addTasksButtonDisabled: boolean = true;
 
+  
+
   webData = [
     { id: 1, name: 'Raking' },
     { id: 2, name: 'Mowing' },
@@ -108,6 +120,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   showCheckbox(){
     this.checkboxVisible = false; 
   }
+
 
   constructor(
     private propertyService: PropertyService ,
@@ -338,6 +351,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
       this.disableReport()
     }
   }
+
+
 
   disableReport(){
     this.notOnSiteAlert();
