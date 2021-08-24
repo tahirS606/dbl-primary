@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, ViewChild } from '@angular/core';
+
+import { tap } from 'rxjs/operators'
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
@@ -10,6 +13,8 @@ import { FormBuilder,
   FormGroup,
   FormArray,
   FormControl,} from '@angular/forms';
+
+  import { NgxCaptureService } from 'ngx-capture';
 import { _MatSelectBase } from '@angular/material/select';
 
   declare const $: any;
@@ -120,8 +125,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   showCheckbox(){
     this.checkboxVisible = false; 
   }
-
-
+  
   constructor(
     private propertyService: PropertyService ,
     private route: ActivatedRoute,
@@ -129,6 +133,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     public reportService: ReportService,
     private authService: AuthService,
+    private captureService: NgxCaptureService,
+    private http: HttpClient,
     
     ) { 
       this.form = this.formBuilder.group({
@@ -237,7 +243,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.areasForReport,
               this.creator, 
               this.mapZoom,
-              // this.imagePreviewArray,
+              this.imagePreviewArray,
               )        
               
               this.router.navigate(['reports/'])

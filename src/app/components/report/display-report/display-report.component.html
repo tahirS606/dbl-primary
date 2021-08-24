@@ -18,7 +18,7 @@
             </mat-expansion-panel-header>
             <agm-map #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="false" [mapDraggable]="false" [disableDefaultUI]="true" gestureHandling="none"
                 [clickableIcons]="false">
-                <!-- <agm-polygon *ngFor="let polygon of report?.areasForReport" [paths]="polygon"></agm-polygon> -->
+                <agm-polygon *ngFor="let polygon of polygons"></agm-polygon>
             </agm-map>
 
         </mat-expansion-panel>
@@ -27,9 +27,6 @@
     <div class="title-with-share">
         <h1>Report for {{report?.date | date }}</h1>
     </div>
-    <!-- <mat-icon>share</mat-icon> -->
-
-
 
     <div><span class="primary strong">Name:</span> {{report?.propertyName}}</div>
     <div>
@@ -54,9 +51,9 @@
             </div>
         </div>
     </div>
-    <p>Creator: {{report?.creator}}</p>
+    <!-- <p>Creator: {{report?.creator}}</p> -->
 
-    <!-- <div>
+    <div>
         <h2 *ngIf="report?.imagePreviewArray.length ==1">Image</h2>
         <h2 *ngIf="report?.imagePreviewArray.length >1">Images</h2>
     </div>
@@ -64,7 +61,7 @@
         <div *ngFor="let image of report?.imagePreviewArray">
             <div class="frame" style="background-image: url('{{image}}')"></div>
         </div>
-    </div> -->
+    </div>
 
     <h1>Share Report</h1>
 
