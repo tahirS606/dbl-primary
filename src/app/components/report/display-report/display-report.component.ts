@@ -14,7 +14,7 @@ declare const google: any;
   templateUrl: './display-report.component.html',
   styleUrls: ['./display-report.component.css']
 })
-export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy{
+export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
   Object = Object;
 
@@ -42,6 +42,11 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
     private propertyService: PropertyService, 
     private router: Router
     ) { }
+
+    markers = [
+      {lat: 39, lng: 79},
+      {lat: 39.2, lng: 79.9}
+    ]
 
   ngOnInit() {
 
@@ -117,14 +122,12 @@ this.reportSub = this.reportService
 
   loadMap: boolean = false;
 
-ngAfterViewInit(){
-    
-  setTimeout(() => this.loadMap = true, 0)
 
-  }
 
 
   initDrawingManager(map:any) {
+
+    console.log('initDrawing ran', )
     
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -134,9 +137,7 @@ ngAfterViewInit(){
 
       this.report.areasForReport.forEach((area:any)=>{
 
-        
-        
-        const polygons = new google.maps.Polygon({
+      let polygon = new google.maps.Polygon({
           paths: Object.values(area.areas),
           strokeColor: area.color,
           strokeOpacity: 0.8,
@@ -144,11 +145,15 @@ ngAfterViewInit(){
           fillColor: "#FF0000",
           fillOpacity: 0.35
         });
-        this.polygons.push(Object.values(area.areas));
-
-        polygons.setMap(this.map);
+        this.polygons.push(polygon);
+        polygon.setMap(this.map);
+        console.log('polygon', polygon)
        
     })
+
+    
+
+    // note take the polygojns and iterate over them in tjhe template like polygon.lat etc. 
     
     
       
