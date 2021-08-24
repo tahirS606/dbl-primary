@@ -67,7 +67,8 @@ const routes: Routes = [
 {
     path: '',
     component: RoutesListComponent
-}
+},
+
 ];
 
 @NgModule({

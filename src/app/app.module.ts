@@ -39,6 +39,7 @@ import { ReportsListComponent } from './reports-list/reports-list.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ReportlistbypropertyComponent } from './components.reports/reportlistbyproperty/reportlistbyproperty.component';
 import { BrandedSpinnerComponent } from './components/branded-spinner/branded-spinner.component';
+import { NgxCaptureModule } from 'ngx-capture';
 
 @NgModule({
   declarations: [
@@ -78,9 +79,8 @@ import { BrandedSpinnerComponent } from './components/branded-spinner/branded-sp
     GooglePlaceModule,
     HttpClientModule,
     MyMaterialModule,
-    
+    NgxCaptureModule,
     NgPipesModule, 
-    
     ReactiveFormsModule,
     SocialLoginModule,
     ShareButtonsModule,

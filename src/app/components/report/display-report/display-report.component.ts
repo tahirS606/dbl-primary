@@ -27,7 +27,8 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
   latitude: any
   isLoading: boolean = true; 
   disableDefaultUI: boolean = true; 
-  polygons: any;
+  polygons: [{}] =[{}]
+  polygonValues!: []
 
   map: any
 
@@ -43,6 +44,8 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
     ) { }
 
   ngOnInit() {
+
+    this.polygons.shift()
 
     this.url = this.router.url;
     console.log('url', this.url)
@@ -66,11 +69,10 @@ export class DisplayReportComponent implements OnInit , AfterViewInit, OnDestroy
       areasForReport: reportData.areasForReport,  
       creator: reportData.creator, 
       mapZoom: reportData.mapZoom, 
-      // imagePreviewArray: reportData.imagePreviewArray, 
+      imagePreviewArray: reportData.imagePreviewArray, 
       };
 
-      this.polygons = this.report.areasForReport;
-      console.log('polygons', this.polygons)
+ 
 
       this.propertyService
             .getProperty(this.report.propertyId)
@@ -107,7 +109,7 @@ this.reportSub = this.reportService
   }
 
   onMapReady(map:any) {
-    // this.initDrawingManager(map);
+    
   
   }
 
@@ -129,18 +131,27 @@ ngAfterViewInit(){
       drawingControl: false,
       }
 
-    
-    const polygons = new google.maps.Polygon({
-        paths: this.report.areasForReport,
-        strokeColor: this.report.areasForReport.color,
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: "#FF0000",
-        fillOpacity: 0.35
-      });
 
-      console.log('polygons', polygons)
-      polygons.setMap(this.map);
+      this.report.areasForReport.forEach((area:any)=>{
+
+        
+        
+        const polygons = new google.maps.Polygon({
+          paths: Object.values(area.areas),
+          strokeColor: area.color,
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          fillOpacity: 0.35
+        });
+        this.polygons.push(Object.values(area.areas));
+
+        polygons.setMap(this.map);
+       
+    })
+    
+    
+      
     
     const drawingManager = new google.maps.drawing.DrawingManager(options);
 

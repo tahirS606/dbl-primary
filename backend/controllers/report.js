@@ -31,7 +31,7 @@ exports.createReport =
             areasForReport: req.body.areasForReport,
             creator: req.userData.userId,
             mapZoom: req.body.mapZoom,
-            // imagePreviewArray: req.body.imagePreviewArray,
+            imagePreviewArray: req.body.imagePreviewArray,
 
         });
 

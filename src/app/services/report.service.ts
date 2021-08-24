@@ -69,6 +69,7 @@ creator!: string;
               tasks: report.tasks, 
               creator: report.creator, 
               mapZoom: report.mapZoom, 
+              imagePreviewArray: report.imagePreviewArray
               
             }
           })
@@ -94,6 +95,7 @@ creator!: string;
     areasForReport: any,
     creator: string,
     mapZoom: number,
+    imagePreviewArray: any, 
     
     ) 
   
@@ -110,7 +112,8 @@ creator!: string;
       propertyLongitude: propertyLongitude, 
       areasForReport: areasForReport, 
       creator: creator,
-      mapZoom: mapZoom
+      mapZoom: mapZoom,
+      imagePreviewArray: imagePreviewArray, 
   }
     this.http
       .post<{ message: string; propertyId: string }>(
