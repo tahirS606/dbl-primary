@@ -18,16 +18,6 @@
             </mat-expansion-panel-header>
             <agm-map #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="true" [mapDraggable]="false" [disableDefaultUI]="true" gestureHandling="none"
                 [clickableIcons]="false">
-                <div *ngFor='let polygon of polygons'>
-                    <!-- <div>{{polygon | json}}</div>
-                    <agm-polygon [paths]='polygon.paths' [strokeColor]='polygon.color'>
-
-                    </agm-polygon> -->
-                </div>
-                <agm-marker *ngFor='let marker of markers' [latitude]='marker.lat' [longitude]='marker.lng'>
-                </agm-marker>
-
-
             </agm-map>
 
         </mat-expansion-panel>
@@ -43,7 +33,7 @@
 
     <span class="strong primary">Completed At:</span>{{report?.time | date:"shortTime" }}
 
-    <!-- <h2>Services:</h2> -->
+
 
     <div class="collection-container">
         <div *ngFor="let area of report?.areasForReport">
@@ -60,7 +50,6 @@
             </div>
         </div>
     </div>
-    <!-- <p>Creator: {{report?.creator}}</p> -->
 
     <div>
         <h2 *ngIf="report?.imagePreviewArray.length ==1">Image</h2>
