@@ -50,6 +50,8 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
   ngOnInit() {
 
+    console.log(this.polygons)
+
     this.polygons.shift()
 
     this.url = this.router.url;
