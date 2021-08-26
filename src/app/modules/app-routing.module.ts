@@ -47,7 +47,6 @@ const routes: Routes = [
   {
     path: 'reports/:reportId',
     component: DisplayReportComponent,
-    canActivate: [AuthGuard]
   },
 
   {

@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 
@@ -12,7 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated:boolean = false;
   private authListenerSubs!: Subscription;
-  private userEmail: string = ''
+
+  @Input() clientView!: boolean;
 
   private userEmailSub!: Subscription;
 
@@ -21,13 +22,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   authData!: {} 
 
-  // private token: string;
 
   ngOnInit() {
 
-
     this.userIsAuthenticated = this.authService.getIsAuth();
-
 
     this.authListenerSubs = this.authService
       .getAuthStatusListener()

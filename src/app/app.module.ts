@@ -40,6 +40,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { ReportlistbypropertyComponent } from './components.reports/reportlistbyproperty/reportlistbyproperty.component';
 import { BrandedSpinnerComponent } from './components/branded-spinner/branded-spinner.component';
 import { NgxCaptureModule } from 'ngx-capture';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { NgxCaptureModule } from 'ngx-capture';
     ErrorComponent,
     ReportlistbypropertyComponent,
     BrandedSpinnerComponent,
+    FooterComponent,
     
   ],
   imports: [

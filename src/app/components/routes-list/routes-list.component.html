@@ -1,7 +1,9 @@
 <h1>Routes</h1>
-<div class="route-container" #routelist fxLayout>
-    <div *ngFor="let route of routes | unique | orderBy: 'route' ">
-        <a #route [id]="route.route" mat-button color="primary" [routerLink]="['/routes/', route.route]">{{route.route }}
+<div class='container-wrapper'>
+    <div class="route-container" #routelist fxLayout>
+        <div *ngFor="let route of routes | unique | orderBy: 'route' ">
+            <a #route [id]="route.route" mat-button color="primary" [routerLink]="['/routes/', route.route]">{{route.route }}
         </a>
+        </div>
     </div>
 </div>

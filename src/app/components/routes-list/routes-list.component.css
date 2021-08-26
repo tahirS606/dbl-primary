@@ -3,7 +3,7 @@
     justify-content: left;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 50px;
+    margin: auto;
     flex-basis: auto;
 }
 
@@ -15,4 +15,9 @@ mat-button {
 h1 {
     text-align: center;
     padding: 12px;
+}
+
+.container-wrapper {
+    width: 100%;
+    margin: 2rem;
 }

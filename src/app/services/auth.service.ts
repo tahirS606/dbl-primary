@@ -22,9 +22,12 @@ export class AuthService {
 
   authData!: any;
 
+  clientView: boolean = false;
+
   getIsAuth() {
     return this.isAuthenticated;
   }
+
 
   getToken() {
     return this.token;

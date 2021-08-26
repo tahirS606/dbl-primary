@@ -1,13 +1,12 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { Report } from './../../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from './../../../services/report.service';
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Output } from '@angular/core';
 import { PropertyService } from 'src/app/services/property.service';
 
 declare const google: any;
-
-
 
 @Component({
   selector: 'app-display-report',
@@ -15,6 +14,8 @@ declare const google: any;
   styleUrls: ['./display-report.component.css']
 })
 export class DisplayReportComponent implements OnInit ,  OnDestroy{
+
+  @Output() clientView!: Boolean;
 
   Object = Object;
 
@@ -40,7 +41,8 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
     private reportService: ReportService,
     private route: ActivatedRoute,
     private propertyService: PropertyService, 
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
     ) { }
 
     markers = [
@@ -50,8 +52,8 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
   ngOnInit() {
 
-    console.log(this.polygons)
-
+    this.clientView = true; 
+    
     this.polygons.shift()
 
     this.url = this.router.url;
@@ -101,6 +103,8 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
       this.isLoading = false; 
 
+    
+
       
 });
 
@@ -123,9 +127,6 @@ this.reportSub = this.reportService
   panelOpenState: boolean = false;
 
   loadMap: boolean = false;
-
-
-
 
   initDrawingManager(map:any) {
 
