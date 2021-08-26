@@ -2,8 +2,17 @@
     font-weight: bold;
 }
 
+.collection-wrapper {
+    margin: auto;
+    width: 100%;
+}
+
 .collection {
-    padding-left: 25px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 2rem;
 }
 
 .report {
