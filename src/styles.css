@@ -36,6 +36,17 @@ mat-spinner {
     /* width: 80%; */
 }
 
+.watermark-container-large {
+    background-image: url(src/assets/images/dbl-watermark.png);
+    background-size: contain;
+    /* Make background take entire page */
+    background-position: center;
+    /* Center Background */
+    background-repeat: no-repeat;
+    /* width: 80%; */
+    ;
+}
+
 h1,
 h2,
 h3,
