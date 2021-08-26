@@ -1,63 +1,84 @@
-html,
-body {
-    height: 100%;
-}
-
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-body {
-    font-family: "Helvetica Neue", sans-serif;
-    color: var(--text-color);
-    margin: 0;
-    --header-color: #D1DFB7;
-    --sidebar-color: #FAE6BE;
-    --text-color: black;
-}
-
-.strong {
-    font-weight: bold;
-}
-
-.primary {
-    color: #3F51B5;
-}
-
-mat-spinner {
-    width: 15px;
-    margin: auto;
-}
-
-.watermark-container {
-    background-image: url(src/assets/images/dbl-watermark.png);
-    background-size: contain;
-    /* Make background take entire page */
-    background-position: center;
-    /* Center Background */
-    background-repeat: no-repeat;
-    /* width: 80%; */
-}
-
-.watermark-container-large {
-    background-image: url(src/assets/images/dbl-watermark.png);
-    background-size: contain;
-    /* Make background take entire page */
-    background-position: center;
-    /* Center Background */
-    background-repeat: no-repeat;
-    /* width: 80%; */
-    ;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    padding-bottom: 0;
-    margin-bottom: 0;
-}
-
-
-/* @import '~ngx-sharebuttons/themes/material/material-dark-theme';
+    html,
+    body {
+        height: 100%;
+    }
+    
+    @import url('https://fonts.googleapis.com/css?family=Roboto');
+    body {
+        font-family: "Helvetica Neue", sans-serif;
+        color: var(--text-color);
+        margin: 0;
+        --header-color: #D1DFB7;
+        --sidebar-color: #FAE6BE;
+        --text-color: black;
+    }
+    
+    .strong {
+        font-weight: bold;
+    }
+    
+    .primary {
+        color: #3F51B5;
+    }
+    
+    mat-spinner {
+        width: 15px;
+        margin: auto;
+    }
+    
+    .watermark-container {
+        background-image: url(src/assets/images/dbl-watermark.png);
+        background-size: contain;
+        /* Make background take entire page */
+        background-position: center;
+        /* Center Background */
+        background-repeat: no-repeat;
+        /* width: 80%; */
+    }
+    
+    .address-details {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: start;
+        align-content: space-between;
+        width: 100%;
+        margin: 1rem;
+    }
+    
+    .watermark-container-large {
+        background-image: url(src/assets/images/dbl-watermark.png);
+        background-size: contain;
+        /* Make background take entire page */
+        background-position: center;
+        /* Center Background */
+        background-repeat: no-repeat;
+        /* width: 80%; */
+        ;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+    
+    .share-button-container {
+        width: 100%;
+        display: flex;
+        align-content: center;
+        width: 250px;
+    }
+    
+    share-buttons {
+        width: 100%;
+        display: flex;
+        align-content: center;
+        width: 250px;
+    }
+    /* @import '~ngx-sharebuttons/themes/material/material-dark-theme';
 @import '~ngx-sharebuttons/themes/modern/modern-light-theme';
 @import '~ngx-sharebuttons/themes/circles/circles-dark-theme'; */

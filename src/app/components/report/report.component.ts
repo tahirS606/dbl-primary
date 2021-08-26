@@ -149,7 +149,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(){
-      this.calculateDistance()
 
       this.userOnsite = false; 
       this.reportDate = this.date; 
@@ -294,7 +293,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
     Swal: any
 
     notOnSiteAlert(){
-      Swal.fire('You are not on site! (Or your location services are turned off). Please go to the site to create a report.')
+      Swal.fire('You are not on site! (Or your location services are turned off). Please go to the site to submit a report.')
     }
     
     tinyAlert(){
@@ -349,9 +348,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
     
     this.distance = google.maps.geometry.spherical.computeDistanceBetween(userLocation, propertyLocation);
 
-    console.log('calculate distance ran')
 
-    if (this.distance < 1400) {
+    if (this.distance < 1500) {
       this.userOnsite = true
     } else {
       this.disableReport()
@@ -421,7 +419,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
 
-      // _self.calculateDistance()
 
       _self.polygonComplete  = true; 
       _self.addTasksToAreaButtonShowing = true;

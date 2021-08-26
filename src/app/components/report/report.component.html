@@ -25,7 +25,7 @@
     </mat-card-content>
 
     <mat-action-row fxLayout>
-        <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
+        <button (click)="addTasks()" (click)='calculateDistance()' [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
         <button type="button" mat-button color="primary" (click)="filePicker.click()">
         Add image
     </button>
@@ -37,8 +37,19 @@
     <div class="report">
         <h1 *ngIf="reportData || imagePreviewArray">Report for {{date | date }}</h1>
 
-        <app-property-detail>
-        </app-property-detail>
+        <div class='address-details'>
+            <div class="item">
+                <span class="primary strong">Name:</span> {{ property?.name | titlecase}}
+            </div>
+            <div class="item">
+                <span class="strong primary"> Address: </span> {{property?.address | slice:0:-4}}
+            </div>
+
+            <div>
+                <span class="strong primary">Route: </span>{{property?.route }}
+            </div>
+        </div>
+
 
         <h2 *ngIf="reportData" class="title">Services</h2>
 
@@ -64,16 +75,18 @@
             </div>
         </div>
 
-        <p>property: {{latitude}}, {{longitude}}</p>
+        <!-- <p>property: {{latitude}}, {{longitude}}</p>
 
         <p> user: {{userLatitude}}, {{userLongitude}}</p>
+        <p>{{distance}}</p>
+        <p>{{userOnsite}}</p> -->
 
         <!-- <p>{{distance}}</p> -->
 
 
 
         <mat-action-row fxLayout fxLayoutAlign="center">
-            <button class="submit-button" (click)="onSaveReport()" alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
+            <button class="submit-button" (click)="onSaveReport()" (click)='this.calculateDistance()' alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
         </mat-action-row>
     </div>
 </div>

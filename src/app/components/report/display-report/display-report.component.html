@@ -1,4 +1,6 @@
 <div class="watermark-container-large">
+
+
     <div class="watermark-container">
         <div *ngIf="isLoading">
             <mat-spinner></mat-spinner>
@@ -6,6 +8,31 @@
     </div>
 
     <div *ngIf="report" class="report-container">
+
+
+        <h1>Report for {{report?.date | date }}</h1>
+
+
+        <div share-button-container>
+
+            <share-buttons [theme]="'modern-dark'" [include]="['email','copy']" [show]="5" [size]="2
+" [title]="'Someone has shared a DBL visit report with you.'" [description]="'Please view it at the link below.'" [url]="url"></share-buttons>
+        </div>
+
+        <div class='address-details'>
+            <div class="item">
+                <span class="primary strong">Name:</span> {{ report?.propertyName | titlecase}}
+            </div>
+            <div class="item">
+                <span class="strong primary"> Address: </span> {{report?.propertyAddress | slice:0:-4}}
+            </div>
+
+            <div>
+                <span class="strong primary">Completed At: </span>{{report?.time | date:"shortTime" }}
+            </div>
+        </div>
+
+
         <mat-accordion>
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
@@ -23,16 +50,6 @@
 
             </mat-expansion-panel>
         </mat-accordion>
-
-        <div class="title-with-share">
-            <h1>Report for {{report?.date | date }}</h1>
-        </div>
-
-        <div><span class="primary strong">Name:</span> {{report?.propertyName}}</div>
-        <div>
-            <span class="strong primary">Address:</span> {{report?.propertyAddress}}</div>
-
-        <span class="strong primary">Completed At:</span>{{report?.time | date:"shortTime" }}
 
 
 
@@ -52,20 +69,13 @@
             </div>
         </div>
 
-        <div>
-            <h2 *ngIf="report?.imagePreviewArray.length ==1">Image</h2>
-            <h2 *ngIf="report?.imagePreviewArray.length >1">Images</h2>
-        </div>
         <div class="images">
             <div *ngFor="let image of report?.imagePreviewArray">
                 <div class="frame" style="background-image: url('{{image}}')"></div>
             </div>
         </div>
 
-        <h1>Share Report</h1>
 
-        <share-buttons [theme]="'modern-dark'" [include]="['email','print','copy']" [show]="5" [size]="2
-" [title]="'Someone has shared a DBL visit report with you.'" [description]="'Please view it at the link below.'" [url]="url"></share-buttons>
 
     </div>
 </div>
