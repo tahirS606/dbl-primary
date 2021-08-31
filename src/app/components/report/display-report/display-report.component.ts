@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from './../../../services/report.service';
 import { Component, OnInit, AfterViewInit, OnDestroy, Output } from '@angular/core';
 import { PropertyService } from 'src/app/services/property.service';
+import { MapsAPILoader } from '@agm/core';
 
 declare const google: any;
 
@@ -43,6 +44,7 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
     private propertyService: PropertyService, 
     private router: Router,
     private authService: AuthService,
+    private mapsAPILoader: MapsAPILoader,
     ) { }
 
     markers = [
@@ -54,14 +56,28 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
   ngOnInit() {
 
+    this.mapsAPILoader.load().then(() => {
+ 
+      const bounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(54.69726685890506, -2.7379201682812226),
+        new google.maps.LatLng(55.38942944437183, -1.2456105979687226)
+
+        
+      );
+
+    }
+  );
+
+  new google.maps.Marker({
+    position: new google.maps.LatLng (this.latitude, this.longitude),
+    map: this.map,
+    animation: google.maps.Animation.BOUNCE,
+    title: "collection"
+});
+
     this.clientView = true; 
 
-    new google.maps.Marker({
-      position: new google.maps.LatLng (this.latitude, this.longitude),
-      map: this.map,
-      animation: google.maps.Animation.BOUNCE,
-      title: "collection"
-});
+    
 
 
     

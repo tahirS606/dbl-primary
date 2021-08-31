@@ -39,11 +39,14 @@ mat-expansion-panel-body {
 
 .collection-container {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
     justify-content: flex-start;
     margin: 35px;
-    margin: 1rem
+    margin: 1rem;
+    width: 100%;
+}
+
+collection-wrapper {
+    width: 100%;
 }
 
 .item {

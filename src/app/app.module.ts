@@ -38,7 +38,6 @@ import { LoggedinasComponent } from './loggedinas/loggedinas.component';
 import { ReportsListComponent } from './reports-list/reports-list.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ReportlistbypropertyComponent } from './components.reports/reportlistbyproperty/reportlistbyproperty.component';
-import { BrandedSpinnerComponent } from './components/branded-spinner/branded-spinner.component';
 import { NgxCaptureModule } from 'ngx-capture';
 import { FooterComponent } from './components/footer/footer.component';
 
@@ -64,7 +63,6 @@ import { FooterComponent } from './components/footer/footer.component';
     DialogComponent,
     ErrorComponent,
     ReportlistbypropertyComponent,
-    BrandedSpinnerComponent,
     FooterComponent,
     
   ],
