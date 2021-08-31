@@ -46,13 +46,24 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
     ) { }
 
     markers = [
-      {lat: 39, lng: 79},
-      {lat: 39.2, lng: 79.9}
+      {lat: 35.938232, lng: -79.002894},
+      {lat: 35.93824, lng: -79.002893}
     ]
+
+    
 
   ngOnInit() {
 
     this.clientView = true; 
+
+    new google.maps.Marker({
+      position: new google.maps.LatLng (this.latitude, this.longitude),
+      map: this.map,
+      animation: google.maps.Animation.BOUNCE,
+      title: "collection"
+});
+
+
     
     this.polygons.shift()
 

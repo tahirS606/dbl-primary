@@ -24,7 +24,7 @@
                 <span class="primary strong">Name:</span> {{ report?.propertyName | titlecase}}
             </div>
             <div class="item">
-                <span class="strong primary"> Address: </span> {{report?.propertyAddress | slice:0:-4}}
+                <span class="strong primary"> Address: </span> {{report?.propertyAddress | slice:0:-5}}
             </div>
 
             <div>
@@ -46,6 +46,8 @@
                 </mat-expansion-panel-header>
                 <agm-map #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="true" [mapDraggable]="false" [disableDefaultUI]="true" gestureHandling="none"
                     [clickableIcons]="false">
+
+                    <agm-marker *ngFor='let marker of markers'></agm-marker>
                 </agm-map>
 
             </mat-expansion-panel>
@@ -76,6 +78,8 @@
         </div>
 
 
-
+        Lat: {{this.latitude}} Long: {{this.longitude}}
     </div>
+
+
 </div>
