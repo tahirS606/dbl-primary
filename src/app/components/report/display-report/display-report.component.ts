@@ -24,7 +24,8 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
   reportId!: any
   report!: Report
   reportSub!: Subscription;
-  paths:[] = []
+  paths: any;
+  color: any;
 
   mapZoom!: number; 
   longitude: any
@@ -50,8 +51,21 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
     ) { }
 
     markers = [
-      {lat: 35.938232, lng: -79.002894},
-      {lat: 35.93824, lng: -79.002893}
+      { lat: 35.93823884975013, lng: -79.00299961197996 },
+​
+{ lat: 35.93817858641612, lng: -79.00299961197996 },
+​
+ { lat: 35.938167185239664, lng: -79.00309885371351 },
+​
+{ lat: 35.93821333284854, lng: -79.00312232304239 },
+​
+{ lat: 35.93821333284854, lng: -79.00265628922605 },
+​
+{ lat: 35.93818564428644, lng: -79.00265628922605 },
+​
+{ lat: 35.93817152854518, lng: -79.0027018867793 },
+​
+{ lat: 35.93823722101197, lng: -79.0027106039586 },
     ]
 
     
@@ -110,14 +124,10 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
               
               (area:any)=>{
                 
-                let paths = console.log('paths', Object.values(area)[1]);
+                this.paths = console.log('paths', Object.values(area)[1]);
 
-                // this.paths.push(paths)
+                this.color = console.log('color', Object.values(area)[4])
 
-                let color = console.log('color', Object.values(area)[4])
-
-              
-                
             })
 
             
