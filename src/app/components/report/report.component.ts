@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from 'src/app/services/auth.service';
+
 import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 
 import { ReportService } from './../../services/report.service';
@@ -12,8 +11,6 @@ import { FormBuilder,
   FormGroup,
   FormArray,
   FormControl,} from '@angular/forms';
-
-  import { NgxCaptureService } from 'ngx-capture';
 import { _MatSelectBase } from '@angular/material/select';
 
   // declare const $: any;
@@ -131,9 +128,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
     private router: Router,
     private formBuilder: FormBuilder,
     public reportService: ReportService,
-    private authService: AuthService,
-    private captureService: NgxCaptureService,
-    private http: HttpClient,
+    
     
     ) { 
       this.form = this.formBuilder.group({

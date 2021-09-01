@@ -131,10 +131,6 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
       });
 
       this.isLoading = false; 
-
-    
-
-      
 });
 
 
@@ -157,49 +153,14 @@ this.reportSub = this.reportService
 
   loadMap: boolean = false;
 
-  initDrawingManager(map:any) {
+  
 
-    console.log('initDrawing ran', )
-    
-    const options = {
-      drawingMode: google.maps.drawing.OverlayType.POLYGON,
-      drawingControl: false,
-      }
+  
 
 
-      this.report.areasForReport.forEach((area:any)=>{
-
-      let polygon = new google.maps.Polygon({
-          paths: Object.values(area.areas),
-          strokeColor: area.color,
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: "#FF0000",
-          fillOpacity: 0.35
-        });
-        this.polygons.push(polygon);
-        polygon.setMap(this.map);
-        console.log('polygon', polygon)
-       
-    })
-
-    
-
-    // note take the polygojns and iterate over them in tjhe template like polygon.lat etc. 
-    
-    
-      
-    
-    const drawingManager = new google.maps.drawing.DrawingManager(options);
-
-    drawingManager.setMap(map);
-    const _self = this; 
-
-  }
 
   ngOnDestroy(){
 
-    this.reportSub.unsubscribe()
 
   }
 }

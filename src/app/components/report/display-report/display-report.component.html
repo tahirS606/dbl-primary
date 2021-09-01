@@ -47,7 +47,6 @@
                 <agm-map #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="true" [mapDraggable]="false" [disableDefaultUI]="true" gestureHandling="none"
                     [clickableIcons]="false">
 
-                    <agm-marker *ngFor='let marker of markers'></agm-marker>
                 </agm-map>
 
             </mat-expansion-panel>
