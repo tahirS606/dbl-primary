@@ -24,6 +24,7 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
   reportId!: any
   report!: Report
   reportSub!: Subscription;
+  paths:[] = []
 
   mapZoom!: number; 
   longitude: any
@@ -57,33 +58,8 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
   ngOnInit() {
 
-
-    this.mapsAPILoader.load().then(() => {
- 
-      const bounds = new google.maps.LatLngBounds(
-        new google.maps.LatLng(54.69726685890506, -2.7379201682812226),
-        new google.maps.LatLng(55.38942944437183, -1.2456105979687226)
-
-        
-      );
-
-    }
-  );
-
-  new google.maps.Marker({
-    position: new google.maps.LatLng (this.latitude, this.longitude),
-    map: this.map,
-    animation: google.maps.Animation.BOUNCE,
-    title: "collection"
-});
-
     this.clientView = true; 
-
-    
-
-
-    
-    this.polygons.shift()
+  
 
     this.url = this.router.url;
     console.log('url', this.url)
@@ -128,6 +104,25 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
             this.longitude = this.property.longitude; 
             this.mapZoom = this.report.mapZoom
 
+            console.log('areasforreport.area', this.report.areasForReport)
+
+            this.report.areasForReport.forEach(
+              
+              (area:any)=>{
+                
+                let paths = console.log('paths', Object.values(area)[1]);
+
+                // this.paths.push(paths)
+
+                let color = console.log('color', Object.values(area)[4])
+
+              
+                
+            })
+
+            
+            
+
       });
 
       this.isLoading = false; 
@@ -152,11 +147,6 @@ this.reportSub = this.reportService
   panelOpenState: boolean = false;
 
   loadMap: boolean = false;
-
-  
-
-  
-
 
 
   ngOnDestroy(){
