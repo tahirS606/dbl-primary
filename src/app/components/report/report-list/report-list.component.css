@@ -3,16 +3,19 @@
 }
 
 .collection-wrapper {
+    display: flex;
     margin: auto;
-    width: 100%;
+    width: 75%;
+    justify-content: center;
 }
 
 .collection {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 2rem;
+    margin: auto;
+    width: 69%;
 }
 
 .report {
