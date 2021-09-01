@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit, AfterViewInit, Input, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 
-import { tap } from 'rxjs/operators'
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
@@ -17,7 +16,7 @@ import { FormBuilder,
   import { NgxCaptureService } from 'ngx-capture';
 import { _MatSelectBase } from '@angular/material/select';
 
-  declare const $: any;
+  // declare const $: any;
   declare const google: any;
 
 @Component({
@@ -370,7 +369,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
     this.initDrawingManager(map);
     this.findMe().then((position)=>{
       console.log(position)
-      // this.calculateDistance()
     })
   }
 

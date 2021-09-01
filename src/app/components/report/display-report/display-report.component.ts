@@ -7,6 +7,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy, Output } from '@angular/co
 import { PropertyService } from 'src/app/services/property.service';
 import { MapsAPILoader } from '@agm/core';
 
+
 declare const google: any;
 
 @Component({
@@ -55,6 +56,7 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
     
 
   ngOnInit() {
+
 
     this.mapsAPILoader.load().then(() => {
  
