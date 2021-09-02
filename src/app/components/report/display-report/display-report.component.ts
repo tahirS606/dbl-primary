@@ -43,6 +43,9 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
   windowUrl!: string
   property: any;
 
+  polyKeys: any; 
+  polyValues: any; 
+
   constructor( 
     private reportService: ReportService,
     private route: ActivatedRoute,
@@ -127,6 +130,23 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
                 console.log('polygon.paths', polygon.paths)
                 console.log(polygon.color)
             })
+
+            this.polyKeys = Object.keys(this.polygons)
+
+            console.log('polykeys', this.polyKeys)
+
+            this.polyValues= Object.values(this.polygons)
+
+            console.log('polyValues', this.polyValues)
+
+            // [1, 2, 3, 4]
+
+            // replicate this in the component:
+          
+          //   <div *ngFor="let key of Object.keys(polygons)">
+          //   <p>Key-> {{key}} and value is ->
+          //       <div *ngFor='let polygon of polygons[key]'></div> paths: {{polygons[key].paths | json}} color: {{polygons[key].color}}
+          // </div>
       });
 
       this.polygonSub = of(this.polygons)
@@ -153,5 +173,7 @@ this.reportSub = this.reportService
   loadMap: boolean = false;
 
   ngOnDestroy(){}
+
+
 }
 
