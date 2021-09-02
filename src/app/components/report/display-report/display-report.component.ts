@@ -1,3 +1,4 @@
+import { of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { Report } from './../../../models/report.model';
@@ -21,18 +22,19 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
   Object = Object;
 
+  polygonSub: any
+
   reportId!: any
   report!: Report
   reportSub!: Subscription;
-  paths: any;
-  color: any;
+  color!: string;
 
   mapZoom!: number; 
   longitude: any
   latitude: any
   isLoading: boolean = true; 
   disableDefaultUI: boolean = true; 
-  polygons: [{}] = [{}]
+  polygons: any = []
   polygonValues!: []
 
   map: any
@@ -124,14 +126,17 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
                 console.log(this.polygons)
                 console.log('polygon.paths', polygon.paths)
                 console.log(polygon.color)
-
             })
       });
 
+      this.polygonSub = of(this.polygons)
+      this.polygonSub.subscribe((polygon:any)=>{
+        console.log(polygon)
+      })
+
       this.isLoading = false; 
+      console.log('this.polysub', this.polygonSub)
 });
-
-
 
 this.reportSub = this.reportService
       .getReportUpdateListener()
@@ -146,7 +151,6 @@ this.reportSub = this.reportService
 
   panelOpenState: boolean = false;
   loadMap: boolean = false;
-
 
   ngOnDestroy(){}
 }

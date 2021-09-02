@@ -46,19 +46,37 @@
                 </mat-expansion-panel-header>
                 <agm-map #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="true" [mapDraggable]="false" [disableDefaultUI]="true" gestureHandling="none"
                     [clickableIcons]="false">
-
-                    <!-- <agm-polygon *ngFor='let polygon of polygons' [paths]='polygons'></agm-polygon> -->
-
-
-
+                    <agm-polygon *ngFor='let polygon of polygonSub | async' [paths]='polygons.paths'></agm-polygon>
                 </agm-map>
 
-                <div *ngFor=' let polygon of polygons '>{{polygon | json}}</div>
+                <div *ngFor=' let polygon of polygons '>json: {{polygon | json}}
+                    <div>paths: {{polygon.paths}}</div>
+                    <div>color: {{polygon.color}}</div>
+                </div>
+
+                <div *ngFor=' let polygon of polygons '>json: {{polygon | json}}
+                    <div>paths: {{polygon.paths}}</div>
+                    <div>color: {{polygon.color}}</div>
+                </div>
+
+
+                <div *ngFor="let key of Object.keys(polygons)">
+                    my key: {{key}} my object: {{polygons[key] | json}}
+
+                    <div *ngFor='let key of polygons[key]'>
+                        {{key.paths}}
+                    </div>
+
+                </div>
+
+                <div *ngFor="let key of Object.keys(polygons)">
+                    <p>Key-> {{key}} and value is ->
+                        <div *ngFor='let polygon of polygons[key]'></div> paths: {{polygons[key].paths | json}} color: {{polygons[key].color}}
+                </div>
+
 
             </mat-expansion-panel>
         </mat-accordion>
-
-
 
         <div class="collection-container">
             <div *ngFor="let area of report?.areasForReport">
