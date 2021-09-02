@@ -1,3 +1,4 @@
+import { of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { Report } from './../../../models/report.model';
@@ -21,17 +22,19 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
   Object = Object;
 
+  polygonSub: any
+
   reportId!: any
   report!: Report
   reportSub!: Subscription;
-  paths:[] = []
+  color!: string;
 
   mapZoom!: number; 
   longitude: any
   latitude: any
   isLoading: boolean = true; 
   disableDefaultUI: boolean = true; 
-  polygons: [{}] =[{}]
+  polygons: any = []
   polygonValues!: []
 
   map: any
@@ -39,6 +42,9 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
   url!: string
   windowUrl!: string
   property: any;
+
+  polyKeys: any; 
+  polyValues: any; 
 
   constructor( 
     private reportService: ReportService,
@@ -49,18 +55,13 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
     private mapsAPILoader: MapsAPILoader,
     ) { }
 
-    markers = [
-      {lat: 35.938232, lng: -79.002894},
-      {lat: 35.93824, lng: -79.002893}
-    ]
 
-    
 
   ngOnInit() {
+    this.polygons.shift()
 
     this.clientView = true; 
   
-
     this.url = this.router.url;
     console.log('url', this.url)
     this.windowUrl = window.location.href;
@@ -102,33 +103,60 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
   
             this.latitude = this.property.latitude;
             this.longitude = this.property.longitude; 
-            this.mapZoom = this.report.mapZoom
+            this.mapZoom = this.report.mapZoom;
 
-            console.log('areasforreport.area', this.report.areasForReport)
+            console.log('areas for report', this.report.areasForReport)
 
+
+            function Polygon(paths: any,  color: any) {
+              paths = paths;
+              color = color; 
+            }
+
+            
             this.report.areasForReport.forEach(
-              
+            
               (area:any)=>{
-                
-                let paths = console.log('paths', Object.values(area)[1]);
 
-                // this.paths.push(paths)
+                const polygon = new (Polygon as any)({ paths: [], color: '' })
 
-                let color = console.log('color', Object.values(area)[4])
+                polygon.paths =  Object.values(area)[1]
+                polygon.color = Object.values(area)[4]
 
               
-                
+                console.log('polygon', polygon)
+                this.polygons.push(polygon)
+                console.log(this.polygons)
+                console.log('polygon.paths', polygon.paths)
+                console.log(polygon.color)
             })
 
-            
-            
+            this.polyKeys = Object.keys(this.polygons)
 
+            console.log('polykeys', this.polyKeys)
+
+            this.polyValues= Object.values(this.polygons)
+
+            console.log('polyValues', this.polyValues)
+
+            // [1, 2, 3, 4]
+
+            // replicate this in the component:
+          
+          //   <div *ngFor="let key of Object.keys(polygons)">
+          //   <p>Key-> {{key}} and value is ->
+          //       <div *ngFor='let polygon of polygons[key]'></div> paths: {{polygons[key].paths | json}} color: {{polygons[key].color}}
+          // </div>
       });
 
+      this.polygonSub = of(this.polygons)
+      this.polygonSub.subscribe((polygon:any)=>{
+        console.log(polygon)
+      })
+
       this.isLoading = false; 
+      console.log('this.polysub', this.polygonSub)
 });
-
-
 
 this.reportSub = this.reportService
       .getReportUpdateListener()
@@ -139,19 +167,13 @@ this.reportSub = this.reportService
     );
   }
 
-  onMapReady(map:any) {
-    
-  
-  }
+  onMapReady(map:any) {  }
 
   panelOpenState: boolean = false;
-
   loadMap: boolean = false;
 
+  ngOnDestroy(){}
 
-  ngOnDestroy(){
 
-
-  }
 }
 
