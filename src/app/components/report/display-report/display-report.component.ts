@@ -4,12 +4,9 @@ import { Subscription } from 'rxjs';
 import { Report } from './../../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReportService } from './../../../services/report.service';
-import { Component, OnInit, AfterViewInit, OnDestroy, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output } from '@angular/core';
 import { PropertyService } from 'src/app/services/property.service';
-import { MapsAPILoader } from '@agm/core';
 
-
-declare const google: any;
 
 @Component({
   selector: 'app-display-report',
@@ -51,17 +48,12 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
     private route: ActivatedRoute,
     private propertyService: PropertyService, 
     private router: Router,
-    private authService: AuthService,
-    private mapsAPILoader: MapsAPILoader,
+    
     ) { }
-
-
 
   ngOnInit() {
     this.polygons.shift()
-
     this.clientView = true; 
-  
     this.url = this.router.url;
     console.log('url', this.url)
     this.windowUrl = window.location.href;
@@ -139,14 +131,6 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
             console.log('polyValues', this.polyValues)
 
-            // [1, 2, 3, 4]
-
-            // replicate this in the component:
-          
-          //   <div *ngFor="let key of Object.keys(polygons)">
-          //   <p>Key-> {{key}} and value is ->
-          //       <div *ngFor='let polygon of polygons[key]'></div> paths: {{polygons[key].paths | json}} color: {{polygons[key].color}}
-          // </div>
       });
 
       this.polygonSub = of(this.polygons)
@@ -155,7 +139,7 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
       })
 
       this.isLoading = false; 
-      console.log('this.polysub', this.polygonSub)
+     
 });
 
 this.reportSub = this.reportService
