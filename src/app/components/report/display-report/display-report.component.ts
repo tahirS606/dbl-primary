@@ -32,7 +32,7 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
   latitude: any
   isLoading: boolean = true; 
   disableDefaultUI: boolean = true; 
-  polygons: [{}] =[{}]
+  polygons: [{}] = [{}]
   polygonValues!: []
 
   map: any
@@ -50,31 +50,13 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
     private mapsAPILoader: MapsAPILoader,
     ) { }
 
-    markers = [
-      { lat: 35.93823884975013, lng: -79.00299961197996 },
-​
-{ lat: 35.93817858641612, lng: -79.00299961197996 },
-​
- { lat: 35.938167185239664, lng: -79.00309885371351 },
-​
-{ lat: 35.93821333284854, lng: -79.00312232304239 },
-​
-{ lat: 35.93821333284854, lng: -79.00265628922605 },
-​
-{ lat: 35.93818564428644, lng: -79.00265628922605 },
-​
-{ lat: 35.93817152854518, lng: -79.0027018867793 },
-​
-{ lat: 35.93823722101197, lng: -79.0027106039586 },
-    ]
 
-    
 
   ngOnInit() {
+    this.polygons.shift()
 
     this.clientView = true; 
   
-
     this.url = this.router.url;
     console.log('url', this.url)
     this.windowUrl = window.location.href;
@@ -116,23 +98,34 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
   
             this.latitude = this.property.latitude;
             this.longitude = this.property.longitude; 
-            this.mapZoom = this.report.mapZoom
+            this.mapZoom = this.report.mapZoom;
 
-            console.log('areasforreport.area', this.report.areasForReport)
+            console.log('areas for report', this.report.areasForReport)
 
+
+            function Polygon(paths: any,  color: any) {
+              paths = paths;
+              color = color; 
+            }
+
+            
             this.report.areasForReport.forEach(
-              
+            
               (area:any)=>{
-                
-                this.paths = console.log('paths', Object.values(area)[1]);
 
-                this.color = console.log('color', Object.values(area)[4])
+                const polygon = new (Polygon as any)({ paths: [], color: '' })
+
+                polygon.paths =  Object.values(area)[1]
+                polygon.color = Object.values(area)[4]
+
+              
+                console.log('polygon', polygon)
+                this.polygons.push(polygon)
+                console.log(this.polygons)
+                console.log('polygon.paths', polygon.paths)
+                console.log(polygon.color)
 
             })
-
-            
-            
-
       });
 
       this.isLoading = false; 
@@ -149,19 +142,12 @@ this.reportSub = this.reportService
     );
   }
 
-  onMapReady(map:any) {
-    
-  
-  }
+  onMapReady(map:any) {  }
 
   panelOpenState: boolean = false;
-
   loadMap: boolean = false;
 
 
-  ngOnDestroy(){
-
-
-  }
+  ngOnDestroy(){}
 }
 

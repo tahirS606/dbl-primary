@@ -144,6 +144,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     ngOnInit(){
 
+      this.polyArrayLatLng.shift();
+
       this.userOnsite = false; 
       this.reportDate = this.date; 
       this.reportTime = this.date;
@@ -215,9 +217,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
         this.form.reset();
         this.checked = false;
         this.polyArrayLatLng = [{}];
+        this.polyArrayLatLng.shift();
         this.selectedShapes = [];
         this.selectedShapes.shift();
-        this.polyArrayLatLng.shift();
         this.mapZoom = this.zoom;
         this.reportData = Object.values(this.areasForReport);
         this.areasForReport = this.reportData;
@@ -238,6 +240,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.mapZoom,
               this.imagePreviewArray,
               )        
+
+              console.log('this.report', this.report)
               
               this.router.navigate(['reports/'])
               this.form.reset();
@@ -421,19 +425,22 @@ export class ReportComponent implements OnInit, AfterViewInit {
       const len = polygon.getPath().getLength();
       for (let i = 0; i < len; i++) {
         const vertex = polygon.getPath().getAt(i);
+        console.log('vertex', vertex)
         const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
+
+        console.log('vertexLatLng', vertexLatLng)
         _self.polyArrayLatLng.push(vertexLatLng);
+
+        console.log('POlyArrayLtLng', _self.polyArrayLatLng)
       }
 
-      console.log('zoom', _self.zoom)
     
     });
 
-    console.log('selectedShapes', this.selectedShapes)
 
     
   }
 
- 
+
 }
 
