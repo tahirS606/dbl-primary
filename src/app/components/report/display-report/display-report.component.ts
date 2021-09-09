@@ -1,5 +1,4 @@
 import { of } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { Report } from './../../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +19,6 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
   Object = Object;
 
   polygonSub: any
-
   reportId!: any
   report!: Report
   reportSub!: Subscription;
@@ -55,10 +53,8 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
     this.polygons.shift()
     this.clientView = true; 
     this.url = this.router.url;
-    console.log('url', this.url)
     this.windowUrl = window.location.href;
-    console.log('window url', this.windowUrl)
-
+  
     this.reportId = this.route.snapshot.paramMap.get('reportId');
 
     this.reportService
@@ -99,13 +95,11 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
             console.log('areas for report', this.report.areasForReport)
 
-
             function Polygon(paths: any,  color: any) {
               paths = paths;
               color = color; 
             }
 
-            
             this.report.areasForReport.forEach(
             
               (area:any)=>{
@@ -114,28 +108,23 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
                 polygon.paths =  Object.values(area)[1]
                 polygon.color = Object.values(area)[4]
-
-              
-                console.log('polygon', polygon)
+            
                 this.polygons.push(polygon)
-                console.log(this.polygons)
+                
                 console.log('polygon.paths', polygon.paths)
-                console.log(polygon.color)
+                
             })
 
             this.polyKeys = Object.keys(this.polygons)
 
-            console.log('polykeys', this.polyKeys)
 
             this.polyValues= Object.values(this.polygons)
 
-            console.log('polyValues', this.polyValues)
 
       });
 
       this.polygonSub = of(this.polygons)
       this.polygonSub.subscribe((polygon:any)=>{
-        console.log(polygon)
       })
 
       this.isLoading = false; 

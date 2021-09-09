@@ -143,6 +143,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(){
+      this.findMe();
 
       this.polyArrayLatLng.shift();
 
@@ -223,7 +224,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         this.mapZoom = this.zoom;
         this.reportData = Object.values(this.areasForReport);
         this.areasForReport = this.reportData;
-        
         }
 
         onSaveReport() {
@@ -352,9 +352,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
     } else {
       this.disableReport()
     }
+
+    console.log('distance', this.distance)
   }
-
-
 
   disableReport(){
     this.notOnSiteAlert();
@@ -419,7 +419,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
       _self.polygonComplete  = true; 
       _self.addTasksToAreaButtonShowing = true;
-
       _self.selectedShapes.push(polygon);
     
       const len = polygon.getPath().getLength();
@@ -427,20 +426,49 @@ export class ReportComponent implements OnInit, AfterViewInit {
         const vertex = polygon.getPath().getAt(i);
         console.log('vertex', vertex)
         const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
+       
 
         console.log('vertexLatLng', vertexLatLng)
         _self.polyArrayLatLng.push(vertexLatLng);
 
-        console.log('POlyArrayLtLng', _self.polyArrayLatLng)
       }
 
+      // the last point of polygon should be always the same as the first point (math rule)
+
+  _self.polyArrayLatLng.push(_self.polyArrayLatLng[0])
     
     });
 
-
-    
   }
 
 
 }
 
+// for (let i = 0; i < len; i++) {
+//   for (let i = 0; i < len; i++) {
+//     const vertex = polygon.getPath().getAt(i);
+//     const vertex = polygon.getPath().getAt(i);
+//     const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
+//     const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
+//     polyArrayLatLng.push(vertexLatLng);
+//   
+//   }
+
+//   // the last point of polygon should be always the same as the first point (math rule)
+
+//   polyArrayLatLng.push(polyArrayLatLng[0]);
+
+
+
+//   console.log('polygon Complete')
+//   console.log('polygon Complete')
+//   number = number+1 
+//   number = number+1 
+
+//   let polygonName = 'Area ' + number
+//   console.log('Area', number, polyArrayLatLng);
+
+//   console.log('Area ', number, polyArrayLatLng);
+
+
+// });

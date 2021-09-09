@@ -67,7 +67,7 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   imports: [
     AgmCoreModule .forRoot({
-      apiKey: 'AIzaSyDbpD2C4fBsYbzVQwEr1rIaNbl8zVyimok',
+      apiKey: 'AIzaSyAKDgyfjOkz_TRX20-sSH_zJ_5Qmfp7P3c',
       libraries: ['drawing', 'places', 'geometry']
     }),
     AgmDrawingModule,
@@ -78,7 +78,6 @@ import { FooterComponent } from './components/footer/footer.component';
     GooglePlaceModule,
     HttpClientModule,
     MyMaterialModule,
- 
     NgPipesModule, 
     ReactiveFormsModule,
     SocialLoginModule,
@@ -96,7 +95,7 @@ import { FooterComponent } from './components/footer/footer.component';
         {
           id: GoogleLoginProvider.PROVIDER_ID,
           provider: new GoogleLoginProvider(
-            '751908540662-tqna3m89pe5p7713u996a6a17tc484ft.apps.googleusercontent.com'
+            'AIzaSyAKDgyfjOkz_TRX20-sSH_zJ_5Qmfp7P3c.apps.googleusercontent.com'
           )
         }
       ]

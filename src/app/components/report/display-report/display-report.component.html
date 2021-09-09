@@ -33,53 +33,18 @@
         </div>
 
 
-        <mat-accordion>
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <div>
-                            <p class="centered primary strong">Map of Services Performed</p>
-                        </div>
-                    </mat-panel-title>
-                    <mat-panel-description>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <agm-map #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="true" [mapDraggable]="false" [disableDefaultUI]="true" gestureHandling="none"
-                    [clickableIcons]="false">
-                    <agm-polygon *ngFor='let polygon of polyValues' [paths]='polygon.paths' [strokeColor]='polygon.color' [strokeWeight]='5'></agm-polygon>
+
+        <div class="centered primary strong">
+            <p>Map of Services Performed</p>
+        </div>
 
 
-                </agm-map>
+        <agm-map #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="true" [mapDraggable]="false" [disableDefaultUI]="true" gestureHandling="none"
+            [clickableIcons]="false">
+            <agm-polygon *ngFor='let polygon of polyValues' [paths]='polygon.paths' [strokeColor]='polygon.color' [strokeWeight]='5'></agm-polygon>
+        </agm-map>
 
 
-                <!-- <div *ngFor=' let polygon of polygons '>json: {{polygon | json}}
-                    <div>paths: {{polygon.paths}}</div>
-                    <div>color: {{polygon.color}}</div>
-                </div>
-
-                <div *ngFor=' let polygon of polygons '>json: {{polygon | json}}
-                    <div>paths: {{polygon.paths}}</div>
-                    <div>color: {{polygon.color}}</div>
-                </div>
-
-
-                <div *ngFor="let key of Object.keys(polygons)">
-                    my key: {{key}} my object: {{polygons[key] | json}}
-
-                    <div *ngFor='let key of polygons[key]'>
-                        {{key.paths}}
-                    </div>
-
-                </div>
-
-                <div *ngFor="let key of Object.keys(polygons)">
-                    <p>Key-> {{key}} and value is ->
-                        <div *ngFor='let polygon of polygons[key]'></div> paths: {{polygons[key].paths | json}} color: {{polygons[key].color}}
-                </div> -->
-
-
-            </mat-expansion-panel>
-        </mat-accordion>
 
         <div class="collection-container">
             <div *ngFor="let area of report?.areasForReport">

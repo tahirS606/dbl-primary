@@ -34,6 +34,8 @@ exports.createProperty = (req, res, next) => {
         creator: req.userData.userId
     });
 
+    dbl.properties.createIndex({ "address": 1 }, { unique: true });
+
     property.save().then((addedProperty) => {
         res.status(201).json({
             message: "Property added successfully",
