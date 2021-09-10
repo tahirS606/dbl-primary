@@ -1,5 +1,4 @@
 import { of } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { Report } from './../../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +19,6 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
   Object = Object;
 
   polygonSub: any
-
   reportId!: any
   report!: Report
   reportSub!: Subscription;
@@ -55,10 +53,8 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
     this.polygons.shift()
     this.clientView = true; 
     this.url = this.router.url;
-    console.log('url', this.url)
     this.windowUrl = window.location.href;
-    console.log('window url', this.windowUrl)
-
+  
     this.reportId = this.route.snapshot.paramMap.get('reportId');
 
     this.reportService
@@ -99,38 +95,57 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
             console.log('areas for report', this.report.areasForReport)
 
-
             function Polygon(paths: any,  color: any) {
               paths = paths;
               color = color; 
             }
 
-            
+            console.log(this.report.areasForReport.forEach((area:any)=>{
+
+              console.log('polygon area', area.polygon)
+
+            }))
+
             this.report.areasForReport.forEach(
             
-              (area:any)=>{
+              (polygon:any)=>{
 
-                const polygon = new (Polygon as any)({ paths: [], color: '' })
+                let pathCollection: any = []
 
-                polygon.paths =  Object.values(area)[1]
-                polygon.color = Object.values(area)[4]
+                console.log('polygon.polygons', polygon.polygons)
 
-              
-                console.log('polygon', polygon)
-                this.polygons.push(polygon)
-                console.log(this.polygons)
-                console.log('polygon.paths', polygon.paths)
-                console.log(polygon.color)
+                const paths = polygon.polygons;
+
+                const polyPaths = Object.values(paths)
+
+                const polyColor= Object.values(polygon)[4]
+
+                polyPaths.forEach((path:any)=>{
+                  console.log('path.paths', path.paths)
+                  pathCollection.push(path.paths)
+                  console.log('pathCollection', pathCollection)
+                  // works but we need to get it a new polygon
+
+                  const newPolygon = new (Polygon as any)({ paths: [], color:'' })
+
+                  newPolygon.paths = pathCollection 
+                  newPolygon.color = polyColor
+
+                  this.polygons.push(newPolygon)
+
+                  console.log('this.polygons', this.polygons)
+
+                  
+                })
+
+          
+
+                
+                           
+
+                
             })
-
-            this.polyKeys = Object.keys(this.polygons)
-
-            console.log('polykeys', this.polyKeys)
-
-            this.polyValues= Object.values(this.polygons)
-
-            console.log('polyValues', this.polyValues)
-
+           
       });
 
       this.polygonSub = of(this.polygons)

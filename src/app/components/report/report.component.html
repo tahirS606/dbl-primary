@@ -25,7 +25,7 @@
     </mat-card-content>
 
     <mat-action-row fxLayout>
-        <button (click)="addTasks()" (click)='calculateDistance()' [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
+        <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
         <button type="button" mat-button color="primary" (click)="filePicker.click()">
         Add image
     </button>
@@ -39,7 +39,7 @@
 
         <div class='address-details'>
             <div class="item">
-                <span class="primary strong">Name:</span> {{ property?.name | titlecase}}
+                <span class="primary strong">Name:</span> {{ property?.name | titlecase }}
             </div>
             <div class="item">
                 <span class="strong primary"> Address: </span> {{property?.address | slice:0:-4}}
@@ -88,7 +88,7 @@
 
 
         <mat-action-row fxLayout fxLayoutAlign="center">
-            <button class="submit-button" (click)="onSaveReport()" (click)='this.calculateDistance()' alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
+            <button class="submit-button" (click)="onSaveReport()" alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
         </mat-action-row>
     </div>
 </div>
