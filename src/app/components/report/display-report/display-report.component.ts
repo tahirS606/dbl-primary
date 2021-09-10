@@ -100,31 +100,57 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
               color = color; 
             }
 
+            console.log(this.report.areasForReport.forEach((area:any)=>{
+
+              console.log('polygon area', area.polygon)
+
+            }))
+
             this.report.areasForReport.forEach(
             
-              (area:any)=>{
+              (polygon:any)=>{
 
-                const polygon = new (Polygon as any)({ paths: [], color: '' })
+                let pathCollection: any = []
 
-                polygon.paths =  Object.values(area)[1]
-                polygon.color = Object.values(area)[4]
-            
-                this.polygons.push(polygon)
+                console.log('polygon.polygons', polygon.polygons)
+
+                const paths = polygon.polygons;
+
+                const polyPaths = Object.values(paths)
+
+                const polyColor= Object.values(polygon)[4]
+
+                polyPaths.forEach((path:any)=>{
+                  console.log('path.paths', path.paths)
+                  pathCollection.push(path.paths)
+                  console.log('pathCollection', pathCollection)
+                  // works but we need to get it a new polygon
+
+                  const newPolygon = new (Polygon as any)({ paths: [], color:'' })
+
+                  newPolygon.paths = pathCollection 
+                  newPolygon.color = polyColor
+
+                  this.polygons.push(newPolygon)
+
+                  console.log('this.polygons', this.polygons)
+
+                  
+                })
+
+          
+
                 
-                console.log('polygon.paths', polygon.paths)
+                           
+
                 
             })
-
-            this.polyKeys = Object.keys(this.polygons)
-
-
-            this.polyValues= Object.values(this.polygons)
-
-
+           
       });
 
       this.polygonSub = of(this.polygons)
       this.polygonSub.subscribe((polygon:any)=>{
+        console.log(polygon)
       })
 
       this.isLoading = false; 

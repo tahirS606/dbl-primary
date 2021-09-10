@@ -61,7 +61,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
   imageFileArray: {}[] = [{}];
   imagePreviewArray: string[] = [];
   userOnsite: boolean = false; 
-  userEmail: string = ''
+  userEmail: string = '';
+
+  polyCount: number = 0
+
+  drawingControl: boolean = true; 
 
   // map features
   @Input() zoom = 21; 
@@ -77,8 +81,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
   checked: boolean = false
   tasks: any
   selectedShapes: {}[] = []
+  drawingModes: [string] = ["polygon"]
   
- 
   addTasksToAreaButtonShowing: boolean = false
   readyToSave: boolean = false
   zoomControl: boolean = false;
@@ -88,7 +92,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
   // report features
   areasForReport: [{}] = [{}]
-  polyArrayLatLng: [{}] = [{}]
+  polygons: [{}] = [{}]
 
   // for collection name
   count: number = 0 
@@ -145,7 +149,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
     ngOnInit(){
       this.findMe();
 
-      this.polyArrayLatLng.shift();
+      this.polygons.shift();
 
       this.userOnsite = false; 
       this.reportDate = this.date; 
@@ -195,18 +199,19 @@ export class ReportComponent implements OnInit, AfterViewInit {
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
 
-        function Collection(name: string, areas: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String) {
+        function Collection(name: string, polygons: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String) {
           name = name;
-          areas = areas;
+          polygons = polygons;
           tasks = tasks;
           time = time; 
           selectedShapes = selectedShapes; 
           color = color; 
         }
 
-        const newCollection = new (Collection as any)(collectionName, this.polyArrayLatLng, tasks, this.date)
+        const newCollection = new (Collection as any)(collectionName, this.polygons, tasks, this.date)
+
         newCollection.name = collectionName 
-        newCollection.areas = this.polyArrayLatLng
+        newCollection.polygons = this.polygons
         newCollection.tasks = tasks
         newCollection.time = this.date
         newCollection.color = this.strokeColorsArray[this.count]
@@ -217,8 +222,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
         this.readyToSave = true;
         this.form.reset();
         this.checked = false;
-        this.polyArrayLatLng = [{}];
-        this.polyArrayLatLng.shift();
+        this.polygons = [{}];
+        this.polygons.shift();
         this.selectedShapes = [];
         this.selectedShapes.shift();
         this.mapZoom = this.zoom;
@@ -391,9 +396,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
     
     const options = {
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
-      drawingControl: true,
+      drawingControl: this.drawingControl,
       drawingControlOptions: {
-        drawingModes: ["polygon"], 
+        drawingModes: this.drawingModes, 
       },
 
       polygonOptions: {
@@ -416,59 +421,71 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function (polygon:any) {
 
-
+      _self.drawingControl = false; 
+      _self.drawingModes = ['']
       _self.polygonComplete  = true; 
       _self.addTasksToAreaButtonShowing = true;
       _self.selectedShapes.push(polygon);
-    
-      const len = polygon.getPath().getLength();
-      for (let i = 0; i < len; i++) {
-        const vertex = polygon.getPath().getAt(i);
-        console.log('vertex', vertex)
-        const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
-       
 
-        console.log('vertexLatLng', vertexLatLng)
-        _self.polyArrayLatLng.push(vertexLatLng);
+      // this.count = this.count + 1
+      // const collectionName = 'Collection ' + this.count
 
+      // function Collection(name: string, areas: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String) {
+      //   name = name;
+      //   areas = areas;
+      //   tasks = tasks;
+      //   time = time; 
+      //   selectedShapes = selectedShapes; 
+      //   color = color; 
+      // }
+
+      // const newCollection = new (Collection as any)(collectionName, this.polygons, tasks, this.date)
+      // newCollection.name = collectionName 
+      // newCollection.areas = this.polygons
+      // newCollection.tasks = tasks
+      // newCollection.time = this.date
+      // newCollection.color = this.strokeColorsArray[this.count]
+
+      function Polygon(number: number, paths: [{}], color: string) {
+
+        number = number;
+        paths = paths; 
+        color = color; 
       }
 
-      // the last point of polygon should be always the same as the first point (math rule)
+    
+      const color = ''
+      let paths = [{}]
+      paths.shift()
+      let polyPaths =[{}]
+      polyPaths.shift()
 
-  _self.polyArrayLatLng.push(_self.polyArrayLatLng[0])
+      const newPolygon = new (Polygon as any)(paths)
+
+      console.log('newPolygon', newPolygon)
+
+      
+      const len = polygon.getPath().getLength();
+
+      for (let i = 0; i < len; i++) {
+        const vertex = polygon.getPath().getAt(i);
+        const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
+        
+        polyPaths.push(vertexLatLng)
+
+        newPolygon.paths = polyPaths
+        _self.polygons.push(newPolygon);
+        
+        console.log('newPolygon', newPolygon)
+        console.log('polygons', _self.polygons)
+      }
+
     
     });
 
-  }
+    console.log('this.polygons', this.polygons);
 
+  }
 
 }
 
-// for (let i = 0; i < len; i++) {
-//   for (let i = 0; i < len; i++) {
-//     const vertex = polygon.getPath().getAt(i);
-//     const vertex = polygon.getPath().getAt(i);
-//     const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
-//     const vertexLatLng = {lat: vertex.lat(), lng: vertex.lng()};
-//     polyArrayLatLng.push(vertexLatLng);
-//   
-//   }
-
-//   // the last point of polygon should be always the same as the first point (math rule)
-
-//   polyArrayLatLng.push(polyArrayLatLng[0]);
-
-
-
-//   console.log('polygon Complete')
-//   console.log('polygon Complete')
-//   number = number+1 
-//   number = number+1 
-
-//   let polygonName = 'Area ' + number
-//   console.log('Area', number, polyArrayLatLng);
-
-//   console.log('Area ', number, polyArrayLatLng);
-
-
-// });
