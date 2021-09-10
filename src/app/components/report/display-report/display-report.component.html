@@ -39,11 +39,13 @@
         </div>
 
 
-        <agm-map #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="true" [mapDraggable]="false" [disableDefaultUI]="true" gestureHandling="none"
-            [clickableIcons]="false">
-            <agm-polygon *ngFor='let polygon of polygons' [paths]='polygon.paths' [strokeColor]='polygon.color' [strokeWeight]='5'></agm-polygon>
+        <agm-map class="polygon" #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="true" [mapDraggable]="false" [disableDefaultUI]="true"
+            gestureHandling="none" [clickableIcons]="false">
+            <agm-polygon *ngFor='let polygon of polygons' [paths]='polygon.paths' [strokeColor]='polygon.color' [strokeWeight]='5' [fillColor]='polygonOptions.fillColor' [fillOpacity]='polygonOptions.fillOpacity'></agm-polygon>
         </agm-map>
 
+        <!-- fillColor: 'white',
+        fillOpacity: .4, -->
 
 
         <div class="collection-container">

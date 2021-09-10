@@ -22,7 +22,12 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
   reportId!: any
   report!: Report
   reportSub!: Subscription;
-  color!: string;
+  
+
+  polygonOptions : {fillColor:string, fillOpacity: number} = {
+    fillColor : '#ffffff',
+    fillOpacity: .1
+  }
 
   mapZoom!: number; 
   longitude: any
@@ -135,14 +140,8 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
 
                   console.log('this.polygons', this.polygons)
 
-                  
+              
                 })
-
-          
-
-                
-                           
-
                 
             })
            
@@ -165,6 +164,8 @@ this.reportSub = this.reportService
         }
     );
   }
+
+  
 
   onMapReady(map:any) {  }
 
