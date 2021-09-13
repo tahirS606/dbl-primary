@@ -137,8 +137,7 @@ mat-icon {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 10px;
+    justify-content: flex-start;
 }
 
 .title {

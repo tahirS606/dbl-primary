@@ -64,38 +64,39 @@
                         <div class="frame" style="background-image: url('{{image}}')"></div>
                     </div>
 
+
+
+
                 </div>
                 <button class='image-button' [ngStyle]=" { 'color': area.color}" type="button " mat-button (click)="filePicker.click()" [(ngModel)]="area.name" (click)="getCollectionNameFromButton(area.name)">
                     Add image to {{area.name}}
                 </button>
-
             </div>
-        </div>
 
-        <!-- <div class="title ">
+            <!-- <div class="title ">
             <h2 *ngIf="imagePreviewArray.length==1 ">Image</h2>
             <h2 *ngIf="imagePreviewArray.length>1">Images</h2>
         </div> -->
-        <!-- <div class="images">
+            <!-- <div class="images">
             <div *ngFor="let image of imagePreviewArray">
                 <div class="frame" style="background-image: url('{{image}}')"></div>
             </div>
         </div> -->
 
-        <p>this part is just for internal reference during testing, to test location property:</p>
+            <p>this part is just for internal reference during testing, to test location property:</p>
 
-        <p>property: {{latitude}}, {{longitude}}</p>
+            <p>property: {{latitude}}, {{longitude}}</p>
 
-        <p> user: {{userLatitude}}, {{userLongitude}}</p>
-        <p> distance: {{distance}}</p>
-        <p>'user on site' {{userOnsite}}</p>
-
-
+            <p> user: {{userLatitude}}, {{userLongitude}}</p>
+            <p> distance: {{distance}}</p>
+            <p>'user on site' {{userOnsite}}</p>
 
 
 
-        <mat-action-row fxLayout fxLayoutAlign="center">
-            <button class="submit-button" (click)="onSaveReport()" alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
-        </mat-action-row>
+
+
+            <mat-action-row fxLayout fxLayoutAlign="center">
+                <button class="submit-button" (click)="onSaveReport()" alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
+            </mat-action-row>
+        </div>
     </div>
-</div>
