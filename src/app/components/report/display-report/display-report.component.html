@@ -55,18 +55,20 @@
                         <li>{{task}}</li>
                     </ul>
 
-                    <div class="images">
-                        <div *ngFor="let image of area.images">
+                    <div class='time-header'><span class="strong">Images: </span> </div>
+
+                    <div *ngIf="area.images; else noImages">
+                        <div class="images" *ngFor="let image of area.images">
                             <div class="frame" style="background-image: url('{{image}} ')"></div>
                         </div>
                     </div>
+                    <ng-template #noImages>No Images Here.</ng-template>
 
                 </div>
             </div>
+
+
         </div>
 
 
     </div>
-
-
-</div>
