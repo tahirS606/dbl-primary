@@ -13,6 +13,15 @@
         --text-color: black;
     }
     
+    .frame {
+        height: 50px;
+        width: 50px;
+        background: transparent no-repeat center;
+        background-size: cover;
+        margin: 5px;
+        border-radius: 5px;
+    }
+    
     .strong {
         font-weight: bold;
     }

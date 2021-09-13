@@ -66,6 +66,15 @@ ul {
     margin: auto;
 }
 
+.frame {
+    height: 50px;
+    width: 50px;
+    background: transparent no-repeat center;
+    background-size: cover;
+    margin: 5px;
+    border-radius: 5px;
+}
+
 img {
     width: 80%;
     height: 70%;

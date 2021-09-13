@@ -56,15 +56,17 @@
                     <ul *ngFor="let task of area.tasks">
                         <li>{{task}}</li>
                     </ul>
+
+                    <div class="images">
+                        <div *ngFor="let image of area.images">
+                            <div class="frame" style="background-image: url('{{image}} ')"></div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
 
-        <div class="images">
-            <div *ngFor="let image of report?.imagePreviewArray">
-                <div class="frame" style="background-image: url('{{image}} ')"></div>
-            </div>
-        </div>
 
     </div>
 
