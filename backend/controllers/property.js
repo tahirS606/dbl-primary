@@ -65,7 +65,10 @@ exports.createProperty = (req, res, next) => {
             })
         });
     });
+
 }
+
+
 
 exports.getAllProperties = (req, res, next) => {
     const pageSize = +req.query.pagesize;

@@ -119,8 +119,8 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
         this.address, 
         this.form.value.route, 
         this.latitude, 
-        this.longitude)        
-      ;
+        this.longitude),            
+      this.propertyAddedAlert();
     } else {
       this.propertyService.updateProperty(
         this.propertyId,
@@ -129,7 +129,8 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
         this.form.value.route, 
         this.latitude, 
         this.longitude
-      );
+      ),
+      this.propertyEditedAlert();
     }
     this.form.valid;
     // this.form.reset();
@@ -140,6 +141,10 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
 
   propertyAddedAlert(){
     Swal.fire('Property Added!');
+  }
+
+  propertyEditedAlert(){
+    Swal.fire('Property Edited!')
   }
 
   onGermanAddressMapped($event: any) {

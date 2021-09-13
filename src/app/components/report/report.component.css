@@ -33,6 +33,12 @@ header {
     height: 150px;
 }
 
+.collection-w-button {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+}
+
 header .title {
     font-size: 28px;
 }
@@ -110,6 +116,10 @@ mat-card-title {
 mat-icon {
     padding-top: 12px;
     cursor: pointer;
+}
+
+.image-button {
+    margin: auto;
 }
 
 .check-box-card {

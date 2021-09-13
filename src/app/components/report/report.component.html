@@ -52,17 +52,18 @@
         <h2 *ngIf="reportData" class="title">Services</h2>
 
         <div class="collection-container">
-            <div *ngFor="let area of reportData">
+            <div class="collection-w-button" *ngFor="let area of reportData">
                 <div [ngStyle]="{'background-color': area.color}" class="collection">
                     <div><span class="strong">Time: </span>{{area.time | date:'shortTime'}}</div>
                     <ul>
                         <span *ngFor="let task of area.tasks"> 
                     <li>{{task}}</li></span>
                     </ul>
-                    <button type="button" mat-button color="light" (click)="filePicker.click()">
-                        Add image
-                    </button>
+
                 </div>
+                <button class='image-button' [ngStyle]="{'color': area.color}" type="button" mat-button (click)="filePicker.click()">
+                    Add image
+                </button>
             </div>
         </div>
 
