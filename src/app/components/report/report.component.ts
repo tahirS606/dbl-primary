@@ -108,6 +108,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
   checkboxVisible:boolean = false;
   addTasksButtonDisabled: boolean = true;
 
+  @Input() currentCollectionName: string = ''
+
   
 
   webData = [
@@ -181,8 +183,15 @@ export class ReportComponent implements OnInit, AfterViewInit {
       this.webData.forEach(() => this.tasksArray.push(new FormControl(false)));
     }
 
+    getCollectionNameFromButton(collectionName: string) {
+      // console.log(collectionName)
+      this.currentCollectionName = collectionName; 
+      console.log(this.currentCollectionName)
+
+    }
+
     addTaskstoArea() {
-      
+
       const allTasks = this.form.value.tasks.map((checked:Boolean, i:number) => (checked) ? this.webData[i].name
         : null);
 
@@ -198,23 +207,28 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
+        let images: [] = []
 
-        function Collection(name: string, polygons: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String) {
+        function Collection(name: string, polygons: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String, images:[]) {
           name = name;
           polygons = polygons;
           tasks = tasks;
           time = time; 
           selectedShapes = selectedShapes; 
           color = color; 
+          images= images; 
         }
 
-        const newCollection = new (Collection as any)(collectionName, this.polygons, tasks, this.date)
+       
+
+        const newCollection = new (Collection as any)(collectionName, this.polygons, tasks, this.date, images)
 
         newCollection.name = collectionName 
         newCollection.polygons = this.polygons
         newCollection.tasks = tasks
         newCollection.time = this.date
         newCollection.color = this.strokeColorsArray[this.count]
+        newCollection.images = []
 
         this.selectedShapes.forEach((shape: any)=>{ shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'white'})})
 
@@ -278,20 +292,40 @@ export class ReportComponent implements OnInit, AfterViewInit {
         imageFile = eventCasttoHtml.files[0];
       
         const reader = new FileReader();
+        const imagePreviewArray: any = []
         reader.onload = () => {
           imagePreview = reader.result as string;
-          this.imagePreviewArray.push(imagePreview)
+          this.imagePreviewArray.push(imagePreview);
+          imagePreviewArray.push(imagePreview)
         };
         reader.readAsDataURL(imageFile);
+
+        this.areasForReport.forEach((area:any, imagePreview)=>{
+
+          if(this.currentCollectionName == area.name){
+            area.images = imagePreviewArray
+            console.log('current collect name', this.currentCollectionName, 'area name', area.name)
+
+            console.log('area.images', area.images)
+            console.log(imagePreview)
+            console.log(area)
+          } else {
+            console.log('no collection name matches')
+          }
+
+          console.log(area.name)
+        })
         
-        this.imageFileArray.push(imageFile)
+        // this.imageFileArray.push(imageFile)
         // console.log('imageFile', imagePreview)
-        console.log('imagePreviewArray', this.imagePreviewArray)
+        // console.log('imagePreviewArray', this.imagePreviewArray)
 
       } else {
         return;
       }
     }
+
+    // notifications = perhaps separate into service
 
     Swal: any
 
@@ -340,7 +374,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
       this.userLongitude = this.userLocation.longitude
       this.userLatitude = this.userLocation.latitude
     })
-
   }
   
   async calculateDistance() {
@@ -427,24 +460,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
       _self.addTasksToAreaButtonShowing = true;
       _self.selectedShapes.push(polygon);
 
-      // this.count = this.count + 1
-      // const collectionName = 'Collection ' + this.count
-
-      // function Collection(name: string, areas: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String) {
-      //   name = name;
-      //   areas = areas;
-      //   tasks = tasks;
-      //   time = time; 
-      //   selectedShapes = selectedShapes; 
-      //   color = color; 
-      // }
-
-      // const newCollection = new (Collection as any)(collectionName, this.polygons, tasks, this.date)
-      // newCollection.name = collectionName 
-      // newCollection.areas = this.polygons
-      // newCollection.tasks = tasks
-      // newCollection.time = this.date
-      // newCollection.color = this.strokeColorsArray[this.count]
+    
 
       function Polygon(number: number, paths: [{}], color: string) {
 

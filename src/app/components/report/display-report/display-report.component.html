@@ -53,13 +53,9 @@
                 <div [ngStyle]="{'background-color': area.color}" class="collection">
                     <div><span class="strong">Time: </span> {{area.time | date:"shortTime"}}</div>
 
-                    <div *ngFor="let task of area.tasks">
-                        <p>{{task}}</p>
-                        <ul>
-                            <span *ngFor="let task of task.tasks">
-                        <li>{{task}}</li></span>
-                        </ul>
-                    </div>
+                    <ul *ngFor="let task of area.tasks">
+                        <li>{{task}}</li>
+                    </ul>
                 </div>
             </div>
         </div>

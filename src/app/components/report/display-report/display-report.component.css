@@ -28,6 +28,10 @@ mat-expansion-panel-body {
     font-weight: bold;
 }
 
+collection-wrapper {
+    width: 100%;
+}
+
 .collection {
     padding: 10px;
     border-radius: 7px;
@@ -45,8 +49,8 @@ mat-expansion-panel-body {
     width: 100%;
 }
 
-collection-wrapper {
-    width: 100%;
+li {
+    padding: 0;
 }
 
 .item {
