@@ -53,6 +53,7 @@ collection-wrapper {
 
 li {
     padding: 0;
+    margin: 0;
 }
 
 .item {
@@ -60,8 +61,12 @@ li {
 }
 
 ul {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-left: 1rem;
+    margin: 0;
+}
+
+.time-header {
+    padding-bottom: 10px;
 }
 
 .details-container {

@@ -44,14 +44,12 @@
             <agm-polygon *ngFor='let polygon of polygons' [paths]='polygon.paths' [strokeColor]='polygon.color' [strokeWeight]='5' [fillColor]='polygonOptions.fillColor' [fillOpacity]='polygonOptions.fillOpacity'></agm-polygon>
         </agm-map>
 
-        <!-- fillColor: 'white',
-        fillOpacity: .4, -->
 
 
         <div class="collection-container">
             <div *ngFor="let area of report?.areasForReport">
                 <div [ngStyle]="{'background-color': area.color}" class="collection">
-                    <div><span class="strong">Time: </span> {{area.time | date:"shortTime"}}</div>
+                    <div class='time-header'><span class="strong">Time: </span> {{area.time | date:"shortTime"}}</div>
 
                     <ul *ngFor="let task of area.tasks">
                         <li>{{task}}</li>
