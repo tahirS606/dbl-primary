@@ -199,13 +199,14 @@ export class ReportComponent implements OnInit, AfterViewInit {
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
 
-        function Collection(name: string, polygons: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String) {
+        function Collection(name: string, polygons: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String, images: []) {
           name = name;
           polygons = polygons;
           tasks = tasks;
           time = time; 
           selectedShapes = selectedShapes; 
           color = color; 
+          images= images; 
         }
 
         const newCollection = new (Collection as any)(collectionName, this.polygons, tasks, this.date)
@@ -283,6 +284,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
           this.imagePreviewArray.push(imagePreview)
         };
         reader.readAsDataURL(imageFile);
+
+        // need to distinghish item 
         
         this.imageFileArray.push(imageFile)
         // console.log('imageFile', imagePreview)
@@ -340,7 +343,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
       this.userLongitude = this.userLocation.longitude
       this.userLatitude = this.userLocation.latitude
     })
-
   }
   
   async calculateDistance() {

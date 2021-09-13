@@ -133,7 +133,6 @@ export class AddPropertyComponent implements OnInit, AfterViewInit{
     }
     this.form.valid;
     // this.form.reset();
-    this.propertyAddedAlert()
     
   }
 

@@ -26,9 +26,7 @@
 
     <mat-action-row fxLayout>
         <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
-        <button type="button" mat-button color="primary" (click)="filePicker.click()">
-        Add image
-    </button>
+
         <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear All</button>
     </mat-action-row>
 
@@ -61,6 +59,9 @@
                         <span *ngFor="let task of area.tasks"> 
                     <li>{{task}}</li></span>
                     </ul>
+                    <button type="button" mat-button color="light" (click)="filePicker.click()">
+                        Add image
+                    </button>
                 </div>
             </div>
         </div>
@@ -80,7 +81,7 @@
         <p>property: {{latitude}}, {{longitude}}</p>
 
         <p> user: {{userLatitude}}, {{userLongitude}}</p>
-        <p>distance: {{distance}}</p>
+        <p> distance: {{distance}}</p>
         <p>'user on site' {{userOnsite}}</p>
 
 

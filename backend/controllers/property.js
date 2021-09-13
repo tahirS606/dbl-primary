@@ -11,17 +11,36 @@ exports.editProperty = (req, res, next) => {
         address: req.body.address,
         route: req.body.route,
     });
-    Property.updateOne({ _id: req.params.id }, property).then((result => {
-            if (result.nModified > 0) {
+    Property.updateOne({ _id: req.params.id, creator: req.userData.userId }, property)
+        .then(result => {
+            if (result.n > 0) {
                 res.status(200).json({ message: "Update successful" });
             } else {
                 res.status(401).json({ message: "Not Authorized." });
             }
         })
         .catch(error => {
-            res.status(500).json({ message: "Couldn't update Property" })
-        }))
+            res.status(500).json({
+                message: "Couldn't update Property"
+            });
+        });
+
 }
+
+// Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
+//     .then(result => {
+//         if (result.n > 0) {
+//             res.status(200).json({ message: "Update successful!" });
+//         } else {
+//             res.status(401).json({ message: "Not authorized!" });
+//         }
+//     })
+//     .catch(error => {
+//         res.status(500).json({
+//             message: "Couldn't udpate post!"
+//         });
+//     });
+// };
 
 
 exports.createProperty = (req, res, next) => {
@@ -34,7 +53,7 @@ exports.createProperty = (req, res, next) => {
         creator: req.userData.userId
     });
 
-    dbl.properties.createIndex({ "address": 1 }, { unique: true });
+    // dbl.properties.createIndex({ "address": 1 }, { unique: true });
 
     property.save().then((addedProperty) => {
         res.status(201).json({
