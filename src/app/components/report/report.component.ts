@@ -1,6 +1,4 @@
-
 import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
-
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
@@ -12,8 +10,6 @@ import { FormBuilder,
   FormArray,
   FormControl,} from '@angular/forms';
 import { _MatSelectBase } from '@angular/material/select';
-
-  // declare const $: any;
   declare const google: any;
 
 @Component({
@@ -25,13 +21,11 @@ import { _MatSelectBase } from '@angular/material/select';
 export class ReportComponent implements OnInit, AfterViewInit {
 
   checkedTemplate: any; 
-
   isOpen = false;
  
   isOpenChange($event: boolean) {
     this.isOpen = $event;
   }
-
 
 
   Object = Object;
@@ -53,11 +47,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
   address: any;
   creator!: string; 
   mapZoom!: number; 
-  initialColor: string = "white"
+  initialColor: string = "white";
   shape: any; 
   imagePreview!: string;
   distance: number = 0
-
+  
   imageFileArray: []= [];
   imagePreviewArray: string[] = [];
   userOnsite: boolean = false; 
@@ -82,11 +76,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
   tasks: any
   selectedShapes: {}[] = []
   drawingModes: [string] = ["polygon"]
-  
   addTasksToAreaButtonShowing: boolean = false
   readyToSave: boolean = false
   zoomControl: boolean = false;
-
   userLongitude: number = 0
   userLatitude: number = 0
 
@@ -108,9 +100,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   checkboxVisible:boolean = false;
   addTasksButtonDisabled: boolean = true;
 
-  @Input() currentCollectionName: string = ''
-
-  
+  @Input() currentCollectionName: string = '';
 
   webData = [
     { id: 1, name: 'Raking' },
@@ -134,8 +124,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
     private router: Router,
     private formBuilder: FormBuilder,
     public reportService: ReportService,
-    
-    
     ) { 
       this.form = this.formBuilder.group({
         tasks: new FormArray([])
@@ -143,16 +131,12 @@ export class ReportComponent implements OnInit, AfterViewInit {
       this.addCheckboxesToForm();
     }
 
-
-    ngAfterViewInit(){
-      
-    }
+    ngAfterViewInit(){}
 
     ngOnInit(){
       this.findMe();
 
       this.polygons.shift();
-
       this.userOnsite = false; 
       this.reportDate = this.date; 
       this.reportTime = this.date;
@@ -174,7 +158,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
   
             this.latitude = this.property.latitude;
             this.longitude = this.property.longitude; 
-
       });
       
     }
@@ -187,7 +170,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
       // console.log(collectionName)
       this.currentCollectionName = collectionName; 
       console.log(this.currentCollectionName)
-
     }
 
     addTaskstoArea() {
@@ -312,14 +294,13 @@ export class ReportComponent implements OnInit, AfterViewInit {
           this.imagePreviewArray.push(imagePreview);
           imagePreviewArray.push(imagePreview)
         };
-        const readImageFile = reader.readAsDataURL(imageFile);
+        reader.readAsDataURL(imageFile);
         
 
       } else {
         return;
       }
     }
-
 
     Swal: any
 
@@ -378,7 +359,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
     
     this.distance = google.maps.geometry.spherical.computeDistanceBetween(userLocation, propertyLocation);
 
-
     if (this.distance < 1500) {
       this.userOnsite = true
     } else {
@@ -406,9 +386,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   watchPosition() {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(this.showPosition);
-    } else {
-      "Geolocation is not supported by this browser.";
-    }
+    } else {"Geolocation is not supported by this browser.";}
   }
 
   showPosition(position: any) {
@@ -454,8 +432,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
       _self.addTasksToAreaButtonShowing = true;
       _self.selectedShapes.push(polygon);
 
-    
-
       function Polygon(number: number, paths: [{}], color: string) {
 
         number = number;
@@ -463,8 +439,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         color = color; 
       }
 
-    
-      const color = ''
       let paths = [{}]
       paths.shift()
       let polyPaths =[{}]
@@ -474,7 +448,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
       console.log('newPolygon', newPolygon)
 
-      
       const len = polygon.getPath().getLength();
 
       for (let i = 0; i < len; i++) {
@@ -490,7 +463,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         console.log('polygons', _self.polygons)
       }
 
-    
     });
 
     console.log('this.polygons', this.polygons);
