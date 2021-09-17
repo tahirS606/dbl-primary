@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    /* background-color: lightblue; */
 }
 
 mat-icon {
@@ -21,22 +20,17 @@ header {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: flex-start;
-    margin-left: 35px;
+    /* justify-content: flex-start; */
     color: white;
+    align-content: center;
 }
 
 .collection {
     padding: 10px;
     border-radius: 7px;
     margin: 6px;
-    height: 150px;
-}
-
-.collection-w-button {
-    display: flex;
-    align-content: center;
-    flex-direction: column;
+    min-height: 150px;
+    filter: drop-shadow(16px 16px 10px gray);
 }
 
 header .title {
@@ -55,7 +49,7 @@ mat-icon {
 ul {
     padding-top: 0px;
     padding-bottom: 0px;
-    padding-left: 9px;
+    padding-left: 25px;
 }
 
 .details-container {
@@ -137,7 +131,7 @@ mat-icon {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    width: 100%;
 }
 
 .title {
@@ -145,10 +139,13 @@ mat-icon {
 }
 
 .frame {
-    height: 50px;
-    width: 50px;
+    height: 100px;
+    width: 100px;
     background: transparent no-repeat center;
     background-size: cover;
-    margin: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }

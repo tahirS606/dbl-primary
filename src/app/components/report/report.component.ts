@@ -58,7 +58,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   imagePreview!: string;
   distance: number = 0
 
-  imageFileArray: {}[] = [{}];
+  imageFileArray: []= [];
   imagePreviewArray: string[] = [];
   userOnsite: boolean = false; 
   userEmail: string = '';
@@ -262,7 +262,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
               console.log('this.report', this.report)
               
-              this.router.navigate(['reports/'])
+              this.router.navigate(['/'])
               this.form.reset();
               this.readyToSave = false;
 
@@ -312,20 +312,14 @@ export class ReportComponent implements OnInit, AfterViewInit {
           this.imagePreviewArray.push(imagePreview);
           imagePreviewArray.push(imagePreview)
         };
-        reader.readAsDataURL(imageFile);
-
-       
+        const readImageFile = reader.readAsDataURL(imageFile);
         
-        // this.imageFileArray.push(imageFile)
-        // console.log('imageFile', imagePreview)
-        // console.log('imagePreviewArray', this.imagePreviewArray)
 
       } else {
         return;
       }
     }
 
-    // notifications = perhaps separate into service
 
     Swal: any
 
