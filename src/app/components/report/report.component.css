@@ -20,7 +20,7 @@ header {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
     color: white;
     align-content: center;
 }
@@ -31,13 +31,6 @@ header {
     margin: 6px;
     min-height: 150px;
     filter: drop-shadow(16px 16px 10px gray);
-}
-
-.collection-w-button {
-    display: flex;
-    align-content: center;
-    flex-direction: column;
-    justify-content: flex-end;
 }
 
 header .title {
