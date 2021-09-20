@@ -139,8 +139,8 @@ mat-icon {
 }
 
 .frame {
-    height: 100px;
-    width: 100px;
+    height: 160px;
+    width: 160px;
     background: transparent no-repeat center;
     background-size: cover;
     margin-top: 5px;

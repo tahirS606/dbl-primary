@@ -267,12 +267,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
 
     onImagePicked(event: Event) {
-      let imageFile;
+      let imageFile: any;
       let imagePreview: any;
       let eventCasttoHtml = event.target as HTMLInputElement;
       if (eventCasttoHtml.files) {
         imageFile = eventCasttoHtml.files[0];
-      
         const reader = new FileReader();
         const imagePreviewArray: any = []
         reader.onload = () => {
@@ -281,7 +280,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
           this.areasForReport.forEach((area:any)=>{
 
             if(this.currentCollectionName == area.name){
-              area.images.push(imagePreview)
+              area.images.push(reader.readAsDataURL(imageFile))
+              // area.imageFiles.push(imageFile)
+
+              console.log('area.images', area.images)
         
               console.log(area)
             } else {
@@ -295,7 +297,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
           imagePreviewArray.push(imagePreview)
         };
         reader.readAsDataURL(imageFile);
-        
 
       } else {
         return;

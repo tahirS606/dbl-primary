@@ -89,9 +89,10 @@ export class PropertyService {
     this.http
       .put(BACKEND_URL + 'properties/' + id, property)
       .subscribe((response) => {
-        // this.router.navigate(['/']);
+        this.router.navigate(['properties/' + id]);
         return response
       });
+      this.router.navigate(['/']);
   }
 
   deleteProperty(propertyId: string) {

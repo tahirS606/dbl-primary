@@ -16,10 +16,13 @@ const url =
     "mongodb+srv://<username></username><password></password>.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority";
 const username = "odyssic";
 const databaseName = "dbl";
+const password = "5o1oBc9WEoSJy0pH"
+
+
 
 mongoose
     .connect(
-        "mongodb+srv://odyssic:iav2DT12DP80gpfZ@dbl.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
+        "mongodb+srv://odyssic:5o1oBc9WEoSJy0pH@cluster0.tyijh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
     )
 
 .then(() => {

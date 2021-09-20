@@ -41,6 +41,7 @@
 
         <agm-map class="polygon" #map id="map" [latitude]='latitude' [longitude]='longitude' [zoom]='mapZoom' [mapTypeId]="'hybrid'" (mapReady)="onMapReady($event)" [fullscreenControl]="false" [zoomControl]="true" [mapDraggable]="false" [disableDefaultUI]="true"
             gestureHandling="none" [clickableIcons]="false">
+
             <agm-polygon *ngFor='let polygon of polygons' [paths]='polygon.paths' [strokeColor]='polygon.color' [strokeWeight]='5' [fillColor]='polygonOptions.fillColor' [fillOpacity]='polygonOptions.fillOpacity'></agm-polygon>
         </agm-map>
 
@@ -55,8 +56,6 @@
                         <li>{{task}}</li>
                     </ul>
 
-                    <div class='time-header'><span class="strong">Images: </span> </div>
-
                     <div *ngIf="area.images">
 
                         <div *ngFor="let image of area.images">
@@ -66,7 +65,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <ng-template #noImages>No Images Here.</ng-template> -->
+
                 </div>
             </div>
 
