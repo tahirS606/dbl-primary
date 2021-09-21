@@ -18,8 +18,6 @@ const username = "odyssic";
 const databaseName = "dbl";
 const password = "5o1oBc9WEoSJy0pH"
 
-
-
 mongoose
     .connect(
         "mongodb+srv://odyssic:5o1oBc9WEoSJy0pH@cluster0.tyijh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }

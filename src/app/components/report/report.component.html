@@ -1,52 +1,53 @@
-<div #mapCapture>
-    <div id="screen">
-        <agm-map #map id="map" [(zoom)]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="true"
-            [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
-        </agm-map>
+<div class="report">
+    <h1 *ngIf="reportData || imagePreviewArray">Report for {{date | date }}</h1>
+
+    <div class='address-details'>
+        <div class="item">
+            <span class="primary strong">Name:</span> {{ property?.name | titlecase }}
+        </div>
+        <div class="item">
+            <span class="strong primary"> Address: </span> {{property?.address | slice:0:-4}}
+        </div>
+
+        <div>
+            <span class="strong primary">Route: </span>{{property?.route }}
+        </div>
     </div>
 
-    <mat-card-content fxLayout>
-        <mat-card class="check-box-card" *ngIf="checkboxVisible">
-            <mat-icon (click)="showCheckbox()">close</mat-icon>
-            <mat-card-title class='centered'>
-                <h1>Services</h1>
-            </mat-card-title>
-            <form (ngSubmit)="addTasks();" [formGroup]="form">
-                <label formArrayName="tasks" *ngFor="let tasks of tasksArray.controls; let i=index">
+    <div #mapCapture>
+        <div id="screen">
+            <agm-map #map id="map" [(zoom)]='zoom' [latitude]='latitude' [longitude]='longitude' [mapTypeId]="'hybrid'" [maxZoom]="maxZoom" [minZoom]="minZoom" (mapReady)="onMapReady($event)" [fullscreenControl]="fullscreenControl" [zoomControl]="zoomControl" [rotateControl]="true"
+                [scaleControl]="scaleControl" [streetViewControl]="streetViewControl">
+            </agm-map>
+        </div>
+
+        <mat-card-content fxLayout>
+            <mat-card class="check-box-card" *ngIf="checkboxVisible">
+                <mat-icon (click)="showCheckbox()">close</mat-icon>
+                <mat-card-title class='centered'>
+                    <h1>Services</h1>
+                </mat-card-title>
+                <form (ngSubmit)="addTasks();" [formGroup]="form">
+                    <label formArrayName="tasks" *ngFor="let tasks of tasksArray.controls; let i=index">
             <mat-checkbox [formControlName]="i">  
               {{webData[i].name}}
             </mat-checkbox>
             <br/>
           </label>
-                <br/>
-                <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" [disabled]>Add</button>
-            </form>
-        </mat-card>
-    </mat-card-content>
+                    <br/>
+                    <button type=submit mat-button color='primary' class="btn btn-success" class="centered" (click)="showCheckbox()" (click)="addTaskstoArea()" [disabled]>Add</button>
+                </form>
+            </mat-card>
+        </mat-card-content>
 
-    <mat-action-row fxLayout>
-        <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
+        <mat-action-row fxLayout>
+            <button (click)="addTasks()" [disabled]="!addTasksToAreaButtonShowing" color="primary" mat-button>Add Services</button>
 
-        <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear All</button>
-    </mat-action-row>
-
-    <input (change)="onImagePicked($event)" hidden type="file" #filePicker>
-
-    <div class="report">
-        <h1 *ngIf="reportData || imagePreviewArray">Report for {{date | date }}</h1>
-
-        <div class='address-details'>
-            <div class="item">
-                <span class="primary strong">Name:</span> {{ property?.name | titlecase }}
-            </div>
-            <div class="item">
-                <span class="strong primary"> Address: </span> {{property?.address | slice:0:-4}}
-            </div>
-
-            <div>
-                <span class="strong primary">Route: </span>{{property?.route }}
-            </div>
-        </div>
+            <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear All</button>
+        </mat-action-row>
+        <form [formGroup]="imageForm">
+            <input (change)="onImagePicked($event)" hidden type="file" #filePicker>
+        </form>
 
 
         <h2 *ngIf="reportData" class="title">Services</h2>
@@ -68,8 +69,9 @@
                     </div>
                 </div>
 
-                <button class='image-button' [ngStyle]=" { 'color': area.color}" type="button " mat-button (click)="filePicker.click()" [(ngModel)]="area.name" (click)="getCollectionNameFromButton(area.name)">
-                    Add image to {{area.name}}
+
+                <button class='image-button' [ngStyle]=" { 'background-color': area.color}" type="button " mat-button (click)="filePicker.click()" [(ngModel)]="area.name" (click)="getCollectionNameFromButton(area.name)"><mat-icon>add_a_photo</mat-icon>
+                    Add image
                 </button>
             </div>
 

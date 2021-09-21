@@ -40,6 +40,7 @@ import { ReportlistbypropertyComponent } from './components.reports/reportlistby
 import { FooterComponent } from './components/footer/footer.component';
 
 
+
 @NgModule({
   declarations: [
     AutocompleteAddressComponent,

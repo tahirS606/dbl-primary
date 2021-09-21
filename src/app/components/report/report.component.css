@@ -4,8 +4,17 @@
     height: 100vh;
 }
 
+.collection-w-button {
+    width: 200px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
 mat-icon {
-    flex: flex-end;
+    padding-bottom: 6px;
 }
 
 .strong {
@@ -81,6 +90,7 @@ main {
 agm-map {
     height: 44vh;
     z-index: 1;
+    margin-bottom: 1rem;
 }
 
 mat-action-row {
@@ -107,13 +117,12 @@ mat-card-title {
     padding: 12px;
 }
 
-mat-icon {
-    padding-top: 12px;
-    cursor: pointer;
-}
-
 .image-button {
     margin: auto;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 6px;
 }
 
 .check-box-card {

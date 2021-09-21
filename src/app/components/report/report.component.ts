@@ -1,3 +1,4 @@
+import { mimeType } from './mime-type.validator';
 import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
@@ -8,9 +9,13 @@ import Swal from 'sweetalert2';
 import { FormBuilder,  
   FormGroup,
   FormArray,
-  FormControl,} from '@angular/forms';
+  FormControl,
+  Validators,} from '@angular/forms';
 import { _MatSelectBase } from '@angular/material/select';
+
+
   declare const google: any;
+
 
 @Component({
   selector: 'app-report',
@@ -96,6 +101,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
   atLeastOneAreaSaved: boolean = false; 
 
   form!: FormGroup;
+  imageForm!: FormGroup; 
+
   date = new Date();
   checkboxVisible:boolean = false;
   addTasksButtonDisabled: boolean = true;
@@ -134,6 +141,14 @@ export class ReportComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(){}
 
     ngOnInit(){
+
+      this.imageForm = new FormGroup({
+        image: new FormControl(null, {
+          validators: [Validators.required],
+          asyncValidators: [mimeType]
+        })
+      })
+      
       this.findMe();
 
       this.polygons.shift();
@@ -267,24 +282,25 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
 
     onImagePicked(event: Event) {
+
+      console.log
+
       let imageFile: any;
       let imagePreview: any;
       let eventCasttoHtml = event.target as HTMLInputElement;
       if (eventCasttoHtml.files) {
-        imageFile = eventCasttoHtml.files[0];
         const reader = new FileReader();
-        const imagePreviewArray: any = []
+        imageFile = eventCasttoHtml.files[0];
+        console.log('imageFile', imageFile)
+        
         reader.onload = () => {
           imagePreview = reader.result as string;
+
 
           this.areasForReport.forEach((area:any)=>{
 
             if(this.currentCollectionName == area.name){
-              area.images.push(reader.readAsDataURL(imageFile))
-              // area.imageFiles.push(imageFile)
-
-              console.log('area.images', area.images)
-        
+              area.images.push(imagePreview)
               console.log(area)
             } else {
               console.log('no collection name matches')
@@ -294,7 +310,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
           })
 
           this.imagePreviewArray.push(imagePreview);
-          imagePreviewArray.push(imagePreview)
+          // imagePreviewArray.push(imagePreview)
         };
         reader.readAsDataURL(imageFile);
 
