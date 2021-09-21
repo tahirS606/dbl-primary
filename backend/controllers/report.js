@@ -1,5 +1,7 @@
 const Report = require("../models/report");
 
+const multer = require("multer");
+
 exports.getReportById = (req, res, next) => {
     Report.findById(req.params.id).then((report) => {
         if (Report) {

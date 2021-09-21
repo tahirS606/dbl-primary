@@ -56,6 +56,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
   shape: any; 
   imagePreview!: string;
   distance: number = 0
+
+  image!: FormControl;
   
   imageFileArray: []= [];
   imagePreviewArray: string[] = [];

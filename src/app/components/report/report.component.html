@@ -45,8 +45,12 @@
 
             <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear All</button>
         </mat-action-row>
+
         <form [formGroup]="imageForm">
-            <input (change)="onImagePicked($event)" hidden type="file" #filePicker>
+
+            <input [formControl]="image" (change)="onImagePicked($event)" hidden type="file" #filePicker>
+
+
         </form>
 
 
