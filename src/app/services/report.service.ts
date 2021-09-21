@@ -1,10 +1,12 @@
 import { map } from 'rxjs/operators';
-import { Property } from './../models/property.model';
 import { Subject } from 'rxjs';
-import { Report } from './../models/report.model';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { environment } from './../../environments/environment';
+
+import { Property } from './../models/property.model';
+import { Report } from './../models/report.model';
 
 const BACKEND_URL= environment.apiUrl
 
@@ -85,6 +87,7 @@ creator!: string;
   }
 
   addReport(
+    // inputs
     date: any, 
     time: any, 
     propertyId: string, 
@@ -96,7 +99,6 @@ creator!: string;
     creator: string,
     mapZoom: number,
     imagePreviewArray: any, 
-    
     ) 
   
     {
