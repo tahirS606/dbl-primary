@@ -227,7 +227,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
         newCollection.name = collectionName 
         newCollection.polygons = this.polygons
         newCollection.tasks = tasks
-        newCollection.time = this.date
+        newCollection.time = new Date()
         newCollection.color = this.strokeColorsArray[this.count]
         newCollection.images = []
 
