@@ -11,4 +11,6 @@ const propertySchema = mongoose.Schema({
     creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 })
 
+propertySchema.plugin(uniqueValidator)
+
 module.exports = mongoose.model("Property", propertySchema);

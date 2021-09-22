@@ -186,7 +186,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
 
     getCollectionNameFromButton(collectionName: string) {
-      // console.log(collectionName)
       this.currentCollectionName = collectionName; 
       console.log(this.currentCollectionName)
     }
@@ -258,8 +257,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.areasForReport,
               this.creator, 
               this.mapZoom,
-              this.imagePreviewArray,
-              // this.form.value.images
+              
               )        
 
               console.log('this.report', this.report)
@@ -288,8 +286,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     onImagePicked(event: Event) {
 
-      console.log
-
       let imageFile: any;
       let imagePreview: any;
       let eventCasttoHtml = event.target as HTMLInputElement;
@@ -301,7 +297,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         reader.onload = () => {
           imagePreview = reader.result as string;
 
-
           this.areasForReport.forEach((area:any)=>{
 
             if(this.currentCollectionName == area.name){
@@ -310,13 +305,12 @@ export class ReportComponent implements OnInit, AfterViewInit {
             } else {
               console.log('no collection name matches')
             }
-  
             console.log(area.name)
           })
 
-          this.imagePreviewArray.push(imagePreview);
         };
         reader.readAsDataURL(imageFile);
+
 
       } else {
         return;

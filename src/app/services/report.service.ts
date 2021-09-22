@@ -74,7 +74,7 @@ creator!: string;
               tasks: report.tasks, 
               creator: report.creator, 
               mapZoom: report.mapZoom, 
-              imagePreviewArray: report.imagePreviewArray
+             
               
             }
           })
@@ -101,8 +101,7 @@ creator!: string;
     areasForReport: any,
     creator: string,
     mapZoom: any,
-    imagePreviewArray: any, 
-    // images: any, 
+    
     ) 
   
     {
@@ -122,11 +121,8 @@ creator!: string;
     reportData.append("creator", creator)
     reportData.append("mapZoom", mapZoom)
     reportData.append("areasForRepor", areasForReport)
-    reportData.append("imagePreviewArray", imagePreviewArray)
-    // reportData.append("images", images)
+    
 
-
-  
     this.http
       .post<{ message: string; propertyId: string }>(
         BACKEND_URL + "reports",
@@ -145,8 +141,6 @@ creator!: string;
           areasForReport: areasForReport, 
           creator: creator,
           mapZoom: mapZoom,
-          imagePreviewArray: imagePreviewArray, 
-          // images: images,
       }
 
       this.reports.push(report);

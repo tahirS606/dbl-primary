@@ -11,8 +11,6 @@ const reportSchema = mongoose.Schema({
     areasForReport: Array,
     creator: String,
     mapZoom: Number,
-    imagePreviewArray: Array,
-    // images: Array,
 })
 
 module.exports = mongoose.model("Report", reportSchema);
