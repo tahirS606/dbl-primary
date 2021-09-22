@@ -78,6 +78,7 @@ export class DisplayReportComponent implements OnInit ,  OnDestroy{
       creator: reportData.creator, 
       mapZoom: reportData.mapZoom, 
       imagePreviewArray: reportData.imagePreviewArray, 
+      // images: reportData.images
       };
 
  

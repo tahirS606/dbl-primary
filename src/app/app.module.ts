@@ -76,11 +76,9 @@ import { FooterComponent } from './components/footer/footer.component';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    
     GooglePlaceModule,
     HttpClientModule,
     MyMaterialModule,
-    
     NgPipesModule, 
     ReactiveFormsModule,
     SocialLoginModule,

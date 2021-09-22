@@ -6,11 +6,13 @@ import { Report } from './../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Property } from './../../models/property.model';
 import Swal from 'sweetalert2';
-import { FormBuilder,  
-  FormGroup,
+import { 
   FormArray,
+  FormBuilder,  
   FormControl,
+  FormGroup,
   Validators,} from '@angular/forms';
+  
 import { _MatSelectBase } from '@angular/material/select';
 
 
@@ -144,12 +146,12 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     ngOnInit(){
 
-      this.imageForm = new FormGroup({
+      // this.imageForm = new FormGroup({
         image: new FormControl(null, {
           validators: [Validators.required],
           asyncValidators: [mimeType]
         })
-      })
+      // })
       
       this.findMe();
 
@@ -257,6 +259,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.creator, 
               this.mapZoom,
               this.imagePreviewArray,
+              // this.form.value.images
               )        
 
               console.log('this.report', this.report)
@@ -312,7 +315,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
           })
 
           this.imagePreviewArray.push(imagePreview);
-          // imagePreviewArray.push(imagePreview)
         };
         reader.readAsDataURL(imageFile);
 
@@ -481,7 +483,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         console.log('newPolygon', newPolygon)
         console.log('polygons', _self.polygons)
       }
-
     });
 
     console.log('this.polygons', this.polygons);

@@ -11,4 +11,5 @@ export interface Report {
     creator: string,
     mapZoom: number,
     imagePreviewArray: any,
+    // images: any
   }

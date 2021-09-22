@@ -46,12 +46,11 @@
             <button color="primary" mat-button color="warn" [disabled]='!polygonComplete' (click)="clearMap()">Clear All</button>
         </mat-action-row>
 
-        <form [formGroup]="imageForm">
+        <!-- <form matForm[formGroup]="imageForm"> -->
 
-            <input [formControl]="image" (change)="onImagePicked($event)" hidden type="file" #filePicker>
+        <input (change)="onImagePicked($event)" hidden type="file" #filePicker>
 
-
-        </form>
+        <!-- </form> -->
 
 
         <h2 *ngIf="reportData" class="title">Services</h2>
@@ -86,9 +85,6 @@
             <p> user: {{userLatitude}}, {{userLongitude}}</p>
             <p> distance: {{distance}}</p>
             <p>'user on site' {{userOnsite}}</p>
-
-
-
 
 
             <mat-action-row fxLayout fxLayoutAlign="center">

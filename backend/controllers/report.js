@@ -33,6 +33,7 @@ exports.createReport =
             creator: req.userData.userId,
             mapZoom: req.body.mapZoom,
             imagePreviewArray: req.body.imagePreviewArray,
+            // images: req.body.images,
 
         });
 
