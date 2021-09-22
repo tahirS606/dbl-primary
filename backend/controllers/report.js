@@ -1,5 +1,6 @@
 const Report = require("../models/report");
 
+
 exports.getReportById = (req, res, next) => {
     Report.findById(req.params.id).then((report) => {
         if (Report) {
@@ -32,6 +33,7 @@ exports.createReport =
             creator: req.userData.userId,
             mapZoom: req.body.mapZoom,
             imagePreviewArray: req.body.imagePreviewArray,
+            // images: req.body.images,
 
         });
 

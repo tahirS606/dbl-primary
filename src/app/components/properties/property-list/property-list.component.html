@@ -9,7 +9,7 @@
 
 <div *ngIf="!isLoading">
     <mat-action-row *ngIf="userIsAuthenticated">
-        <div class="form-field-container">
+        <div *ngIf="properties.length>0" class="form-field-container">
             <mat-form-field class="form-field button">
                 <input matInput type="text" placeholder="Search for Address" [(ngModel)]='listFilter'>
                 <button mat-button *ngIf="listFilter" matSuffix mat-icon-button aria-label="Clear" (click)="listFilter=''">

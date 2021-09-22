@@ -7,7 +7,6 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import { SocialAuthServiceConfig } from 'angularx-social-login';
 import { ReportComponent } from './components/report/report.component';
 
-
 import { AuthInterceptor } from './components/auth/auth-interceptor';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { AgmCoreModule, PolygonManager } from '@agm/core';
@@ -39,6 +38,8 @@ import { ReportsListComponent } from './reports-list/reports-list.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ReportlistbypropertyComponent } from './components.reports/reportlistbyproperty/reportlistbyproperty.component';
 import { FooterComponent } from './components/footer/footer.component';
+
+
 
 @NgModule({
   declarations: [
