@@ -106,27 +106,26 @@ creator!: string;
   
     {
       
-    const reportData = new FormData();
-
-    reportData.append("data", date)
-
-    reportData.append("time", time)
-    reportData.append("data", date)
-    reportData.append("propertyId", propertyId)
-    reportData.append("propertyName", propertyName)
-    reportData.append("propertyAddress", propertyAddress)
-    reportData.append("propertyLatitude", propertyLatitude)
-    reportData.append("propertyLongitude", propertyLongitude)
-    reportData.append("areasForRepor", areasForReport)
-    reportData.append("creator", creator)
-    reportData.append("mapZoom", mapZoom)
-    reportData.append("areasForRepor", areasForReport)
+      const report: 
+      Report = { 
+        id: '', 
+        date: date,
+        time: time, 
+        propertyId: propertyId, 
+        propertyName: propertyName, 
+        propertyAddress: propertyAddress, 
+        propertyLatitude: propertyLatitude, 
+        propertyLongitude: propertyLongitude, 
+        areasForReport: areasForReport, 
+        creator: creator,
+        mapZoom: mapZoom,
+      }
     
 
     this.http
       .post<{ message: string; propertyId: string }>(
         BACKEND_URL + "reports",
-        reportData, 
+        report, 
       )
       .subscribe((responseData) => {
         const report: Report = { 
@@ -152,6 +151,10 @@ creator!: string;
 
       
 
+  }
+
+  deleteReport(reportId: string) {
+    return this.http.delete(BACKEND_URL + 'reports/' + reportId);
   }
   
 }

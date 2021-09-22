@@ -36,7 +36,7 @@ const storage = multer.diskStorage({
 
 
 router.get("/:id", ReportController.getReportById);
-router.post("", checkAuth, ReportController.createReport);
+router.post("", multer({ storage: storage }).single("image"), checkAuth, ReportController.createReport);
 router.get("", ReportController.getAllReports);
 router.get("", ReportController.getReportsByProperty)
 

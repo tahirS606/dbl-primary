@@ -17,6 +17,8 @@ exports.editProperty = (req, res, next) => {
                 res.status(200).json({ message: "Update successful" });
             } else {
                 res.status(401).json({ message: "Not Authorized." });
+
+
             }
         })
         .catch(error => {

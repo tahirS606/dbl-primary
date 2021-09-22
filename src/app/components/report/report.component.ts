@@ -14,6 +14,7 @@ import {
   Validators,} from '@angular/forms';
   
 import { _MatSelectBase } from '@angular/material/select';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
   declare const google: any;
@@ -130,6 +131,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   }
   
   constructor(
+    private _sanitizer: DomSanitizer,
     private propertyService: PropertyService ,
     private route: ActivatedRoute,
     private router: Router,
@@ -139,19 +141,19 @@ export class ReportComponent implements OnInit, AfterViewInit {
       this.form = this.formBuilder.group({
         tasks: new FormArray([])
       });
-      this.addCheckboxesToForm();
+      this.addCheckboxesToForm(); 
     }
 
     ngAfterViewInit(){}
 
     ngOnInit(){
 
-      // this.imageForm = new FormGroup({
-        image: new FormControl(null, {
-          validators: [Validators.required],
-          asyncValidators: [mimeType]
-        })
-      // })
+      // // this.imageForm = new FormGroup({
+      //   image: new FormControl(null, {
+      //     validators: [Validators.required],
+      //     asyncValidators: [mimeType]
+      //   })
+      // // })
       
       this.findMe();
 
@@ -243,7 +245,17 @@ export class ReportComponent implements OnInit, AfterViewInit {
         this.mapZoom = this.zoom;
         this.reportData = Object.values(this.areasForReport);
         this.areasForReport = this.reportData;
+        console.log('areas for report', this.areasForReport)
+        this.areasForReport.forEach((area:any)=>{
+          area.images.forEach((image: any)=>{
+            this._sanitizer.bypassSecurityTrustUrl('data:image/jpg;baase64,' + image.base64string)
+            console.log('image', image)
+          })
+        })
         }
+
+        // this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
+//                  + toReturnImage.base64string);
 
         onSaveReport() {
             this.reportService.addReport(
@@ -257,12 +269,12 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.areasForReport,
               this.creator, 
               this.mapZoom,
-              
+
               )        
 
               console.log('this.report', this.report)
               
-              this.router.navigate(['/'])
+              // this.router.navigate(['/'])
               this.form.reset();
               this.readyToSave = false;
 
@@ -286,7 +298,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     onImagePicked(event: Event) {
 
-      let imageFile: any;
+      let imageFile: File;
       let imagePreview: any;
       let eventCasttoHtml = event.target as HTMLInputElement;
       if (eventCasttoHtml.files) {
@@ -485,3 +497,5 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
 }
 
+// this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
+//                  + toReturnImage.base64string);
