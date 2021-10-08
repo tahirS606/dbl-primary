@@ -296,9 +296,41 @@ export class ReportComponent implements OnInit, AfterViewInit {
     clearMap(){
       window.location.reload()
     }
-    
 
-    onImagePicked(event: Event) {
+    resizeImage(base64Str: string, maxWidth = 200, maxHeight = 200) {
+      
+        let img = new Image()
+        img.src = base64Str
+        img.onload = () => {
+          let canvas = document.createElement('canvas')
+          const MAX_WIDTH = maxWidth
+          const MAX_HEIGHT = maxHeight
+          let width = img.width
+          let height = img.height
+    
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width
+              width = MAX_WIDTH
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height
+              height = MAX_HEIGHT
+            }
+          }
+          canvas.width = width
+          canvas.height = height
+          let ctx = canvas.getContext('2d')
+          if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height)
+          canvas.toDataURL()
+        }}
+
+        return base64Str
+    }
+    
+    async onImagePicked(event: Event) {
       
       let imageFile: File;
       let imagePreview: any;
@@ -316,6 +348,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
           console.log('type of image preview', typeof(imagePreview))
 
           console.log('image preview size', imagePreview.size + 'bytes')
+
+         imagePreview = this.resizeImage(imagePreview)
 
           this.areasForReport.forEach((area:any)=>{
 

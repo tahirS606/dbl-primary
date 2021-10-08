@@ -24,10 +24,11 @@ collection-wrapper {
     justify-content: flex-end;
 }
 
-img {
+
+/* img {
     height: 70%;
     width: 80%;
-}
+} */
 
 li {
     margin: 0;
@@ -36,11 +37,6 @@ li {
 
 mat-card {
     padding: 25px;
-}
-
-img {
-    height: 70%;
-    width: 80%;
 }
 
 main {
@@ -101,6 +97,7 @@ ul {
 .collection {
     padding: 10px;
     border-radius: 7px;
+    width: 160px;
     margin: 6px;
     min-height: 150px;
     filter: drop-shadow(16px 16px 10px gray);
@@ -162,8 +159,8 @@ ul {
 }
 
 .frame {
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 150px;
     background: transparent no-repeat center;
     background-size: cover;
     margin-top: 5px;
