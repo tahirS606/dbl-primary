@@ -23,6 +23,7 @@ import { _MatSelectBase } from '@angular/material/select';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { tap } from 'rxjs/operators';
+import { Image } from 'src/app/models/image.model';
 
 
   declare const google: any;
@@ -358,14 +359,15 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         this.compressedImage =  this.imageService.compress(imageFile).pipe(tap(console.log))
 
-        let image = new FormData()
+        let image = new FormData();
 
-        image.append('image', imageFile)
+        image.append("image", imageFile, this.property.name)
 
-        this.http.post<any>(BACKEND_URL + 'images', image).subscribe(data => {
-          let imageId = data.id;
-          console.log(imageId)}
-          )
+        this.http.post<{image: Image}>(BACKEND_URL + 'images', image).subscribe((data:any) => {
+
+          const image: Image = {id: data.id, file: data.file}
+          console.log(data)
+        })
 
         console.log('this.compressedImage', this.compressedImage)
 

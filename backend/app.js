@@ -6,7 +6,7 @@ const propertiesRoutes = require("./routes/properties");
 const tasksRoutes = require("./routes/tasks")
 const userRoutes = require("./routes/user");
 const reportsRoutes = require("./routes/reports")
-    // const routesRoutes = require("./routes/routes")
+const imagesRoutes = require("./routes/images")
 
 // have yet to update = connect with variables
 const app = express();
@@ -50,6 +50,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/properties", propertiesRoutes);
+app.use("/images", imagesRoutes)
 app.use("/tasks", tasksRoutes)
 app.use("/user", userRoutes)
 app.use("/reports", reportsRoutes)
