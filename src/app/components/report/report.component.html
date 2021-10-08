@@ -92,3 +92,14 @@
             </mat-action-row>
         </div>
     </div>
+
+    <div style='border : 1px solid green;'>
+        <input type='file' #SelectedFile (change)="compress($event)" accept='image/*'>
+    </div>
+
+
+    <div class="frame" *ngIf="compressedImage | async as image">
+        <strong>File Name : </strong>{{ image.name }}
+
+        <img *ngIf="image.imgUrl as src" [src]='src'>
+    </div>

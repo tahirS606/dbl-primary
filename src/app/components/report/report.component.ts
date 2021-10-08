@@ -1,5 +1,9 @@
-import compress from 'compress-base64';
+import { environment } from './../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { ICompressedImage, ImageService } from './../../image.service';
 
+
+import { Observable } from 'rxjs';
 
 import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 import { ReportService } from './../../services/report.service';
@@ -18,8 +22,12 @@ import {
 import { _MatSelectBase } from '@angular/material/select';
 import { DomSanitizer } from '@angular/platform-browser';
 
+import { tap } from 'rxjs/operators';
+
 
   declare const google: any;
+
+  const BACKEND_URL= environment.apiUrl
 
 
 @Component({
@@ -46,6 +54,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
     "#708F4F", "#70C8CF", "#EFCD42", "#D1AD93", "#1E9DD8", "#CFDF6D" ]
 
   userLocation!: any
+
+  private selectedImage: any; 
+  compressedImage!: Observable<ICompressedImage>;
+  
 
   map: any; 
   latitude!: number; 
@@ -137,6 +149,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
     private router: Router,
     private formBuilder: FormBuilder,
     public reportService: ReportService,
+    private imageService: ImageService,
+    private http: HttpClient, 
     
     ) { 
       this.form = this.formBuilder.group({
@@ -192,6 +206,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
       this.currentCollectionName = collectionName; 
       console.log(this.currentCollectionName)
     }
+
+ 
 
     addTaskstoArea() {
 
@@ -296,7 +312,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
     clearMap(){
       window.location.reload()
     }
-
+    
+ 
     resizeImage(base64Str: string, maxWidth = 200, maxHeight = 200) {
       
         let img = new Image()
@@ -329,6 +346,40 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         return base64Str
     }
+
+    compress(event: Event) {
+
+      let imageFile: File;
+      let eventCasttoHtml = event.target as HTMLInputElement;
+
+      if (eventCasttoHtml.files) {
+        const reader = new FileReader()
+        imageFile = eventCasttoHtml.files[0];
+
+        this.compressedImage =  this.imageService.compress(imageFile).pipe(tap(console.log))
+
+        let image = new FormData()
+
+        image.append('image', imageFile)
+
+        this.http.post<any>(BACKEND_URL + 'images', image).subscribe(data => {
+          let imageId = data.id;
+          console.log(imageId)}
+          )
+
+        console.log('this.compressedImage', this.compressedImage)
+
+        console.log('image file size before compress', imageFile.size + ' Bytes')
+
+        // this.imageService.compress(imageFile)
+
+        
+
+        console.log('image file size after compress', imageFile.size + ' Bytes')
+        } else {
+          console.error('No file/s selected');
+        }
+        }
     
     async onImagePicked(event: Event) {
       
@@ -340,7 +391,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
         const reader = new FileReader();
         imageFile = eventCasttoHtml.files[0];
 
-        console.log('image file size', imageFile.size + ' Bytes')
+        console.log('image file size before compress', imageFile.size + ' Bytes')
+
        
         reader.onload = () => {
           imagePreview = reader.result as string;
