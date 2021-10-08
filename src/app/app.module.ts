@@ -65,6 +65,7 @@ import { FooterComponent } from './components/footer/footer.component';
     ReportlistbypropertyComponent,
     FooterComponent,
     
+  
   ],
   imports: [
     AgmCoreModule .forRoot({
@@ -84,6 +85,9 @@ import { FooterComponent } from './components/footer/footer.component';
     SocialLoginModule,
     ShareButtonsModule,
     ShareIconsModule ,
+  
+    
+    
 
     
   ],

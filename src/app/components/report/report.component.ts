@@ -1,4 +1,6 @@
-import { mimeType } from './mime-type.validator';
+import compress from 'compress-base64';
+
+
 import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 import { ReportService } from './../../services/report.service';
 import { PropertyService } from './../../services/property.service';
@@ -11,7 +13,7 @@ import {
   FormBuilder,  
   FormControl,
   FormGroup,
-  Validators,} from '@angular/forms';
+  } from '@angular/forms';
   
 import { _MatSelectBase } from '@angular/material/select';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -42,8 +44,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
   strokeColorsArray: String[] = [
     "#708F4F", "#70C8CF", "#EFCD42", "#D1AD93", "#1E9DD8", "#CFDF6D" ]
-
-    // "#49997c", "#027ab0", "#e51a1a", "#eed630"
 
   userLocation!: any
 
@@ -137,6 +137,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
     private router: Router,
     private formBuilder: FormBuilder,
     public reportService: ReportService,
+    
     ) { 
       this.form = this.formBuilder.group({
         tasks: new FormArray([])
@@ -295,38 +296,46 @@ export class ReportComponent implements OnInit, AfterViewInit {
     clearMap(){
       window.location.reload()
     }
+    
 
     onImagePicked(event: Event) {
-
+      
       let imageFile: File;
       let imagePreview: any;
       let eventCasttoHtml = event.target as HTMLInputElement;
+
       if (eventCasttoHtml.files) {
         const reader = new FileReader();
         imageFile = eventCasttoHtml.files[0];
-        console.log('imageFile', imageFile)
-        
+
+        console.log('image file size', imageFile.size + ' Bytes')
+       
         reader.onload = () => {
           imagePreview = reader.result as string;
+
+          console.log('type of image preview', typeof(imagePreview))
+
+          console.log('image preview size', imagePreview.size + 'bytes')
 
           this.areasForReport.forEach((area:any)=>{
 
             if(this.currentCollectionName == area.name){
+
+             
               area.images.push(imagePreview)
-              console.log(area)
+              
             } else {
               console.log('no collection name matches')
             }
             console.log(area.name)
           })
-
         };
         reader.readAsDataURL(imageFile);
-
 
       } else {
         return;
       }
+    
     }
 
     Swal: any
@@ -497,5 +506,3 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
 }
 
-// this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
-//                  + toReturnImage.base64string);
