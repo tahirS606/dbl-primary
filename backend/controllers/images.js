@@ -4,14 +4,22 @@ const Image = require("../models/image");
 
 exports.createImage =
     (req, res, next) => {
-        const image = new Report({
+
+        const url = req.protocol + "://" + req.get("host");
+        const image = new Image({
             file: req.body.file,
+            imagePath: url + "/images/" + req.file.filename
         });
 
-        report.save().then((addedImage) => {
+        image.save().then((createdImage) => {
             res.status(201).json({
                 message: "Image added successfully",
-                imageId: image._id,
+                image: {
+                    id: createdImage_id,
+                    file: createdImage.file,
+                    imagePath: createdImage.imagePath,
+                }
+
             });
         });
     }

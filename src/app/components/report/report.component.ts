@@ -363,10 +363,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         image.append("image", imageFile, this.property.name)
 
-        this.http.post<{image: Image}>(BACKEND_URL + 'images', image).subscribe((data:any) => {
-
-          const image: Image = {id: data.id, file: data.file}
-          console.log(data)
+        this.http.post<{message: string; image: Image}>("backend/images", image).subscribe((data:any) => {
+          const image: Image = {id: data.id, file: data.file, imagePath: data.imagePath}
+          console.log('image', image)
         })
 
         console.log('this.compressedImage', this.compressedImage)
