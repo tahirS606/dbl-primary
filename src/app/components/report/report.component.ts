@@ -348,6 +348,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
         return base64Str
     }
 
+    imagePath!: string; 
+
     compress(event: Event) {
 
       let imageFile: File;
@@ -363,20 +365,21 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         image.append("image", imageFile, this.property.name)
 
-        this.http.post<{message: string; image: Image}>("backend/images", image).subscribe((data:any) => {
-          const image: Image = {id: data.id, file: data.file, imagePath: data.imagePath}
-          console.log('image', image)
+        this.http.post<{message: string; image: Image}>(BACKEND_URL + 'images', image).subscribe((data:any) => {
+
+          // const image: Image = {id: data._id, file: data.file, imagePath: data.imagePath}
+
+          // console.log('image', image)
+
+          console.log('data', data)
+
+          this.imagePath = data.image.imagePath
+
+          console.log('data.image', data.image.imagePath)
         })
 
-        console.log('this.compressedImage', this.compressedImage)
 
-        console.log('image file size before compress', imageFile.size + ' Bytes')
-
-        // this.imageService.compress(imageFile)
-
-        
-
-        console.log('image file size after compress', imageFile.size + ' Bytes')
+        // console.log('image file size after compress', imageFile.size + ' Bytes')
         } else {
           console.error('No file/s selected');
         }

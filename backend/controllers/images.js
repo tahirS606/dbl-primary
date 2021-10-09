@@ -15,11 +15,13 @@ exports.createImage =
             res.status(201).json({
                 message: "Image added successfully",
                 image: {
-                    id: createdImage_id,
+                    id: '',
                     file: createdImage.file,
                     imagePath: createdImage.imagePath,
                 }
 
             });
         });
+
+        console.log(image)
     }
