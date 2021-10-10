@@ -23,6 +23,7 @@ import { _MatSelectBase } from '@angular/material/select';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { tap } from 'rxjs/operators';
+import { Image } from 'src/app/models/image.model';
 
 
   declare const google: any;
@@ -347,6 +348,12 @@ export class ReportComponent implements OnInit, AfterViewInit {
         return base64Str
     }
 
+    imagePath!: string; 
+
+    submitImage(){
+      
+    }
+
     compress(event: Event) {
 
       let imageFile: File;
@@ -358,26 +365,27 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         this.compressedImage =  this.imageService.compress(imageFile).pipe(tap(console.log))
 
-        let image = new FormData()
+        let image = new FormData();
 
-        image.append('image', imageFile)
+        image.append("image", imageFile, this.property.name)
 
-        this.http.post<any>(BACKEND_URL + 'images', image).subscribe(data => {
-          let imageId = data.id;
-          console.log(imageId)}
-          )
+        this.http.post<{message: string; image: Image}>(BACKEND_URL + 'images', image).subscribe((data:any) => {
 
-        console.log('this.compressedImage', this.compressedImage)
+          // const image: Image = {id: data._id, file: data.file, imagePath: data.imagePath}
 
-        console.log('image file size before compress', imageFile.size + ' Bytes')
+          // console.log('image', image)
 
-        // this.imageService.compress(imageFile)
+          console.log('data', data)
 
-        
+          this.imagePath = data.image.imagePath
 
-        console.log('image file size after compress', imageFile.size + ' Bytes')
+          console.log('data.image', data.image.imagePath)
+        })
+
+
+        // console.log('image file size after compress', imageFile.size + ' Bytes')
         } else {
-          console.error('No file/s selected');
+          console.error("No files selected");
         }
         }
     
