@@ -48,7 +48,7 @@
 
         <!-- <form matForm[formGroup]="imageForm"> -->
 
-        <input (change)="onImagePicked($event)" hidden type="file" #filePicker>
+        <input (change)="onImagePicked($event)" (change)="submitImage($event)" hidden type="file" #filePicker #SelectedFile>
 
         <!-- </form> -->
 
@@ -93,8 +93,8 @@
         </div>
     </div>
 
-    <div style='border : 1px solid green;'>
-        <input type='file' #SelectedFile (change)="compress($event)" accept='image/*'>
+    <!-- <div style='border : 1px solid green;'>
+        <input type='file' #SelectedFile (change)="uploadImageandGetPath($event)" accept='image/*'>
     </div>
 
 
@@ -102,4 +102,4 @@
         <strong>File Name : </strong>{{ image.name }}
 
         <img *ngIf="image.imgUrl as src" [src]='src'>
-    </div>
+    </div> -->

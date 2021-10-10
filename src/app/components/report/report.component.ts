@@ -350,12 +350,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     imagePath!: string; 
 
-    submitImage(){
-      
-    }
+ 
 
-    compress(event: Event) {
-
+    submitImage(event: Event) {
       let imageFile: File;
       let eventCasttoHtml = event.target as HTMLInputElement;
 
