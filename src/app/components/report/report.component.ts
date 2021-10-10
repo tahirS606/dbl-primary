@@ -350,6 +350,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     imagePath!: string; 
 
+    submitImage(){
+      
+    }
+
     compress(event: Event) {
 
       let imageFile: File;
@@ -381,7 +385,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         // console.log('image file size after compress', imageFile.size + ' Bytes')
         } else {
-          console.error('No file/s selected');
+          console.error("No files selected");
         }
         }
     
