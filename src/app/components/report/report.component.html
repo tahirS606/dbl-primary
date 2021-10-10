@@ -47,8 +47,9 @@
         </mat-action-row>
 
         <!-- <form matForm[formGroup]="imageForm"> -->
+        <!-- (change)="submitImage($event)" -->
 
-        <input (change)="onImagePicked($event)" (change)="submitImage($event)" hidden type="file" #filePicker #SelectedFile>
+        <input (change)="onImagePicked($event)" hidden type="file" #filePicker #SelectedFile>
 
         <!-- </form> -->
 
@@ -64,7 +65,7 @@
                     <li>{{task}}</li></span>
                     </ul>
 
-                    <div *ngFor="let image of area.images">
+                    <div *ngFor="let image of area.imagePreviews">
                         <div class="images">
                             <div class="frame" style="background-image: url('{{image}}')">
                             </div>
