@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ICompressedImage, ImageService } from './../../image.service';
 
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 import { ReportService } from './../../services/report.service';
@@ -59,6 +59,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   private selectedImage: any; 
   compressedImage!: Observable<ICompressedImage>;
   
+  imagePath!: any;
 
   map: any; 
   latitude!: number; 
@@ -228,7 +229,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
         let imagePaths: [] = []
-        let imagePreviews: []=[]
+        let imagePreviews: []= []
 
         function Collection(name: string, polygons: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String, imagePreviews:[], imagePaths:[]) {
           name = name;
@@ -275,9 +276,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         })
         }
 
-        // this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
-//                  + toReturnImage.base64string);
-
         onSaveReport() {
             this.reportService.addReport(
               this.reportDate, 
@@ -295,7 +293,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
               console.log('this.report', this.report)
               
-              // this.router.navigate(['/'])
+              this.router.navigate(['/'])
               this.form.reset();
               this.readyToSave = false;
 
@@ -351,59 +349,21 @@ export class ReportComponent implements OnInit, AfterViewInit {
         return base64Str
     }
 
-    imagePath!: string; 
-
     imagePost(imageFile: File){
 
       let image = new FormData();
 
         image.append("image", imageFile, this.property.name)
 
-        this.http.post<{message: string; image: Image}>(BACKEND_URL + 'images', image).subscribe((data:any) => {
-          console.log('data', data)
-          this.imagePath = data.image.imagePath
-    })
-  }
+        return this.http.post<{message: string; image: Image}>(BACKEND_URL + 'images', image)
+       
 
-
-
-
-    // submitImage(event: Event) {
-    //   let imageFile: File;
-    //   let eventCasttoHtml = event.target as HTMLInputElement;
-
-    //   if (eventCasttoHtml.files) {
-    //     const reader = new FileReader()
-    //     imageFile = eventCasttoHtml.files[0];
-
-    //     this.compressedImage =  this.imageService.compress(imageFile).pipe(tap(console.log))
-
-    //     let image = new FormData();
-
-    //     image.append("image", imageFile, this.property.name)
-
-    //     this.http.post<{message: string; image: Image}>(BACKEND_URL + 'images', image).subscribe((data:any) => {
-
-    //       // const image: Image = {id: data._id, file: data.file, imagePath: data.imagePath}
-
-    //       // console.log('image', image)
-
-    //       console.log('data', data)
-
-    //       this.imagePath = data.image.imagePath
-
-    //       console.log('data.image', data.image.imagePath)
-    //     })
-
-
-    //     // console.log('image file size after compress', imageFile.size + ' Bytes')
-    //     } else {
-    //       console.error("No files selected");
-    //     }
-    //     }
+          
+    }
     
     async onImagePicked(event: Event) {
       
+      let imagePath: string; 
       let imageFile: File;
       let imagePreview: any;
       let eventCasttoHtml = event.target as HTMLInputElement;
@@ -412,30 +372,38 @@ export class ReportComponent implements OnInit, AfterViewInit {
         const reader = new FileReader();
         imageFile = eventCasttoHtml.files[0];
 
-        this.imagePost(imageFile)
-
-        // this.imagePath
-
-        // console.log('image file size before compress', imageFile.size + ' Bytes')
-
-       
         reader.onload = () => {
-          imagePreview = reader.result as string;
-
-
-         imagePreview = this.resizeImage(imagePreview)
+        imagePreview = reader.result as string;
+        imagePreview = this.resizeImage(imagePreview);
 
           this.areasForReport.forEach((area:any)=>{
 
             if(this.currentCollectionName == area.name){
+              this.imagePost(imageFile).subscribe((data)=> {
+                console.log('image path in subscribe', data.image.imagePath)
 
-             
+
+                if(data){
+                imagePath = data.image.imagePath
+                console.log(imagePath)
+
+                this.imagePath = imagePath
+
+                } else{
+                  console.log('there is no data yet')
+                }
+
+                console.log('this.imagePath', this.imagePath)
+                console.log('imag path', imagePath)
+                area.imagePaths.push(imagePath)
+                
+              })
+
+              console.log('final', this.imagePath)
+              console.log('final', imagePath)
+              
               area.imagePreviews.push(imagePreview)
-              area.imagePaths.push(this.imagePath)
-
-              console.log('area.imagepaths', area.imagePaths)
-
-              console.log('this.imagePath', this.imagePath)
+              
               
             } else {
               console.log('no collection name matches')
@@ -443,6 +411,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
             console.log(area.name)
           })
         };
+
         reader.readAsDataURL(imageFile);
 
       } else {
