@@ -267,16 +267,20 @@ export class ReportComponent implements OnInit, AfterViewInit {
         this.mapZoom = this.zoom;
         this.reportData = Object.values(this.areasForReport);
         this.areasForReport = this.reportData;
-        console.log('areas for report', this.areasForReport)
-        this.areasForReport.forEach((area:any)=>{
-          area.imagePreviews.forEach((image: any)=>{
-            this._sanitizer.bypassSecurityTrustUrl('data:image/jpg;baase64,' + image.base64string)
-            console.log('image', image)
-          })
-        })
+        
         }
 
         onSaveReport() {
+
+          this.areasForReport.forEach((area:any)=>{
+            area.imagePreviews = [];
+
+            console.log('this.imagePreviews', area.imagePreviews)
+          })
+
+          console.log('this.areasForReport', this.areasForReport)
+
+
             this.reportService.addReport(
               this.reportDate, 
               this.reportTime, 
@@ -290,8 +294,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.mapZoom,
 
               )        
-
-              console.log('this.report', this.report)
               
               this.router.navigate(['/'])
               this.form.reset();

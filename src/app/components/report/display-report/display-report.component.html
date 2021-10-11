@@ -54,26 +54,14 @@
                         <li>{{task}}</li>
                     </ul>
 
-                    <div *ngIf="area.imagePreviews">
+                    <div *ngFor="let image of area.imagePreviews">
 
-                        <div *ngFor="let image of area.imagePreviews">
-                            <div class="images">
-                                <div class="frame" style="background-image: url('{{image}}')">
-                                </div>
-                            </div>
-                        </div>
+                        <div class="frame" *ngIf="area.imagePreviews | async as image">
+                            <strong>File Name : </strong>{{ image | json }}
+
+                            <!-- <img *ngIf="image.imagePath as src" [src]='src'> -->
+                        </div> -->
                     </div>
-
-                    <div *ngIf="area.imagePaths">
-
-                        <div *ngFor="let imagePath of area.imagePaths">
-                            <div class="images">
-                                <div>{{imagePath}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
