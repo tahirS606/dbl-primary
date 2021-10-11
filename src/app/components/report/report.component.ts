@@ -398,9 +398,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
                 area.imagePaths.push(imagePath)
                 
               })
-
-              console.log('final', this.imagePath)
-              console.log('final', imagePath)
               
               area.imagePreviews.push(imagePreview)
               
