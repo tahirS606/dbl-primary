@@ -32,6 +32,7 @@ mongoose
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
+// app.use(multer);
 
 // allows angular to access static for deploy
 app.use("/", express.static(path.join(__dirname, "angular")));
@@ -50,10 +51,10 @@ app.use((req, res, next) => {
 });
 
 app.use("/properties", propertiesRoutes);
-app.use("/images", imagesRoutes)
 app.use("/tasks", tasksRoutes)
 app.use("/user", userRoutes)
 app.use("/reports", reportsRoutes)
+app.use("/images", imagesRoutes)
 app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, "angular", "index.html"))
 })
