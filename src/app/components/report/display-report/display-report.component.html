@@ -45,8 +45,6 @@
             <agm-polygon *ngFor='let polygon of polygons' [paths]='polygon.paths' [strokeColor]='polygon.color' [strokeWeight]='5' [fillColor]='polygonOptions.fillColor' [fillOpacity]='polygonOptions.fillOpacity'></agm-polygon>
         </agm-map>
 
-
-
         <div class="collection-container">
             <div *ngFor="let area of report?.areasForReport">
                 <div [ngStyle]="{'background-color': area.color}" class="collection">
@@ -56,21 +54,20 @@
                         <li>{{task}}</li>
                     </ul>
 
-                    <div *ngIf="area.images">
+                    <div *ngFor="let path of area.imagePaths">
 
-                        <div *ngFor="let image of area.images">
-                            <div class="images">
-                                <div class="frame" style="background-image: url('{{image}}')">
-                                </div>
-                            </div>
-                        </div>
+                        <div class="frame">
+                            <strong>File Name : </strong>{{ path | json }}
+                            <p>{{path}}</p>
+
+                            <img *ngIf="path as src" [src]='src'>
+
+                            <img src="http://localhost:3000/images/house-1633819518677.png">
+                        </div> -->
                     </div>
-
                 </div>
             </div>
 
-
         </div>
-
 
     </div>

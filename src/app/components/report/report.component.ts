@@ -59,6 +59,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   private selectedImage: any; 
   compressedImage!: Observable<ICompressedImage>;
   
+  imagePath!: any;
 
   map: any; 
   latitude!: number; 
@@ -227,28 +228,31 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         this.count = this.count + 1
         const collectionName = 'Collection ' + this.count
-        let images: [] = []
+        let imagePaths: [] = []
+        let imagePreviews: []= []
 
-        function Collection(name: string, polygons: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String, images:[]) {
+        function Collection(name: string, polygons: [], tasks:[{}], time: Date, selectedShapes:[{}], color: String, imagePreviews:[], imagePaths:[]) {
           name = name;
           polygons = polygons;
           tasks = tasks;
           time = time; 
           selectedShapes = selectedShapes; 
           color = color; 
-          images= images; 
+          imagePreviews= imagePreviews; 
+          imagePaths= imagePaths
         }
 
        
 
-        const newCollection = new (Collection as any)(collectionName, this.polygons, tasks, this.date, images)
+        const newCollection = new (Collection as any)(collectionName, this.polygons, tasks, this.date, imagePreviews, imagePaths)
 
         newCollection.name = collectionName 
         newCollection.polygons = this.polygons
         newCollection.tasks = tasks
         newCollection.time = new Date()
         newCollection.color = this.strokeColorsArray[this.count]
-        newCollection.images = []
+        newCollection.imagePreviews = []
+        newCollection.imagePaths = []
 
         this.selectedShapes.forEach((shape: any)=>{ shape.setOptions({strokeColor: this.strokeColorsArray[this.count], fillColor: 'white'})})
 
@@ -263,19 +267,20 @@ export class ReportComponent implements OnInit, AfterViewInit {
         this.mapZoom = this.zoom;
         this.reportData = Object.values(this.areasForReport);
         this.areasForReport = this.reportData;
-        console.log('areas for report', this.areasForReport)
-        this.areasForReport.forEach((area:any)=>{
-          area.images.forEach((image: any)=>{
-            this._sanitizer.bypassSecurityTrustUrl('data:image/jpg;baase64,' + image.base64string)
-            console.log('image', image)
-          })
-        })
+        
         }
 
-        // this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
-//                  + toReturnImage.base64string);
-
         onSaveReport() {
+
+          this.areasForReport.forEach((area:any)=>{
+            area.imagePreviews = [];
+
+            console.log('this.imagePreviews', area.imagePreviews)
+          })
+
+          console.log('this.areasForReport', this.areasForReport)
+
+
             this.reportService.addReport(
               this.reportDate, 
               this.reportTime, 
@@ -289,10 +294,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
               this.mapZoom,
 
               )        
-
-              console.log('this.report', this.report)
               
-              // this.router.navigate(['/'])
+              this.router.navigate(['/'])
               this.form.reset();
               this.readyToSave = false;
 
@@ -348,49 +351,20 @@ export class ReportComponent implements OnInit, AfterViewInit {
         return base64Str
     }
 
-    imagePath!: string; 
+    imagePost(imageFile: File){
 
-    submitImage(){
-      
-    }
-
-    compress(event: Event) {
-
-      let imageFile: File;
-      let eventCasttoHtml = event.target as HTMLInputElement;
-
-      if (eventCasttoHtml.files) {
-        const reader = new FileReader()
-        imageFile = eventCasttoHtml.files[0];
-
-        this.compressedImage =  this.imageService.compress(imageFile).pipe(tap(console.log))
-
-        let image = new FormData();
+      let image = new FormData();
 
         image.append("image", imageFile, this.property.name)
 
-        this.http.post<{message: string; image: Image}>(BACKEND_URL + 'images', image).subscribe((data:any) => {
-
-          // const image: Image = {id: data._id, file: data.file, imagePath: data.imagePath}
-
-          // console.log('image', image)
-
-          console.log('data', data)
-
-          this.imagePath = data.image.imagePath
-
-          console.log('data.image', data.image.imagePath)
-        })
-
-
-        // console.log('image file size after compress', imageFile.size + ' Bytes')
-        } else {
-          console.error("No files selected");
-        }
-        }
+        return this.http.post<{message: string; image: Image}>(BACKEND_URL + 'images', image)
+      
+          
+    }
     
     async onImagePicked(event: Event) {
       
+      let imagePath: string; 
       let imageFile: File;
       let imagePreview: any;
       let eventCasttoHtml = event.target as HTMLInputElement;
@@ -399,24 +373,35 @@ export class ReportComponent implements OnInit, AfterViewInit {
         const reader = new FileReader();
         imageFile = eventCasttoHtml.files[0];
 
-        console.log('image file size before compress', imageFile.size + ' Bytes')
-
-       
         reader.onload = () => {
-          imagePreview = reader.result as string;
-
-          console.log('type of image preview', typeof(imagePreview))
-
-          console.log('image preview size', imagePreview.size + 'bytes')
-
-         imagePreview = this.resizeImage(imagePreview)
+        imagePreview = reader.result as string;
+        imagePreview = this.resizeImage(imagePreview);
 
           this.areasForReport.forEach((area:any)=>{
 
             if(this.currentCollectionName == area.name){
+              this.imagePost(imageFile).subscribe((data)=> {
+                console.log('image path in subscribe', data.image.imagePath)
 
-             
-              area.images.push(imagePreview)
+
+                if(data){
+                imagePath = data.image.imagePath
+                console.log(imagePath)
+
+                this.imagePath = imagePath
+
+                } else{
+                  console.log('there is no data yet')
+                }
+
+                console.log('this.imagePath', this.imagePath)
+                console.log('imag path', imagePath)
+                area.imagePaths.push(imagePath)
+                
+              })
+              
+              area.imagePreviews.push(imagePreview)
+              
               
             } else {
               console.log('no collection name matches')
@@ -424,6 +409,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
             console.log(area.name)
           })
         };
+
         reader.readAsDataURL(imageFile);
 
       } else {
