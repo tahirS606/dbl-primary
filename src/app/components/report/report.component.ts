@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ICompressedImage, ImageService } from './../../image.service';
 
 
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 import { ReportService } from './../../services/report.service';
@@ -358,8 +358,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
         image.append("image", imageFile, this.property.name)
 
         return this.http.post<{message: string; image: Image}>(BACKEND_URL + 'images', image)
-       
-
+      
           
     }
     

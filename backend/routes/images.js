@@ -1,11 +1,10 @@
-const multer = require("multer");
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 
 const Image = require("../models/image");
 const checkAuth = require("../middleware/check-auth");
 const ImageController = require('../controllers/images');
-
 
 const MIME_TYPE_MAP = {
     "image/png": "png",
