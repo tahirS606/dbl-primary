@@ -1,7 +1,8 @@
+import { ImageUploadService } from './../../services/image-upload.service';
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ICompressedImage, ImageService } from './../../image.service';
-
+import { Cloudinary } from '@cloudinary/angular-5.x';
+import { FileUploader, FileUploaderOptions  } from 'ng2-file-upload';
 
 import { Observable } from 'rxjs';
 
@@ -20,9 +21,8 @@ import {
   } from '@angular/forms';
   
 import { _MatSelectBase } from '@angular/material/select';
-import { DomSanitizer } from '@angular/platform-browser';
 
-import { tap } from 'rxjs/operators';
+
 import { Image } from 'src/app/models/image.model';
 
 
@@ -50,14 +50,19 @@ export class ReportComponent implements OnInit, AfterViewInit {
   Object = Object;
   strokeColor: string = "#21b0ff"
   index: Number = 0
+  uploader!: FileUploader;
 
   strokeColorsArray: String[] = [
     "#708F4F", "#70C8CF", "#EFCD42", "#D1AD93", "#1E9DD8", "#CFDF6D" ]
 
   userLocation!: any
+  @Input()
+  responses!: Array<any>;
 
   private selectedImage: any; 
-  compressedImage!: Observable<ICompressedImage>;
+  compressedImage!: Observable<any>;
+
+  loading: boolean = true; 
   
   imagePath!: any;
 
@@ -145,25 +150,68 @@ export class ReportComponent implements OnInit, AfterViewInit {
   }
   
   constructor(
-    private _sanitizer: DomSanitizer,
+   
     private propertyService: PropertyService ,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     public reportService: ReportService,
-    private imageService: ImageService,
+    
     private http: HttpClient, 
+    private cloudinary: Cloudinary,
+    private _imageUploadService: ImageUploadService,
     
     ) { 
       this.form = this.formBuilder.group({
         tasks: new FormArray([])
       });
       this.addCheckboxesToForm(); 
+
+      this.responses = [];
+    // this.title = '';
     }
 
     ngAfterViewInit(){}
 
+    
+
     ngOnInit(){
+
+      const uploaderOptions: FileUploaderOptions = {
+        url: `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/upload`,
+        // Upload files automatically upon addition to upload queue
+        autoUpload: true,
+        // Use xhrTransport in favor of iframeTransport
+        isHTML5: true,
+        // Calculate progress independently for each uploaded file
+        removeAfterUpload: true,
+        // XHR request headers
+        headers: [
+          {
+            name: 'X-Requested-With',
+            value: 'XMLHttpRequest'
+          }
+        ]
+      };
+
+
+
+      this.uploader = new FileUploader(uploaderOptions);
+
+      this.uploader.onBuildItemForm = (fileItem: any, form: FormData): any => {
+        // Add Cloudinary unsigned upload preset to the upload form
+        form.append('upload_preset', this.cloudinary.config().upload_preset);
+  
+        // Add file to upload
+        form.append('file', fileItem);
+  
+        // Use default "withCredentials" value for CORS requests
+        fileItem.withCredentials = false;
+        return { fileItem, form };
+      };
+
+      
+  
 
       // // this.imageForm = new FormGroup({
       //   image: new FormControl(null, {
@@ -350,6 +398,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
         return base64Str
     }
+
+    
+
+    
 
     imagePost(imageFile: File){
 
@@ -582,6 +634,38 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     console.log('this.polygons', this.polygons);
 
+  }
+
+  files: File[] = [];
+
+  onSelect(event: any) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event: any) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
+
+  onUpload() {
+    //Scape empty array
+    if (!this.files[0]) {
+      alert('Primero sube una imagen, por favor');
+    }
+
+    //Upload my image to cloudinary
+    const file_data = this.files[0];
+    const data = new FormData();
+    data.append('file', file_data);
+    data.append('upload_preset', 'angular_cloudinary');
+    data.append('cloud_name', 'codexmaker');
+
+    this._imageUploadService.uploadImage(data).subscribe((response: any) => {
+      if (response) {
+        console.log(response);
+      }
+    });
   }
 
 }
