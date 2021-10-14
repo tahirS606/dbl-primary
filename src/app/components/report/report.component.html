@@ -92,6 +92,18 @@
                 <button class="submit-button" (click)="onSaveReport()" alignment="center" mat-raised-button [disabled]="!readyToSave && !userOnsite" color="primary" (click)="tinyAlert()">Submit Report</button>
             </mat-action-row>
         </div>
+
+        <div class="terminal">
+            <ngx-dropzone (change)="onSelect($event)" style="margin: 20px;">
+                <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label> ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+            </ngx-dropzone>
+            <div>
+                <button (click)="onUpload()">Subir</button>
+            </div>
+        </div>
     </div>
 
     <!-- <div style='border : 1px solid green;'>
