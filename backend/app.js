@@ -2,7 +2,7 @@ const path = require("path")
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const multer = require("multer");
+
 
 const propertiesRoutes = require("./routes/properties");
 const tasksRoutes = require("./routes/tasks")
@@ -34,7 +34,7 @@ mongoose
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
-// app.use(multer);
+
 
 // allows angular to access static for deploy
 app.use("/", express.static(path.join(__dirname, "angular")));

@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
+const GridFS = require('GridFS').GridFS;
+const GridStream = require('GridFS').GridStream;
 
 const Image = require("../models/image");
 const checkAuth = require("../middleware/check-auth");
@@ -33,7 +35,6 @@ const storage = multer.diskStorage({
 
 
 router.post("", multer({ storage: storage }).single("image"), checkAuth, ImageController.createImage);
-
 
 
 module.exports = router;
