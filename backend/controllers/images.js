@@ -4,17 +4,12 @@ const Image = require("../models/image");
 
 exports.createImage =
     (req, res, next) => {
+
         const url = req.protocol + "://" + req.get("host");
-        console.log('url', url)
-        console.log(file)
         const image = new Image({
-                file: req.body.file,
-                imagePath: url + "/images/" + req.file.name
-            }
-
-        );
-
-
+            file: req.body.file,
+            imagePath: url + "/images/" + req.file.filename
+        });
 
         image.save().then((createdImage) => {
             res.status(201).json({
