@@ -1,8 +1,7 @@
 const path = require("path")
-const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
+const express = require("express");
 
 const propertiesRoutes = require("./routes/properties");
 const tasksRoutes = require("./routes/tasks")
@@ -15,15 +14,13 @@ const app = express();
 // const password = "iav2DT12DP80gpfZ";
 // (newest)
 const url =
-    "mongodb+srv://<username></username><password></password>.lkw3g.mongodb.net/dbl?retryWrites=true&w=majority";
+    "mongodb+srv://odyssic:5o1oBc9WEoSJy0pH@cluster0.tyijh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 const username = "odyssic";
 const databaseName = "dbl";
 const password = "5o1oBc9WEoSJy0pH"
 
 mongoose
-    .connect(
-        "mongodb+srv://odyssic:5o1oBc9WEoSJy0pH@cluster0.tyijh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true }
-    )
+    .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 
 .then(() => {
         console.log("connected to database!");
