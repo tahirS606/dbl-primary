@@ -38,9 +38,7 @@ import { ReportsListComponent } from './reports-list/reports-list.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ReportlistbypropertyComponent } from './components.reports/reportlistbyproperty/reportlistbyproperty.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { CloudinaryModule, CloudinaryConfiguration } from '@cloudinary/angular-5.x';
-import { Cloudinary } from 'cloudinary-core';
-import { NgxDropzoneModule } from 'ngx-dropzone';
+
 
 
 @NgModule({
@@ -74,7 +72,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
       apiKey: 'AIzaSyAKDgyfjOkz_TRX20-sSH_zJ_5Qmfp7P3c',
       libraries: ['drawing', 'places', 'geometry']
     }),
-    CloudinaryModule.forRoot({Cloudinary}, { cloud_name: 'budden' } as CloudinaryConfiguration),
+   
     AgmDrawingModule,
     AppRoutingModule,
     BrowserModule,
@@ -84,7 +82,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     HttpClientModule,
     MyMaterialModule,
     NgPipesModule, 
-    NgxDropzoneModule,
+   
     ReactiveFormsModule,
     SocialLoginModule,
     ShareButtonsModule,
