@@ -1,3 +1,4 @@
+import { AlertsService } from './../../services/alerts.service';
 import { ImageUploadService } from './../../services/image-upload.service';
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -11,7 +12,6 @@ import { PropertyService } from './../../services/property.service';
 import { Report } from './../../models/report.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Property } from './../../models/property.model';
-import Swal from 'sweetalert2';
 import { 
   FormArray,
   FormBuilder,  
@@ -155,6 +155,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
     private router: Router,
     private formBuilder: FormBuilder,
     public reportService: ReportService,
+    public alertsService: AlertsService, 
     
     private http: HttpClient, 
     
@@ -169,6 +170,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(){}
+
+    reportSavedAlert(){
+      this.alertsService.reportSavedAlert()
+    }
 
     
 
@@ -320,12 +325,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
     
  
-
-
-    
-
-    
-
     imagePost(imageFile: File){
 
       let image = new FormData();
@@ -333,7 +332,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
         image.append("image", imageFile, this.property.name)
 
         return this.http.post<{message: string; image: Image}>(BACKEND_URL + 'images', image)
-      
           
     }
     
@@ -355,22 +353,21 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
             if(this.currentCollectionName == area.name){
               this.imagePost(imageFile).subscribe((data)=> {
-                console.log('image path in subscribe', data.image.imagePath)
-
+                // console.log('image path in subscribe', data.image.imagePath)
+                
 
                 if(data){
                 imagePath = data.image.imagePath
-                console.log(imagePath)
-
+              
                 this.imagePath = imagePath
+                area.imagePaths.push(imagePath)
+
 
                 } else{
-                  console.log('there is no data yet')
+
+                  console.log('no data')
                 }
 
-                console.log('this.imagePath', this.imagePath)
-                console.log('imag path', imagePath)
-                area.imagePaths.push(imagePath)
                 
               })
               
@@ -380,7 +377,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
             } else {
               console.log('no collection name matches')
             }
-            console.log(area.name)
+            
           })
         };
 
@@ -392,44 +389,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
     
     }
 
-    Swal: any
-
-    notOnSiteAlert(){
-      Swal.fire('You are not on site! (Or your location services are turned off). Please go to the site to submit a report.')
-    }
-    
-    tinyAlert(){
-      Swal.fire('Report Saved!');
-    }
-    
-    successNotification(){
-      Swal.fire('Hi', 'We have been informed!', 'success')
-    }
-    
-    alertConfirmation(){
-      Swal.fire({
-        title: 'Ready to submit?',
-        text: 'Report cannot be edited once submitted.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, save report.',
-        cancelButtonText: 'Go back to editing'
-      }).then((result) => {
-        if (result.value) {
-          Swal.fire(
-            'Thank you!',
-            'Report Submitted.',
-            'success'
-          )
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire(
-            'Ok',
-            'Complete report and then save.)',
-            'error'
-          )
-        }
-      })
-    }  
    
    async findMe() {
     navigator.geolocation.getCurrentPosition(position => {
@@ -459,7 +418,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   }
 
   disableReport(){
-    this.notOnSiteAlert();
+    this.alertsService.notOnSiteAlert();
     this.userOnsite = false;
     this.readyToSave = false; 
     this.checkboxVisible = false;

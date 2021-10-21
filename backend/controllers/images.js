@@ -8,7 +8,7 @@ exports.createImage =
         const url = req.protocol + "://" + req.get("host");
         const image = new Image({
             file: req.body.file,
-            imagePath: url + "/images/" + req.file.filename
+            imagePath: url + "/" + req.file.filename
         });
 
         image.save().then((createdImage) => {
